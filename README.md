@@ -1,4 +1,4 @@
-# Poppin
+# Poppin - Manuel Branch
 Our app prototype for our independent study class.
 
 So far, the main project contains the following features:
