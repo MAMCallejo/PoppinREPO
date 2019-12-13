@@ -19,7 +19,8 @@ class categoryButtonView: UIView {
     var isSelected: Bool = false {
         didSet {
             
-            // Swaps the colors between the label and the background of the view when the view is selected or not.
+            // Swaps the colors between the label and the background of the view when the view is selected or not...
+            // ...and adds a shadow when it is selected.
             
             let categoryLegendLabelTextColor = categoryLegendLabel?.textColor
             

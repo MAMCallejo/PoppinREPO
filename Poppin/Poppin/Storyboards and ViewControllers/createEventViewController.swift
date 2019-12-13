@@ -10,7 +10,7 @@ import UIKit
 
 class createEventViewController : UIViewController {
     
-    // *** DECLARATION OF USEFUL VARIABLES ***
+    // *** DECLARATION OF USEFUL VARIABLES FOR THE CREATE EVENT VIEW CONTROLLER ***
     
         // ** IBOutlets ***
     

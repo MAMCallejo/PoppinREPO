@@ -17,7 +17,14 @@ class LocationSearchTable: UITableViewController {
     
     var maxRegion: MKCoordinateRegion?
     
-    var handleMapSearchDelegate:HandleMapSearch? = nil
+    /*
+        MapSearchDelegate: since the LocationSearchTable has to later alter the main View Controller in order to...
+        ...add the popsicle pin to the map, we make it a delegate of the map search protocol. In main view controller...
+        ...we define the protocol and its functions. Since the LocationSearchTable is now delegate of this protocol, it can...
+        ...call this function whenever it needs.
+     */
+    
+    var MapSearchDelegate: MapSearchProtocol? = nil
     
     override func viewDidLoad() {
         
@@ -75,7 +82,7 @@ class LocationSearchTable: UITableViewController {
                 
                 if (response?.mapItems.count == 1) {
                     
-                    self.handleMapSearchDelegate?.dropPinZoomIn(placemark: (response?.mapItems.first?.placemark)!)
+                    self.MapSearchDelegate?.dropPinZoomIn(placemark: (response?.mapItems.first?.placemark)!)
                     
                     self.dismiss(animated: true, completion: nil)
                     
