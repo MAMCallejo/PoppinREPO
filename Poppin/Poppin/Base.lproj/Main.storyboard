@@ -100,7 +100,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="1" green="0.76371318499999996" blue="0.83646244739999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="1" green="0.76470588235294112" blue="0.83529411764705885" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="c1b-ba-9Vm" secondAttribute="bottom" constant="22" id="ABa-9l-IGW"/>
                                     <constraint firstItem="c1b-ba-9Vm" firstAttribute="centerX" secondItem="gM2-TR-eU4" secondAttribute="centerX" id="OCC-Bm-Fzz"/>
@@ -375,7 +375,7 @@
                                                                 <rect key="frame" x="0.0" y="54" width="126.66666666666667" height="44"/>
                                                                 <color key="backgroundColor" red="0.0" green="0.15686275059999999" blue="0.40784314269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="fontDescription" name="Octarine-Bold" family="Octarine" pointSize="17"/>
-                                                                <color key="tintColor" red="0.031372549020000001" green="0.1215686275" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                <color key="tintColor" red="0.0" green="0.15686275059999999" blue="0.40784314269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <state key="normal" title="More...">
                                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </state>
@@ -432,12 +432,12 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uuZ-DF-UtO">
                                                 <rect key="frame" x="48.666666666666664" y="147" width="101.33333333333334" height="25.333333333333343"/>
-                                                <color key="backgroundColor" red="1" green="0.92549019607843142" blue="0.7803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.99859112500000002" green="0.90349084140000002" blue="0.78568154570000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="uuZ-DF-UtO" secondAttribute="height" multiplier="4:1" id="ONi-47-wRu"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="Octarine-Bold" family="Octarine" pointSize="14"/>
-                                                <color key="tintColor" red="0.031372549020000001" green="0.1215686275" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <color key="tintColor" red="0.0" green="0.15686275059999999" blue="0.40784314269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title="Logout"/>
                                             </button>
                                         </subviews>

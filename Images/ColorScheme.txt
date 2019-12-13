@@ -1,7 +1,7 @@
 White Popsicle for default
-Cream: #FFF0D8
-Pink: #FFEFFB
-Blue: #E8F1FF
+Cream: #FFECC7
+Pink: #FFC3D5
+Blue: #002868
 
 
 Colors for app:
