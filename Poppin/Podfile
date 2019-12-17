@@ -6,6 +6,13 @@ target 'Poppin' do
   use_frameworks!
 
   # Pods for Poppin
+  pod 'Firebase/Core'
+  pod 'FirebaseUI/Storage'
+    pod 'Firebase/Auth'
+    pod 'Firebase/Database'
+    pod 'Firebase/Storage'
+    pod 'FirebaseUI/Auth'
+    pod 'FirebaseUI/Email'
 
   target 'PoppinTests' do
     inherit! :search_paths
