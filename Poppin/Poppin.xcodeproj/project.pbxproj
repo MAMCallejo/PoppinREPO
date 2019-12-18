@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		15585902BF674DCD35E5FA3E /* Pods_Poppin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C72220AACB8ED8A3C2919A5E /* Pods_Poppin.framework */; };
 		640270752353C51F00641159 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 640270742353C51F00641159 /* AppDelegate.swift */; };
-		640270772353C51F00641159 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 640270762353C51F00641159 /* SceneDelegate.swift */; };
 		640270792353C51F00641159 /* mainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 640270782353C51F00641159 /* mainViewController.swift */; };
 		6402707C2353C51F00641159 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6402707A2353C51F00641159 /* Main.storyboard */; };
 		6402707E2353C51F00641159 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6402707D2353C51F00641159 /* Assets.xcassets */; };
@@ -43,6 +42,7 @@
 		F56E776E23A907A5009BF8E9 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56E776D23A907A4009BF8E9 /* Post.swift */; };
 		F56E777023A907CA009BF8E9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56E776F23A907CA009BF8E9 /* Constants.swift */; };
 		F56E777223A95FCA009BF8E9 /* Storyboard+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56E777123A95FCA009BF8E9 /* Storyboard+Utility.swift */; };
+		F56E777423AA823E009BF8E9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56E777323AA823E009BF8E9 /* SceneDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,7 +67,6 @@
 		4341D07B046C53F2CDE0EADF /* Pods-PoppinTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PoppinTests.debug.xcconfig"; path = "Target Support Files/Pods-PoppinTests/Pods-PoppinTests.debug.xcconfig"; sourceTree = "<group>"; };
 		640270712353C51E00641159 /* Poppin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Poppin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		640270742353C51F00641159 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		640270762353C51F00641159 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		640270782353C51F00641159 /* mainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mainViewController.swift; sourceTree = "<group>"; };
 		6402707B2353C51F00641159 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6402707D2353C51F00641159 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -111,6 +110,7 @@
 		F56E776D23A907A4009BF8E9 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		F56E776F23A907CA009BF8E9 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F56E777123A95FCA009BF8E9 /* Storyboard+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Storyboard+Utility.swift"; sourceTree = "<group>"; };
+		F56E777323AA823E009BF8E9 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,9 +196,9 @@
 				640270A42353CD4D00641159 /* Buttons and Views */,
 				6489BBB223A0629F00769793 /* Storyboards and ViewControllers */,
 				640270742353C51F00641159 /* AppDelegate.swift */,
-				640270762353C51F00641159 /* SceneDelegate.swift */,
-				640270782353C51F00641159 /* mainViewController.swift */,
 				F56E776F23A907CA009BF8E9 /* Constants.swift */,
+				F56E777323AA823E009BF8E9 /* SceneDelegate.swift */,
+				640270782353C51F00641159 /* mainViewController.swift */,
 				F56E776723A906F6009BF8E9 /* UserService.swift */,
 				F56E776923A90737009BF8E9 /* User.swift */,
 				F56E776D23A907A4009BF8E9 /* Post.swift */,
@@ -592,10 +592,10 @@
 				6434ED3D235E66E600E1808E /* createEventButton.swift in Sources */,
 				64F91E79237221B900C4DC24 /* LocationSearchTable.swift in Sources */,
 				F56E776823A906F7009BF8E9 /* UserService.swift in Sources */,
+				F56E777423AA823E009BF8E9 /* SceneDelegate.swift in Sources */,
 				64AFB2DF236A81B600D264F0 /* dangerousActionAlert.swift in Sources */,
 				F56E776E23A907A5009BF8E9 /* Post.swift in Sources */,
 				640270752353C51F00641159 /* AppDelegate.swift in Sources */,
-				640270772353C51F00641159 /* SceneDelegate.swift in Sources */,
 				F56E777223A95FCA009BF8E9 /* Storyboard+Utility.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
