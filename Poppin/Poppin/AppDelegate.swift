@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let storyboard = UIStoryboard(name: "Login", bundle: .main)
 
         // 2
-        if let initialViewController = storyboard.instantiateInitialViewController() {
+        if let initialViewController = storyboard.instantiateInitialViewController(){
             // 3
             window?.rootViewController = initialViewController
             // 4

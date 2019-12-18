@@ -42,6 +42,7 @@
 		F56E776C23A9078F009BF8E9 /* CreateUsernameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56E776B23A9078F009BF8E9 /* CreateUsernameViewController.swift */; };
 		F56E776E23A907A5009BF8E9 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56E776D23A907A4009BF8E9 /* Post.swift */; };
 		F56E777023A907CA009BF8E9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56E776F23A907CA009BF8E9 /* Constants.swift */; };
+		F56E777223A95FCA009BF8E9 /* Storyboard+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56E777123A95FCA009BF8E9 /* Storyboard+Utility.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +110,7 @@
 		F56E776B23A9078F009BF8E9 /* CreateUsernameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateUsernameViewController.swift; sourceTree = "<group>"; };
 		F56E776D23A907A4009BF8E9 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		F56E776F23A907CA009BF8E9 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		F56E777123A95FCA009BF8E9 /* Storyboard+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Storyboard+Utility.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,6 +203,7 @@
 				F56E776923A90737009BF8E9 /* User.swift */,
 				F56E776D23A907A4009BF8E9 /* Post.swift */,
 				6402707F2353C51F00641159 /* LaunchScreen.storyboard */,
+				F56E777123A95FCA009BF8E9 /* Storyboard+Utility.swift */,
 				6402707D2353C51F00641159 /* Assets.xcassets */,
 				640270822353C51F00641159 /* Info.plist */,
 				F56E776123A8F69F009BF8E9 /* GoogleService-Info.plist */,
@@ -256,9 +259,9 @@
 				640270B02353D43600641159 /* createEventViewController.swift */,
 				64484D4C23932AA500F33132 /* createEvent.storyboard */,
 				F56E776B23A9078F009BF8E9 /* CreateUsernameViewController.swift */,
+				6402707A2353C51F00641159 /* Main.storyboard */,
 				F56E776523A901BA009BF8E9 /* LoginViewController.swift */,
 				F56E776323A90187009BF8E9 /* Login.storyboard */,
-				6402707A2353C51F00641159 /* Main.storyboard */,
 			);
 			path = "Storyboards and ViewControllers";
 			sourceTree = "<group>";
@@ -593,6 +596,7 @@
 				F56E776E23A907A5009BF8E9 /* Post.swift in Sources */,
 				640270752353C51F00641159 /* AppDelegate.swift in Sources */,
 				640270772353C51F00641159 /* SceneDelegate.swift in Sources */,
+				F56E777223A95FCA009BF8E9 /* Storyboard+Utility.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
