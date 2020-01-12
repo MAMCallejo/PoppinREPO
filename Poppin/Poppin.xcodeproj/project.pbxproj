@@ -43,6 +43,9 @@
 		F56E777023A907CA009BF8E9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56E776F23A907CA009BF8E9 /* Constants.swift */; };
 		F56E777223A95FCA009BF8E9 /* Storyboard+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56E777123A95FCA009BF8E9 /* Storyboard+Utility.swift */; };
 		F56E777423AA823E009BF8E9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56E777323AA823E009BF8E9 /* SceneDelegate.swift */; };
+		F56E777623ABD8FC009BF8E9 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F56E777523ABD8FC009BF8E9 /* Profile.storyboard */; };
+		F56E777823ABD926009BF8E9 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56E777723ABD926009BF8E9 /* ProfileViewController.swift */; };
+		F56E777A23ABDB87009BF8E9 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56E777923ABDB87009BF8E9 /* EditProfileViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,6 +114,9 @@
 		F56E776F23A907CA009BF8E9 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F56E777123A95FCA009BF8E9 /* Storyboard+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Storyboard+Utility.swift"; sourceTree = "<group>"; };
 		F56E777323AA823E009BF8E9 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		F56E777523ABD8FC009BF8E9 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
+		F56E777723ABD926009BF8E9 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileViewController.swift; path = "/Users/abdulrahmanayad/Documents/GitHub/PoppinREPO/Poppin/Poppin/Storyboards and ViewControllers/ProfileViewController.swift"; sourceTree = "<absolute>"; };
+		F56E777923ABDB87009BF8E9 /* EditProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,7 +204,6 @@
 				640270742353C51F00641159 /* AppDelegate.swift */,
 				F56E776F23A907CA009BF8E9 /* Constants.swift */,
 				F56E777323AA823E009BF8E9 /* SceneDelegate.swift */,
-				640270782353C51F00641159 /* mainViewController.swift */,
 				F56E776723A906F6009BF8E9 /* UserService.swift */,
 				F56E776923A90737009BF8E9 /* User.swift */,
 				F56E776D23A907A4009BF8E9 /* Post.swift */,
@@ -260,8 +265,12 @@
 				64484D4C23932AA500F33132 /* createEvent.storyboard */,
 				F56E776B23A9078F009BF8E9 /* CreateUsernameViewController.swift */,
 				6402707A2353C51F00641159 /* Main.storyboard */,
+				640270782353C51F00641159 /* mainViewController.swift */,
 				F56E776523A901BA009BF8E9 /* LoginViewController.swift */,
 				F56E776323A90187009BF8E9 /* Login.storyboard */,
+				F56E777723ABD926009BF8E9 /* ProfileViewController.swift */,
+				F56E777523ABD8FC009BF8E9 /* Profile.storyboard */,
+				F56E777923ABDB87009BF8E9 /* EditProfileViewController.swift */,
 			);
 			path = "Storyboards and ViewControllers";
 			sourceTree = "<group>";
@@ -411,6 +420,7 @@
 				6448D1872372B03C0016A778 /* Octarine-Bold.otf in Resources */,
 				64AFB2DD236A7E4B00D264F0 /* Alerts.storyboard in Resources */,
 				640270812353C51F00641159 /* LaunchScreen.storyboard in Resources */,
+				F56E777623ABD8FC009BF8E9 /* Profile.storyboard in Resources */,
 				6402707E2353C51F00641159 /* Assets.xcassets in Resources */,
 				F56E776223A8F69F009BF8E9 /* GoogleService-Info.plist in Resources */,
 				64484D4D23932AA500F33132 /* createEvent.storyboard in Resources */,
@@ -577,6 +587,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F56E777A23ABDB87009BF8E9 /* EditProfileViewController.swift in Sources */,
 				F56E776623A901BA009BF8E9 /* LoginViewController.swift in Sources */,
 				F56E777023A907CA009BF8E9 /* Constants.swift in Sources */,
 				6406F3D12363D47C00930CA8 /* doneButton.swift in Sources */,
@@ -595,6 +606,7 @@
 				F56E777423AA823E009BF8E9 /* SceneDelegate.swift in Sources */,
 				64AFB2DF236A81B600D264F0 /* dangerousActionAlert.swift in Sources */,
 				F56E776E23A907A5009BF8E9 /* Post.swift in Sources */,
+				F56E777823ABD926009BF8E9 /* ProfileViewController.swift in Sources */,
 				640270752353C51F00641159 /* AppDelegate.swift in Sources */,
 				F56E777223A95FCA009BF8E9 /* Storyboard+Utility.swift in Sources */,
 			);

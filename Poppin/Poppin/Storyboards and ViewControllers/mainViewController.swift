@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import CoreLocation
+import Firebase
 
 /*
     createEventViewControllerReturnProtocol: this return protocol is shared between the create event view controller and this one...
@@ -252,7 +253,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
         super.viewDidLoad()
         
-        print("\nWELCOME! This is the poppin terminal. Error messages and system notificans can be seen here.\n")
+        print("\nWELCOME! This is the poppin terminal. Error messages and system notifications can be seen here.\n")
         
         // *** INITIALIZATION OF USEFUL VARIABLES ***
         
@@ -547,7 +548,76 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
             
         navigationController?.setNavigationBarHidden(true, animated: true)
         
+        getUsername()
+        getProfilePic()
+        
+        getPopsicles()
+        
+        
     }
+    
+    //getUsername: gets the username of the current user and displays it
+    
+    func getUsername(){
+         let ref = Database.database().reference()
+
+         let uid = Auth.auth().currentUser!.uid
+    ref.child("users/\(uid)/username").observeSingleEvent(of: .value, with: { (snapshot) in
+      // Get user value
+      let value = snapshot.value as? String
+     
+     self.usernameLabel.text = value
+
+      // ...
+      }) { (error) in
+        print(error.localizedDescription)
+    }
+     
+     }
+    
+    //logOutAction: Logs the user out
+    
+    @IBAction func logOutAction(_ sender: Any) {
+        do {
+               try Auth.auth().signOut()
+           }
+        catch let signOutError as NSError {
+               print ("Error signing out: %@", signOutError)
+           }
+           
+        let storyboard = UIStoryboard(name: "Login", bundle: .main)
+           let initial = storyboard.instantiateInitialViewController()
+           UIApplication.shared.keyWindow?.rootViewController = initial
+    }
+    
+    func getProfilePic(){
+         let uid = Auth.auth().currentUser!.uid
+            
+        let reference = Storage.storage().reference().child( "images/\(uid)/profilepic.jpg")
+        
+        reference.getData(maxSize: 1 * 1024 * 1024) { data, error in
+            if error != nil {
+            // Uh-oh, an error occurred!
+                print("error")
+          } else {
+            
+            let pic = UIImage(data: data! )
+            self.profileButton.setImage(pic , for: UIControl.State.normal)
+          }
+        }
+    }
+        
+
+//        // UIImageView in your ViewController
+//        let imageView: UIButton = self.profileButton
+//
+//        // Placeholder image
+//        let placeholderImage = UIImage(named: "placeholder.jpg")
+//
+//        // Load the image using SDWebImage
+//        imageView.sd_setImage(with: referenceURL, for: .normal)
+       
+
     
     /*
      viewDidLayoutSubviews: Super useful function. It's called every time the view controller has to update...
@@ -1033,27 +1103,38 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
      */
     
     public func setUserPinData(en: String, ei: String, ed: String, edu: String, ec: String, ecd: String, es1: String, es1d: String, es2: String, es2d: String) {
-        
+       
+        let ref = Database.database().reference()
+       
         newPopsicle.popsicleData.eventName = en
+        ref.child("popsicles/\(en)/eventName").setValue(en)
         
         newPopsicle.popsicleData.eventInfo = ei
-        
+        ref.child("popsicles/\(en)/eventInfo").setValue(ei)
         newPopsicle.popsicleData.eventDate = ed
         
+        ref.child("popsicles/\(en)/eventDate").setValue(ed)
         newPopsicle.popsicleData.eventDuration = edu
         
+       ref.child("popsicles/\(en)/eventDuration").setValue(edu)
         newPopsicle.popsicleData.eventCategory = ec
         
+        ref.child("popsicles/\(en)/eventCategory").setValue(ec)
         newPopsicle.popsicleData.eventCategoryDetails = ecd
         
+        ref.child("popsicles/\(en)/eventCategoryDetails").setValue(ecd)
         newPopsicle.popsicleData.eventSubcategory1 = es1
     
+        ref.child("popsicles/\(en)/eventSubcategory1").setValue(es1)
         newPopsicle.popsicleData.eventSubcategory1Details = es1d
         
+        ref.child("popsicles/\(en)/eventSubcategory1Details").setValue(es1d)
         newPopsicle.popsicleData.eventSubcategory2 = es2
         
+        ref.child("popsicles/\(en)/eventSubcategory2").setValue(es2)
         newPopsicle.popsicleData.eventSubcategory2Details = es2d
         
+        ref.child("popsicles/\(en)/eventSubcategory2Details").setValue(es2d)
         // Checker if you want to see the data passed to the popsicle.
         
         /*print(userPinData.eventName + " " + userPinData.eventInfo + " " + userPinData.eventDate + " " + userPinData.eventCategory + " " + userPinData.eventCategoryDetails + " " + userPinData.eventSubcategory1 + " " + userPinData.eventSubcategory1Details + " " + userPinData.eventSubcategory2 + " " + userPinData.eventSubcategory2Details)*/
@@ -1160,6 +1241,82 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
     }
     
+    func getPopsicles(){
+        let ref = Database.database().reference(withPath:"popsicles")
+        
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+
+            // Printing the child count
+            print("There are \(snapshot.childrenCount) children found")
+
+            // Checking if the reference has some values
+            if snapshot.childrenCount > 0 {
+
+                // Go through every child
+                for data in snapshot.children.allObjects as! [DataSnapshot] {
+                    if let data = data.value as? [String: Any] {
+                         // Retrieve the data per child
+                        let eventName = data["eventName"] as! String
+                        let eventCategory = data["eventCategory"] as! String
+                        let eventCategoryDetails = data["eventCategoryDetails"] as! String
+                        let eventDate = data["eventDate"] as! String
+                        let eventDuration = data["eventDuration"] as! String
+                        let eventInfo = data["eventInfo"] as! String
+                        let eventSubcategory1 = data["eventSubcategory1"] as! String
+                        let eventSubcategory1Details = data["eventSubcategory1Details"] as! String
+                        let eventSubcategory2 = data["eventSubcategory2"] as! String
+                        let eventSubcategory2Details = data["eventSubcategory2Details"] as! String
+                        let latitude = data["latitude"] as! CLLocationDegrees
+                        let longitude = data["longitude"] as! CLLocationDegrees
+                        
+                        let popsicleToAdd = pinPopsicle()
+                        
+                        let coordinates = CLLocationCoordinate2DMake(latitude, longitude)
+                        
+                        let eventPopsicle: UIImage
+                        
+                        if (eventCategory == "Education") {
+                            
+                            eventPopsicle = UIImage(named: "educationButton")!
+                            
+                            
+                            
+                        } else if (eventCategory == "Food") {
+                            
+                            eventPopsicle = UIImage(named: "foodButton")!
+                            
+                            
+                            
+                        } else if (eventCategory == "Social") {
+                            
+                            eventPopsicle = UIImage(named: "socialButton")!
+                            
+                            
+                            
+                        } else if (eventCategory == "Sports") {
+               
+                            eventPopsicle = UIImage(named: "sportsButton")!
+                            
+                        } else {
+                            
+                            eventPopsicle = UIImage(named: "showsButton")!
+                            
+                        }
+                        popsicleToAdd.popsicleData = pinData(eventName: eventName, eventInfo: eventInfo, eventDate: eventDate, eventDuration: eventDuration, eventCategory: eventCategory, eventCategoryDetails: eventCategoryDetails, eventSubcategory1: eventSubcategory1, eventSubcategory1Details: eventSubcategory1Details, eventSubcategory2: eventSubcategory2, eventSubcategory2Details: eventSubcategory2Details, eventLocation: coordinates, eventPopsicle: eventPopsicle)
+                        
+                        popsicleToAdd.coordinate = coordinates
+                        
+                        self.mapPopsicles?.append(popsicleToAdd)
+
+                        self.addNewPopsicleToMap()
+                    }
+                }
+            }
+        })
+        
+        
+    }
+    
     /*
         confirmLocation: called by the confirmButton once the user has decided which location to use...
         ...for their popsicle.
@@ -1175,6 +1332,11 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
     
     @IBAction func confirmLocation(_ sender: Any) {
         
+        let ref = Database.database().reference()
+        
+        ref.child("popsicles/\(newPopsicle.popsicleData.eventName)/latitude").setValue(mainMapView.centerCoordinate.latitude)
+        
+        ref.child("popsicles/\(newPopsicle.popsicleData.eventName)/longitude").setValue(mainMapView.centerCoordinate.longitude)
         newPopsicle.popsicleData.eventLocation = mainMapView.centerCoordinate
         
         newPopsicle.coordinate = newPopsicle.popsicleData.eventLocation

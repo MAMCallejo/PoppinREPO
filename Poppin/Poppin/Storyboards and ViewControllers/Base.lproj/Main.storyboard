@@ -15,6 +15,16 @@
         </array>
     </customFonts>
     <scenes>
+        <!--Profile-->
+        <scene sceneID="MFL-FI-hW0">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Profile" id="lvh-eX-exB" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="FKs-0m-kzI"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="o7e-pm-g6d" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1798" y="-454"/>
+        </scene>
         <!--Main View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -416,6 +426,9 @@
                                                     <constraint firstAttribute="width" secondItem="SE2-rH-vOG" secondAttribute="height" multiplier="1:1" id="gtC-vh-29X"/>
                                                 </constraints>
                                                 <state key="normal" image="Profile Pic"/>
+                                                <connections>
+                                                    <segue destination="lvh-eX-exB" kind="presentation" modalTransitionStyle="crossDissolve" id="eLg-PM-FYv"/>
+                                                </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Manolito_Martin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="L0Y-KH-14K">
                                                 <rect key="frame" x="19.333333333333336" y="123.66666666666667" width="126.66666666666666" height="20.333333333333329"/>
@@ -439,6 +452,9 @@
                                                 <fontDescription key="fontDescription" name="Octarine-Bold" family="Octarine" pointSize="14"/>
                                                 <color key="tintColor" red="0.0" green="0.15686275059999999" blue="0.40784314269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title="Logout"/>
+                                                <connections>
+                                                    <action selector="logOutAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pZZ-VI-zkO"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" red="0.0" green="0.15686275059999999" blue="0.40784314269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
