@@ -15,6 +15,21 @@
         </array>
     </customFonts>
     <scenes>
+        <!--View Controller-->
+        <scene sceneID="DsM-md-UjS">
+            <objects>
+                <viewController id="Yy4-9d-CMW" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ht4-dO-RkP">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="NbR-pB-XT5"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1n8-gO-WSR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1070" y="-647"/>
+        </scene>
         <!--Profile-->
         <scene sceneID="MFL-FI-hW0">
             <objects>
@@ -583,11 +598,12 @@
                         <outlet property="sportsFilterView" destination="AAn-dO-cdc" id="XSt-IT-rGX"/>
                         <outlet property="usernameLabel" destination="L0Y-KH-14K" id="pRQ-mr-a7b"/>
                         <outlet property="zoomToUserLocationButton" destination="vl0-cY-pAu" id="CRn-aA-bDm"/>
+                        <segue destination="Yy4-9d-CMW" kind="presentation" identifier="toPopsicleView" id="W4Q-Ey-QlN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1046.25" y="100.35211267605634"/>
+            <point key="canvasLocation" x="1070" y="86"/>
         </scene>
         <!--createEvent-->
         <scene sceneID="6xB-t3-Iup">

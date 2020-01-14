@@ -46,6 +46,7 @@
 		F56E777623ABD8FC009BF8E9 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F56E777523ABD8FC009BF8E9 /* Profile.storyboard */; };
 		F56E777823ABD926009BF8E9 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56E777723ABD926009BF8E9 /* ProfileViewController.swift */; };
 		F56E777A23ABDB87009BF8E9 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56E777923ABDB87009BF8E9 /* EditProfileViewController.swift */; };
+		F56E777C23CBDE80009BF8E9 /* PopsicleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56E777B23CBDE80009BF8E9 /* PopsicleViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,6 +118,7 @@
 		F56E777523ABD8FC009BF8E9 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		F56E777723ABD926009BF8E9 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileViewController.swift; path = "/Users/abdulrahmanayad/Documents/GitHub/PoppinREPO/Poppin/Poppin/Storyboards and ViewControllers/ProfileViewController.swift"; sourceTree = "<absolute>"; };
 		F56E777923ABDB87009BF8E9 /* EditProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		F56E777B23CBDE80009BF8E9 /* PopsicleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopsicleViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -270,6 +272,7 @@
 				F56E776323A90187009BF8E9 /* Login.storyboard */,
 				F56E777723ABD926009BF8E9 /* ProfileViewController.swift */,
 				F56E777523ABD8FC009BF8E9 /* Profile.storyboard */,
+				F56E777B23CBDE80009BF8E9 /* PopsicleViewController.swift */,
 				F56E777923ABDB87009BF8E9 /* EditProfileViewController.swift */,
 			);
 			path = "Storyboards and ViewControllers";
@@ -606,6 +609,7 @@
 				F56E777423AA823E009BF8E9 /* SceneDelegate.swift in Sources */,
 				64AFB2DF236A81B600D264F0 /* dangerousActionAlert.swift in Sources */,
 				F56E776E23A907A5009BF8E9 /* Post.swift in Sources */,
+				F56E777C23CBDE80009BF8E9 /* PopsicleViewController.swift in Sources */,
 				F56E777823ABD926009BF8E9 /* ProfileViewController.swift in Sources */,
 				640270752353C51F00641159 /* AppDelegate.swift in Sources */,
 				F56E777223A95FCA009BF8E9 /* Storyboard+Utility.swift in Sources */,
