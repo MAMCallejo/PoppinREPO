@@ -1103,38 +1103,27 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
      */
     
     public func setUserPinData(en: String, ei: String, ed: String, edu: String, ec: String, ecd: String, es1: String, es1d: String, es2: String, es2d: String) {
-       
-        let ref = Database.database().reference()
-       
+              
         newPopsicle.popsicleData.eventName = en
-        ref.child("popsicles/\(en)/eventName").setValue(en)
         
         newPopsicle.popsicleData.eventInfo = ei
-        ref.child("popsicles/\(en)/eventInfo").setValue(ei)
+
         newPopsicle.popsicleData.eventDate = ed
         
-        ref.child("popsicles/\(en)/eventDate").setValue(ed)
         newPopsicle.popsicleData.eventDuration = edu
         
-       ref.child("popsicles/\(en)/eventDuration").setValue(edu)
         newPopsicle.popsicleData.eventCategory = ec
         
-        ref.child("popsicles/\(en)/eventCategory").setValue(ec)
         newPopsicle.popsicleData.eventCategoryDetails = ecd
         
-        ref.child("popsicles/\(en)/eventCategoryDetails").setValue(ecd)
         newPopsicle.popsicleData.eventSubcategory1 = es1
     
-        ref.child("popsicles/\(en)/eventSubcategory1").setValue(es1)
         newPopsicle.popsicleData.eventSubcategory1Details = es1d
         
-        ref.child("popsicles/\(en)/eventSubcategory1Details").setValue(es1d)
         newPopsicle.popsicleData.eventSubcategory2 = es2
         
-        ref.child("popsicles/\(en)/eventSubcategory2").setValue(es2)
         newPopsicle.popsicleData.eventSubcategory2Details = es2d
         
-        ref.child("popsicles/\(en)/eventSubcategory2Details").setValue(es2d)
         // Checker if you want to see the data passed to the popsicle.
         
         /*print(userPinData.eventName + " " + userPinData.eventInfo + " " + userPinData.eventDate + " " + userPinData.eventCategory + " " + userPinData.eventCategoryDetails + " " + userPinData.eventSubcategory1 + " " + userPinData.eventSubcategory1Details + " " + userPinData.eventSubcategory2 + " " + userPinData.eventSubcategory2Details)*/
@@ -1337,6 +1326,28 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         ref.child("popsicles/\(newPopsicle.popsicleData.eventName)/latitude").setValue(mainMapView.centerCoordinate.latitude)
         
         ref.child("popsicles/\(newPopsicle.popsicleData.eventName)/longitude").setValue(mainMapView.centerCoordinate.longitude)
+        
+            let en = newPopsicle.popsicleData.eventName
+            ref.child("popsicles/\(en)/eventName").setValue(newPopsicle.popsicleData.eventName)
+
+            ref.child("popsicles/\(en)/eventInfo").setValue(newPopsicle.popsicleData.eventInfo)
+            
+        ref.child("popsicles/\(en)/eventDate").setValue(newPopsicle.popsicleData.eventDate)
+            
+           ref.child("popsicles/\(en)/eventDuration").setValue(newPopsicle.popsicleData.eventDuration)
+            
+            ref.child("popsicles/\(en)/eventCategory").setValue(newPopsicle.popsicleData.eventCategory)
+       
+            ref.child("popsicles/\(en)/eventCategoryDetails").setValue(newPopsicle.popsicleData.eventCategoryDetails)
+        
+            ref.child("popsicles/\(en)/eventSubcategory1").setValue(newPopsicle.popsicleData.eventSubcategory1)
+            
+            ref.child("popsicles/\(en)/eventSubcategory1Details").setValue(newPopsicle.popsicleData.eventSubcategory1Details)
+            
+            ref.child("popsicles/\(en)/eventSubcategory2").setValue(newPopsicle.popsicleData.eventSubcategory2)
+            
+            ref.child("popsicles/\(en)/eventSubcategory2Details").setValue(newPopsicle.popsicleData.eventSubcategory2Details)
+        
         newPopsicle.popsicleData.eventLocation = mainMapView.centerCoordinate
         
         newPopsicle.coordinate = newPopsicle.popsicleData.eventLocation
