@@ -12,6 +12,12 @@ import CoreLocation
 import Firebase
 
 /*
+    popsicleSize: popsicle annotation and popsicle group annotation size.
+ */
+
+public var popsicleSize: CGSize?
+
+/*
     createEventViewControllerReturnProtocol: this return protocol is shared between the create event view controller and this one...
     ...so that data or actions can be transfered:
         - setUserPinData gathers all the popsicle data from the create event form and creates a popsicle on the map.
@@ -52,7 +58,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
     
     @IBOutlet weak var menuView: UIView!
     
-    @IBOutlet weak var menuButton: UIButton!
+    @IBOutlet weak var menuButton: menuButton!
     
     @IBOutlet weak var profileView: UIView!
     
@@ -203,6 +209,10 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
     
     var placingPin = false
     
+            // Boolean to let the map delegate method that the confirmation view is visible or not.
+       
+    var confirmationViewIsVisible = false
+    
             // resultSearchController: holds the interface for the search bar that look for addresses.
     
     var resultSearchController:UISearchController? = nil
@@ -240,6 +250,10 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
     
     var addressLookUpLocationSearchTable: LocationSearchTable!
     
+            // foregroundBlurView: a blurred view that is set on top of the mapView when the create event view is opened.
+    
+    var foregroundBlurView: UIView!
+    
     // *** VIEWCONTROLLER FUNCTIONS ***
     
     /*
@@ -256,6 +270,14 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         print("\nWELCOME! This is the poppin terminal. Error messages and system notifications can be seen here.\n")
         
         // *** INITIALIZATION OF USEFUL VARIABLES ***
+        
+            // Initializes the global variable popsicleSize (needs to layout first since we need to get the size after autolayout constraints have been applied).
+        
+        eventLocationPin.setNeedsLayout()
+        
+        eventLocationPin.layoutIfNeeded()
+        
+        popsicleSize = eventLocationPin.frame.size
         
             // Initializes the category button views of the filter menu:
         
@@ -329,6 +351,34 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         resultSearchController = UISearchController(searchResultsController: addressLookUpLocationSearchTable)
         
         resultSearchController?.searchResultsUpdater = addressLookUpLocationSearchTable
+        
+            // Initializes the foregroundBlurView by setting it to the same size of the main view and by adding a blur effect on top. Finally, it adds it to the main view and hides it.
+        
+        foregroundBlurView = UIView(frame: view.frame)
+        
+        let blurEffect = UIBlurEffect(style: .systemChromeMaterialDark)
+        
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        
+        blurEffectView.alpha = 0.85
+        
+        blurEffectView.frame = foregroundBlurView.frame
+        
+        foregroundBlurView.insertSubview(blurEffectView, at: 0)
+        
+        self.view.addSubview(foregroundBlurView)
+        
+        self.view.bringSubviewToFront(foregroundBlurView)
+        
+        foregroundBlurView.alpha = 0.0
+        
+        foregroundBlurView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        
+        foregroundBlurView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        
+        foregroundBlurView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+        foregroundBlurView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         
         // *** STYLING ***
         
@@ -428,7 +478,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
         let attributes = [
             
-            NSAttributedString.Key.foregroundColor : UIColorFromHex(rgbValue: 0x002868),
+            NSAttributedString.Key.foregroundColor : UIColor.mainNAVYBLUE,
             
             NSAttributedString.Key.font : UIFont.init(name: "Octarine-Bold", size: 15)
             
@@ -495,13 +545,13 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
             // Hides the placement pin interface:
 
-        eventLocationPin.isHidden = true
-        
-        eventLocationDraggingNotification.isHidden = true
-        
-        eventLocationConfirmationContainerView.isHidden = true
-        
-        zoomToUserLocationButton.isHidden = true
+        eventLocationPin.alpha = 0.0
+            
+        eventLocationDraggingNotification.alpha = 0.0
+            
+        eventLocationConfirmationContainerView.alpha = 0.0
+            
+        zoomToUserLocationButton.alpha = 0.0
         
             // Disable Rotation of the map.
         
@@ -523,10 +573,12 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
         mainMapView.cameraZoomRange = MKMapView.CameraZoomRange(minCenterCoordinateDistance: 250, maxCenterCoordinateDistance: 3000)
         
-            // The user location annotation is added to the map. The region of the map is defined. The map...
-            // ...is set to be its own delegate so it can call functions on itself (later defined).
+            // The user location annotation is added to the map. The cluster annotation representing a group of popsicles close together is added to the map...
+            // ...The region of the map is defined. The map is set to be its own delegate so it can call functions on itself (later defined).
         
         mainMapView.register(MKUserLocation.self, forAnnotationViewWithReuseIdentifier: NSStringFromClass(MKUserLocation.self))
+        
+        mainMapView.register(PopsicleGroupAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier)
 
         mainMapView.setRegion(campusRegion!, animated: true)
 
@@ -548,65 +600,92 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
             
         navigationController?.setNavigationBarHidden(true, animated: true)
         
+            // FIREBASE FUNCTIONS:
+            //  - Fetches the user info and popsicle info from the database by calling the private helper methods: getUsername, getProfilePic and getPopsicles.
+        
         getUsername()
+        
         getProfilePic()
         
         getPopsicles()
         
+    }
+    
+    // getUsername: gets the username of the current user and displays it.
+    
+    private func getUsername() {
+        
+        let ref = Database.database().reference()
+        
+        let uid = Auth.auth().currentUser!.uid
+        
+        ref.child("users/\(uid)/username").observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            // Get user value
+            
+            let value = snapshot.value as? String
+            
+            self.usernameLabel.text = value
+            
+            // ...
+            
+        }) { (error) in
+            
+            print(error.localizedDescription)
+            
+        }
         
     }
     
-    //getUsername: gets the username of the current user and displays it
-    
-    func getUsername(){
-         let ref = Database.database().reference()
-
-         let uid = Auth.auth().currentUser!.uid
-    ref.child("users/\(uid)/username").observeSingleEvent(of: .value, with: { (snapshot) in
-      // Get user value
-      let value = snapshot.value as? String
-     
-     self.usernameLabel.text = value
-
-      // ...
-      }) { (error) in
-        print(error.localizedDescription)
-    }
-     
-     }
-    
-    //logOutAction: Logs the user out
+    // logOutAction: Logs the user out.
     
     @IBAction func logOutAction(_ sender: Any) {
+        
         do {
-               try Auth.auth().signOut()
-           }
+            
+            try Auth.auth().signOut()
+            
+        }
         catch let signOutError as NSError {
-               print ("Error signing out: %@", signOutError)
-           }
-           
+            
+            print ("Error signing out: %@", signOutError)
+            
+        }
+        
         let storyboard = UIStoryboard(name: "Login", bundle: .main)
-           let initial = storyboard.instantiateInitialViewController()
-           UIApplication.shared.keyWindow?.rootViewController = initial
+        
+        let initial = storyboard.instantiateInitialViewController()
+        
+        UIApplication.shared.keyWindow?.rootViewController = initial
+        
     }
     
-    func getProfilePic(){
-         let uid = Auth.auth().currentUser!.uid
-            
+    func getProfilePic() {
+        
+        let uid = Auth.auth().currentUser!.uid
+        
         let reference = Storage.storage().reference().child( "images/\(uid)/profilepic.jpg")
         
         reference.getData(maxSize: 1 * 1024 * 1024) { data, error in
-            if error != nil {
-            // Uh-oh, an error occurred!
-                print("error")
-          } else {
-            
-            let pic = UIImage(data: data! )
-            self.profileButton.setImage(pic , for: UIControl.State.normal)
-          }
-        }
-    }
         
+            if error != nil {
+            
+                // Uh-oh, an error occurred!
+                
+                print("error")
+            
+            } else {
+                
+                let pic = UIImage(data: data!)
+                
+                self.profileButton.setImage(pic , for: UIControl.State.normal)
+                
+            }
+            
+        }
+        
+    }
+    
 
 //        // UIImageView in your ViewController
 //        let imageView: UIButton = self.profileButton
@@ -616,8 +695,6 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
 //
 //        // Load the image using SDWebImage
 //        imageView.sd_setImage(with: referenceURL, for: .normal)
-       
-
     
     /*
      viewDidLayoutSubviews: Super useful function. It's called every time the view controller has to update...
@@ -636,7 +713,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
         profileButton.layer.cornerRadius = profileButton.frame.size.width / 2
         
-        profileButton.layer.borderColor = UIColorFromHex(rgbValue: 0xFFE6C8).cgColor
+        profileButton.layer.borderColor = UIColor.menuCREAM?.cgColor
         
         profileButton.layer.borderWidth = 2
         
@@ -740,13 +817,13 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
             
             self.view.layoutIfNeeded()
             
-            UIView.animate(withDuration: 0.3, animations: {
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                 
                 self.menuLeadingConstraint.constant = 0 - self.menuView.frame.size.width
                 
                 self.view.layoutIfNeeded()
                 
-            })
+            }, completion: nil)
             
             menuShowing = !menuShowing
             
@@ -761,7 +838,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
     
     @objc func handlePan(_ recognizer: UIPanGestureRecognizer) {
         
-        if (!menuView.isHidden) {
+        if (menuView.alpha != 0) {
             
             // how much distance have user finger moved since touch start (in X and Y)
             
@@ -786,9 +863,12 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
                         
                         self.view.layoutIfNeeded()
                         
-                        UIView.animate(withDuration: 0.3, animations: {
-                            self.menuLeadingConstraint.constant = 0 - self.menuView.frame.size.width;
+                        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                            
+                            self.menuLeadingConstraint.constant = 0 - self.menuView.frame.size.width
+                            
                             self.view.layoutIfNeeded()
+                            
                         })
                         
                         menuShowing = !menuShowing
@@ -803,9 +883,12 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
                         
                         self.view.layoutIfNeeded()
                         
-                        UIView.animate(withDuration: 0.3, animations: {
+                        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.95, initialSpringVelocity: 1, options: .curveEaseIn, animations: {
+                            
                             self.menuLeadingConstraint.constant = 0
+                            
                             self.view.layoutIfNeeded()
+                            
                         })
                         
                     }
@@ -820,9 +903,12 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
                         
                         self.view.layoutIfNeeded()
                         
-                        UIView.animate(withDuration: 0.3, animations: {
+                        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.95, initialSpringVelocity: 1, options: .curveEaseIn, animations: {
+                            
                             self.menuLeadingConstraint.constant = 0
+                            
                             self.view.layoutIfNeeded()
+                            
                         })
                         
                         menuShowing = !menuShowing
@@ -834,9 +920,12 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
                         
                         self.view.layoutIfNeeded()
                         
-                        UIView.animate(withDuration: 0.3, animations: {
-                            self.menuLeadingConstraint.constant = 0 - self.menuView.frame.size.width;
+                        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                            
+                            self.menuLeadingConstraint.constant = 0 - self.menuView.frame.size.width
+                            
                             self.view.layoutIfNeeded()
+                            
                         })
                         
                     }
@@ -891,19 +980,18 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         if(!menuShowing) {
             
             menuLeadingConstraint.constant = 0
-        
+            
         } else {
             
             menuLeadingConstraint.constant = 0 - menuView.frame.size.width
             
         }
         
-        UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseIn, animations:
-        {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.95, initialSpringVelocity: 1, options: .curveEaseIn, animations: {
             
             self.view.layoutIfNeeded()
             
-        })
+        }, completion: nil)
         
         menuShowing = !menuShowing
         
@@ -1019,31 +1107,87 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
                 
                 if (!educationActive && !foodActive && !socialActive && !sportsActive && !showsActive) {
                     
-                    mainMapView.view(for: popsicle)!.isHidden = true
+                    let popsicleView = mainMapView.view(for: popsicle)
+                    
+                    if (popsicleView?.alpha == 0.0) {
+                        
+                        continue
+                        
+                    }
+                    
+                    animatePopsiclePopOut(view: popsicleView)
                     
                 } else if (popsicle.popsicleData.eventCategory == "Education" && educationActive) {
                     
-                    mainMapView.view(for: popsicle)!.isHidden = false
+                    let popsicleView = mainMapView.view(for: popsicle)
+                    
+                    if (popsicleView?.alpha == 1.0) {
+                        
+                        continue
+                        
+                    }
+                    
+                    animatePopsiclePopIn(view: popsicleView)
                     
                 } else if (popsicle.popsicleData.eventCategory == "Food" && foodActive) {
                     
-                    mainMapView.view(for: popsicle)!.isHidden = false
+                    let popsicleView = mainMapView.view(for: popsicle)
+                    
+                    if (popsicleView?.alpha == 1.0) {
+                        
+                        continue
+                        
+                    }
+                    
+                    animatePopsiclePopIn(view: popsicleView)
                     
                 } else if (popsicle.popsicleData.eventCategory == "Social" && socialActive) {
                     
-                    mainMapView.view(for: popsicle)!.isHidden = false
+                    let popsicleView = mainMapView.view(for: popsicle)
+                    
+                    if (popsicleView?.alpha == 1.0) {
+                        
+                        continue
+                        
+                    }
+                    
+                    animatePopsiclePopIn(view: popsicleView)
                     
                 } else if (popsicle.popsicleData.eventCategory == "Sports" && sportsActive) {
                     
-                    mainMapView.view(for: popsicle)!.isHidden = false
+                    let popsicleView = mainMapView.view(for: popsicle)
+                    
+                    if (popsicleView?.alpha == 1.0) {
+                        
+                        continue
+                        
+                    }
+                    
+                    animatePopsiclePopIn(view: popsicleView)
                     
                 } else if (popsicle.popsicleData.eventCategory == "Shows" && showsActive) {
                     
-                    mainMapView.view(for: popsicle)!.isHidden = false
+                    let popsicleView = mainMapView.view(for: popsicle)
+                    
+                    if (popsicleView?.alpha == 1.0) {
+                        
+                        continue
+                        
+                    }
+                    
+                    animatePopsiclePopIn(view: popsicleView)
                     
                 } else {
                     
-                    mainMapView.view(for: popsicle)!.isHidden = true
+                    let popsicleView = mainMapView.view(for: popsicle)
+                    
+                    if (popsicleView?.alpha == 0.0) {
+                        
+                        continue
+                        
+                    }
+                    
+                    animatePopsiclePopOut(view: popsicleView)
                     
                 }
                 
@@ -1054,9 +1198,9 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
     }
     
     /*
-        prepareForSegue: function called before the segue (to the create event view in this case)...
-        ...to prepare the returnProtocol and hide certain features from the main view that will not...
-        ...be useful.
+     prepareForSegue: function called before the segue (to the create event view in this case)...
+     ...to prepare the returnProtocol and hide certain features from the main view that will not...
+     ...be useful.
      */
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -1067,19 +1211,17 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
             
             inputVC.returnProtocol = self
             
+            // Hide Menu if it's showing.
+            
             if (menuShowing) {
                 
                 self.view.layoutIfNeeded()
                 
-                UIView.animate(withDuration: 0.3, animations: {
+                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.95, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                     
-                    self.menuLeadingConstraint.constant =  0 - self.menuView.frame.size.width;
+                    self.menuLeadingConstraint.constant =  0 - self.menuView.frame.size.width
                     
                     self.view.layoutIfNeeded()
-                    
-                }, completion: { (finished: Bool) in
-                    
-                    self.menuView.isHidden = true
                     
                 })
                 
@@ -1087,9 +1229,21 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
                 
             }
             
-            menuButton.isHidden = true
+            // Hide Buttons and blur mapview.
             
-            newEventButton.isHidden = true
+            self.view.layoutIfNeeded()
+            
+            UIView.animate(withDuration: 0.25, animations: {
+                
+                self.menuButton.alpha = 0.0
+                
+                self.newEventButton.alpha = 0.0
+                
+                self.foregroundBlurView.alpha = 1.0
+                
+                self.view.layoutIfNeeded()
+                
+            })
             
         }
         
@@ -1104,37 +1258,26 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
     
     public func setUserPinData(en: String, ei: String, ed: String, edu: String, ec: String, ecd: String, es1: String, es1d: String, es2: String, es2d: String) {
        
-        let ref = Database.database().reference()
-       
         newPopsicle.popsicleData.eventName = en
-        ref.child("popsicles/\(en)/eventName").setValue(en)
         
         newPopsicle.popsicleData.eventInfo = ei
-        ref.child("popsicles/\(en)/eventInfo").setValue(ei)
+    
         newPopsicle.popsicleData.eventDate = ed
         
-        ref.child("popsicles/\(en)/eventDate").setValue(ed)
         newPopsicle.popsicleData.eventDuration = edu
-        
-       ref.child("popsicles/\(en)/eventDuration").setValue(edu)
+    
         newPopsicle.popsicleData.eventCategory = ec
         
-        ref.child("popsicles/\(en)/eventCategory").setValue(ec)
         newPopsicle.popsicleData.eventCategoryDetails = ecd
         
-        ref.child("popsicles/\(en)/eventCategoryDetails").setValue(ecd)
         newPopsicle.popsicleData.eventSubcategory1 = es1
     
-        ref.child("popsicles/\(en)/eventSubcategory1").setValue(es1)
         newPopsicle.popsicleData.eventSubcategory1Details = es1d
         
-        ref.child("popsicles/\(en)/eventSubcategory1Details").setValue(es1d)
         newPopsicle.popsicleData.eventSubcategory2 = es2
         
-        ref.child("popsicles/\(en)/eventSubcategory2").setValue(es2)
         newPopsicle.popsicleData.eventSubcategory2Details = es2d
         
-        ref.child("popsicles/\(en)/eventSubcategory2Details").setValue(es2d)
         // Checker if you want to see the data passed to the popsicle.
         
         /*print(userPinData.eventName + " " + userPinData.eventInfo + " " + userPinData.eventDate + " " + userPinData.eventCategory + " " + userPinData.eventCategoryDetails + " " + userPinData.eventSubcategory1 + " " + userPinData.eventSubcategory1Details + " " + userPinData.eventSubcategory2 + " " + userPinData.eventSubcategory2Details)*/
@@ -1153,11 +1296,19 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
     
     public func showMainButtons() {
         
-        menuView.isHidden = false
+        self.view.layoutIfNeeded()
         
-        menuButton.isHidden = false
-        
-        newEventButton.isHidden = false
+        UIView.animate(withDuration: 0.25, animations: {
+            
+            self.menuButton.alpha = 1.0
+            
+            self.newEventButton.alpha = 1.0
+            
+            self.foregroundBlurView.alpha = 0.0
+            
+            self.view.layoutIfNeeded()
+            
+        })
         
     }
     
@@ -1174,17 +1325,23 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
         resultSearchController?.searchBar.text = ""
         
-        newEventButton.isHidden = true
+        self.view.layoutIfNeeded()
         
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        
-        eventLocationPin.isHidden = false
-        
-        eventLocationDraggingNotification.isHidden = false
-        
-        eventLocationDraggingNotification.alpha = 1.0
-        
-        zoomToUserLocationButton.isHidden = false
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+            
+            self.navigationController?.setNavigationBarHidden(false, animated: true)
+            
+            self.eventLocationPin.alpha = 1.0
+            
+            self.eventLocationDraggingNotification.alpha = 1.0
+            
+            self.zoomToUserLocationButton.alpha = 1.0
+            
+            self.foregroundBlurView.alpha = 0.0
+            
+            self.view.layoutIfNeeded()
+            
+        })
         
         // Depending on the category of the template popsicle, a different popsicle...
         // ...appears on the middle of the screen.
@@ -1237,25 +1394,34 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
         // Zooms to user region
         
-        mainMapView.setRegion(region, animated: true)
+        MKMapView.animate(withDuration: 1, delay: 0.1, usingSpringWithDamping: 0.8, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+            
+            self.mainMapView.setRegion(region, animated: true)
+            
+        }, completion: nil)
         
     }
     
-    func getPopsicles(){
+    func getPopsicles() {
+        
         let ref = Database.database().reference(withPath:"popsicles")
         
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
-
+            
             // Printing the child count
+            
             print("There are \(snapshot.childrenCount) children found")
-
+            
             // Checking if the reference has some values
+            
             if snapshot.childrenCount > 0 {
-
+                
                 // Go through every child
+                
                 for data in snapshot.children.allObjects as! [DataSnapshot] {
+                    
                     if let data = data.value as? [String: Any] {
-                         // Retrieve the data per child
+                        // Retrieve the data per child
                         let eventName = data["eventName"] as! String
                         let eventCategory = data["eventCategory"] as! String
                         let eventCategoryDetails = data["eventCategoryDetails"] as! String
@@ -1279,22 +1445,16 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
                             
                             eventPopsicle = UIImage(named: "educationButton")!
                             
-                            
-                            
                         } else if (eventCategory == "Food") {
                             
                             eventPopsicle = UIImage(named: "foodButton")!
-                            
-                            
                             
                         } else if (eventCategory == "Social") {
                             
                             eventPopsicle = UIImage(named: "socialButton")!
                             
-                            
-                            
                         } else if (eventCategory == "Sports") {
-               
+                            
                             eventPopsicle = UIImage(named: "sportsButton")!
                             
                         } else {
@@ -1302,18 +1462,22 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
                             eventPopsicle = UIImage(named: "showsButton")!
                             
                         }
+                        
                         popsicleToAdd.popsicleData = pinData(eventName: eventName, eventInfo: eventInfo, eventDate: eventDate, eventDuration: eventDuration, eventCategory: eventCategory, eventCategoryDetails: eventCategoryDetails, eventSubcategory1: eventSubcategory1, eventSubcategory1Details: eventSubcategory1Details, eventSubcategory2: eventSubcategory2, eventSubcategory2Details: eventSubcategory2Details, eventLocation: coordinates, eventPopsicle: eventPopsicle)
                         
                         popsicleToAdd.coordinate = coordinates
                         
                         self.mapPopsicles?.append(popsicleToAdd)
-
+                        
                         self.addNewPopsicleToMap()
+                        
                     }
+                    
                 }
+                
             }
+            
         })
-        
         
     }
     
@@ -1322,6 +1486,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         ...for their popsicle.
             - Once pressed, the map center location is recorded and every element of the pin placement...
               ...interface is hidden.
+            - A reference to the database is created and initialized to host this new popsicle event.
             - A new element of the mapPopsicles array is created and initialized using the information from...
               ...the popsicle template and the map center location.
             - The popsicle is added to the mapPopsicles array.
@@ -1334,30 +1499,37 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
         let ref = Database.database().reference()
         
+        ref.child("popsicles/\(newPopsicle.popsicleData.eventName)/eventName").setValue(newPopsicle.popsicleData.eventName)
+        
+        ref.child("popsicles/\(newPopsicle.popsicleData.eventName)/eventInfo").setValue(newPopsicle.popsicleData.eventInfo)
+        
+        ref.child("popsicles/\(newPopsicle.popsicleData.eventName)/eventDate").setValue(newPopsicle.popsicleData.eventDate)
+        
+        ref.child("popsicles/\(newPopsicle.popsicleData.eventName)/eventDuration").setValue(newPopsicle.popsicleData.eventDuration)
+        
+        ref.child("popsicles/\(newPopsicle.popsicleData.eventName)/eventCategory").setValue(newPopsicle.popsicleData.eventCategory)
+        
+        ref.child("popsicles/\(newPopsicle.popsicleData.eventName)/eventCategoryDetails").setValue(newPopsicle.popsicleData.eventCategoryDetails)
+        
+        ref.child("popsicles/\(newPopsicle.popsicleData.eventName)/eventSubcategory1").setValue(newPopsicle.popsicleData.eventSubcategory1)
+        
+        ref.child("popsicles/\(newPopsicle.popsicleData.eventName)/eventSubcategory1Details").setValue(newPopsicle.popsicleData.eventSubcategory1Details)
+        
+        ref.child("popsicles/\(newPopsicle.popsicleData.eventName)/eventSubcategory2").setValue(newPopsicle.popsicleData.eventSubcategory2)
+        
+        ref.child("popsicles/\(newPopsicle.popsicleData.eventName)/eventSubcategory2Details").setValue(newPopsicle.popsicleData.eventSubcategory2Details)
+        
         ref.child("popsicles/\(newPopsicle.popsicleData.eventName)/latitude").setValue(mainMapView.centerCoordinate.latitude)
         
         ref.child("popsicles/\(newPopsicle.popsicleData.eventName)/longitude").setValue(mainMapView.centerCoordinate.longitude)
+        
         newPopsicle.popsicleData.eventLocation = mainMapView.centerCoordinate
         
         newPopsicle.coordinate = newPopsicle.popsicleData.eventLocation
         
-        UIView.transition(with: eventLocationConfirmationContainerView, duration: 0.5, options: [.transitionCrossDissolve], animations: {
-            
-            self.eventLocationConfirmationContainerView.alpha = 0.0
-            
-        }, completion: { (true) in
-            
-            self.eventLocationConfirmationContainerView.isHidden = true
-            
-        })
-        
         placingPin = false
         
-        navigationController?.setNavigationBarHidden(true, animated: true)
-        
-        eventLocationPin.isHidden = true
-        
-        zoomToUserLocationButton.isHidden = true
+        confirmationViewIsVisible = false
         
         let popsicleToAdd = pinPopsicle()
         
@@ -1367,11 +1539,33 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
         mapPopsicles?.append(popsicleToAdd)
         
-        addNewPopsicleToMap()
+        self.view.layoutIfNeeded()
         
-        showMainButtons()
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            
+            self.navigationController?.setNavigationBarHidden(true, animated: true)
+            
+            self.eventLocationConfirmationContainerView.transform = CGAffineTransform(translationX: 0, y: self.eventLocationConfirmationContainerView.frame.height)
+            
+            self.eventLocationPin.alpha = 0.0
+            
+            self.zoomToUserLocationButton.alpha = 0.0
+            
+            self.view.layoutIfNeeded()
+            
+        }, completion: { (finished: Bool) in
+            
+            self.eventLocationConfirmationContainerView.alpha = 0.0
+            
+            self.eventLocationConfirmationContainerView.transform = .identity
+            
+        })
         
-        addEventToMenu(eventName: newPopsicle.popsicleData.eventName)
+        self.showMainButtons()
+        
+        self.addNewPopsicleToMap()
+        
+        self.addEventToMenu(eventName: self.newPopsicle.popsicleData.eventName)
         
     }
     
@@ -1410,7 +1604,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
             
             noEventsLabel.isHidden = true
             
-            let newEventView = UIButton(type: .system)
+            let newEventView = myEventsMenuButton(type: .system)
             
             newEventView.setTitle(eventName, for: .normal)
             
@@ -1428,11 +1622,13 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
             
             newEventView.backgroundColor = myEventsButton.backgroundColor
             
+            newEventView.layoutIfNeeded()
+            
             myEventsMenuStackView.insertArrangedSubview(newEventView, at: 0)
             
         } else if (myEventsMenuStackView.arrangedSubviews.count < 5) {
             
-            let newEventView = UIButton(type: .system)
+            let newEventView = myEventsMenuButton(type: .system)
             
             newEventView.setTitle(eventName, for: .normal)
             
@@ -1451,7 +1647,9 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
             newEventView.contentEdgeInsets.right = 5
             
             newEventView.backgroundColor = myEventsButton.backgroundColor
-
+            
+            newEventView.layoutIfNeeded()
+            
             myEventsMenuStackView.insertArrangedSubview(newEventView, at: 0)
             
         }
@@ -1479,20 +1677,6 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
     }
     
-    /*
-        UIColorFromHex: Used to set the blue, pink, and cream colors we all love :)
-    */
-    
-    private func UIColorFromHex(rgbValue:UInt32, alpha:Double=1.0)->UIColor {
-        
-        let red = CGFloat((rgbValue & 0xFF0000) >> 16)/256.0
-        let green = CGFloat((rgbValue & 0xFF00) >> 8)/256.0
-        let blue = CGFloat(rgbValue & 0xFF)/256.0
-        
-        return UIColor(red:red, green:green, blue:blue, alpha:CGFloat(alpha))
-        
-    }
-    
 }
 
 /*
@@ -1513,15 +1697,15 @@ extension mainViewController: MKMapViewDelegate {
         
         if (placingPin) {
             
-            UIView.transition(with: eventLocationDraggingNotification, duration: 0.5, options: [.transitionCrossDissolve], animations: {
+            self.view.layoutIfNeeded()
+            
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                 
                 self.eventLocationDraggingNotification.alpha = 0.0
                 
-            }, completion: { (true) in
+                self.view.layoutIfNeeded()
                 
-                self.eventLocationDraggingNotification.isHidden = true
-                
-            })
+            }, completion: nil)
             
         }
         
@@ -1542,39 +1726,45 @@ extension mainViewController: MKMapViewDelegate {
     public func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         
         if (placingPin) {
-        
-            let centerCoordinate = mapView.centerCoordinate
-        
-            let centerLocation = CLLocation(latitude: centerCoordinate.latitude - 0.0001, longitude: centerCoordinate.longitude)
-        
-            lookUpSpecifiedLocation(location: centerLocation) { (placemark) in
             
-                if (placemark != nil) {
+            let centerCoordinate = mapView.centerCoordinate
+            
+            let centerLocation = CLLocation(latitude: centerCoordinate.latitude - 0.0001, longitude: centerCoordinate.longitude)
+            
+            lookUpSpecifiedLocation(location: centerLocation) { (placemark) in
                 
+                if (placemark != nil) {
+                    
                     self.eventLocationConfirmationAddress.text =  self.parseAddress(selectedItem: placemark!)
                     
-                    if (self.eventLocationConfirmationContainerView.isHidden) {
+                    if (!self.confirmationViewIsVisible) {
                         
-                        UIView.transition(with: self.eventLocationConfirmationContainerView, duration: 0.5, options: [.transitionCrossDissolve], animations: {
-                                
-                            self.eventLocationConfirmationContainerView.alpha = 1
+                        self.eventLocationConfirmationContainerView.transform = CGAffineTransform(translationX: 0, y: +self.eventLocationConfirmationContainerView.frame.height)
+                        
+                        self.eventLocationConfirmationContainerView.alpha = 1.0
+                        
+                        self.view.layoutIfNeeded()
+                        
+                        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.95, initialSpringVelocity: 1, options: .curveEaseIn, animations: {
                             
-                            self.eventLocationConfirmationContainerView.isHidden = false
+                            self.eventLocationConfirmationContainerView.transform = .identity
                             
-                        }, completion: { (true) in
+                            self.view.layoutIfNeeded()
                             
-                        })
+                        }, completion: nil)
+                        
+                        self.confirmationViewIsVisible = true
                         
                     }
-                
+                    
                 } else {
-                
+                    
                     print("\nError: unable to retrieve address from center location.\n")
-                
+                    
                 }
-            
+                
             }
-        
+            
         }
             
     }
@@ -1594,7 +1784,7 @@ extension mainViewController: MKMapViewDelegate {
         // USER ANNOTATION
         
         if (annotation.isEqual(mainMapView.userLocation)) {
-
+            
             let userIdentifier = "UserLocation"
             
             var userAnnotationView = mainMapView.dequeueReusableAnnotationView(withIdentifier: userIdentifier)
@@ -1608,7 +1798,7 @@ extension mainViewController: MKMapViewDelegate {
             userAnnotationView!.annotation = annotation
             
             userAnnotationView!.canShowCallout = false
-
+            
             userAnnotationView!.image = UIImage(named: "Profile Pic")
             
             userAnnotationView!.frame.size.width = 40
@@ -1627,12 +1817,16 @@ extension mainViewController: MKMapViewDelegate {
             
             userAnnotationView!.contentMode = .scaleAspectFit
             
+            // Makes sure the userAnnotation is always below the popsicle annotations.
+            
+            userAnnotationView!.displayPriority = .defaultLow
+            
             return userAnnotationView
             
         }
             
         // POPSICLES PIN ANNOTATIONS
-        
+            
         else if (annotation is pinPopsicle) {
             
             let popsicleAnnotation = annotation as! pinPopsicle
@@ -1654,17 +1848,130 @@ extension mainViewController: MKMapViewDelegate {
             popsicleAnnotationView!.annotation = popsicleAnnotation
             
             popsicleAnnotationView!.canShowCallout = true
-
+            
             popsicleAnnotationView!.image = popsicleAnnotation.popsicleData?.eventPopsicle
             
-            popsicleAnnotationView!.frame.size = CGSize(width: eventLocationPin.frame.width, height: eventLocationPin.frame.height)
+            popsicleAnnotationView!.frame.size = popsicleSize ?? eventLocationPin.frame.size
+            
+            popsicleAnnotationView!.clusteringIdentifier = "PopsicleGroup"
             
             return popsicleAnnotationView
             
         }
         
         return nil
-
+        
+    }
+    
+    /*
+     didAdd: delegate function called by the map view every time new annotations have been added.
+     - It animates every single annotation that is a popsicle pin to drop from the top of the view.
+     */
+    
+    public func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
+        
+        for view in views {
+            
+            if (!(view.annotation is pinPopsicle)) {
+             
+             continue
+             
+            }
+            
+            let point: MKMapPoint = MKMapPoint(view.annotation!.coordinate)
+            
+            if (!self.mainMapView.visibleMapRect.contains(point)) {
+                
+                continue
+                
+            }
+            
+            let endFrame:CGRect = view.frame
+            
+            view.frame = CGRect(origin: CGPoint(x: view.frame.origin.x, y: view.frame.origin.y - self.view.frame.size.height), size: CGSize(width: view.frame.size.width, height: view.frame.size.height))
+            
+            self.view.layoutIfNeeded()
+            
+            UIView.animate(withDuration: 0.5, delay: 0, options: UIView.AnimationOptions.curveEaseIn, animations:{() in
+                
+                view.frame = endFrame
+                
+                self.view.layoutIfNeeded()
+                
+            }, completion:{(Bool) in
+                
+            })
+            
+        }
+        
+    }
+    
+    /*
+    didSelect:
+     */
+    
+    public func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        
+        print("\nANNOTATION HAS BEEN PRESSED\n")
+        
+    }
+    
+    /*
+     animatePopsiclePopIn: private helper method used by the filter menu view to animate the popsicle pop in animation.
+     */
+    
+    private func animatePopsiclePopIn(view: MKAnnotationView?) {
+        
+        if (view == nil) {
+            
+            print("\nERROR: Impossible to animate the popsicle pop in.\n")
+            
+            return
+            
+        }
+        
+        view!.alpha = 0
+        
+        view!.isHidden = false
+        
+        view!.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.55, initialSpringVelocity: 3,
+                       options: .curveEaseOut, animations: {
+                        
+                        view!.transform = .identity
+                        
+                        view!.alpha = 1
+                        
+        }, completion: nil)
+        
+    }
+    
+    /*
+     animatePopsiclePopOut: private helper method used by the filter menu view to animate the popsicle pop out animation.
+     */
+    
+    private func animatePopsiclePopOut(view: MKAnnotationView?) {
+        
+        if (view == nil) {
+            
+            print("\nERROR: Impossible to animate the popsicle pop out.\n")
+            
+            return
+            
+        }
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.55, initialSpringVelocity: 3,
+                       options: .curveEaseOut, animations: {
+                        
+                        view!.alpha = 0
+                        
+                        view!.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+                        
+                        view!.isHidden = true
+                        
+        }, completion: nil)
+        
     }
     
     /*
@@ -1795,7 +2102,11 @@ extension mainViewController: MapSearchProtocol {
         
         region.span.longitudeDelta = 0
 
-        mainMapView.setRegion(region, animated: true)
+        MKMapView.animate(withDuration: 1, delay: 0.1, usingSpringWithDamping: 0.8, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+            
+            self.mainMapView.setRegion(region, animated: true)
+            
+        }, completion: nil)
         
     }
     
