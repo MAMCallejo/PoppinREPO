@@ -34,6 +34,8 @@
 		64FF1EC323946A3D005DB686 /* categoryButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FF1EC223946A3D005DB686 /* categoryButtonView.swift */; };
 		675C020A90907E3A4CC718F0 /* Pods_Poppin_PoppinUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BC9E4DE0694804D3A182A63 /* Pods_Poppin_PoppinUITests.framework */; };
 		A185516288BB3D7FC3AA75BD /* Pods_PoppinTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B8194C58C1A345C73293ED /* Pods_PoppinTests.framework */; };
+		F612343223C9029B00BE717B /* popsicleView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F612343123C9029B00BE717B /* popsicleView.storyboard */; };
+		F612343423C902B000BE717B /* popsicleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F612343323C902B000BE717B /* popsicleViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +95,8 @@
 		92B8194C58C1A345C73293ED /* Pods_PoppinTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PoppinTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C72220AACB8ED8A3C2919A5E /* Pods_Poppin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Poppin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2BD1B431590049586CDB402 /* Pods-Poppin-PoppinUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Poppin-PoppinUITests.debug.xcconfig"; path = "Target Support Files/Pods-Poppin-PoppinUITests/Pods-Poppin-PoppinUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		F612343123C9029B00BE717B /* popsicleView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = popsicleView.storyboard; sourceTree = "<group>"; };
+		F612343323C902B000BE717B /* popsicleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = popsicleViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -235,6 +239,8 @@
 			children = (
 				640270B02353D43600641159 /* createEventViewController.swift */,
 				64484D4C23932AA500F33132 /* createEvent.storyboard */,
+				F612343123C9029B00BE717B /* popsicleView.storyboard */,
+				F612343323C902B000BE717B /* popsicleViewController.swift */,
 			);
 			path = "Storyboards and ViewControllers";
 			sourceTree = "<group>";
@@ -376,6 +382,7 @@
 			files = (
 				6448D18A2372B0490016A778 /* Octarine-LightOblique.otf in Resources */,
 				6448D1892372B0450016A778 /* Octarine-Light.otf in Resources */,
+				F612343223C9029B00BE717B /* popsicleView.storyboard in Resources */,
 				6448D1882372B0410016A778 /* Octarine-BoldOblique.otf in Resources */,
 				6448D1872372B03C0016A778 /* Octarine-Bold.otf in Resources */,
 				64AFB2DD236A7E4B00D264F0 /* Alerts.storyboard in Resources */,
@@ -487,6 +494,7 @@
 				6434ED3D235E66E600E1808E /* createEventButton.swift in Sources */,
 				64F91E79237221B900C4DC24 /* LocationSearchTable.swift in Sources */,
 				64AFB2DF236A81B600D264F0 /* dangerousActionAlert.swift in Sources */,
+				F612343423C902B000BE717B /* popsicleViewController.swift in Sources */,
 				640270752353C51F00641159 /* AppDelegate.swift in Sources */,
 				640270772353C51F00641159 /* SceneDelegate.swift in Sources */,
 			);
