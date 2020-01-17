@@ -773,21 +773,19 @@ class createEventViewController : UIViewController {
             
             durationTextField.text = "5h 0m"
             
-            durationFormatted = "05:00"
+            durationFormatted = "300"
             
-        } else if (durationPicker.countDownDuration < 1800) {
+        /* } else if (durationPicker.countDownDuration < 1800) {
             
             durationTextField.text = "0h 30m"
             
-            durationFormatted = "00:30"
-            
+            durationFormatted = "30"
+            */
         } else {
             
             durationTextField.text = formatter.string(from: TimeInterval(durationPicker.countDownDuration))
             
-            formatter.unitsStyle = .positional
-            
-            durationFormatted = formatter.string(from: TimeInterval(durationPicker.countDownDuration))
+            durationFormatted = String(Int(durationPicker.countDownDuration/60))
             
         }
         

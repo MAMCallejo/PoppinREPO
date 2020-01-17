@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="U0W-XD-ZdF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="U0W-XD-ZdF">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -82,25 +82,25 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gM2-TR-eU4">
-                                <rect key="frame" x="0.0" y="682.66666666666663" width="414" height="213.33333333333337"/>
+                                <rect key="frame" x="0.0" y="673" width="414" height="223"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c1b-ba-9Vm">
-                                        <rect key="frame" x="20.666666666666657" y="12" width="372.66666666666674" height="179.33333333333334"/>
+                                        <rect key="frame" x="20.666666666666657" y="12" width="372.66666666666674" height="189"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Location:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="8" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hOt-mU-2GG">
-                                                <rect key="frame" x="22.333333333333343" y="20" width="328" height="25.666666666666671"/>
+                                                <rect key="frame" x="22.333333333333343" y="20" width="328" height="28"/>
                                                 <fontDescription key="fontDescription" name="Octarine-Bold" family="Octarine" pointSize="24"/>
                                                 <color key="textColor" name="mainNAVYBLUE"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2373 E Evans Ave, Denver, CO, 80210" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="7" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BbK-2f-9k0">
-                                                <rect key="frame" x="22.333333333333343" y="60.666666666666742" width="328" height="44.666666666666657"/>
+                                                <rect key="frame" x="22.333333333333343" y="63" width="328" height="49"/>
                                                 <fontDescription key="fontDescription" name="Octarine-Light" family="Octarine" pointSize="21"/>
                                                 <color key="textColor" name="mainNAVYBLUE"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Tg-G6-TAv">
-                                                <rect key="frame" x="22.333333333333343" y="120.33333333333337" width="328" height="39"/>
+                                                <rect key="frame" x="22.333333333333343" y="127" width="328" height="42"/>
                                                 <color key="backgroundColor" name="mainNAVYBLUE"/>
                                                 <fontDescription key="fontDescription" name="Octarine-Bold" family="Octarine" pointSize="25"/>
                                                 <state key="normal" title="CONFIRM">
@@ -135,7 +135,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Drag the Map " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2qv-hI-xst">
-                                <rect key="frame" x="163.66666666666666" y="430" width="86.666666666666657" height="16"/>
+                                <rect key="frame" x="163.66666666666666" y="428.33333333333331" width="86.666666666666657" height="17.666666666666686"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="Octarine-Bold" family="Octarine" pointSize="15"/>
                                 <color key="textColor" name="mainNAVYBLUE"/>
@@ -154,28 +154,28 @@
                                         <rect key="frame" x="12.333333333333329" y="208.66666666666669" width="141" height="687.33333333333326"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UmB-bg-uwE">
-                                                <rect key="frame" x="0.0" y="0.0" width="141" height="501"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="141" height="499.33333333333331"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Menu Filter" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4kh-an-WbO">
-                                                        <rect key="frame" x="10.666666666666664" y="9.9999999999999982" width="119.66666666666669" height="18.333333333333329"/>
+                                                        <rect key="frame" x="10.666666666666664" y="10" width="119.66666666666669" height="20"/>
                                                         <fontDescription key="fontDescription" name="Octarine-Bold" family="Octarine" pointSize="17"/>
                                                         <color key="textColor" name="mainNAVYBLUE"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="S0a-cw-UCo">
-                                                        <rect key="frame" x="6.9999999999999929" y="43.333333333333343" width="126.66666666666666" height="442.66666666666663"/>
+                                                        <rect key="frame" x="6.9999999999999929" y="44.999999999999972" width="126.66666666666666" height="439.33333333333326"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WyB-cL-r6d" customClass="categoryButtonView" customModule="Poppin" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="126.66666666666667" height="44"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="educationButton" translatesAutoresizingMaskIntoConstraints="NO" id="KXQ-uv-7pz">
-                                                                        <rect key="frame" x="0.0" y="3" width="38" height="38"/>
+                                                                        <rect key="frame" x="0.0" y="3.0000000000000284" width="38" height="38"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="KXQ-uv-7pz" secondAttribute="height" multiplier="1:1" id="txL-I0-TIB"/>
                                                                         </constraints>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Education" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GUp-sY-IM3">
-                                                                        <rect key="frame" x="43.000000000000007" y="14" width="78.666666666666686" height="16"/>
+                                                                        <rect key="frame" x="43.000000000000007" y="13.00000000000003" width="78.666666666666686" height="17.666666666666671"/>
                                                                         <fontDescription key="fontDescription" name="Octarine-Bold" family="Octarine" pointSize="15"/>
                                                                         <color key="textColor" name="mainNAVYBLUE"/>
                                                                         <nil key="highlightedColor"/>
@@ -203,7 +203,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pi0-ID-lqS" customClass="categoryButtonView" customModule="Poppin" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="99.666666666666686" width="126.66666666666667" height="44"/>
+                                                                <rect key="frame" x="0.0" y="98.666666666666657" width="126.66666666666667" height="44"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="foodButton" translatesAutoresizingMaskIntoConstraints="NO" id="Ipg-dI-KGh">
                                                                         <rect key="frame" x="0.0" y="3" width="38" height="38"/>
@@ -212,7 +212,7 @@
                                                                         </constraints>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Food" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NqS-9p-6SK">
-                                                                        <rect key="frame" x="43.000000000000007" y="14" width="78.666666666666686" height="16"/>
+                                                                        <rect key="frame" x="43.000000000000007" y="13.333333333333373" width="78.666666666666686" height="17.666666666666671"/>
                                                                         <fontDescription key="fontDescription" name="Octarine-Bold" family="Octarine" pointSize="15"/>
                                                                         <color key="textColor" name="mainNAVYBLUE"/>
                                                                         <nil key="highlightedColor"/>
@@ -240,7 +240,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sN2-QQ-PAA" customClass="categoryButtonView" customModule="Poppin" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="199.33333333333331" width="126.66666666666667" height="44"/>
+                                                                <rect key="frame" x="0.0" y="197.66666666666666" width="126.66666666666667" height="44"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="socialButton" translatesAutoresizingMaskIntoConstraints="NO" id="YgS-Xb-Pda">
                                                                         <rect key="frame" x="0.0" y="3" width="38" height="38"/>
@@ -249,7 +249,7 @@
                                                                         </constraints>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Social" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YfW-vk-A6N">
-                                                                        <rect key="frame" x="43.000000000000007" y="14" width="78.666666666666686" height="16"/>
+                                                                        <rect key="frame" x="43.000000000000007" y="13.000000000000002" width="78.666666666666686" height="17.666666666666671"/>
                                                                         <fontDescription key="fontDescription" name="Octarine-Bold" family="Octarine" pointSize="15"/>
                                                                         <color key="textColor" name="mainNAVYBLUE"/>
                                                                         <nil key="highlightedColor"/>
@@ -277,7 +277,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AAn-dO-cdc" customClass="categoryButtonView" customModule="Poppin" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="299" width="126.66666666666667" height="44"/>
+                                                                <rect key="frame" x="0.0" y="296.33333333333337" width="126.66666666666667" height="44"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sportsButton" translatesAutoresizingMaskIntoConstraints="NO" id="ipF-T8-g2U">
                                                                         <rect key="frame" x="0.0" y="3" width="38" height="38"/>
@@ -286,7 +286,7 @@
                                                                         </constraints>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sports" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wAA-qH-Aot">
-                                                                        <rect key="frame" x="43.000000000000007" y="14" width="78.666666666666686" height="16"/>
+                                                                        <rect key="frame" x="43.000000000000007" y="13.333333333333373" width="78.666666666666686" height="17.666666666666671"/>
                                                                         <fontDescription key="fontDescription" name="Octarine-Bold" family="Octarine" pointSize="15"/>
                                                                         <color key="textColor" name="mainNAVYBLUE"/>
                                                                         <nil key="highlightedColor"/>
@@ -314,7 +314,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="efm-CV-52R" customClass="categoryButtonView" customModule="Poppin" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="398.66666666666663" width="126.66666666666667" height="44"/>
+                                                                <rect key="frame" x="0.0" y="395.33333333333337" width="126.66666666666667" height="44"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="showsButton" translatesAutoresizingMaskIntoConstraints="NO" id="wnE-Uz-ptt">
                                                                         <rect key="frame" x="0.0" y="3" width="38" height="38"/>
@@ -323,7 +323,7 @@
                                                                         </constraints>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shows" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qC8-zQ-1Qe">
-                                                                        <rect key="frame" x="43.000000000000007" y="14" width="78.666666666666686" height="16"/>
+                                                                        <rect key="frame" x="43.000000000000007" y="13.000000000000002" width="78.666666666666686" height="17.666666666666671"/>
                                                                         <fontDescription key="fontDescription" name="Octarine-Bold" family="Octarine" pointSize="15"/>
                                                                         <color key="textColor" name="mainNAVYBLUE"/>
                                                                         <nil key="highlightedColor"/>
@@ -380,16 +380,16 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AhP-04-Ee7">
-                                                <rect key="frame" x="0.0" y="516" width="141" height="156.33333333333337"/>
+                                                <rect key="frame" x="0.0" y="514.33333333333337" width="141" height="158"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Events" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="XDg-Zx-aQz">
-                                                        <rect key="frame" x="10.666666666666664" y="9.9999999999999982" width="119.66666666666669" height="18.333333333333329"/>
+                                                        <rect key="frame" x="10.666666666666664" y="10" width="119.66666666666669" height="20"/>
                                                         <fontDescription key="fontDescription" name="Octarine-Bold" family="Octarine" pointSize="17"/>
                                                         <color key="textColor" name="mainNAVYBLUE"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="UUX-Er-yJU">
-                                                        <rect key="frame" x="6.9999999999999929" y="43.333333333333371" width="126.66666666666666" height="98"/>
+                                                        <rect key="frame" x="6.9999999999999929" y="45" width="126.66666666666666" height="98"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No events..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="qcb-rY-95H">
                                                                 <rect key="frame" x="0.0" y="0.0" width="126.66666666666667" height="44"/>
@@ -512,16 +512,31 @@
                                     <action selector="openMenuFromButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RHr-ak-NIJ"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rKL-qD-SmZ">
+                                <rect key="frame" x="333" y="185.66666666666666" width="37.333333333333314" height="37"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="rKL-qD-SmZ" secondAttribute="height" multiplier="1:1" id="5hg-xQ-M5b"/>
+                                </constraints>
+                                <color key="tintColor" name="mainNAVYBLUE"/>
+                                <state key="normal" image="arrow.clockwise" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="heavy"/>
+                                </state>
+                                <connections>
+                                    <action selector="refreshButtonPressedWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZWh-ME-xWQ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="sTN-n7-Xp6" firstAttribute="width" secondItem="6Tk-OE-BBY" secondAttribute="width" multiplier="0.18" id="1TE-al-06g"/>
+                            <constraint firstItem="rKL-qD-SmZ" firstAttribute="width" secondItem="W45-bi-3YH" secondAttribute="width" multiplier="0.5" id="1ya-nT-xZa"/>
                             <constraint firstItem="BM3-n6-UAb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="2WP-Uq-cGF"/>
                             <constraint firstItem="bDY-DF-puK" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="7fX-qn-iYt"/>
                             <constraint firstItem="2Lk-0H-yQq" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottom" id="8TB-cO-uYc"/>
                             <constraint firstItem="z7L-1l-OSw" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="B9N-m3-nkv"/>
                             <constraint firstItem="z7L-1l-OSw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Dbi-vv-VPv"/>
                             <constraint firstItem="2Lk-0H-yQq" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="HpE-Mo-uAc"/>
+                            <constraint firstItem="rKL-qD-SmZ" firstAttribute="centerX" secondItem="W45-bi-3YH" secondAttribute="centerX" id="IcU-IB-W6Y"/>
                             <constraint firstItem="sTN-n7-Xp6" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="KDu-YE-wtu"/>
                             <constraint firstItem="BM3-n6-UAb" firstAttribute="width" secondItem="6Tk-OE-BBY" secondAttribute="width" multiplier="0.14" id="KO9-83-woi"/>
                             <constraint firstItem="2Lk-0H-yQq" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="OcI-aV-iRT"/>
@@ -533,6 +548,7 @@
                             <constraint firstItem="W45-bi-3YH" firstAttribute="width" secondItem="sTN-n7-Xp6" secondAttribute="width" id="YBp-Lc-zDE"/>
                             <constraint firstAttribute="bottomMargin" secondItem="bDY-DF-puK" secondAttribute="bottom" id="YkE-nk-5rk"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="vl0-cY-pAu" secondAttribute="trailing" constant="25" id="ZHh-Lz-qWU"/>
+                            <constraint firstItem="rKL-qD-SmZ" firstAttribute="top" secondItem="W45-bi-3YH" secondAttribute="bottom" constant="13" id="bJz-vf-5wh"/>
                             <constraint firstItem="vl0-cY-pAu" firstAttribute="width" secondItem="6Tk-OE-BBY" secondAttribute="width" multiplier="0.1" id="cWc-F1-Qo5"/>
                             <constraint firstItem="5GW-29-3C9" firstAttribute="height" secondItem="6Tk-OE-BBY" secondAttribute="height" multiplier="0.25" id="dkc-JR-UrJ"/>
                             <constraint firstItem="z7L-1l-OSw" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="fCd-y6-vIq"/>
@@ -584,6 +600,7 @@
                         <outlet property="noEventsLabel" destination="qcb-rY-95H" id="cDC-iK-of4"/>
                         <outlet property="profileButton" destination="SE2-rH-vOG" id="cnc-R7-kOR"/>
                         <outlet property="profileView" destination="5GW-29-3C9" id="202-46-Kaz"/>
+                        <outlet property="refreshButton" destination="rKL-qD-SmZ" id="Ms5-dU-0hi"/>
                         <outlet property="settingsButton" destination="e8W-aN-h8R" id="qtM-i8-Hdl"/>
                         <outlet property="showsFilterButton" destination="7f4-RK-qsT" id="Bh3-QO-aVy"/>
                         <outlet property="showsFilterIcon" destination="wnE-Uz-ptt" id="FQ2-F1-7XJ"/>
@@ -721,6 +738,7 @@
     </scenes>
     <resources>
         <image name="Profile Pic" width="333.33334350585938" height="333.33334350585938"/>
+        <image name="arrow.clockwise" catalog="system" width="56" height="64"/>
         <image name="categoryButtonNP" width="85.333335876464844" height="85.333335876464844"/>
         <image name="createEventButton" width="85.333335876464844" height="85.333335876464844"/>
         <image name="educationButton" width="85.333335876464844" height="85.333335876464844"/>

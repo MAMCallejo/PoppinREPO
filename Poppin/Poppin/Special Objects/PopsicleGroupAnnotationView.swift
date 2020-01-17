@@ -61,7 +61,7 @@ class PopsicleGroupAnnotationView: MKAnnotationView {
             
             addSubview(popsicleGroupAnnotationSubview)
             
-            displayPriority = .defaultHigh
+            displayPriority = .required
             
         }
         
