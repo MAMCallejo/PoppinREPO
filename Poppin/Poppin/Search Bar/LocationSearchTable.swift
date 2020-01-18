@@ -82,7 +82,15 @@ class LocationSearchTable: UITableViewController {
                 
                 if (response?.mapItems.count == 1) {
                     
-                    self.MapSearchDelegate?.dropPinZoomIn(placemark: (response?.mapItems.first?.placemark)!)
+                    if (self.coordinateIsInRegion(coordinate: (response?.mapItems.first?.placemark.coordinate)!, region: self.maxRegion!)) {
+                        
+                        self.MapSearchDelegate?.dropPinZoomIn(placemark: (response?.mapItems.first?.placemark)!)
+                        
+                    } else {
+                        
+                        print("\nOFF CAMPUS EVENT\n")
+                        
+                    }
                     
                     self.dismiss(animated: true, completion: nil)
                     
@@ -147,6 +155,35 @@ class LocationSearchTable: UITableViewController {
         cell.subtitleLabel.text = itemSelected?.subtitle
         
         return cell
+        
+    }
+    
+    /*
+     coordinateIsInRegion: private helper method used by the didSelectRowAt delegate function to tell whether a certain coordinate is...
+     ...inside the desired region or not.
+     */
+    
+    private func coordinateIsInRegion (coordinate: CLLocationCoordinate2D, region: MKCoordinateRegion) -> Bool {
+        
+        // Converts coordinate to MkMapPoint.
+        
+        let coordinatePoint = MKMapPoint(coordinate)
+        
+        // Converts region to MKMapRect.
+        
+        let topLeft = CLLocationCoordinate2D(latitude: region.center.latitude + (region.span.latitudeDelta/2), longitude: region.center.longitude - (region.span.longitudeDelta/2))
+        
+        let bottomRight = CLLocationCoordinate2D(latitude: region.center.latitude - (region.span.latitudeDelta/2), longitude: region.center.longitude + (region.span.longitudeDelta/2))
+
+        let a = MKMapPoint(topLeft)
+        
+        let b = MKMapPoint(bottomRight)
+
+        let regionRect = MKMapRect(origin: MKMapPoint(x:min(a.x,b.x), y:min(a.y,b.y)), size: MKMapSize(width: abs(a.x-b.x), height: abs(a.y-b.y)))
+        
+        // Returns whether the coordinate is in the region specified.
+        
+        return regionRect.contains(coordinatePoint)
         
     }
     
