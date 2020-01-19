@@ -1471,7 +1471,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
                                 
                                 deleteRef.removeValue { error, _ in
                                     self.getPopsicles()
-                                    print(error)
+                                    print(error ?? "Refresh Database Error")
                                 }
                             }
                         }
@@ -1526,7 +1526,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
                             
                             deleteRef.removeValue { error, _ in
                                 self.getPopsicles()
-                                print(error)
+                                print(error ?? "Refresh Database Error")
                             }
                             
                             //sleep(2)
