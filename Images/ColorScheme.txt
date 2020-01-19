@@ -1,0 +1,12 @@
+White Popsicle for default
+Cream: #FFECC7
+Pink: #FFC3D5
+Blue: #002868
+
+
+Colors for app:
+Social: Yellow: #FFFF00
+Sports: Green: #25D336
+Shows: Purple: #D300D0
+Education: Red: #EB0029
+Food: Orange: #FF8E2B
