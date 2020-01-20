@@ -669,7 +669,7 @@ class createEventViewController : UIViewController {
         
         let formatter = DateFormatter()
         
-        formatter.dateFormat = "MMM d, yyyy, h:mm a"
+        formatter.dateFormat = "YYYY-MM-dd HH:mm"
         
         dateTextField.text = formatter.string(from: datePicker.date)
         
