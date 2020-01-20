@@ -58,6 +58,8 @@ class createEventViewController : UIViewController {
     
     @IBOutlet weak var dateTextField: UITextField!
     
+    @IBOutlet weak var dateMinLabel: UILabel!
+    
             // Duration View variables inside the StackView:
     
     @IBOutlet weak var durationView: UIView!
@@ -65,6 +67,8 @@ class createEventViewController : UIViewController {
     @IBOutlet weak var durationLabel: UILabel!
     
     @IBOutlet weak var durationTextField: UITextField!
+    
+    @IBOutlet weak var durationMinMaxLabel: UILabel!
     
             // Category Picker View Elements inside the StackView:
     
@@ -245,12 +249,17 @@ class createEventViewController : UIViewController {
     
     let subcategoryDetailsTextViewMax = 100
     
-    let animationDuration = 0.4
+    let animationDuration = 0.5
     
             // datePicker: used by the date view to create an interface for the user...
             // ...to enter a date for the event and then turn this date into a String.
     
     let datePicker = UIDatePicker()
+    
+            // durationPicker: used by the duration view to create an interface for the user...
+            // ...to enter a duration for the event and then turn this duration into a String.
+    
+    let durationPicker = UIDatePicker()
     
             // showDoneButton: function that checks the state of the form and shows or hides...
             // ...the done button depending on whether the form is empty still or not.
@@ -261,6 +270,16 @@ class createEventViewController : UIViewController {
             // ...return functions that the createEventViewController has to call once it is done.
     
     weak var returnProtocol : createEventViewControllerReturnProtocol?
+    
+            // dateFormatted: string containing the formatted date for the event needed to store in the...
+            // ...database.
+    
+    var dateFormatted: String?
+    
+            // durationFormatted: string containing the formatted duration for the event needed to store in the...
+            // ...database.
+    
+    var durationFormatted: String?
     
     // *** VIEWCONTROLLER FUNCTIONS ***
     
@@ -307,11 +326,47 @@ class createEventViewController : UIViewController {
             
             if (!self.categoryView.isHidden || self.nameTextViewEdited || self.infoTextViewEdited || self.dateTextFieldEdited || self.durationTextFieldEdited) {
                 
-                self.doneButton.isHidden = false
+                // Animates the done button to pop into the screen if it has not been shown yet.
+                
+                if (self.doneButton.alpha == 0) {
+                    
+                    self.doneButton.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+                    
+                    self.view.layoutIfNeeded()
+                    
+                    UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.55, initialSpringVelocity: 3,
+                                   options: .curveEaseOut, animations: {
+                                    
+                                    self.doneButton.transform = .identity
+                                    
+                                    self.doneButton.alpha = 1
+                                    
+                                    self.view.layoutIfNeeded()
+                                    
+                    }, completion: nil)
+                    
+                }
                 
             } else {
                 
-                self.doneButton.isHidden = true
+                // Animates the done button to pop out of the screen if it is not hidden yet.
+                
+                if (self.doneButton.alpha == 1) {
+                    
+                    self.view.layoutIfNeeded()
+                    
+                    UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.55, initialSpringVelocity: 3,
+                                   options: .curveEaseOut, animations: {
+                                    
+                                    self.doneButton.alpha = 0
+                                    
+                                    self.doneButton.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+                                    
+                                    self.view.layoutIfNeeded()
+                                    
+                    }, completion: nil)
+                    
+                }
                 
             }
             
@@ -323,11 +378,13 @@ class createEventViewController : UIViewController {
         
             // Initializes the interface of the dateTextField so that it gathers date information...
             // ...instead of text typed from the keyboard and adds a done button to close the interface...
-            // ...Also, every time the dateTextField is changed, "dateChanged" is called (later defined).
+            // ...Also, the minimum date is set to today and every time the dateTextField is changed, "dateChanged" is called (later defined). Also, it initializes the dateFormatted String to empty.
         
         dateTextField.inputView = datePicker
         
         datePicker.datePickerMode = .dateAndTime
+        
+        datePicker.minimumDate = Date()
         
         let dateToolbar = UIToolbar()
         
@@ -343,10 +400,15 @@ class createEventViewController : UIViewController {
         
         dateTextField.addTarget(self, action: #selector(dateChanged), for: .valueChanged)
         
-            // Initializes the interface of the durationTextField so that it gathers numbers only...
-            // ...instead of text typed from the keyboard and adds a done button to close the interface.
+        dateFormatted = ""
         
-        durationTextField.keyboardType = .numberPad
+            // Initializes the interface of the durationTextField so that it gathers duration information...
+            // ...instead of text typed from the keyboard and adds a done button to close the interface...
+            // ...Also, the maximum duration is set to 5h and every time the durationTextField is changed, "durationChanged" is called (later defined). Also, it initializes the durationFormatted String to empty.
+        
+        durationTextField.inputView = durationPicker
+        
+        durationPicker.datePickerMode = .countDownTimer
         
         let durationToolbar = UIToolbar()
         
@@ -359,6 +421,10 @@ class createEventViewController : UIViewController {
         durationToolbar.setItems([durationFlexSpace,durationDoneButton], animated: true)
         
         durationTextField.inputAccessoryView = durationToolbar
+        
+        durationTextField.addTarget(self, action: #selector(durationChanged), for: .valueChanged)
+        
+        durationFormatted = ""
         
             // Initializes a gesture to close the keyboard when the user taps out.
         
@@ -474,11 +540,17 @@ class createEventViewController : UIViewController {
         
         categoryView.isHidden = true
         
+        categoryView.alpha = 0.0
+        
         subcategory1View.isHidden = true
+        
+        subcategory1View.alpha = 0.0
         
         subcategory2View.isHidden = true
         
-        doneButton.isHidden = true
+        subcategory2View.alpha = 0.0
+        
+        doneButton.alpha = 0.0
         
             // Prevents views from hiding each other.
         
@@ -566,18 +638,6 @@ class createEventViewController : UIViewController {
     }
     
     /*
-     UIColorFromHex: Used to set the blue, pink, and cream colors we all love :)
-     */
-    
-    private func UIColorFromHex(rgbValue:UInt32, alpha:Double=1.0)->UIColor {
-        let red = CGFloat((rgbValue & 0xFF0000) >> 16)/256.0
-        let green = CGFloat((rgbValue & 0xFF00) >> 8)/256.0
-        let blue = CGFloat(rgbValue & 0xFF)/256.0
-
-        return UIColor(red:red, green:green, blue:blue, alpha:CGFloat(alpha))
-    }
-    
-    /*
      addShadowAndRoundCorners: private helper method used mostly on viewDidLayoutSubviews in order to...
      ...add round corners and shadows to the views and buttons of the create event view.
      */
@@ -648,6 +708,21 @@ class createEventViewController : UIViewController {
     }
     
     /*
+     durationChanged: object function called by the duration text field once it's been changed.
+     - Calls getDurationFromPicker to turn the duration to a String.
+     */
+    
+    @objc func durationChanged () {
+        
+        // Shows the done button since a field has been changed.
+        
+        self.showDoneButton!()
+        
+        getDurationFromPicker()
+        
+    }
+    
+    /*
      doneActionDate: object function called once the done button from the date text field is tapped.
         - Calls getDateFromPicker and dismisses the date text field.
      */
@@ -662,7 +737,8 @@ class createEventViewController : UIViewController {
     
     /*
      getDateFromPicker: private helper function that turns a date into a String and then fills the...
-     ...dateTextField so the user can see it.
+     ...dateTextField so the user can see it. Also, it fills the dateFormatted string with the correct...
+     ...format to store it in the database.
      */
     
     private func getDateFromPicker() {
@@ -670,8 +746,48 @@ class createEventViewController : UIViewController {
         let formatter = DateFormatter()
         
         formatter.dateFormat = "MMM d, yyyy, h:mm a"
-        
+
         dateTextField.text = formatter.string(from: datePicker.date)
+        
+        formatter.dateFormat = "YYYY-MM-dd HH:mm"
+        
+        dateFormatted = formatter.string(from: datePicker.date)
+        
+    }
+    
+    /*
+     getDurationFromPicker: private helper function that turns a duration into a String and then fills the...
+     ...durationTextField so the user can see it. Also, it fills the durationFormatted string with the correct...
+     ...format to store it in the database.
+     */
+    
+    private func getDurationFromPicker() {
+        
+        let formatter = DateComponentsFormatter()
+        
+        formatter.allowedUnits = [.hour, .minute]
+        
+        formatter.unitsStyle = .abbreviated
+        
+        if (durationPicker.countDownDuration > 18000) {
+            
+            durationTextField.text = "5h 0m"
+            
+            durationFormatted = "300"
+            
+        /* } else if (durationPicker.countDownDuration < 1800) {
+            
+            durationTextField.text = "0h 30m"
+            
+            durationFormatted = "30"
+            */
+        } else {
+            
+            durationTextField.text = formatter.string(from: TimeInterval(durationPicker.countDownDuration))
+            
+            durationFormatted = String(Int(durationPicker.countDownDuration/60))
+            
+        }
         
     }
     
@@ -681,6 +797,8 @@ class createEventViewController : UIViewController {
     */
     
     @objc func doneActionDuration() {
+        
+        getDurationFromPicker()
         
         view.endEditing(true)
         
@@ -699,11 +817,13 @@ class createEventViewController : UIViewController {
         
         if (dateTextField.text != "") {
             
-            self.dateLabel.textColor = UIColorFromHex(rgbValue: 0x002868)
+            self.dateLabel.textColor = UIColor.mainNAVYBLUE
             
-            self.dateTextField.textColor = UIColorFromHex(rgbValue: 0x002868)
+            self.dateTextField.textColor = UIColor.mainNAVYBLUE
             
-            self.dateTextField.layer.shadowColor = UIColorFromHex(rgbValue: 0x002868).cgColor
+            self.dateTextField.layer.shadowColor = UIColor.mainNAVYBLUE?.cgColor
+            
+            self.dateMinLabel.textColor = UIColor.mainNAVYBLUE
             
             dateTextFieldEdited = true
             
@@ -730,12 +850,14 @@ class createEventViewController : UIViewController {
         
         if (durationTextField.text != "") {
             
-            self.durationLabel.textColor = UIColorFromHex(rgbValue: 0x002868)
+            self.durationLabel.textColor = UIColor.mainNAVYBLUE
             
-            self.durationTextField.textColor = UIColorFromHex(rgbValue: 0x002868)
+            self.durationTextField.textColor = UIColor.mainNAVYBLUE
             
-            self.durationTextField.layer.shadowColor = UIColorFromHex(rgbValue: 0x002868).cgColor
-                   
+            self.durationTextField.layer.shadowColor = UIColor.mainNAVYBLUE?.cgColor
+            
+            self.durationMinMaxLabel.textColor = UIColor.mainNAVYBLUE
+            
             durationTextFieldEdited = true
             
         } else {
@@ -746,11 +868,13 @@ class createEventViewController : UIViewController {
         
         if (dateTextField.text != "") {
             
-            self.dateLabel.textColor = UIColorFromHex(rgbValue: 0x002868)
+            self.dateLabel.textColor = UIColor.mainNAVYBLUE
             
-            self.dateTextField.textColor = UIColorFromHex(rgbValue: 0x002868)
+            self.dateTextField.textColor = UIColor.mainNAVYBLUE
             
-            self.dateTextField.layer.shadowColor = UIColorFromHex(rgbValue: 0x002868).cgColor
+            self.dateTextField.layer.shadowColor = UIColor.mainNAVYBLUE?.cgColor
+            
+            self.dateMinLabel.textColor = UIColor.mainNAVYBLUE
                    
             dateTextFieldEdited = true
                    
@@ -778,23 +902,15 @@ class createEventViewController : UIViewController {
         
         // Since one of the textViews has been edited we show or hide the doneButton.
         
-        self.showDoneButton!()
-        
-        if (nameTextView.text != "" || infoTextView.text != "") {
-            
-           doneButton.isHidden = false
-            
-        }
-        
         if (nameTextView.text != "") {
             
-            self.nameLabel.textColor = UIColorFromHex(rgbValue: 0x002868)
+            self.nameLabel.textColor = UIColor.mainNAVYBLUE
             
-            self.nameMaxLabel.textColor = UIColorFromHex(rgbValue: 0x002868)
+            self.nameMaxLabel.textColor = UIColor.mainNAVYBLUE
             
-            self.nameTextView.textColor = UIColorFromHex(rgbValue: 0x002868)
+            self.nameTextView.textColor = UIColor.mainNAVYBLUE
             
-            self.nameTextView.layer.shadowColor = UIColorFromHex(rgbValue: 0x002868).cgColor
+            self.nameTextView.layer.shadowColor = UIColor.mainNAVYBLUE?.cgColor
             
             nameTextViewEdited = true
             
@@ -806,13 +922,13 @@ class createEventViewController : UIViewController {
         
         if (infoTextView.text != "") {
             
-            self.infoLabel.textColor = UIColorFromHex(rgbValue: 0x002868)
+            self.infoLabel.textColor = UIColor.mainNAVYBLUE
             
-            self.infoMaxLabel.textColor = UIColorFromHex(rgbValue: 0x002868)
+            self.infoMaxLabel.textColor = UIColor.mainNAVYBLUE
             
-            self.infoTextView.textColor = UIColorFromHex(rgbValue: 0x002868)
+            self.infoTextView.textColor = UIColor.mainNAVYBLUE
             
-            self.infoTextView.layer.shadowColor = UIColorFromHex(rgbValue: 0x002868).cgColor
+            self.infoTextView.layer.shadowColor = UIColor.mainNAVYBLUE?.cgColor
             
             infoTextViewEdited = true
             
@@ -824,13 +940,13 @@ class createEventViewController : UIViewController {
         
         if (categoryDetailsTextView.text != "") {
             
-            self.categoryDetailsLabel.textColor = UIColorFromHex(rgbValue: 0x002868)
+            self.categoryDetailsLabel.textColor = UIColor.mainNAVYBLUE
             
-            self.categoryDetailsMaxLabel.textColor = UIColorFromHex(rgbValue: 0x002868)
+            self.categoryDetailsMaxLabel.textColor = UIColor.mainNAVYBLUE
             
-            self.categoryDetailsTextView.textColor = UIColorFromHex(rgbValue: 0x002868)
+            self.categoryDetailsTextView.textColor = UIColor.mainNAVYBLUE
             
-            self.categoryDetailsTextView.layer.shadowColor = UIColorFromHex(rgbValue: 0x002868).cgColor
+            self.categoryDetailsTextView.layer.shadowColor = UIColor.mainNAVYBLUE?.cgColor
             
             categoryDetailsTextViewEdited = true
             
@@ -842,13 +958,13 @@ class createEventViewController : UIViewController {
         
         if (subcategory1DetailsTextView.text != "") {
             
-            self.subcategory1DetailsLabel.textColor = UIColorFromHex(rgbValue: 0x002868)
+            self.subcategory1DetailsLabel.textColor = UIColor.mainNAVYBLUE
             
-            self.subcategory1DetailsMaxLabel.textColor = UIColorFromHex(rgbValue: 0x002868)
+            self.subcategory1DetailsMaxLabel.textColor = UIColor.mainNAVYBLUE
             
-            self.subcategory1DetailsTextView.textColor = UIColorFromHex(rgbValue: 0x002868)
+            self.subcategory1DetailsTextView.textColor = UIColor.mainNAVYBLUE
             
-            self.subcategory1DetailsTextView.layer.shadowColor = UIColorFromHex(rgbValue: 0x002868).cgColor
+            self.subcategory1DetailsTextView.layer.shadowColor = UIColor.mainNAVYBLUE?.cgColor
             
             subcategory1DetailsTextViewEdited = true
             
@@ -860,13 +976,13 @@ class createEventViewController : UIViewController {
         
         if (subcategory2DetailsTextView.text != "") {
             
-            self.subcategory2DetailsLabel.textColor = UIColorFromHex(rgbValue: 0x002868)
+            self.subcategory2DetailsLabel.textColor = UIColor.mainNAVYBLUE
             
-            self.subcategory2DetailsMaxLabel.textColor = UIColorFromHex(rgbValue: 0x002868)
+            self.subcategory2DetailsMaxLabel.textColor = UIColor.mainNAVYBLUE
             
-            self.subcategory2DetailsTextView.textColor = UIColorFromHex(rgbValue: 0x002868)
+            self.subcategory2DetailsTextView.textColor = UIColor.mainNAVYBLUE
             
-            self.subcategory2DetailsTextView.layer.shadowColor = UIColorFromHex(rgbValue: 0x002868).cgColor
+            self.subcategory2DetailsTextView.layer.shadowColor = UIColor.mainNAVYBLUE?.cgColor
             
             subcategory2DetailsTextViewEdited = true
             
@@ -877,6 +993,8 @@ class createEventViewController : UIViewController {
         }
         
         self.updateCharacterCount()
+        
+        self.showDoneButton!()
         
     }
     
@@ -1030,15 +1148,15 @@ class createEventViewController : UIViewController {
         
         selectedCategoryView.isSelected = true
         
-        categoryLabel.textColor = UIColorFromHex(rgbValue: 0x002868)
+        categoryLabel.textColor = UIColor.mainNAVYBLUE
         
-        categoryDetailsLabel.textColor = UIColorFromHex(rgbValue: 0x002868)
+        categoryDetailsLabel.textColor = UIColor.mainNAVYBLUE
         
-        categoryDetailsMaxLabel.textColor = UIColorFromHex(rgbValue: 0x002868)
+        categoryDetailsMaxLabel.textColor = UIColor.mainNAVYBLUE
         
-        categoryDetailsTextView.textColor = UIColorFromHex(rgbValue: 0x002868)
+        categoryDetailsTextView.textColor = UIColor.mainNAVYBLUE
         
-        categoryDetailsTextView.layer.shadowColor = UIColorFromHex(rgbValue: 0x002868).cgColor
+        categoryDetailsTextView.layer.shadowColor = UIColor.mainNAVYBLUE?.cgColor
 
         if (selectedCategoryView.categoryLegendLabel?.text == "Education") {
             
@@ -1115,24 +1233,36 @@ class createEventViewController : UIViewController {
             print("\nError: No such categories available.\n")
             
         }
+        
+        // Animates view show.
             
         self.categoryView.alpha = 0.0
             
         self.categoryView.isHidden = true
+        
+        self.view.layoutIfNeeded()
     
-        UIView.animate(withDuration: animationDuration, delay: 0, options: .transitionCurlDown, animations: {
+        UIView.animate(withDuration: animationDuration + 0.75, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
                 
             self.categoryView.alpha = 1.0
                 
             self.categoryView.isHidden = false
+            
+            self.view.layoutIfNeeded()
                 
-        }) { (isCompleted) in
-                
-        }
-
-        let bottomOffset = CGPoint(x: 0, y: createEventView.contentSize.height - createEventView.bounds.size.height)
-                    
-        createEventView.setContentOffset(bottomOffset, animated: true)
+        }, completion: nil)
+        
+        self.view.layoutIfNeeded()
+        
+        UIView.animate(withDuration: animationDuration + 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+            
+            let bottomOffset = CGPoint(x: 0, y: self.createEventView.contentSize.height - self.createEventView.bounds.size.height)
+                        
+            self.createEventView.setContentOffset(bottomOffset, animated: false)
+            
+            self.view.layoutIfNeeded()
+            
+        }, completion: nil)
 
     }
     
@@ -1150,19 +1280,23 @@ class createEventViewController : UIViewController {
         
         selectedCategoryView.isSelected = false
         
+        // Animates view hide.
+        
         self.categoryView.alpha = 1.0
             
         self.categoryView.isHidden = false
+        
+        self.view.layoutIfNeeded()
             
-        UIView.animate(withDuration: animationDuration, delay: 0, options: .transitionCurlDown, animations: {
+        UIView.animate(withDuration: animationDuration + 0.75, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
                 
             self.categoryView.alpha = 0.0
                 
             self.categoryView.isHidden = true
+            
+            self.view.layoutIfNeeded()
                 
-        }) { (isCompleted) in
-                
-        }
+        }, completion: nil)
             
         view.endEditing(true)
         
@@ -1306,32 +1440,41 @@ class createEventViewController : UIViewController {
             
             selectedSubcategoryView.isSelected = true
             
-            subcategory1DetailsLabel.textColor = UIColorFromHex(rgbValue: 0x002868)
+            subcategory1DetailsLabel.textColor = UIColor.mainNAVYBLUE
             
-            subcategory1DetailsMaxLabel.textColor = UIColorFromHex(rgbValue: 0x002868)
+            subcategory1DetailsMaxLabel.textColor = UIColor.mainNAVYBLUE
             
-            subcategory1DetailsTextView.textColor = UIColorFromHex(rgbValue: 0x002868)
+            subcategory1DetailsTextView.textColor = UIColor.mainNAVYBLUE
             
-            subcategory1DetailsTextView.layer.shadowColor = UIColorFromHex(rgbValue: 0x002868).cgColor
+            subcategory1DetailsTextView.layer.shadowColor = UIColor.mainNAVYBLUE?.cgColor
             
             subcategory1DetailsLabel.text = subcategoryDetailsLabelText
             
             subcategory1View.alpha = 0.0
                            
             subcategory1View.isHidden = true
-                           
-            UIView.animate(withDuration: animationDuration, delay: 0, options: .transitionCurlDown, animations: {
+            
+            self.view.layoutIfNeeded()
+            
+            UIView.animate(withDuration: animationDuration + 0.5, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
                                
                 self.subcategory1View.alpha = 1.0
                                
                 self.subcategory1View.isHidden = false
+                
+                self.view.layoutIfNeeded()
                                
-            }) { (isCompleted) in
-            }
+            }, completion: nil)
+            
+            self.view.layoutIfNeeded()
+            
+            UIView.animate(withDuration: animationDuration + 0.25, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
                            
-            let bottomOffset = CGPoint(x: 0, y: createEventView.contentSize.height - createEventView.bounds.size.height)
+                let bottomOffset = CGPoint(x: 0, y: self.createEventView.contentSize.height - self.createEventView.bounds.size.height)
                            
-            createEventView.setContentOffset(bottomOffset, animated: true)
+                self.createEventView.setContentOffset(bottomOffset, animated: false)
+                
+            }, completion: nil)
         
         } else if (subcategoryViewNumber == 2 && subcategoryDetailsLabelText != "") {
             
@@ -1339,32 +1482,41 @@ class createEventViewController : UIViewController {
             
             selectedSubcategoryView.isSelected = true
             
-            subcategory2DetailsLabel.textColor = UIColorFromHex(rgbValue: 0x002868)
+            subcategory2DetailsLabel.textColor = UIColor.mainNAVYBLUE
             
-            subcategory2DetailsMaxLabel.textColor = UIColorFromHex(rgbValue: 0x002868)
+            subcategory2DetailsMaxLabel.textColor = UIColor.mainNAVYBLUE
             
-            subcategory2DetailsTextView.textColor = UIColorFromHex(rgbValue: 0x002868)
+            subcategory2DetailsTextView.textColor = UIColor.mainNAVYBLUE
             
-            subcategory2DetailsTextView.layer.shadowColor = UIColorFromHex(rgbValue: 0x002868).cgColor
+            subcategory2DetailsTextView.layer.shadowColor = UIColor.mainNAVYBLUE?.cgColor
             
             subcategory2DetailsLabel.text = subcategoryDetailsLabelText
             
             subcategory2View.alpha = 0.0
                            
             subcategory2View.isHidden = true
+            
+            self.view.layoutIfNeeded()
                            
-            UIView.animate(withDuration: animationDuration, delay: 0, options: .transitionCurlDown, animations: {
+           UIView.animate(withDuration: animationDuration + 0.5, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
                                
                 self.subcategory2View.alpha = 1.0
                                
                 self.subcategory2View.isHidden = false
-                               
-            }) { (isCompleted) in
-            }
-                           
-            let bottomOffset = CGPoint(x: 0, y: createEventView.contentSize.height - createEventView.bounds.size.height)
-                           
-            createEventView.setContentOffset(bottomOffset, animated: true)
+                
+                self.view.layoutIfNeeded()
+                
+            }, completion: nil)
+            
+            self.view.layoutIfNeeded()
+            
+            UIView.animate(withDuration: animationDuration + 0.25, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+                
+                let bottomOffset = CGPoint(x: 0, y: self.createEventView.contentSize.height - self.createEventView.bounds.size.height)
+                
+                self.createEventView.setContentOffset(bottomOffset, animated: false)
+                
+            }, completion: nil)
             
         }
         
@@ -1390,15 +1542,18 @@ class createEventViewController : UIViewController {
             subcategory1View.alpha = 1.0
                            
             subcategory1View.isHidden = false
+            
+            self.view.layoutIfNeeded()
                            
-            UIView.animate(withDuration: animationDuration, delay: 0, options: .transitionCurlDown, animations: {
+            UIView.animate(withDuration: animationDuration + 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
                                
                 self.subcategory1View.alpha = 0.0
                                
                 self.subcategory1View.isHidden = true
+                
+                self.view.layoutIfNeeded()
                                
-            }) { (isCompleted) in
-            }
+            }, completion: nil)
                            
             subcategory1DetailsTextView.text = ""
             
@@ -1417,15 +1572,18 @@ class createEventViewController : UIViewController {
             subcategory2View.alpha = 1.0
                            
             subcategory2View.isHidden = false
+            
+            self.view.layoutIfNeeded()
                            
-            UIView.animate(withDuration: animationDuration, delay: 0, options: .transitionCurlDown, animations: {
+            UIView.animate(withDuration: animationDuration + 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
                                
                 self.subcategory2View.alpha = 0.0
                                
                 self.subcategory2View.isHidden = true
+                
+                self.view.layoutIfNeeded()
                                
-            }) { (isCompleted) in
-            }
+            }, completion: nil)
                            
             subcategory2DetailsTextView.text = ""
             
@@ -1554,6 +1712,8 @@ class createEventViewController : UIViewController {
             
             self.dateTextField.layer.shadowColor = UIColor.red.cgColor
             
+            self.dateMinLabel.textColor = UIColor.red
+            
         }
         
         if (!self.durationTextFieldEdited) {
@@ -1563,6 +1723,8 @@ class createEventViewController : UIViewController {
             self.durationTextField.textColor = UIColor.red
             
             self.durationTextField.layer.shadowColor = UIColor.red.cgColor
+            
+            self.durationMinMaxLabel.textColor = UIColor.red
             
         }
         
@@ -1657,7 +1819,7 @@ class createEventViewController : UIViewController {
         
         if (categoryName != "") {
             
-            returnProtocol?.setUserPinData(en: nameTextView.text, ei: infoTextView.text, ed: dateTextField.text!, edu: durationTextField.text!, ec: categoryName, ecd: categoryDetailsTextView.text, es1: subcategory1Name, es1d: subcategory1DetailsTextView.text, es2: subcategory2Name, es2d: subcategory2DetailsTextView.text)
+            returnProtocol?.setUserPinData(en: nameTextView.text, ei: infoTextView.text, ed: dateFormatted!, edu: durationFormatted!, ec: categoryName, ecd: categoryDetailsTextView.text, es1: subcategory1Name, es1d: subcategory1DetailsTextView.text, es2: subcategory2Name, es2d: subcategory2DetailsTextView.text)
             
         } else {
             
@@ -1712,19 +1874,11 @@ extension UITextField {
       self.borderStyle = .none
       self.layer.backgroundColor = UIColor.white.cgColor
       self.layer.masksToBounds = false
-      self.layer.shadowColor = UIColorFromHex(rgbValue: 0x002868).cgColor
+        self.layer.shadowColor = UIColor.mainNAVYBLUE?.cgColor
       self.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
       self.layer.shadowOpacity = 1.0
       self.layer.shadowRadius = 0.0
         
-    }
-    
-    public func UIColorFromHex(rgbValue:UInt32, alpha:Double=1.0)->UIColor {
-        let red = CGFloat((rgbValue & 0xFF0000) >> 16)/256.0
-        let green = CGFloat((rgbValue & 0xFF00) >> 8)/256.0
-        let blue = CGFloat(rgbValue & 0xFF)/256.0
-
-        return UIColor(red:red, green:green, blue:blue, alpha:CGFloat(alpha))
     }
     
 }
@@ -1739,19 +1893,11 @@ extension UITextView {
 
       self.layer.backgroundColor = UIColor.white.cgColor
       self.layer.masksToBounds = false
-      self.layer.shadowColor = UIColorFromHex(rgbValue: 0x002868).cgColor
+      self.layer.shadowColor = UIColor.mainNAVYBLUE?.cgColor
       self.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
       self.layer.shadowOpacity = 1.0
       self.layer.shadowRadius = 0.0
         
-    }
-    
-    public func UIColorFromHex(rgbValue:UInt32, alpha:Double=1.0)->UIColor {
-        let red = CGFloat((rgbValue & 0xFF0000) >> 16)/256.0
-        let green = CGFloat((rgbValue & 0xFF00) >> 8)/256.0
-        let blue = CGFloat(rgbValue & 0xFF)/256.0
-
-        return UIColor(red:red, green:green, blue:blue, alpha:CGFloat(alpha))
     }
     
 }

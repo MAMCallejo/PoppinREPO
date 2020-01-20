@@ -25,6 +25,13 @@
 		6448D1892372B0450016A778 /* Octarine-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 648396422372AD980099B703 /* Octarine-Light.otf */; };
 		6448D18A2372B0490016A778 /* Octarine-LightOblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = 648396442372AD980099B703 /* Octarine-LightOblique.otf */; };
 		648AEB99237E250C008743E8 /* pinPopsicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648AEB98237E250C008743E8 /* pinPopsicle.swift */; };
+		649ED12723CE7020006D31B5 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649ED12623CE7020006D31B5 /* ProfileViewController.swift */; };
+		649ED12923CE73FC006D31B5 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649ED12823CE73FC006D31B5 /* AppColors.swift */; };
+		649ED12B23CE7944006D31B5 /* myEventsMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649ED12A23CE7944006D31B5 /* myEventsMenuButton.swift */; };
+		649ED12D23CE79BA006D31B5 /* menuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649ED12C23CE79BA006D31B5 /* menuButton.swift */; };
+		649ED12F23CE7B30006D31B5 /* PopsicleGroupIcon.xib in Resources */ = {isa = PBXBuildFile; fileRef = 649ED12E23CE7B30006D31B5 /* PopsicleGroupIcon.xib */; };
+		649ED13123CE7B45006D31B5 /* PopsicleGroupAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649ED13023CE7B45006D31B5 /* PopsicleGroupAnnotationView.swift */; };
+		649ED13323CE7B4D006D31B5 /* PopsicleGroupIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649ED13223CE7B4D006D31B5 /* PopsicleGroupIcon.swift */; };
 		64AFB2DD236A7E4B00D264F0 /* Alerts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64AFB2DC236A7E4B00D264F0 /* Alerts.storyboard */; };
 		64AFB2DF236A81B600D264F0 /* dangerousActionAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64AFB2DE236A81B600D264F0 /* dangerousActionAlert.swift */; };
 		64AFB2E2236A886000D264F0 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64AFB2E1236A886000D264F0 /* Utils.swift */; };
@@ -44,8 +51,6 @@
 		F56E777223A95FCA009BF8E9 /* Storyboard+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56E777123A95FCA009BF8E9 /* Storyboard+Utility.swift */; };
 		F56E777423AA823E009BF8E9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56E777323AA823E009BF8E9 /* SceneDelegate.swift */; };
 		F56E777623ABD8FC009BF8E9 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F56E777523ABD8FC009BF8E9 /* Profile.storyboard */; };
-		F56E777823ABD926009BF8E9 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56E777723ABD926009BF8E9 /* ProfileViewController.swift */; };
-		F56E777A23ABDB87009BF8E9 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56E777923ABDB87009BF8E9 /* EditProfileViewController.swift */; };
 		F56E777C23CBDE80009BF8E9 /* PopsicleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56E777B23CBDE80009BF8E9 /* PopsicleViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -92,6 +97,13 @@
 		648396442372AD980099B703 /* Octarine-LightOblique.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Octarine-LightOblique.otf"; sourceTree = "<group>"; };
 		648396452372AD980099B703 /* Octarine-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Octarine-Bold.otf"; sourceTree = "<group>"; };
 		648AEB98237E250C008743E8 /* pinPopsicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pinPopsicle.swift; sourceTree = "<group>"; };
+		649ED12623CE7020006D31B5 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		649ED12823CE73FC006D31B5 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
+		649ED12A23CE7944006D31B5 /* myEventsMenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myEventsMenuButton.swift; sourceTree = "<group>"; };
+		649ED12C23CE79BA006D31B5 /* menuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = menuButton.swift; sourceTree = "<group>"; };
+		649ED12E23CE7B30006D31B5 /* PopsicleGroupIcon.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopsicleGroupIcon.xib; sourceTree = "<group>"; };
+		649ED13023CE7B45006D31B5 /* PopsicleGroupAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopsicleGroupAnnotationView.swift; sourceTree = "<group>"; };
+		649ED13223CE7B4D006D31B5 /* PopsicleGroupIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopsicleGroupIcon.swift; sourceTree = "<group>"; };
 		64AFB2DC236A7E4B00D264F0 /* Alerts.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Alerts.storyboard; sourceTree = "<group>"; };
 		64AFB2DE236A81B600D264F0 /* dangerousActionAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dangerousActionAlert.swift; sourceTree = "<group>"; };
 		64AFB2E1236A886000D264F0 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
@@ -116,7 +128,6 @@
 		F56E777123A95FCA009BF8E9 /* Storyboard+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Storyboard+Utility.swift"; sourceTree = "<group>"; };
 		F56E777323AA823E009BF8E9 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		F56E777523ABD8FC009BF8E9 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
-		F56E777723ABD926009BF8E9 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileViewController.swift; path = "/Users/abdulrahmanayad/Documents/GitHub/PoppinREPO/Poppin/Poppin/Storyboards and ViewControllers/ProfileViewController.swift"; sourceTree = "<absolute>"; };
 		F56E777923ABDB87009BF8E9 /* EditProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		F56E777B23CBDE80009BF8E9 /* PopsicleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopsicleViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -197,16 +208,16 @@
 		640270732353C51E00641159 /* Poppin */ = {
 			isa = PBXGroup;
 			children = (
-				647350CF23551DD300E6BF98 /* Fonts */,
 				64AFB2E0236A882300D264F0 /* Alerts */,
+				640270A42353CD4D00641159 /* Buttons and Views */,
+				647350CF23551DD300E6BF98 /* Fonts */,
 				64C10D622372A1620087CE23 /* Search Bar */,
 				648AEB95237E2280008743E8 /* Special Objects */,
-				640270A42353CD4D00641159 /* Buttons and Views */,
 				6489BBB223A0629F00769793 /* Storyboards and ViewControllers */,
 				640270742353C51F00641159 /* AppDelegate.swift */,
-				F56E776F23A907CA009BF8E9 /* Constants.swift */,
 				F56E777323AA823E009BF8E9 /* SceneDelegate.swift */,
 				F56E776723A906F6009BF8E9 /* UserService.swift */,
+				F56E776F23A907CA009BF8E9 /* Constants.swift */,
 				F56E776923A90737009BF8E9 /* User.swift */,
 				F56E776D23A907A4009BF8E9 /* Post.swift */,
 				6402707F2353C51F00641159 /* LaunchScreen.storyboard */,
@@ -243,6 +254,8 @@
 			isa = PBXGroup;
 			children = (
 				6434ED3C235E66E600E1808E /* createEventButton.swift */,
+				649ED12A23CE7944006D31B5 /* myEventsMenuButton.swift */,
+				649ED12C23CE79BA006D31B5 /* menuButton.swift */,
 				64FF1EC223946A3D005DB686 /* categoryButtonView.swift */,
 				6406F3D02363D47C00930CA8 /* doneButton.swift */,
 			);
@@ -270,7 +283,7 @@
 				640270782353C51F00641159 /* mainViewController.swift */,
 				F56E776523A901BA009BF8E9 /* LoginViewController.swift */,
 				F56E776323A90187009BF8E9 /* Login.storyboard */,
-				F56E777723ABD926009BF8E9 /* ProfileViewController.swift */,
+				649ED12623CE7020006D31B5 /* ProfileViewController.swift */,
 				F56E777523ABD8FC009BF8E9 /* Profile.storyboard */,
 				F56E777B23CBDE80009BF8E9 /* PopsicleViewController.swift */,
 				F56E777923ABDB87009BF8E9 /* EditProfileViewController.swift */,
@@ -281,7 +294,11 @@
 		648AEB95237E2280008743E8 /* Special Objects */ = {
 			isa = PBXGroup;
 			children = (
+				649ED12823CE73FC006D31B5 /* AppColors.swift */,
 				648AEB98237E250C008743E8 /* pinPopsicle.swift */,
+				649ED13023CE7B45006D31B5 /* PopsicleGroupAnnotationView.swift */,
+				649ED12E23CE7B30006D31B5 /* PopsicleGroupIcon.xib */,
+				649ED13223CE7B4D006D31B5 /* PopsicleGroupIcon.swift */,
 			);
 			path = "Special Objects";
 			sourceTree = "<group>";
@@ -423,6 +440,7 @@
 				6448D1872372B03C0016A778 /* Octarine-Bold.otf in Resources */,
 				64AFB2DD236A7E4B00D264F0 /* Alerts.storyboard in Resources */,
 				640270812353C51F00641159 /* LaunchScreen.storyboard in Resources */,
+				649ED12F23CE7B30006D31B5 /* PopsicleGroupIcon.xib in Resources */,
 				F56E777623ABD8FC009BF8E9 /* Profile.storyboard in Resources */,
 				6402707E2353C51F00641159 /* Assets.xcassets in Resources */,
 				F56E776223A8F69F009BF8E9 /* GoogleService-Info.plist in Resources */,
@@ -590,29 +608,33 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F56E777A23ABDB87009BF8E9 /* EditProfileViewController.swift in Sources */,
+				649ED12723CE7020006D31B5 /* ProfileViewController.swift in Sources */,
 				F56E776623A901BA009BF8E9 /* LoginViewController.swift in Sources */,
 				F56E777023A907CA009BF8E9 /* Constants.swift in Sources */,
 				6406F3D12363D47C00930CA8 /* doneButton.swift in Sources */,
 				640270B12353D43600641159 /* createEventViewController.swift in Sources */,
+				649ED12923CE73FC006D31B5 /* AppColors.swift in Sources */,
 				6417F271237B975400033D8D /* mainNavigationController.swift in Sources */,
 				F56E776A23A90737009BF8E9 /* User.swift in Sources */,
 				64FF1EC323946A3D005DB686 /* categoryButtonView.swift in Sources */,
 				64C10D642372A1950087CE23 /* LocationSearchTableCell.swift in Sources */,
 				648AEB99237E250C008743E8 /* pinPopsicle.swift in Sources */,
 				640270792353C51F00641159 /* mainViewController.swift in Sources */,
+				649ED13123CE7B45006D31B5 /* PopsicleGroupAnnotationView.swift in Sources */,
+				649ED13323CE7B4D006D31B5 /* PopsicleGroupIcon.swift in Sources */,
 				64AFB2E2236A886000D264F0 /* Utils.swift in Sources */,
 				F56E776C23A9078F009BF8E9 /* CreateUsernameViewController.swift in Sources */,
 				6434ED3D235E66E600E1808E /* createEventButton.swift in Sources */,
 				64F91E79237221B900C4DC24 /* LocationSearchTable.swift in Sources */,
 				F56E776823A906F7009BF8E9 /* UserService.swift in Sources */,
+				649ED12D23CE79BA006D31B5 /* menuButton.swift in Sources */,
 				F56E777423AA823E009BF8E9 /* SceneDelegate.swift in Sources */,
 				64AFB2DF236A81B600D264F0 /* dangerousActionAlert.swift in Sources */,
 				F56E776E23A907A5009BF8E9 /* Post.swift in Sources */,
 				F56E777C23CBDE80009BF8E9 /* PopsicleViewController.swift in Sources */,
-				F56E777823ABD926009BF8E9 /* ProfileViewController.swift in Sources */,
 				640270752353C51F00641159 /* AppDelegate.swift in Sources */,
 				F56E777223A95FCA009BF8E9 /* Storyboard+Utility.swift in Sources */,
+				649ED12B23CE7944006D31B5 /* myEventsMenuButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
