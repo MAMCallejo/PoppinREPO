@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="U0W-XD-ZdF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="U0W-XD-ZdF">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+=======
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="U0W-XD-ZdF">
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
+>>>>>>> Abduls-branch
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -49,8 +55,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z7L-1l-OSw">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z7L-1l-OSw">
+                                <rect key="frame" x="10" y="-15" width="414" height="896"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sTN-n7-Xp6" customClass="createEventButton" customModule="Poppin" customModuleProvider="target">
                                 <rect key="frame" x="169.66666666666666" y="762.33333333333337" width="74.666666666666657" height="74.666666666666629"/>
@@ -512,19 +518,23 @@
                                     <action selector="openMenuFromButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RHr-ak-NIJ"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rKL-qD-SmZ">
-                                <rect key="frame" x="333" y="185.66666666666666" width="37.333333333333314" height="37"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="rKL-qD-SmZ" secondAttribute="height" multiplier="1:1" id="5hg-xQ-M5b"/>
-                                </constraints>
-                                <color key="tintColor" name="mainNAVYBLUE"/>
-                                <state key="normal" image="arrow.clockwise" catalog="system">
-                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="heavy"/>
-                                </state>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4O2-lJ-d6O">
+                                <rect key="frame" x="336" y="143" width="45" height="49"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="33"/>
+                                <state key="normal" image="arrow.clockwise" catalog="system"/>
                                 <connections>
-                                    <action selector="refreshButtonPressedWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZWh-ME-xWQ"/>
+                                    <action selector="refreshButtonPressedWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kj2-7l-wQe"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ffG-Yy-7oz">
+                                <rect key="frame" x="333" y="243" width="37" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" name="menuCREAM"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" name="mainNAVYBLUE"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -568,6 +578,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Dh7-Zp-LzT"/>
                     <connections>
+                        <outlet property="count" destination="ffG-Yy-7oz" id="1hB-5i-Owj"/>
                         <outlet property="educationFilterButton" destination="ZmM-iP-G4h" id="Ecn-Ce-7Ey"/>
                         <outlet property="educationFilterIcon" destination="KXQ-uv-7pz" id="01X-Jg-kVR"/>
                         <outlet property="educationFilterLegend" destination="GUp-sY-IM3" id="1QM-DW-Rpk"/>
@@ -600,7 +611,7 @@
                         <outlet property="noEventsLabel" destination="qcb-rY-95H" id="cDC-iK-of4"/>
                         <outlet property="profileButton" destination="SE2-rH-vOG" id="cnc-R7-kOR"/>
                         <outlet property="profileView" destination="5GW-29-3C9" id="202-46-Kaz"/>
-                        <outlet property="refreshButton" destination="rKL-qD-SmZ" id="Ms5-dU-0hi"/>
+                        <outlet property="refreshButton" destination="4O2-lJ-d6O" id="JLh-rm-Att"/>
                         <outlet property="settingsButton" destination="e8W-aN-h8R" id="qtM-i8-Hdl"/>
                         <outlet property="showsFilterButton" destination="7f4-RK-qsT" id="Bh3-QO-aVy"/>
                         <outlet property="showsFilterIcon" destination="wnE-Uz-ptt" id="FQ2-F1-7XJ"/>
@@ -621,7 +632,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1103" y="164"/>
+            <point key="canvasLocation" x="1102.8985507246377" y="163.39285714285714"/>
+=======
+            <point key="canvasLocation" x="1102.8985507246377" y="163.39285714285714"/>
+>>>>>>> Abduls-branch
         </scene>
         <!--createEvent-->
         <scene sceneID="6xB-t3-Iup">

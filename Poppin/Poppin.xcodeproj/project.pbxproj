@@ -40,6 +40,7 @@
 		64FF1EC323946A3D005DB686 /* categoryButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FF1EC223946A3D005DB686 /* categoryButtonView.swift */; };
 		675C020A90907E3A4CC718F0 /* Pods_Poppin_PoppinUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BC9E4DE0694804D3A182A63 /* Pods_Poppin_PoppinUITests.framework */; };
 		A185516288BB3D7FC3AA75BD /* Pods_PoppinTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B8194C58C1A345C73293ED /* Pods_PoppinTests.framework */; };
+		F517267C23E1151600042C5F /* Poppin.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F517267A23E1151500042C5F /* Poppin.xcdatamodeld */; };
 		F56E776223A8F69F009BF8E9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F56E776123A8F69F009BF8E9 /* GoogleService-Info.plist */; };
 		F56E776423A90187009BF8E9 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F56E776323A90187009BF8E9 /* Login.storyboard */; };
 		F56E776623A901BA009BF8E9 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56E776523A901BA009BF8E9 /* LoginViewController.swift */; };
@@ -117,6 +118,7 @@
 		92B8194C58C1A345C73293ED /* Pods_PoppinTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PoppinTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C72220AACB8ED8A3C2919A5E /* Pods_Poppin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Poppin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2BD1B431590049586CDB402 /* Pods-Poppin-PoppinUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Poppin-PoppinUITests.debug.xcconfig"; path = "Target Support Files/Pods-Poppin-PoppinUITests/Pods-Poppin-PoppinUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		F517267B23E1151500042C5F /* Poppin.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Poppin.xcdatamodel; sourceTree = "<group>"; };
 		F56E776123A8F69F009BF8E9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F56E776323A90187009BF8E9 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		F56E776523A901BA009BF8E9 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 				6402707F2353C51F00641159 /* LaunchScreen.storyboard */,
 				F56E777123A95FCA009BF8E9 /* Storyboard+Utility.swift */,
 				6402707D2353C51F00641159 /* Assets.xcassets */,
+				F517267A23E1151500042C5F /* Poppin.xcdatamodeld */,
 				640270822353C51F00641159 /* Info.plist */,
 				F56E776123A8F69F009BF8E9 /* GoogleService-Info.plist */,
 			);
@@ -625,6 +628,7 @@
 				64AFB2E2236A886000D264F0 /* Utils.swift in Sources */,
 				F56E776C23A9078F009BF8E9 /* CreateUsernameViewController.swift in Sources */,
 				6434ED3D235E66E600E1808E /* createEventButton.swift in Sources */,
+				F517267C23E1151600042C5F /* Poppin.xcdatamodeld in Sources */,
 				64F91E79237221B900C4DC24 /* LocationSearchTable.swift in Sources */,
 				F56E776823A906F7009BF8E9 /* UserService.swift in Sources */,
 				649ED12D23CE79BA006D31B5 /* menuButton.swift in Sources */,
@@ -809,13 +813,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4VQFP5DX32;
+				DEVELOPMENT_TEAM = 7P3V6PZ6DZ;
 				INFOPLIST_FILE = "$(SRCROOT)/Poppin/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = Poppin.Poppin;
+				PRODUCT_BUNDLE_IDENTIFIER = Poppin.Poppin123;
 				PRODUCT_NAME = Poppin;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -828,13 +832,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4VQFP5DX32;
+				DEVELOPMENT_TEAM = 7P3V6PZ6DZ;
 				INFOPLIST_FILE = "$(SRCROOT)/Poppin/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = Poppin.Poppin;
+				PRODUCT_BUNDLE_IDENTIFIER = Poppin.Poppin123;
 				PRODUCT_NAME = Poppin;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -965,6 +969,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		F517267A23E1151500042C5F /* Poppin.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				F517267B23E1151500042C5F /* Poppin.xcdatamodel */,
+			);
+			currentVersion = F517267B23E1151500042C5F /* Poppin.xcdatamodel */;
+			path = Poppin.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 640270692353C51E00641159 /* Project object */;
 }

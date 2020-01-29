@@ -10,6 +10,9 @@ import UIKit
 import MapKit
 import CoreLocation
 import Firebase
+import CoreData
+
+
 
 /*
     popsicleSize: popsicle annotation and popsicle group annotation size.
@@ -50,7 +53,9 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
 
         // *** IBOutlets ***
 
-            // Constraint needed to show and hide the menu from the left.
+    @IBOutlet weak var refreshButton: UIButton!
+
+    // Constraint needed to show and hide the menu from the left.
 
     @IBOutlet weak var menuLeadingConstraint: NSLayoutConstraint!
 
@@ -260,6 +265,21 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
 
     var changesMade = false
 
+    var counter = 0
+
+    var Popsicles: [NSManagedObject] = []
+<<<<<<< Updated upstream
+
+=======
+
+
+    @IBOutlet weak var count: UILabel!
+
+    // *** VIEWCONTROLLER FUNCTIONS ***
+
+    @IBOutlet weak var count: UILabel!
+
+>>>>>>> Abduls-branch
     // *** VIEWCONTROLLER FUNCTIONS ***
 
     /*
@@ -268,6 +288,9 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         - Styles views.
         - Adjusts certain parameters for the correct functioning of the main event view.
      */
+    var popsicleTimer: Timer?
+
+    var changesMade = false
 
     override func viewDidLoad() {
 
@@ -279,6 +302,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
 
             // Initializes the global variable popsicleSize (needs to layout first since we need to get the size after autolayout constraints have been applied).
 
+       count.layer.cornerRadius = count.frame.width/2
         eventLocationPin.setNeedsLayout()
 
         eventLocationPin.layoutIfNeeded()
@@ -612,21 +636,31 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         getUsername()
 
         getProfilePic()
+        getPopsicles()
+        //refreshDatabase()
+
+         popsicleTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(refreshDatabase), userInfo: nil, repeats: true)
+
+    }
+
+    @IBAction func refreshButtonPressed(sender: Any){
+=======
+
+        //refreshDatabase()
+
+        self.counter = 0
+         self.count.text = String (self.counter)
 
         getPopsicles()
 
         //refreshDatabase()
 
-        // popsicleTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(refreshDatabase), userInfo: nil, repeats: true)
+        self.counter = 0
+         self.count.text = String (self.counter)
 
-    }
+        getPopsicles()
 
-    @IBAction func refreshButtonPressed(sender: Any){
-
-        refreshDatabase()
-
-        //getPopsicles()
-
+>>>>>>> Abduls-branch
     }
 
 
@@ -1422,30 +1456,75 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
 
     }
 
-    /*
-     refreshDatabase:
-     */
-
     @objc func refreshDatabase(){
         let ref = Database.database().reference(withPath:"currentPopsicles")
         let ref2 = Database.database().reference(withPath:"upcomingPopsicles")
         let ref3 = Database.database().reference(withPath:"completedPopsicles")
 
+        guard let appDelegate =
+                 UIApplication.shared.delegate as? AppDelegate else {
+                 return
+               }
+
+               // 1
+               let managedContext =
+                 appDelegate.persistentContainer.viewContext
+
+               // 2
+               let entity =
+                 NSEntityDescription.entity(forEntityName: "Popsicles",
+                                            in: managedContext)!
+
+               let popsicle = NSManagedObject(entity: entity,
+                                            insertInto: managedContext)
+
+        let fetchRequest =
+                 NSFetchRequest<NSManagedObject>(entityName: "Popsicles")
+<<<<<<< Updated upstream
+
+         let ref = Database.database().reference(withPath:"currentPopsicles")
+         let ref2 = Database.database().reference(withPath:"upcomingPopsicles")
+         let ref3 = Database.database().reference(withPath:"completedPopsicles")
+
+=======
+
         ref2.observeSingleEvent(of: .value, with: { (snapshot) in
-            if snapshot.childrenCount > 0 {
+             if snapshot.childrenCount > 0 {
                 for data in snapshot.children.allObjects as! [DataSnapshot] {
-                    if let data = data.value as? [String: Any] {
+                if let data = data.value as? [String: Any] {
 
-                        let eventDate = data["eventDate"] as! String
-                        let eventName = data["eventName"] as! String
+                     let eventDate = data["eventDate"] as! String
+                    let eventName = data["eventName"] as! String
 
-                        let currentDate = Date()
-                        let currentCalendar = Calendar.current
-                        let currentHour = currentCalendar.component(.hour, from: currentDate)
-                        let currentMinute = currentCalendar.component(.minute, from: currentDate)
-                        let currentDay = currentCalendar.component(.day, from: currentDate)
-                        let currentMonth = currentCalendar.component(.month, from: currentDate)
-                        let currentYear = currentCalendar.component(.year, from: currentDate)
+                    let currentDate = Date()
+                    let currentCalendar = Calendar.current
+                    let currentHour = currentCalendar.component(.hour, from: currentDate)
+                    let currentMinute = currentCalendar.component(.minute, from: currentDate)
+                    let currentDay = currentCalendar.component(.day, from: currentDate)
+                    let currentMonth = currentCalendar.component(.month, from: currentDate)
+                    let currentYear = currentCalendar.component(.year, from: currentDate)
+
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
+                    dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+                    let date = dateFormatter.date(from: eventDate)!
+
+                    let calendar = Calendar.current
+                    let components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: date)
+
+
+                    let hour = components.hour!
+                    let year = components.year!
+                    let month = components.month!
+                    let day = components.day!
+                    let minute = components.minute!
+
+                    if year == currentYear && month == currentMonth && day >= currentDay {
+
+                        if (day > currentDay && day - currentDay == 1 && hour < currentHour) || day == currentDay || ( day - currentDay == 1 && hour == currentHour && minute <= currentMinute) {
+
+                            ref.child(eventName).setValue(data)
+                            let deleteRef = ref2.child(eventName)
 
                         let dateFormatter = DateFormatter()
                         dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
@@ -1465,16 +1544,57 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
 
                             if (day > currentDay && day - currentDay == 1 && hour < currentHour) || day == currentDay || ( day - currentDay == 1 && hour == currentHour && minute <= currentMinute) {
 
+                                let eventDate = data["eventDate"] as! String
+                                let eventName = data["eventName"] as! String
+                                let eventCategory = data["eventCategory"] as! String
+                                let eventCategoryDetails = data["eventCategoryDetails"] as! String
+                                let eventDuration = data["eventDuration"] as! String
+                                let eventInfo = data["eventInfo"] as! String
+                                let eventSubcategory1 = data["eventSubcategory1"] as! String
+                                let eventSubcategory1Details = data["eventSubcategory1Details"] as! String
+                                let eventSubcategory2 = data["eventSubcategory2"] as! String
+                                let eventSubcategory2Details = data["eventSubcategory2Details"] as! String
+                                let latitude = data["latitude"] as! CLLocationDegrees
+                                let longitude = data["longitude"] as! CLLocationDegrees
+
+
+                                          popsicle.setValue(latitude, forKeyPath: "latitude")
+                                          popsicle.setValue(longitude, forKeyPath: "longitude")
+                                          popsicle.setValue(eventName, forKeyPath: "eventName")
+                                          popsicle.setValue(eventInfo, forKeyPath: "eventInfo")
+                                          popsicle.setValue(eventDate, forKeyPath: "eventDate")
+                                          popsicle.setValue(eventDuration, forKeyPath: "eventDuration")
+                                          popsicle.setValue(eventCategory, forKeyPath: "eventCategory")
+                                          popsicle.setValue(eventCategoryDetails, forKeyPath: "eventCategoryDetails")
+                                          popsicle.setValue(eventSubcategory1, forKeyPath: "eventSubcategory1")
+                                          popsicle.setValue(eventSubcategory1Details, forKeyPath: "eventSubcategory1Details")
+                                          popsicle.setValue(eventSubcategory2, forKeyPath: "eventSubcategory2")
+                                          popsicle.setValue(eventSubcategory2Details, forKeyPath: "eventSubcategory2Details")
+
+
+                                          // 4
+                                          do {
+                                            try managedContext.save()
+                                            self.Popsicles.append(popsicle)
+                                          } catch let error as NSError {
+                                            print("Could not save. \(error), \(error.userInfo)")
+                                          }
+
+
+                                self.counter += 1
+                                self.count.text = String (self.counter)
+
                                 ref.child(eventName).setValue(data)
                                 let deleteRef = ref2.child(eventName)
-                                self.changesMade = true
+                                //self.changesMade = true
 
                                 deleteRef.removeValue { error, _ in
-                                    self.getPopsicles()
+                                    //self.getPopsicles()
                                     print(error ?? "Refresh Database Error")
                                 }
                             }
                         }
+                    }
 
 
                     }
@@ -1518,15 +1638,52 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
                             hour += 1
                         }
 
-                        if day < currentDay || ((hour + timeHours) % 24 <= currentHour && (minute + timeMinute) % 60 <= currentMinute) {
+                        if day < currentDay || (day == currentDay && ((hour + timeHours) % 24 <= currentHour && (minute + timeMinute) % 60 <= currentMinute)) {
+
+                            do {
+                                let eventName = data["eventName"] as! String
+                                fetchRequest.predicate = NSPredicate(format: "eventName == %@", eventName)
+                                let result = try managedContext.fetch(fetchRequest)
+                                managedContext.delete(result[0])
+
+                            } catch {
+                                fatalError("Failed to fetch employees: \(error)")
+=======
+                        if day < currentDay || (day == currentDay && ((hour + timeHours) % 24 <= currentHour && (minute + timeMinute) % 60 <= currentMinute)) {
+
+                            do {
+                                let eventName = data["eventName"] as! String
+                                fetchRequest.predicate = NSPredicate(format: "eventName == %@", eventName)
+                                let result = try managedContext.fetch(fetchRequest)
+                                managedContext.delete(result[0])
+
+                            } catch {
+                                fatalError("Failed to fetch employees: \(error)")
+                            }
+
+                            self.counter += 1
+                             self.count.text = String (self.counter)
                             ref3.child(eventName).setValue(data)
                             let deleteRef = ref.child(eventName)
 
-                            self.changesMade = true
+                            //self.changesMade = true
 
                             deleteRef.removeValue { error, _ in
-                                self.getPopsicles()
+                                //self.getPopsicles()
                                 print(error ?? "Refresh Database Error")
+                            }
+
+                            self.counter += 1
+                             self.count.text = String (self.counter)
+                            ref3.child(eventName).setValue(data)
+                            let deleteRef = ref.child(eventName)
+
+                            //self.changesMade = true
+
+                            deleteRef.removeValue { error, _ in
+                                //self.getPopsicles()
+                                print(error ?? "Refresh Database Error")
+>>>>>>> Stashed changes
                             }
 
                             //sleep(2)
@@ -1539,15 +1696,11 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
 
         // if(self.changesMade){
         //getPopsicles()
-        self.changesMade = false
+        //self.changesMade = false
         // }
     }
 
-    /*
-     getPopsicles:
-     */
-
-    public func getPopsicles(){
+    func getPopsicles(){
         for annotation in mainMapView.annotations{
             if annotation is pinPopsicle{
                 mainMapView.removeAnnotation(annotation)
@@ -1557,79 +1710,312 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
 
         mapPopsicles = []
 
-        let ref = Database.database().reference(withPath:"currentPopsicles")
-
-        ref.observeSingleEvent(of: .value, with: { (snapshot) in
-            // Printing the child count
-            //print("There are \(snapshot.childrenCount) children found")
-            // Checking if the reference has some values
-            if snapshot.childrenCount > 0 {
-                // Go through every child
-                for data in snapshot.children.allObjects as! [DataSnapshot] {
-                    if let data = data.value as? [String: Any] {
-                        // Retrieve the data per child
-
-                        let eventDate = data["eventDate"] as! String
-                        let eventName = data["eventName"] as! String
-                        let eventCategory = data["eventCategory"] as! String
-                        let eventCategoryDetails = data["eventCategoryDetails"] as! String
-                        let eventDuration = data["eventDuration"] as! String
-                        let eventInfo = data["eventInfo"] as! String
-                        let eventSubcategory1 = data["eventSubcategory1"] as! String
-                        let eventSubcategory1Details = data["eventSubcategory1Details"] as! String
-                        let eventSubcategory2 = data["eventSubcategory2"] as! String
-                        let eventSubcategory2Details = data["eventSubcategory2Details"] as! String
-                        let latitude = data["latitude"] as! CLLocationDegrees
-                        let longitude = data["longitude"] as! CLLocationDegrees
-
-                        let popsicleToAdd = pinPopsicle()
-
-                        let coordinates = CLLocationCoordinate2DMake(latitude, longitude)
-
-                        let eventPopsicle: UIImage
-
-                        if (eventCategory == "Education") {
-
-                            eventPopsicle = UIImage(named: "educationButton")!
 
 
+=======
+        //1
+        guard let appDelegate =
+          UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
 
-                        } else if (eventCategory == "Food") {
+        let managedContext =
+          appDelegate.persistentContainer.viewContext
 
-                            eventPopsicle = UIImage(named: "foodButton")!
+        //2
+        let fetchRequest =
+          NSFetchRequest<NSManagedObject>(entityName: "Popsicles")
+
+        //3
+        do {
+          Popsicles = try managedContext.fetch(fetchRequest)
+
+            for popsicle in Popsicles{
+                let eventDate = popsicle.value(forKeyPath: "eventDate") as! String
+                let eventName = popsicle.value(forKeyPath: "eventName") as! String
+                let eventCategory = popsicle.value(forKeyPath: "eventCategory") as! String
+                let eventCategoryDetails = popsicle.value(forKeyPath: "eventCategoryDetails") as! String
+                let eventDuration = popsicle.value(forKeyPath: "eventDuration") as! String
+                let eventInfo = popsicle.value(forKeyPath: "eventInfo") as! String
+                let eventSubcategory1 = popsicle.value(forKeyPath: "eventSubcategory1") as! String
+                let eventSubcategory1Details = popsicle.value(forKeyPath: "eventSubcategory1Details") as! String
+                let eventSubcategory2 = popsicle.value(forKeyPath: "eventSubcategory2") as! String
+                let eventSubcategory2Details = popsicle.value(forKeyPath: "eventSubcategory2Details") as! String
+                let latitude = popsicle.value(forKeyPath: "latitude") as! CLLocationDegrees
+                let longitude = popsicle.value(forKeyPath: "longitude") as! CLLocationDegrees
 
 
+                let popsicleToAdd = pinPopsicle()
 
-                        } else if (eventCategory == "Social") {
+                                        let coordinates = CLLocationCoordinate2DMake(latitude, longitude)
 
-                            eventPopsicle = UIImage(named: "socialButton")!
+                                        let eventPopsicle: UIImage
+
+                                        if (eventCategory == "Education") {
+
+                                            eventPopsicle = UIImage(named: "educationButton")!
 
 
 
-                        } else if (eventCategory == "Sports") {
+                                        } else if (eventCategory == "Food") {
 
-                            eventPopsicle = UIImage(named: "sportsButton")!
-
-                        } else {
-
-                            eventPopsicle = UIImage(named: "showsButton")!
-
-                        }
-                        popsicleToAdd.popsicleData = pinData(eventName: eventName, eventInfo: eventInfo, eventDate: eventDate, eventDuration: eventDuration, eventCategory: eventCategory, eventCategoryDetails: eventCategoryDetails, eventSubcategory1: eventSubcategory1, eventSubcategory1Details: eventSubcategory1Details, eventSubcategory2: eventSubcategory2, eventSubcategory2Details: eventSubcategory2Details, eventLocation: coordinates, eventPopsicle: eventPopsicle)
-
-                        popsicleToAdd.coordinate = coordinates
-
-                        self.mapPopsicles?.append(popsicleToAdd)
-
-                        self.addNewPopsicleToMap()
+                                            eventPopsicle = UIImage(named: "foodButton")!
 
 
-                    }
-                }
+
+                                        } else if (eventCategory == "Social") {
+
+                                            eventPopsicle = UIImage(named: "socialButton")!
+
+
+
+                                        } else if (eventCategory == "Sports") {
+
+                                            eventPopsicle = UIImage(named: "sportsButton")!
+
+                                        } else {
+
+                                            eventPopsicle = UIImage(named: "showsButton")!
+
+                                        }
+                                        popsicleToAdd.popsicleData = pinData(eventName: eventName, eventInfo: eventInfo, eventDate: eventDate, eventDuration: eventDuration, eventCategory: eventCategory, eventCategoryDetails: eventCategoryDetails, eventSubcategory1: eventSubcategory1, eventSubcategory1Details: eventSubcategory1Details, eventSubcategory2: eventSubcategory2, eventSubcategory2Details: eventSubcategory2Details, eventLocation: coordinates, eventPopsicle: eventPopsicle)
+
+                                        popsicleToAdd.coordinate = coordinates
+
+                                        self.mapPopsicles?.append(popsicleToAdd)
+
+                                        self.addNewPopsicleToMap()
+
             }
-        })
+        } catch let error as NSError {
+          print("Could not fetch. \(error), \(error.userInfo)")
+        }
+=======
+        //1
+        guard let appDelegate =
+          UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+
+        let managedContext =
+          appDelegate.persistentContainer.viewContext
+
+        //2
+        let fetchRequest =
+          NSFetchRequest<NSManagedObject>(entityName: "Popsicles")
+
+        //3
+        do {
+          Popsicles = try managedContext.fetch(fetchRequest)
+
+            for popsicle in Popsicles{
+                let eventDate = popsicle.value(forKeyPath: "eventDate") as! String
+                let eventName = popsicle.value(forKeyPath: "eventName") as! String
+                let eventCategory = popsicle.value(forKeyPath: "eventCategory") as! String
+                let eventCategoryDetails = popsicle.value(forKeyPath: "eventCategoryDetails") as! String
+                let eventDuration = popsicle.value(forKeyPath: "eventDuration") as! String
+                let eventInfo = popsicle.value(forKeyPath: "eventInfo") as! String
+                let eventSubcategory1 = popsicle.value(forKeyPath: "eventSubcategory1") as! String
+                let eventSubcategory1Details = popsicle.value(forKeyPath: "eventSubcategory1Details") as! String
+                let eventSubcategory2 = popsicle.value(forKeyPath: "eventSubcategory2") as! String
+                let eventSubcategory2Details = popsicle.value(forKeyPath: "eventSubcategory2Details") as! String
+                let latitude = popsicle.value(forKeyPath: "latitude") as! CLLocationDegrees
+                let longitude = popsicle.value(forKeyPath: "longitude") as! CLLocationDegrees
 
 
+                let popsicleToAdd = pinPopsicle()
+
+                                        let coordinates = CLLocationCoordinate2DMake(latitude, longitude)
+
+                                        let eventPopsicle: UIImage
+
+                                        if (eventCategory == "Education") {
+
+                                            eventPopsicle = UIImage(named: "educationButton")!
+
+
+
+                                        } else if (eventCategory == "Food") {
+
+                                            eventPopsicle = UIImage(named: "foodButton")!
+
+
+
+                                        } else if (eventCategory == "Social") {
+
+                                            eventPopsicle = UIImage(named: "socialButton")!
+
+
+
+                                        } else if (eventCategory == "Sports") {
+
+                                            eventPopsicle = UIImage(named: "sportsButton")!
+
+                                        } else {
+
+                                            eventPopsicle = UIImage(named: "showsButton")!
+
+                                        }
+                                        popsicleToAdd.popsicleData = pinData(eventName: eventName, eventInfo: eventInfo, eventDate: eventDate, eventDuration: eventDuration, eventCategory: eventCategory, eventCategoryDetails: eventCategoryDetails, eventSubcategory1: eventSubcategory1, eventSubcategory1Details: eventSubcategory1Details, eventSubcategory2: eventSubcategory2, eventSubcategory2Details: eventSubcategory2Details, eventLocation: coordinates, eventPopsicle: eventPopsicle)
+
+                                        popsicleToAdd.coordinate = coordinates
+
+                                        self.mapPopsicles?.append(popsicleToAdd)
+
+                                        self.addNewPopsicleToMap()
+
+            }
+        } catch let error as NSError {
+          print("Could not fetch. \(error), \(error.userInfo)")
+        }
+
+        //let ref = Database.database().reference(withPath:"currentPopsicles")
+
+//        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+//            // Printing the child count
+//            //print("There are \(snapshot.childrenCount) children found")
+//            // Checking if the reference has some values
+//            if snapshot.childrenCount > 0 {
+//                // Go through every child
+//                for data in snapshot.children.allObjects as! [DataSnapshot] {
+//                    if let data = data.value as? [String: Any] {
+//                        // Retrieve the data per child
+//
+//                        let eventDate = data["eventDate"] as! String
+//                        let eventName = data["eventName"] as! String
+//                        let eventCategory = data["eventCategory"] as! String
+//                        let eventCategoryDetails = data["eventCategoryDetails"] as! String
+//                        let eventDuration = data["eventDuration"] as! String
+//                        let eventInfo = data["eventInfo"] as! String
+//                        let eventSubcategory1 = data["eventSubcategory1"] as! String
+//                        let eventSubcategory1Details = data["eventSubcategory1Details"] as! String
+//                        let eventSubcategory2 = data["eventSubcategory2"] as! String
+//                        let eventSubcategory2Details = data["eventSubcategory2Details"] as! String
+//                        let latitude = data["latitude"] as! CLLocationDegrees
+//                        let longitude = data["longitude"] as! CLLocationDegrees
+//
+//                        let popsicleToAdd = pinPopsicle()
+//
+//                        let coordinates = CLLocationCoordinate2DMake(latitude, longitude)
+//
+//                        let eventPopsicle: UIImage
+//
+//                        if (eventCategory == "Education") {
+//
+//                            eventPopsicle = UIImage(named: "educationButton")!
+//
+//
+//
+//                        } else if (eventCategory == "Food") {
+//
+//                            eventPopsicle = UIImage(named: "foodButton")!
+//
+//
+//
+//                        } else if (eventCategory == "Social") {
+//
+//                            eventPopsicle = UIImage(named: "socialButton")!
+//
+//
+//
+//                        } else if (eventCategory == "Sports") {
+//
+//                            eventPopsicle = UIImage(named: "sportsButton")!
+//
+//                        } else {
+//
+//                            eventPopsicle = UIImage(named: "showsButton")!
+//
+//                        }
+//                        popsicleToAdd.popsicleData = pinData(eventName: eventName, eventInfo: eventInfo, eventDate: eventDate, eventDuration: eventDuration, eventCategory: eventCategory, eventCategoryDetails: eventCategoryDetails, eventSubcategory1: eventSubcategory1, eventSubcategory1Details: eventSubcategory1Details, eventSubcategory2: eventSubcategory2, eventSubcategory2Details: eventSubcategory2Details, eventLocation: coordinates, eventPopsicle: eventPopsicle)
+//
+//                        popsicleToAdd.coordinate = coordinates
+//
+//                        self.mapPopsicles?.append(popsicleToAdd)
+//
+//                        self.addNewPopsicleToMap()
+//
+//
+//                    }
+//                }
+//            }
+//        })
+
+        //let ref = Database.database().reference(withPath:"currentPopsicles")
+
+//        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+//            // Printing the child count
+//            //print("There are \(snapshot.childrenCount) children found")
+//            // Checking if the reference has some values
+//            if snapshot.childrenCount > 0 {
+//                // Go through every child
+//                for data in snapshot.children.allObjects as! [DataSnapshot] {
+//                    if let data = data.value as? [String: Any] {
+//                        // Retrieve the data per child
+//
+//                        let eventDate = data["eventDate"] as! String
+//                        let eventName = data["eventName"] as! String
+//                        let eventCategory = data["eventCategory"] as! String
+//                        let eventCategoryDetails = data["eventCategoryDetails"] as! String
+//                        let eventDuration = data["eventDuration"] as! String
+//                        let eventInfo = data["eventInfo"] as! String
+//                        let eventSubcategory1 = data["eventSubcategory1"] as! String
+//                        let eventSubcategory1Details = data["eventSubcategory1Details"] as! String
+//                        let eventSubcategory2 = data["eventSubcategory2"] as! String
+//                        let eventSubcategory2Details = data["eventSubcategory2Details"] as! String
+//                        let latitude = data["latitude"] as! CLLocationDegrees
+//                        let longitude = data["longitude"] as! CLLocationDegrees
+//
+//                        let popsicleToAdd = pinPopsicle()
+//
+//                        let coordinates = CLLocationCoordinate2DMake(latitude, longitude)
+//
+//                        let eventPopsicle: UIImage
+//
+//                        if (eventCategory == "Education") {
+//
+//                            eventPopsicle = UIImage(named: "educationButton")!
+//
+//
+//
+//                        } else if (eventCategory == "Food") {
+//
+//                            eventPopsicle = UIImage(named: "foodButton")!
+//
+//
+//
+//                        } else if (eventCategory == "Social") {
+//
+//                            eventPopsicle = UIImage(named: "socialButton")!
+//
+//
+//
+//                        } else if (eventCategory == "Sports") {
+//
+//                            eventPopsicle = UIImage(named: "sportsButton")!
+//
+//                        } else {
+//
+//                            eventPopsicle = UIImage(named: "showsButton")!
+//
+//                        }
+//                        popsicleToAdd.popsicleData = pinData(eventName: eventName, eventInfo: eventInfo, eventDate: eventDate, eventDuration: eventDuration, eventCategory: eventCategory, eventCategoryDetails: eventCategoryDetails, eventSubcategory1: eventSubcategory1, eventSubcategory1Details: eventSubcategory1Details, eventSubcategory2: eventSubcategory2, eventSubcategory2Details: eventSubcategory2Details, eventLocation: coordinates, eventPopsicle: eventPopsicle)
+//
+//                        popsicleToAdd.coordinate = coordinates
+//
+//                        self.mapPopsicles?.append(popsicleToAdd)
+//
+//                        self.addNewPopsicleToMap()
+//
+//
+//                    }
+//                }
+//            }
+//        })
+
+
+>>>>>>> Stashed changes
+>>>>>>> Abduls-branch
     }
 
     /*
@@ -1649,6 +2035,25 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
     @IBAction func confirmLocation(_ sender: Any) {
 
         let ref = Database.database().reference()
+
+=======
+        guard let appDelegate =
+          UIApplication.shared.delegate as? AppDelegate else {
+          return
+        }
+
+        // 1
+        let managedContext =
+          appDelegate.persistentContainer.viewContext
+
+        // 2
+        let entity =
+          NSEntityDescription.entity(forEntityName: "Popsicles",
+                                     in: managedContext)!
+
+        let popsicle = NSManagedObject(entity: entity,
+                                     insertInto: managedContext)
+
 
         let eventDate = newPopsicle.popsicleData.eventDate
 
@@ -1679,6 +2084,28 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
 
           if (day > currentDay && day - currentDay == 1 && hour < currentHour) || day == currentDay || ( day - currentDay == 1 && hour == currentHour && minute <= currentMinute){
 
+            popsicle.setValue(mainMapView.centerCoordinate.latitude, forKeyPath: "latitude")
+            popsicle.setValue(mainMapView.centerCoordinate.longitude, forKeyPath: "longitude")
+            popsicle.setValue(newPopsicle.popsicleData.eventName, forKeyPath: "eventName")
+            popsicle.setValue(newPopsicle.popsicleData.eventInfo, forKeyPath: "eventInfo")
+            popsicle.setValue(newPopsicle.popsicleData.eventDate, forKeyPath: "eventDate")
+            popsicle.setValue(newPopsicle.popsicleData.eventDuration, forKeyPath: "eventDuration")
+            popsicle.setValue(newPopsicle.popsicleData.eventCategory, forKeyPath: "eventCategory")
+            popsicle.setValue(newPopsicle.popsicleData.eventCategoryDetails, forKeyPath: "eventCategoryDetails")
+            popsicle.setValue(newPopsicle.popsicleData.eventSubcategory1, forKeyPath: "eventSubcategory1")
+            popsicle.setValue(newPopsicle.popsicleData.eventSubcategory1Details, forKeyPath: "eventSubcategory1Details")
+            popsicle.setValue(newPopsicle.popsicleData.eventSubcategory2, forKeyPath: "eventSubcategory2")
+            popsicle.setValue(newPopsicle.popsicleData.eventSubcategory2Details, forKeyPath: "eventSubcategory2Details")
+
+
+            // 4
+            do {
+              try managedContext.save()
+              Popsicles.append(popsicle)
+            } catch let error as NSError {
+              print("Could not save. \(error), \(error.userInfo)")
+            }
+
             ref.child("currentPopsicles/\(newPopsicle.popsicleData.eventName)/latitude").setValue(mainMapView.centerCoordinate.latitude)
 
             ref.child("currentPopsicles/\(newPopsicle.popsicleData.eventName)/longitude").setValue(mainMapView.centerCoordinate.longitude)
@@ -1708,58 +2135,35 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
 
         else{
 
-          ref.child("upcomingPopsicles/\(newPopsicle.popsicleData.eventName)/latitude").setValue(mainMapView.centerCoordinate.latitude)
+            ref.child("upcomingPopsicles/\(newPopsicle.popsicleData.eventName)/latitude").setValue(mainMapView.centerCoordinate.latitude)
 
-          ref.child("upcomingPopsicles/\(newPopsicle.popsicleData.eventName)/longitude").setValue(mainMapView.centerCoordinate.longitude)
+            ref.child("upcomingPopsicles/\(newPopsicle.popsicleData.eventName)/longitude").setValue(mainMapView.centerCoordinate.longitude)
 
-          let en = newPopsicle.popsicleData.eventName
-          ref.child("upcomingPopsicles/\(en)/eventName").setValue(newPopsicle.popsicleData.eventName)
+            let en = newPopsicle.popsicleData.eventName
+            ref.child("upcomingPopsicles/\(en)/eventName").setValue(newPopsicle.popsicleData.eventName)
 
-          ref.child("upcomingPopsicles/\(en)/eventInfo").setValue(newPopsicle.popsicleData.eventInfo)
+            ref.child("upcomingPopsicles/\(en)/eventInfo").setValue(newPopsicle.popsicleData.eventInfo)
 
-          ref.child("upcomingPopsicles/\(en)/eventDate").setValue(newPopsicle.popsicleData.eventDate)
+            ref.child("upcomingPopsicles/\(en)/eventDate").setValue(newPopsicle.popsicleData.eventDate)
 
-          ref.child("upcomingPopsicles/\(en)/eventDuration").setValue(newPopsicle.popsicleData.eventDuration)
+            ref.child("upcomingPopsicles/\(en)/eventDuration").setValue(newPopsicle.popsicleData.eventDuration)
 
-          ref.child("upcomingPopsicles/\(en)/eventCategory").setValue(newPopsicle.popsicleData.eventCategory)
+            ref.child("upcomingPopsicles/\(en)/eventCategory").setValue(newPopsicle.popsicleData.eventCategory)
 
-          ref.child("upcomingPopsicles/\(en)/eventCategoryDetails").setValue(newPopsicle.popsicleData.eventCategoryDetails)
+            ref.child("upcomingPopsicles/\(en)/eventCategoryDetails").setValue(newPopsicle.popsicleData.eventCategoryDetails)
 
-          ref.child("upcomingPopsicles/\(en)/eventSubcategory1").setValue(newPopsicle.popsicleData.eventSubcategory1)
+            ref.child("upcomingPopsicles/\(en)/eventSubcategory1").setValue(newPopsicle.popsicleData.eventSubcategory1)
 
-          ref.child("upcomingPopsicles/\(en)/eventSubcategory1Details").setValue(newPopsicle.popsicleData.eventSubcategory1Details)
+            ref.child("upcomingPopsicles/\(en)/eventSubcategory1Details").setValue(newPopsicle.popsicleData.eventSubcategory1Details)
 
-          ref.child("upcomingPopsicles/\(en)/eventSubcategory2").setValue(newPopsicle.popsicleData.eventSubcategory2)
+            ref.child("upcomingPopsicles/\(en)/eventSubcategory2").setValue(newPopsicle.popsicleData.eventSubcategory2)
 
-          ref.child("upcomingPopsicles/\(en)/eventSubcategory2Details").setValue(newPopsicle.popsicleData.eventSubcategory2Details)
+            ref.child("upcomingPopsicles/\(en)/eventSubcategory2Details").setValue(newPopsicle.popsicleData.eventSubcategory2Details)
 
         }
         }
 
-//        ref.child("popsicles/\(newPopsicle.popsicleData.eventName)/eventName").setValue(newPopsicle.popsicleData.eventName)
-//
-//        ref.child("popsicles/\(newPopsicle.popsicleData.eventName)/eventInfo").setValue(newPopsicle.popsicleData.eventInfo)
-//
-//        ref.child("popsicles/\(newPopsicle.popsicleData.eventName)/eventDate").setValue(newPopsicle.popsicleData.eventDate)
-//
-//        ref.child("popsicles/\(newPopsicle.popsicleData.eventName)/eventDuration").setValue(newPopsicle.popsicleData.eventDuration)
-//
-//        ref.child("popsicles/\(newPopsicle.popsicleData.eventName)/eventCategory").setValue(newPopsicle.popsicleData.eventCategory)
-//
-//        ref.child("popsicles/\(newPopsicle.popsicleData.eventName)/eventCategoryDetails").setValue(newPopsicle.popsicleData.eventCategoryDetails)
-//
-//        ref.child("popsicles/\(newPopsicle.popsicleData.eventName)/eventSubcategory1").setValue(newPopsicle.popsicleData.eventSubcategory1)
-//
-//        ref.child("popsicles/\(newPopsicle.popsicleData.eventName)/eventSubcategory1Details").setValue(newPopsicle.popsicleData.eventSubcategory1Details)
-//
-//        ref.child("popsicles/\(newPopsicle.popsicleData.eventName)/eventSubcategory2").setValue(newPopsicle.popsicleData.eventSubcategory2)
-//
-//        ref.child("popsicles/\(newPopsicle.popsicleData.eventName)/eventSubcategory2Details").setValue(newPopsicle.popsicleData.eventSubcategory2Details)
-//
-//        ref.child("popsicles/\(newPopsicle.popsicleData.eventName)/latitude").setValue(mainMapView.centerCoordinate.latitude)
-//
-//        ref.child("popsicles/\(newPopsicle.popsicleData.eventName)/longitude").setValue(mainMapView.centerCoordinate.longitude)
-//
+
         newPopsicle.popsicleData.eventLocation = mainMapView.centerCoordinate
 
         newPopsicle.coordinate = newPopsicle.popsicleData.eventLocation
@@ -1774,43 +2178,16 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
 
         popsicleToAdd.coordinate = popsicleToAdd.popsicleData.eventLocation
 
-        mapPopsicles?.append(popsicleToAdd)
-
-        self.view.layoutIfNeeded()
-
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-
-            self.navigationController?.setNavigationBarHidden(true, animated: true)
-
-            self.eventLocationConfirmationContainerView.transform = CGAffineTransform(translationX: 0, y: self.eventLocationConfirmationContainerView.frame.height)
-
-            self.eventLocationPin.alpha = 0.0
-
-            self.zoomToUserLocationButton.alpha = 0.0
-
-            self.view.layoutIfNeeded()
-
-        }, completion: { (finished: Bool) in
-
-            self.eventLocationConfirmationContainerView.alpha = 0.0
-
-            self.eventLocationConfirmationContainerView.transform = .identity
-
-        })
-
         //mapPopsicles?.append(popsicleToAdd)
 
         //addNewPopsicleToMap()
-
         refreshDatabase()
 
         getPopsicles()
 
-        self.showMainButtons()
+        showMainButtons()
 
-        self.addNewPopsicleToMap()
-
-        self.addEventToMenu(eventName: self.newPopsicle.popsicleData.eventName)
+        addEventToMenu(eventName: newPopsicle.popsicleData.eventName)
 
     }
 
