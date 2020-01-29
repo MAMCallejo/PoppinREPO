@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
@@ -9,6 +10,12 @@
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+=======
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="U0W-XD-ZdF">
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+>>>>>>> Stashed changes
         <capability name="Named colors" minToolsVersion="9.0"/>
 >>>>>>> Stashed changes
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -631,7 +638,11 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             <point key="canvasLocation" x="1069.5652173913045" y="85.714285714285708"/>
+=======
+            <point key="canvasLocation" x="1102.8985507246377" y="163.39285714285714"/>
+>>>>>>> Stashed changes
 =======
             <point key="canvasLocation" x="1102.8985507246377" y="163.39285714285714"/>
 >>>>>>> Stashed changes
