@@ -42,7 +42,8 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="edit"/>
                                 <connections>
-                                    <segue destination="sh3-ZR-ewq" kind="show" id="2QV-WK-WIq"/>
+                                    <action selector="editProfileWithSender:" destination="o8q-v2-r9F" eventType="touchUpInside" id="Tpx-kg-yJ8"/>
+                                    <segue destination="sh3-ZR-ewq" kind="presentation" identifier="editProfile" id="Bfc-gf-u8b"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="msz-bJ-eVD">
