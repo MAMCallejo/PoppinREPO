@@ -60,8 +60,6 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
     
     @IBOutlet weak var menuButton: menuButton!
     
-    @IBOutlet weak var refreshButton: UIButton!
-    
     @IBOutlet weak var profileView: UIView!
     
     @IBOutlet weak var mainMenuItemsView: UIScrollView!
@@ -187,6 +185,18 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
     
     @IBOutlet weak var newEventButton: createEventButton!
     
+            // Refresh Button View:
+    
+    @IBOutlet weak var refreshView: refreshButtonView!
+    
+    @IBOutlet weak var refreshButton: UIButton!
+    
+    @IBOutlet weak var refreshButtonIcon: UIImageView!
+    
+    @IBOutlet weak var refreshCountBubble: UIImageView!
+    
+    @IBOutlet weak var refreshCountLabel: UILabel!
+    
             // Interface used to add a popsicle to the map.
     
     @IBOutlet weak var eventLocationPin: UIImageView!
@@ -236,9 +246,13 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
     
     var campusRegion: MKCoordinateRegion?
     
+            // dataController: Data Controller used to access Core Data.
+    
+    var dataController: DataController?
+    
             // mapPopsicles: array containing all the popsicles placed on the map.
     
-    var mapPopsicles:[pinPopsicle]?
+    var mapPopsicles: [pinPopsicle]?
     
             // newPopsicle: template used to create a new popsicle to be added to mapPopsicles...
             // ...it uses pinPopsicle; a variation of a normal MKPointAnnotation that can hold...
@@ -256,9 +270,33 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
     
     var foregroundBlurView: UIView!
     
+            // popsicleTimer:
+    
     var popsicleTimer: Timer?
     
+            // changesMade:
+    
     var changesMade = false
+    
+            // refreshCount:
+    
+    var refreshCount: Int = 69 {
+        
+        willSet(newCount) {
+            
+            if (newCount == 0) {
+                
+                self.refreshView.hideCounter()
+                
+            } else {
+                
+                self.refreshView.showCounter(count: newCount)
+                
+            }
+            
+        }
+        
+    }
     
     // *** VIEWCONTROLLER FUNCTIONS ***
     
@@ -307,6 +345,12 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
         showsFilterView.isSelected = true
         
+            // Initializes the refresh button view and the refreshCount variable to 0:
+        
+        refreshView.setParameters(rb: refreshButton, rbi: refreshButtonIcon, rcb: refreshCountBubble, rcl: refreshCountLabel)
+        
+        refreshCount = 0
+        
             // Initializes the gesture recognizers for the menu slide and adds them to the view.
             //  - The first two call handlePan to manage the sliding (later defined).
             //  - The last one calls hideMenuOnTap to manage closing the menu view (later defined).
@@ -327,9 +371,33 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
         mainMapView.addGestureRecognizer(menuOutsideTapGestureRecognizer!)
         
-            // Initializes the mapPopsicles array to be empty:
+            // Initialize the Core Data Data Controller from the app delegate:
         
-        mapPopsicles = []
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+        
+        dataController = delegate.dataController
+        
+            // Initialize the mapPopsicles array from the dataController:
+        
+        do {
+            
+            mapPopsicles = try dataController?.fetchPopsicles()
+            
+        } catch {
+            
+            print("ERROR: Unable to load mapPopsicles")
+            
+        }
+        
+        if (mapPopsicles != nil && mapPopsicles!.isEmpty) {
+            
+            print("\nCORRECT\n")
+            
+        } else {
+            
+            print("\n:(\n")
+            
+        }
         
             // Initializes the newPopsicle template by creating an empty userPinData object:
                    
@@ -624,7 +692,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
     @IBAction func refreshButtonPressed(sender: Any){
         
         refreshDatabase()
-        
+
         //getPopsicles()
         
     }
@@ -1427,8 +1495,11 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
      */
     
     @objc func refreshDatabase(){
+        
         let ref = Database.database().reference(withPath:"currentPopsicles")
+        
         let ref2 = Database.database().reference(withPath:"upcomingPopsicles")
+        
         let ref3 = Database.database().reference(withPath:"completedPopsicles")
         
         ref2.observeSingleEvent(of: .value, with: { (snapshot) in
@@ -1455,27 +1526,30 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
                         let calendar = Calendar.current
                         let components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: date)
                         
-                        
                         let hour = components.hour!
                         let year = components.year!
                         let month = components.month!
                         let day = components.day!
                         let minute = components.minute!
+                        
                         if year == currentYear && month == currentMonth && day >= currentDay {
                             
                             if (day > currentDay && day - currentDay == 1 && hour < currentHour) || day == currentDay || ( day - currentDay == 1 && hour == currentHour && minute <= currentMinute) {
                                 
                                 ref.child(eventName).setValue(data)
+                                
                                 let deleteRef = ref2.child(eventName)
+                                
                                 self.changesMade = true
                                 
                                 deleteRef.removeValue { error, _ in
                                     self.getPopsicles()
                                     print(error ?? "Refresh Database Error")
                                 }
+                                
                             }
+                            
                         }
-                        
                         
                     }
                 }
@@ -1548,9 +1622,13 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
      */
     
     public func getPopsicles(){
+        
         for annotation in mainMapView.annotations{
+            
             if annotation is pinPopsicle{
+                
                 mainMapView.removeAnnotation(annotation)
+                
             }
             
         }
@@ -1651,7 +1729,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         let ref = Database.database().reference()
         
         let eventDate = newPopsicle.popsicleData.eventDate
-         
+        
         let currentDate = Date()
         let currentCalendar = Calendar.current
         let currentHour = currentCalendar.component(.hour, from: currentDate)
@@ -1668,105 +1746,81 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         let calendar = Calendar.current
         let components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: date)
          
-         
         let hour = components.hour!
         let year = components.year!
         let month = components.month!
         let day = components.day!
         let minute = components.minute!
          
-        if year == currentYear && month == currentMonth && day >= currentDay {
+        if (year == currentYear && month == currentMonth && day >= currentDay) {
            
           if (day > currentDay && day - currentDay == 1 && hour < currentHour) || day == currentDay || ( day - currentDay == 1 && hour == currentHour && minute <= currentMinute){
-             
+            
             ref.child("currentPopsicles/\(newPopsicle.popsicleData.eventName)/latitude").setValue(mainMapView.centerCoordinate.latitude)
              
             ref.child("currentPopsicles/\(newPopsicle.popsicleData.eventName)/longitude").setValue(mainMapView.centerCoordinate.longitude)
              
             let en = newPopsicle.popsicleData.eventName
+            
             ref.child("currentPopsicles/\(en)/eventName").setValue(newPopsicle.popsicleData.eventName)
-             
+            
             ref.child("currentPopsicles/\(en)/eventInfo").setValue(newPopsicle.popsicleData.eventInfo)
-             
+            
             ref.child("currentPopsicles/\(en)/eventDate").setValue(newPopsicle.popsicleData.eventDate)
-             
+            
             ref.child("currentPopsicles/\(en)/eventDuration").setValue(newPopsicle.popsicleData.eventDuration)
-             
+            
             ref.child("currentPopsicles/\(en)/eventCategory").setValue(newPopsicle.popsicleData.eventCategory)
-             
+            
             ref.child("currentPopsicles/\(en)/eventCategoryDetails").setValue(newPopsicle.popsicleData.eventCategoryDetails)
-             
+            
             ref.child("currentPopsicles/\(en)/eventSubcategory1").setValue(newPopsicle.popsicleData.eventSubcategory1)
-             
+            
             ref.child("currentPopsicles/\(en)/eventSubcategory1Details").setValue(newPopsicle.popsicleData.eventSubcategory1Details)
-             
+            
             ref.child("currentPopsicles/\(en)/eventSubcategory2").setValue(newPopsicle.popsicleData.eventSubcategory2)
-             
+            
             ref.child("currentPopsicles/\(en)/eventSubcategory2Details").setValue(newPopsicle.popsicleData.eventSubcategory2Details)
-             
-          }
-           
-        else{
-           
-          ref.child("upcomingPopsicles/\(newPopsicle.popsicleData.eventName)/latitude").setValue(mainMapView.centerCoordinate.latitude)
-           
-          ref.child("upcomingPopsicles/\(newPopsicle.popsicleData.eventName)/longitude").setValue(mainMapView.centerCoordinate.longitude)
-           
-          let en = newPopsicle.popsicleData.eventName
-          ref.child("upcomingPopsicles/\(en)/eventName").setValue(newPopsicle.popsicleData.eventName)
-           
-          ref.child("upcomingPopsicles/\(en)/eventInfo").setValue(newPopsicle.popsicleData.eventInfo)
-           
-          ref.child("upcomingPopsicles/\(en)/eventDate").setValue(newPopsicle.popsicleData.eventDate)
-           
-          ref.child("upcomingPopsicles/\(en)/eventDuration").setValue(newPopsicle.popsicleData.eventDuration)
-           
-          ref.child("upcomingPopsicles/\(en)/eventCategory").setValue(newPopsicle.popsicleData.eventCategory)
-           
-          ref.child("upcomingPopsicles/\(en)/eventCategoryDetails").setValue(newPopsicle.popsicleData.eventCategoryDetails)
-           
-          ref.child("upcomingPopsicles/\(en)/eventSubcategory1").setValue(newPopsicle.popsicleData.eventSubcategory1)
-           
-          ref.child("upcomingPopsicles/\(en)/eventSubcategory1Details").setValue(newPopsicle.popsicleData.eventSubcategory1Details)
-           
-          ref.child("upcomingPopsicles/\(en)/eventSubcategory2").setValue(newPopsicle.popsicleData.eventSubcategory2)
-           
-          ref.child("upcomingPopsicles/\(en)/eventSubcategory2Details").setValue(newPopsicle.popsicleData.eventSubcategory2Details)
-           
+            
+          } else {
+            
+            ref.child("upcomingPopsicles/\(newPopsicle.popsicleData.eventName)/latitude").setValue(mainMapView.centerCoordinate.latitude)
+            
+            ref.child("upcomingPopsicles/\(newPopsicle.popsicleData.eventName)/longitude").setValue(mainMapView.centerCoordinate.longitude)
+            
+            let en = newPopsicle.popsicleData.eventName
+            
+            ref.child("upcomingPopsicles/\(en)/eventName").setValue(newPopsicle.popsicleData.eventName)
+            
+            ref.child("upcomingPopsicles/\(en)/eventInfo").setValue(newPopsicle.popsicleData.eventInfo)
+            
+            ref.child("upcomingPopsicles/\(en)/eventDate").setValue(newPopsicle.popsicleData.eventDate)
+            
+            ref.child("upcomingPopsicles/\(en)/eventDuration").setValue(newPopsicle.popsicleData.eventDuration)
+            
+            ref.child("upcomingPopsicles/\(en)/eventCategory").setValue(newPopsicle.popsicleData.eventCategory)
+            
+            ref.child("upcomingPopsicles/\(en)/eventCategoryDetails").setValue(newPopsicle.popsicleData.eventCategoryDetails)
+            
+            ref.child("upcomingPopsicles/\(en)/eventSubcategory1").setValue(newPopsicle.popsicleData.eventSubcategory1)
+            
+            ref.child("upcomingPopsicles/\(en)/eventSubcategory1Details").setValue(newPopsicle.popsicleData.eventSubcategory1Details)
+            
+            ref.child("upcomingPopsicles/\(en)/eventSubcategory2").setValue(newPopsicle.popsicleData.eventSubcategory2)
+            
+            ref.child("upcomingPopsicles/\(en)/eventSubcategory2Details").setValue(newPopsicle.popsicleData.eventSubcategory2Details)
+            
+            }
+            
         }
-        }
-        
-//        ref.child("popsicles/\(newPopsicle.popsicleData.eventName)/eventName").setValue(newPopsicle.popsicleData.eventName)
-//
-//        ref.child("popsicles/\(newPopsicle.popsicleData.eventName)/eventInfo").setValue(newPopsicle.popsicleData.eventInfo)
-//
-//        ref.child("popsicles/\(newPopsicle.popsicleData.eventName)/eventDate").setValue(newPopsicle.popsicleData.eventDate)
-//
-//        ref.child("popsicles/\(newPopsicle.popsicleData.eventName)/eventDuration").setValue(newPopsicle.popsicleData.eventDuration)
-//
-//        ref.child("popsicles/\(newPopsicle.popsicleData.eventName)/eventCategory").setValue(newPopsicle.popsicleData.eventCategory)
-//
-//        ref.child("popsicles/\(newPopsicle.popsicleData.eventName)/eventCategoryDetails").setValue(newPopsicle.popsicleData.eventCategoryDetails)
-//
-//        ref.child("popsicles/\(newPopsicle.popsicleData.eventName)/eventSubcategory1").setValue(newPopsicle.popsicleData.eventSubcategory1)
-//
-//        ref.child("popsicles/\(newPopsicle.popsicleData.eventName)/eventSubcategory1Details").setValue(newPopsicle.popsicleData.eventSubcategory1Details)
-//
-//        ref.child("popsicles/\(newPopsicle.popsicleData.eventName)/eventSubcategory2").setValue(newPopsicle.popsicleData.eventSubcategory2)
-//
-//        ref.child("popsicles/\(newPopsicle.popsicleData.eventName)/eventSubcategory2Details").setValue(newPopsicle.popsicleData.eventSubcategory2Details)
-//
-//        ref.child("popsicles/\(newPopsicle.popsicleData.eventName)/latitude").setValue(mainMapView.centerCoordinate.latitude)
-//
-//        ref.child("popsicles/\(newPopsicle.popsicleData.eventName)/longitude").setValue(mainMapView.centerCoordinate.longitude)
-//
-        newPopsicle.popsicleData.eventLocation = mainMapView.centerCoordinate
-        
-        newPopsicle.coordinate = newPopsicle.popsicleData.eventLocation
         
         placingPin = false
         
         confirmationViewIsVisible = false
+        
+        /*newPopsicle.popsicleData.eventLocation = mainMapView.centerCoordinate
+        
+        newPopsicle.coordinate = newPopsicle.popsicleData.eventLocation
         
         let popsicleToAdd = pinPopsicle()
         
@@ -1774,7 +1828,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
         popsicleToAdd.coordinate = popsicleToAdd.popsicleData.eventLocation
         
-        mapPopsicles?.append(popsicleToAdd)
+        mapPopsicles?.append(popsicleToAdd)*/
         
         self.view.layoutIfNeeded()
         
@@ -1798,6 +1852,10 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
             
         })
         
+        self.showMainButtons()
+        
+        self.addEventToMenu(eventName: self.newPopsicle.popsicleData.eventName)
+        
         //mapPopsicles?.append(popsicleToAdd)
          
         //addNewPopsicleToMap()
@@ -1806,11 +1864,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
         getPopsicles()
         
-        self.showMainButtons()
-        
         self.addNewPopsicleToMap()
-        
-        self.addEventToMenu(eventName: self.newPopsicle.popsicleData.eventName)
         
     }
     
