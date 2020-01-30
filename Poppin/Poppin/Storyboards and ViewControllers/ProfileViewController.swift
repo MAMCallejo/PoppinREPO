@@ -98,10 +98,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         
     }
-    
-    @IBAction func editProfile(sender: Any){
-        performSegue(withIdentifier:"editProfile", sender: self)
-    }
     /*
     // MARK: - Navigation
 

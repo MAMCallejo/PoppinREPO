@@ -24,7 +24,10 @@
 		6448D1882372B0410016A778 /* Octarine-BoldOblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = 648396432372AD980099B703 /* Octarine-BoldOblique.otf */; };
 		6448D1892372B0450016A778 /* Octarine-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 648396422372AD980099B703 /* Octarine-Light.otf */; };
 		6448D18A2372B0490016A778 /* Octarine-LightOblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = 648396442372AD980099B703 /* Octarine-LightOblique.otf */; };
+		644FCCAF23E22E780064A008 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644FCCAE23E22E780064A008 /* DataController.swift */; };
+		647DA3BE23E365F600B04D79 /* refreshButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647DA3BD23E365F600B04D79 /* refreshButtonView.swift */; };
 		648AEB99237E250C008743E8 /* pinPopsicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648AEB98237E250C008743E8 /* pinPopsicle.swift */; };
+		648FE1B723E22B3100C1DCDC /* Poppin.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 648FE1B523E22B3100C1DCDC /* Poppin.xcdatamodeld */; };
 		649ED12723CE7020006D31B5 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649ED12623CE7020006D31B5 /* ProfileViewController.swift */; };
 		649ED12923CE73FC006D31B5 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649ED12823CE73FC006D31B5 /* AppColors.swift */; };
 		649ED12B23CE7944006D31B5 /* myEventsMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649ED12A23CE7944006D31B5 /* myEventsMenuButton.swift */; };
@@ -40,7 +43,6 @@
 		64FF1EC323946A3D005DB686 /* categoryButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FF1EC223946A3D005DB686 /* categoryButtonView.swift */; };
 		675C020A90907E3A4CC718F0 /* Pods_Poppin_PoppinUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BC9E4DE0694804D3A182A63 /* Pods_Poppin_PoppinUITests.framework */; };
 		A185516288BB3D7FC3AA75BD /* Pods_PoppinTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B8194C58C1A345C73293ED /* Pods_PoppinTests.framework */; };
-		F517267C23E1151600042C5F /* Poppin.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F517267A23E1151500042C5F /* Poppin.xcdatamodeld */; };
 		F56E776223A8F69F009BF8E9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F56E776123A8F69F009BF8E9 /* GoogleService-Info.plist */; };
 		F56E776423A90187009BF8E9 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F56E776323A90187009BF8E9 /* Login.storyboard */; };
 		F56E776623A901BA009BF8E9 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56E776523A901BA009BF8E9 /* LoginViewController.swift */; };
@@ -93,11 +95,14 @@
 		6417F270237B975400033D8D /* mainNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mainNavigationController.swift; sourceTree = "<group>"; };
 		6434ED3C235E66E600E1808E /* createEventButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = createEventButton.swift; sourceTree = "<group>"; };
 		64484D4C23932AA500F33132 /* createEvent.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = createEvent.storyboard; sourceTree = "<group>"; };
+		644FCCAE23E22E780064A008 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		647DA3BD23E365F600B04D79 /* refreshButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = refreshButtonView.swift; sourceTree = "<group>"; };
 		648396422372AD980099B703 /* Octarine-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Octarine-Light.otf"; sourceTree = "<group>"; };
 		648396432372AD980099B703 /* Octarine-BoldOblique.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Octarine-BoldOblique.otf"; sourceTree = "<group>"; };
 		648396442372AD980099B703 /* Octarine-LightOblique.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Octarine-LightOblique.otf"; sourceTree = "<group>"; };
 		648396452372AD980099B703 /* Octarine-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Octarine-Bold.otf"; sourceTree = "<group>"; };
 		648AEB98237E250C008743E8 /* pinPopsicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pinPopsicle.swift; sourceTree = "<group>"; };
+		648FE1B623E22B3100C1DCDC /* Poppin.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Poppin.xcdatamodel; sourceTree = "<group>"; };
 		649ED12623CE7020006D31B5 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		649ED12823CE73FC006D31B5 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
 		649ED12A23CE7944006D31B5 /* myEventsMenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myEventsMenuButton.swift; sourceTree = "<group>"; };
@@ -118,7 +123,6 @@
 		92B8194C58C1A345C73293ED /* Pods_PoppinTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PoppinTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C72220AACB8ED8A3C2919A5E /* Pods_Poppin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Poppin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2BD1B431590049586CDB402 /* Pods-Poppin-PoppinUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Poppin-PoppinUITests.debug.xcconfig"; path = "Target Support Files/Pods-Poppin-PoppinUITests/Pods-Poppin-PoppinUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		F517267B23E1151500042C5F /* Poppin.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Poppin.xcdatamodel; sourceTree = "<group>"; };
 		F56E776123A8F69F009BF8E9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F56E776323A90187009BF8E9 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		F56E776523A901BA009BF8E9 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -225,9 +229,10 @@
 				6402707F2353C51F00641159 /* LaunchScreen.storyboard */,
 				F56E777123A95FCA009BF8E9 /* Storyboard+Utility.swift */,
 				6402707D2353C51F00641159 /* Assets.xcassets */,
-				F517267A23E1151500042C5F /* Poppin.xcdatamodeld */,
 				640270822353C51F00641159 /* Info.plist */,
 				F56E776123A8F69F009BF8E9 /* GoogleService-Info.plist */,
+				648FE1B523E22B3100C1DCDC /* Poppin.xcdatamodeld */,
+				644FCCAE23E22E780064A008 /* DataController.swift */,
 			);
 			name = Poppin;
 			path = ../Poppin/Poppin;
@@ -261,6 +266,7 @@
 				649ED12C23CE79BA006D31B5 /* menuButton.swift */,
 				64FF1EC223946A3D005DB686 /* categoryButtonView.swift */,
 				6406F3D02363D47C00930CA8 /* doneButton.swift */,
+				647DA3BD23E365F600B04D79 /* refreshButtonView.swift */,
 			);
 			path = "Buttons and Views";
 			sourceTree = "<group>";
@@ -624,11 +630,13 @@
 				648AEB99237E250C008743E8 /* pinPopsicle.swift in Sources */,
 				640270792353C51F00641159 /* mainViewController.swift in Sources */,
 				649ED13123CE7B45006D31B5 /* PopsicleGroupAnnotationView.swift in Sources */,
+				644FCCAF23E22E780064A008 /* DataController.swift in Sources */,
 				649ED13323CE7B4D006D31B5 /* PopsicleGroupIcon.swift in Sources */,
 				64AFB2E2236A886000D264F0 /* Utils.swift in Sources */,
 				F56E776C23A9078F009BF8E9 /* CreateUsernameViewController.swift in Sources */,
 				6434ED3D235E66E600E1808E /* createEventButton.swift in Sources */,
-				F517267C23E1151600042C5F /* Poppin.xcdatamodeld in Sources */,
+				647DA3BE23E365F600B04D79 /* refreshButtonView.swift in Sources */,
+				648FE1B723E22B3100C1DCDC /* Poppin.xcdatamodeld in Sources */,
 				64F91E79237221B900C4DC24 /* LocationSearchTable.swift in Sources */,
 				F56E776823A906F7009BF8E9 /* UserService.swift in Sources */,
 				649ED12D23CE79BA006D31B5 /* menuButton.swift in Sources */,
@@ -813,13 +821,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7P3V6PZ6DZ;
+				DEVELOPMENT_TEAM = 4VQFP5DX32;
 				INFOPLIST_FILE = "$(SRCROOT)/Poppin/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = Poppin.Poppin123;
+				PRODUCT_BUNDLE_IDENTIFIER = Poppin.Poppin;
 				PRODUCT_NAME = Poppin;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -832,13 +840,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7P3V6PZ6DZ;
+				DEVELOPMENT_TEAM = 4VQFP5DX32;
 				INFOPLIST_FILE = "$(SRCROOT)/Poppin/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = Poppin.Poppin123;
+				PRODUCT_BUNDLE_IDENTIFIER = Poppin.Poppin;
 				PRODUCT_NAME = Poppin;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -971,12 +979,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		F517267A23E1151500042C5F /* Poppin.xcdatamodeld */ = {
+		648FE1B523E22B3100C1DCDC /* Poppin.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				F517267B23E1151500042C5F /* Poppin.xcdatamodel */,
+				648FE1B623E22B3100C1DCDC /* Poppin.xcdatamodel */,
 			);
-			currentVersion = F517267B23E1151500042C5F /* Poppin.xcdatamodel */;
+			currentVersion = 648FE1B623E22B3100C1DCDC /* Poppin.xcdatamodel */;
 			path = Poppin.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
