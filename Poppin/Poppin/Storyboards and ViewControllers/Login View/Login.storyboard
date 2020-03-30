@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="arx-I4-fB5">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Octarine-Bold.otf">
+            <string>Octarine-Bold</string>
+        </array>
+        <array key="Octarine-Light.otf">
+            <string>Octarine-Light</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Login View Controller-->
+        <scene sceneID="R7e-7b-oY1">
+            <objects>
+                <viewController storyboardIdentifier="mainLoginPageViewController" modalTransitionStyle="crossDissolve" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Nmq-il-Ql6" customClass="LoginViewController" customModule="Poppin" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="scI-AI-75a">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchScreenBG" translatesAutoresizingMaskIntoConstraints="NO" id="ZRp-19-Vd5">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OLT-wb-sbi">
+                                <rect key="frame" x="41.5" y="256" width="331" height="384"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="goldButton" translatesAutoresizingMaskIntoConstraints="NO" id="Hj9-Bx-577">
+                                        <rect key="frame" x="99.5" y="10" width="132" height="132.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="Hj9-Bx-577" secondAttribute="height" multiplier="1:1" id="YNP-JB-I1Q"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Poppin!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.29999999999999999" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hpV-RQ-N36">
+                                        <rect key="frame" x="24.5" y="147.5" width="282" height="29.5"/>
+                                        <fontDescription key="fontDescription" name="Octarine-Bold" family="Octarine" pointSize="25"/>
+                                        <color key="textColor" name="mainNAVYBLUE"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Go ahead and log in to your account or create a new one:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.29999999999999999" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="saI-Qx-A3N">
+                                        <rect key="frame" x="39" y="187" width="253" height="70"/>
+                                        <fontDescription key="fontDescription" name="Octarine-Light" family="Octarine" pointSize="20"/>
+                                        <color key="textColor" name="mainNAVYBLUE"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2G2-0N-uND" customClass="loginButton" customModule="Poppin" customModuleProvider="target">
+                                        <rect key="frame" x="24.5" y="272" width="282" height="38.5"/>
+                                        <color key="backgroundColor" name="mainNAVYBLUE"/>
+                                        <fontDescription key="fontDescription" name="Octarine-Bold" family="Octarine" pointSize="22"/>
+                                        <state key="normal" title="Log in">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="njr-Dp-Ymh" customClass="loginButton" customModule="Poppin" customModuleProvider="target">
+                                        <rect key="frame" x="24.5" y="325.5" width="282" height="38.5"/>
+                                        <color key="backgroundColor" name="mainNAVYBLUE"/>
+                                        <fontDescription key="fontDescription" name="Octarine-Bold" family="Octarine" pointSize="22"/>
+                                        <state key="normal" title="Register">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="2G2-0N-uND" firstAttribute="top" secondItem="saI-Qx-A3N" secondAttribute="bottom" constant="15" id="01X-Yw-Cdp"/>
+                                    <constraint firstItem="Hj9-Bx-577" firstAttribute="centerX" secondItem="OLT-wb-sbi" secondAttribute="centerX" id="3Ma-f4-8V3"/>
+                                    <constraint firstItem="njr-Dp-Ymh" firstAttribute="width" secondItem="hpV-RQ-N36" secondAttribute="width" id="5AM-CU-Rzg"/>
+                                    <constraint firstItem="njr-Dp-Ymh" firstAttribute="top" secondItem="2G2-0N-uND" secondAttribute="bottom" constant="15" id="9Xz-nr-cd8"/>
+                                    <constraint firstItem="njr-Dp-Ymh" firstAttribute="height" secondItem="OLT-wb-sbi" secondAttribute="height" multiplier="0.1" id="An5-cT-2Lo"/>
+                                    <constraint firstItem="saI-Qx-A3N" firstAttribute="top" secondItem="hpV-RQ-N36" secondAttribute="bottom" constant="10" id="EGs-J9-CnP"/>
+                                    <constraint firstItem="Hj9-Bx-577" firstAttribute="top" secondItem="OLT-wb-sbi" secondAttribute="top" constant="10" id="Gbd-7L-42x"/>
+                                    <constraint firstAttribute="bottom" secondItem="njr-Dp-Ymh" secondAttribute="bottom" constant="20" id="IpQ-YJ-gBZ"/>
+                                    <constraint firstItem="hpV-RQ-N36" firstAttribute="top" secondItem="Hj9-Bx-577" secondAttribute="bottom" constant="5" id="UH7-jB-hw3"/>
+                                    <constraint firstItem="saI-Qx-A3N" firstAttribute="width" secondItem="hpV-RQ-N36" secondAttribute="width" multiplier="0.9" id="XjL-ko-u3u"/>
+                                    <constraint firstItem="hpV-RQ-N36" firstAttribute="centerX" secondItem="OLT-wb-sbi" secondAttribute="centerX" id="Xva-jt-p0Y"/>
+                                    <constraint firstItem="hpV-RQ-N36" firstAttribute="width" secondItem="OLT-wb-sbi" secondAttribute="width" multiplier="0.85" id="Ypc-m6-UfL"/>
+                                    <constraint firstItem="2G2-0N-uND" firstAttribute="centerX" secondItem="OLT-wb-sbi" secondAttribute="centerX" id="aWP-Xf-IRR"/>
+                                    <constraint firstItem="njr-Dp-Ymh" firstAttribute="centerX" secondItem="OLT-wb-sbi" secondAttribute="centerX" id="jn7-Tg-H8a"/>
+                                    <constraint firstItem="2G2-0N-uND" firstAttribute="width" secondItem="njr-Dp-Ymh" secondAttribute="width" id="s6w-i1-zJ6"/>
+                                    <constraint firstItem="2G2-0N-uND" firstAttribute="height" secondItem="njr-Dp-Ymh" secondAttribute="height" id="sGD-ff-git"/>
+                                    <constraint firstItem="saI-Qx-A3N" firstAttribute="centerX" secondItem="OLT-wb-sbi" secondAttribute="centerX" id="sGO-uM-deJ"/>
+                                    <constraint firstItem="Hj9-Bx-577" firstAttribute="width" secondItem="OLT-wb-sbi" secondAttribute="width" multiplier="0.4" id="wUT-z6-bhe"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ZRp-19-Vd5" firstAttribute="top" secondItem="scI-AI-75a" secondAttribute="top" id="7tN-y9-GsK"/>
+                            <constraint firstAttribute="trailing" secondItem="ZRp-19-Vd5" secondAttribute="trailing" id="BW5-h4-e3M"/>
+                            <constraint firstItem="ZRp-19-Vd5" firstAttribute="leading" secondItem="scI-AI-75a" secondAttribute="leading" id="H5j-Ia-Ul9"/>
+                            <constraint firstAttribute="bottom" secondItem="ZRp-19-Vd5" secondAttribute="bottom" id="LBi-gO-cBS"/>
+                            <constraint firstItem="OLT-wb-sbi" firstAttribute="centerX" secondItem="ZRp-19-Vd5" secondAttribute="centerX" id="MHK-Oq-wlq"/>
+                            <constraint firstItem="OLT-wb-sbi" firstAttribute="centerY" secondItem="ZRp-19-Vd5" secondAttribute="centerY" id="Qf5-iS-GTH"/>
+                            <constraint firstItem="OLT-wb-sbi" firstAttribute="width" secondItem="ZRp-19-Vd5" secondAttribute="width" multiplier="0.8" id="sEU-p9-Yjw"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="4pT-NY-sQt"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="yZB-8M-QW1"/>
+                    <connections>
+                        <outlet property="loginBG" destination="ZRp-19-Vd5" id="cq4-MU-Pjp"/>
+                        <outlet property="loginButton" destination="2G2-0N-uND" id="HMp-Bt-ZWT"/>
+                        <outlet property="loginContainerView" destination="OLT-wb-sbi" id="ZPj-Dc-lem"/>
+                        <outlet property="loginInfoLabel" destination="saI-Qx-A3N" id="plT-G2-bOY"/>
+                        <outlet property="loginLogo" destination="Hj9-Bx-577" id="5OK-wh-U9l"/>
+                        <outlet property="loginRegisterButton" destination="njr-Dp-Ymh" id="e52-1V-Neq"/>
+                        <outlet property="loginWelcomeLabel" destination="hpV-RQ-N36" id="E5m-MN-yv2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TW6-e2-Z9g" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2953.6231884057975" y="56.919642857142854"/>
+        </scene>
+        <!--Register Page View Controller-->
+        <scene sceneID="BFt-AQ-COf">
+            <objects>
+                <viewController storyboardIdentifier="registerPageViewController" modalTransitionStyle="crossDissolve" useStoryboardIdentifierAsRestorationIdentifier="YES" id="CU8-1k-abS" customClass="registerPageViewController" customModule="Poppin" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="CCu-Ac-Tku">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchScreenBG" translatesAutoresizingMaskIntoConstraints="NO" id="wsh-Yj-f0a">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RCb-1b-prT">
+                                <rect key="frame" x="41.5" y="281.5" width="331" height="333"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="myu-0y-92c">
+                                        <rect key="frame" x="25" y="25" width="281" height="283"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create a new account" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.29999999999999999" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8DC-YR-hqT">
+                                                <rect key="frame" x="28" y="0.0" width="225.5" height="27"/>
+                                                <fontDescription key="fontDescription" name="Octarine-Bold" family="Octarine" pointSize="23"/>
+                                                <color key="textColor" name="mainNAVYBLUE"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="p3g-qz-8xH">
+                                                <rect key="frame" x="0.0" y="47" width="281" height="44"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="44" id="bly-xy-7QU"/>
+                                                </constraints>
+                                                <color key="textColor" name="mainNAVYBLUE"/>
+                                                <fontDescription key="fontDescription" name="Octarine-Light" family="Octarine" pointSize="20"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7Da-Xe-cdg">
+                                                <rect key="frame" x="0.0" y="111" width="281" height="44"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="44" id="afP-Wc-oYv"/>
+                                                </constraints>
+                                                <color key="textColor" name="mainNAVYBLUE"/>
+                                                <fontDescription key="fontDescription" name="Octarine-Light" family="Octarine" pointSize="20"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sfY-qk-I6o">
+                                                <rect key="frame" x="0.0" y="175" width="281" height="44"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="44" id="JcC-6P-bNq"/>
+                                                </constraints>
+                                                <color key="textColor" name="mainNAVYBLUE"/>
+                                                <fontDescription key="fontDescription" name="Octarine-Light" family="Octarine" pointSize="20"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6bV-V9-SLH" customClass="loginButton" customModule="Poppin" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="239" width="281" height="44"/>
+                                                <color key="backgroundColor" name="mainNAVYBLUE"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="44" id="9Qg-yI-3SM"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="Octarine-Bold" family="Octarine" pointSize="22"/>
+                                                <state key="normal" title="Next">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="registerPageNextButtonTapped:" destination="CU8-1k-abS" eventType="touchUpInside" id="vzB-Np-sdA"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="p3g-qz-8xH" secondAttribute="trailing" id="19z-AZ-njX"/>
+                                            <constraint firstItem="6bV-V9-SLH" firstAttribute="leading" secondItem="myu-0y-92c" secondAttribute="leading" id="NRb-Cr-MI0"/>
+                                            <constraint firstAttribute="trailing" secondItem="6bV-V9-SLH" secondAttribute="trailing" id="a8m-Dd-xXe"/>
+                                            <constraint firstAttribute="trailing" secondItem="7Da-Xe-cdg" secondAttribute="trailing" id="eqC-4q-72i"/>
+                                            <constraint firstItem="p3g-qz-8xH" firstAttribute="leading" secondItem="myu-0y-92c" secondAttribute="leading" id="wf0-eS-ihI"/>
+                                            <constraint firstAttribute="trailing" secondItem="sfY-qk-I6o" secondAttribute="trailing" id="yoe-pR-3SN"/>
+                                            <constraint firstItem="sfY-qk-I6o" firstAttribute="leading" secondItem="myu-0y-92c" secondAttribute="leading" id="zh5-N8-YCn"/>
+                                            <constraint firstItem="7Da-Xe-cdg" firstAttribute="leading" secondItem="myu-0y-92c" secondAttribute="leading" id="zpB-Tq-zQh"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="myu-0y-92c" firstAttribute="leading" secondItem="RCb-1b-prT" secondAttribute="leading" constant="25" id="62M-ov-jte"/>
+                                    <constraint firstItem="myu-0y-92c" firstAttribute="top" secondItem="RCb-1b-prT" secondAttribute="top" constant="25" id="YEI-3M-9UG"/>
+                                    <constraint firstAttribute="trailing" secondItem="myu-0y-92c" secondAttribute="trailing" constant="25" id="hVo-5s-kks"/>
+                                    <constraint firstAttribute="bottom" secondItem="myu-0y-92c" secondAttribute="bottom" constant="25" id="ucW-zN-8SY"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qxU-Uz-3zH" customClass="loginButton" customModule="Poppin" customModuleProvider="target">
+                                <rect key="frame" x="24" y="264" width="35" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="qxU-Uz-3zH" secondAttribute="height" multiplier="1:1" id="TTh-5K-GYB"/>
+                                </constraints>
+                                <color key="tintColor" name="mainNAVYBLUE"/>
+                                <state key="normal" image="backButton">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20" scale="large" weight="semibold"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="RCb-1b-prT" firstAttribute="width" secondItem="wsh-Yj-f0a" secondAttribute="width" multiplier="0.8" id="Kmq-ZC-OpP"/>
+                            <constraint firstAttribute="top" secondItem="wsh-Yj-f0a" secondAttribute="top" id="LAI-cp-sFT"/>
+                            <constraint firstItem="qxU-Uz-3zH" firstAttribute="centerY" secondItem="RCb-1b-prT" secondAttribute="top" id="Q03-4z-S0r"/>
+                            <constraint firstItem="wsh-Yj-f0a" firstAttribute="bottom" secondItem="CCu-Ac-Tku" secondAttribute="bottom" id="X3L-r9-jIG"/>
+                            <constraint firstItem="RCb-1b-prT" firstAttribute="centerX" secondItem="CCu-Ac-Tku" secondAttribute="centerX" id="YlH-Kf-POT"/>
+                            <constraint firstItem="qxU-Uz-3zH" firstAttribute="width" secondItem="wsh-Yj-f0a" secondAttribute="width" multiplier="0.085" id="a6v-te-riV"/>
+                            <constraint firstItem="qxU-Uz-3zH" firstAttribute="centerX" secondItem="RCb-1b-prT" secondAttribute="leading" id="aA8-Vz-4Df"/>
+                            <constraint firstItem="wsh-Yj-f0a" firstAttribute="leading" secondItem="CCu-Ac-Tku" secondAttribute="leading" id="nMy-kA-9vN"/>
+                            <constraint firstAttribute="trailing" secondItem="wsh-Yj-f0a" secondAttribute="trailing" id="nln-2j-Ed8"/>
+                            <constraint firstItem="RCb-1b-prT" firstAttribute="centerY" secondItem="CCu-Ac-Tku" secondAttribute="centerY" id="vYY-2i-QFN"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="bbX-a2-ZVp"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="2KM-XN-4Oq"/>
+                    <connections>
+                        <outlet property="registerPageBG" destination="wsh-Yj-f0a" id="39O-0N-Sbu"/>
+                        <outlet property="registerPageBackButton" destination="qxU-Uz-3zH" id="gfN-KJ-uEd"/>
+                        <outlet property="registerPageContainerView" destination="RCb-1b-prT" id="Lkw-ya-Eg9"/>
+                        <outlet property="registerPageEmailTextField" destination="7Da-Xe-cdg" id="lQW-OO-F8l"/>
+                        <outlet property="registerPageNextButton" destination="6bV-V9-SLH" id="XGM-9V-8wn"/>
+                        <outlet property="registerPagePasswordTextField" destination="sfY-qk-I6o" id="kgG-s9-Jag"/>
+                        <outlet property="registerPageStackView" destination="myu-0y-92c" id="2k2-UE-qGa"/>
+                        <outlet property="registerPageTitleLabel" destination="8DC-YR-hqT" id="6k5-VB-kfE"/>
+                        <outlet property="registerPageUsernameTextField" destination="p3g-qz-8xH" id="d31-kp-Svw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Gz-l0-uec" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3745" y="57"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="GDM-ZF-cIg">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="arx-I4-fB5" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Ajt-Xb-PFC">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Nmq-il-Ql6" kind="relationship" relationship="rootViewController" id="iaa-eb-tvt"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NxZ-hM-UPp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2044.9275362318842" y="56.919642857142854"/>
+        </scene>
+        <!--Login Page View Controller-->
+        <scene sceneID="Vtg-v2-r3x">
+            <objects>
+                <viewController storyboardIdentifier="loginPageViewController" modalTransitionStyle="crossDissolve" useStoryboardIdentifierAsRestorationIdentifier="YES" id="sPC-Sl-6VW" customClass="loginPageViewController" customModule="Poppin" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4Jo-u2-CMA">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchScreenBG" translatesAutoresizingMaskIntoConstraints="NO" id="Z0I-Ew-cs1">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JL6-7b-iRL">
+                                <rect key="frame" x="41.5" y="313.5" width="331" height="269"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="JZz-9e-qZr">
+                                        <rect key="frame" x="25" y="25" width="281" height="219"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Log in to your account" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.29999999999999999" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F7c-rf-kRI">
+                                                <rect key="frame" x="25" y="0.0" width="231.5" height="27"/>
+                                                <fontDescription key="fontDescription" name="Octarine-Bold" family="Octarine" pointSize="23"/>
+                                                <color key="textColor" name="mainNAVYBLUE"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DHW-BO-h2L">
+                                                <rect key="frame" x="0.0" y="47" width="281" height="44"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="44" id="e7D-GT-XAh"/>
+                                                </constraints>
+                                                <color key="textColor" name="mainNAVYBLUE"/>
+                                                <fontDescription key="fontDescription" name="Octarine-Light" family="Octarine" pointSize="20"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wfB-BY-etV">
+                                                <rect key="frame" x="0.0" y="111" width="281" height="44"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="44" id="0QS-YE-O3s"/>
+                                                </constraints>
+                                                <color key="textColor" name="mainNAVYBLUE"/>
+                                                <fontDescription key="fontDescription" name="Octarine-Light" family="Octarine" pointSize="20"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O45-7k-1u9" customClass="loginButton" customModule="Poppin" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="175" width="281" height="44"/>
+                                                <color key="backgroundColor" name="mainNAVYBLUE"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="44" id="ERS-s9-FjP"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="Octarine-Bold" family="Octarine" pointSize="22"/>
+                                                <state key="normal" title="Next">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="loginPageNextButtonTapped:" destination="sPC-Sl-6VW" eventType="touchUpInside" id="QgL-PV-PFv"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="DHW-BO-h2L" firstAttribute="leading" secondItem="JZz-9e-qZr" secondAttribute="leading" id="07f-J4-l3v"/>
+                                            <constraint firstItem="O45-7k-1u9" firstAttribute="leading" secondItem="JZz-9e-qZr" secondAttribute="leading" id="6c9-M1-49o"/>
+                                            <constraint firstAttribute="trailing" secondItem="DHW-BO-h2L" secondAttribute="trailing" id="6jQ-5L-kOM"/>
+                                            <constraint firstAttribute="trailing" secondItem="wfB-BY-etV" secondAttribute="trailing" id="FE9-lt-PET"/>
+                                            <constraint firstAttribute="trailing" secondItem="O45-7k-1u9" secondAttribute="trailing" id="XcK-ME-66Y"/>
+                                            <constraint firstItem="wfB-BY-etV" firstAttribute="leading" secondItem="JZz-9e-qZr" secondAttribute="leading" id="iu6-5M-FPx"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="JZz-9e-qZr" secondAttribute="trailing" constant="25" id="CAH-2r-onw"/>
+                                    <constraint firstAttribute="bottom" secondItem="JZz-9e-qZr" secondAttribute="bottom" constant="25" id="Jhb-g7-L8D"/>
+                                    <constraint firstItem="JZz-9e-qZr" firstAttribute="top" secondItem="JL6-7b-iRL" secondAttribute="top" constant="25" id="KFW-rU-mUh"/>
+                                    <constraint firstItem="JZz-9e-qZr" firstAttribute="leading" secondItem="JL6-7b-iRL" secondAttribute="leading" constant="25" id="njj-dF-LN6"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GFr-wz-LoV" customClass="loginButton" customModule="Poppin" customModuleProvider="target">
+                                <rect key="frame" x="24" y="296" width="35" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="GFr-wz-LoV" secondAttribute="height" multiplier="1:1" id="69x-g1-OYl"/>
+                                </constraints>
+                                <color key="tintColor" name="mainNAVYBLUE"/>
+                                <state key="normal" image="backButton">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20" scale="large" weight="semibold"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="GFr-wz-LoV" firstAttribute="centerX" secondItem="JL6-7b-iRL" secondAttribute="leading" id="015-2r-a3Q"/>
+                            <constraint firstItem="GFr-wz-LoV" firstAttribute="centerY" secondItem="JL6-7b-iRL" secondAttribute="top" id="3ee-ES-5iB"/>
+                            <constraint firstItem="GFr-wz-LoV" firstAttribute="width" secondItem="Z0I-Ew-cs1" secondAttribute="width" multiplier="0.085" id="4fG-sC-fZD"/>
+                            <constraint firstItem="Z0I-Ew-cs1" firstAttribute="top" secondItem="4Jo-u2-CMA" secondAttribute="top" id="H3Y-vh-vhP"/>
+                            <constraint firstItem="JL6-7b-iRL" firstAttribute="centerX" secondItem="4Jo-u2-CMA" secondAttribute="centerX" id="Lmp-KN-azr"/>
+                            <constraint firstItem="Z0I-Ew-cs1" firstAttribute="leading" secondItem="4Jo-u2-CMA" secondAttribute="leading" id="O6i-YW-V44"/>
+                            <constraint firstItem="JL6-7b-iRL" firstAttribute="width" secondItem="Z0I-Ew-cs1" secondAttribute="width" multiplier="0.8" id="dKB-f6-4dP"/>
+                            <constraint firstItem="JL6-7b-iRL" firstAttribute="centerY" secondItem="4Jo-u2-CMA" secondAttribute="centerY" id="oPN-5f-MYv"/>
+                            <constraint firstAttribute="bottom" secondItem="Z0I-Ew-cs1" secondAttribute="bottom" id="wFi-BR-v5Y"/>
+                            <constraint firstAttribute="trailing" secondItem="Z0I-Ew-cs1" secondAttribute="trailing" id="wSx-vZ-JHL"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="bTQ-sB-1ie"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="OWf-6d-5F5"/>
+                    <connections>
+                        <outlet property="loginPageBG" destination="Z0I-Ew-cs1" id="ySp-57-9fi"/>
+                        <outlet property="loginPageBackButton" destination="GFr-wz-LoV" id="vnp-nu-bPC"/>
+                        <outlet property="loginPageContainerView" destination="JL6-7b-iRL" id="gMq-ok-hyj"/>
+                        <outlet property="loginPageEmailTextField" destination="DHW-BO-h2L" id="RJb-WU-Vab"/>
+                        <outlet property="loginPageNextButton" destination="O45-7k-1u9" id="ym8-lo-7sT"/>
+                        <outlet property="loginPagePasswordTextField" destination="wfB-BY-etV" id="jkQ-cX-Z1x"/>
+                        <outlet property="loginPageStackView" destination="JZz-9e-qZr" id="EPo-ZC-dYu"/>
+                        <outlet property="loginPageTitleLabel" destination="F7c-rf-kRI" id="1Jb-dg-sZ8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="j8X-lo-5mF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4520" y="57"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="LaunchScreenBG" width="414" height="896"/>
+        <image name="backButton" width="50" height="50"/>
+        <image name="goldButton" width="128" height="128"/>
+        <namedColor name="mainNAVYBLUE">
+            <color red="0.0" green="0.15700000524520874" blue="0.40799999237060547" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
