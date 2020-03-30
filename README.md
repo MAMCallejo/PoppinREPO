@@ -9,13 +9,19 @@ So far, the main project contains the following features:
   
   - Create Event View: the user can fill out an event form and then place their own popsicle on the map to showcase their own     event.  
   
+  - Social Aspect: users can create an account, an log in after.
+  
+  - Profile View: accessed from the menu. Has design done.
+  
+  - Online Database: popsicles, as well as, user info is stored in Firebase, and the map is updated constantly to reflect the expiration and creation of the popsicles.
+  
 Now, the relevant features that still need to be added are the following:
 
-  - Social Aspect: users will be able to create an account (or link an already existing social media one) and be able to           follow their friends on the app. Also, they can make events private so only their friends can see it, as well as, see what     events their friends are going to. Furthermore, they will be able to connect their social media accounts and share their       events on it.
+  - Social Aspect: link an already existing social media account and be able to follow their friends on the app. Also, they can make events private so only their friends can see it, as well as, see what events their friends are going to. Furthermore, they will be able to connect their social media accounts and share their events on it.
   
-  - Profile View: should be accessed from the menu or by pressing on somebody else's profile picture. It should allow the user     to see how their profile is publicly shown, as well as, give them the option to change it. Furthermore, if they press on       somebody else's profile picture, the profile view should show their information, as well as, give the user the option to       add this person as their friend. Moreover, their events should be accessed from this view as well. Finally, the option to     delete their account should be on this view as well.
+  - Profile View: should be accessed by pressing on somebody else's profile picture. It should allow the user     to see how their profile is publicly shown, as well as, give them the option to change it. Furthermore, if they press on       somebody else's profile picture, the profile view should show their information, as well as, give the user the option to       add this person as their friend. Moreover, their events should be accessed from this view as well. Finally, the option to     delete their account should be on this view as well.
   
-  - Popsicle View: showcases the main information about an event once a popsicle has been pressed by the user. It probably         should have an initial informative view with simply the title, date, etc. With a small size so that the user can tap out       of it easily in case they are not interested enough. Then, it should have a button that opens the main Popsicle View with     all the information of the event.
+  - Popsicle View: showcases the main information about an event once a popsicle has been pressed by the user.
   
   - My Events View: accessed from the menu view, it should contain information regarding future, current, and past events         created by the user. Its interface should be simple and straight-forward (maybe a Stack View kind of interface subdivided     into three).
   
@@ -27,7 +33,7 @@ Now, the relevant features that still need to be added are the following:
   
   - Automation of the event creation process: this feature is far into the future but the app should give organizations on         campus the option to let their events be shown on the app's map. Then, if they give permission we could gather their           events from a DU's database and use that information to populate our map with their events.
   
-  - Online database: right now the popsicles are stored in an array on the user's phone. However, the popsicles' data should       be stored on the cloud and the map should be updated constantly to reflect the expiration and creation of the popsicles.
+  - Online database: better implementation.
   
   - Loading Screen and Transition: we still need to design the loading screen and the popsicle melting animation. A suggestion     would be to create a simple GIF for the loading screen (maybe the popsicle rotating or pulsating) and then user After         Effects to create a video animation of the popsicle melting that fades into the map view. However, on the worst case           scenario we could use the Twitter fade in effect.
   
