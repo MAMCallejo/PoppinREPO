@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="U0W-XD-ZdF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="U0W-XD-ZdF">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -16,6 +16,14 @@
         </array>
     </customFonts>
     <scenes>
+        <!--popsicleInfo-->
+        <scene sceneID="wzt-vr-gbZ">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="popsicleInfo" storyboardName="popsicleInfo" referencedIdentifier="popsicleInfo" id="7ja-9E-pg4" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wff-Wf-De6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2317" y="140"/>
+        </scene>
         <!--Profile-->
         <scene sceneID="MFL-FI-hW0">
             <objects>
@@ -24,7 +32,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o7e-pm-g6d" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2004" y="163"/>
+            <point key="canvasLocation" x="2100" y="281"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -645,11 +653,12 @@
                         <outlet property="sportsFilterView" destination="AAn-dO-cdc" id="XSt-IT-rGX"/>
                         <outlet property="usernameLabel" destination="L0Y-KH-14K" id="pRQ-mr-a7b"/>
                         <outlet property="zoomToUserLocationButton" destination="vl0-cY-pAu" id="CRn-aA-bDm"/>
+                        <segue destination="7ja-9E-pg4" kind="presentation" identifier="popsicleSelected" id="dPq-Te-dA6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1103" y="164"/>
+            <point key="canvasLocation" x="1436" y="228"/>
         </scene>
         <!--createEvent-->
         <scene sceneID="6xB-t3-Iup">

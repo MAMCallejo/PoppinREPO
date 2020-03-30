@@ -170,7 +170,9 @@ class popsicleInfoViewController : UIViewController {
     }
     
     @IBAction func closeView(_ sender: Any) {
+        
         returnProtocol?.showMainButtons()
+        
         self.dismiss(animated: true, completion: nil)
     }
     

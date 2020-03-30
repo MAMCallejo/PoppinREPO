@@ -34,6 +34,8 @@ protocol createEventViewControllerReturnProtocol : NSObjectProtocol {
     
 }
 
+
+
 /*
     MapSearchProtocol: this protocol defines the functions that a MapSearchDelegate needs to implement...
     ...The LocationSearchTable has a MapSearchDelegate.
@@ -1412,6 +1414,56 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
                 
             })
             
+        } else if(segue.identifier == "popsicleSelected") {
+            
+            let inputVC = segue.destination as! popsicleInfoViewController
+            
+            inputVC.returnProtocol = self
+            
+            inputVC.peventName = (sender as! pinPopsicle).popsicleData.eventName
+            inputVC.peventInfo = (sender as! pinPopsicle).popsicleData.eventInfo
+            inputVC.peventDate = (sender as! pinPopsicle).popsicleData.eventDate
+            inputVC.peventDuration = (sender as! pinPopsicle).popsicleData.eventDuration
+            inputVC.peventCategory = (sender as! pinPopsicle).popsicleData.eventCategory
+            inputVC.peventCategoryDetails = (sender as! pinPopsicle).popsicleData.eventCategoryDetails
+            inputVC.peventSubcategory1 = (sender as! pinPopsicle).popsicleData.eventSubcategory1
+            inputVC.peventSubcategory1Details = (sender as! pinPopsicle).popsicleData.eventSubcategory1Details
+            inputVC.peventImage = (sender as! pinPopsicle).popsicleData.eventPopsicle
+            
+            // Hide Menu if it's showing.
+
+            if (menuShowing) {
+
+                self.view.layoutIfNeeded()
+
+                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.95, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+
+                    self.menuLeadingConstraint.constant =  0 - self.menuView.frame.size.width
+
+                    self.view.layoutIfNeeded()
+
+                })
+
+                menuShowing = !menuShowing
+
+            }
+
+            // Hide Buttons and blur mapview.
+
+            self.view.layoutIfNeeded()
+
+            UIView.animate(withDuration: 0.25, animations: {
+
+                self.menuButton.alpha = 0.0
+
+                self.newEventButton.alpha = 0.0
+
+                self.foregroundBlurView.alpha = 1.0
+
+                self.view.layoutIfNeeded()
+
+            })
+
         }
         
     }
@@ -2411,6 +2463,9 @@ extension mainViewController: MKMapViewDelegate {
     public func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         
         print("\nANNOTATION HAS BEEN PRESSED\n")
+        
+        let selectedPopsicle = view.annotation as? pinPopsicle
+        performSegue(withIdentifier: "popsicleSelected", sender: selectedPopsicle)
         
     }
     
