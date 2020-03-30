@@ -3,11 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		15585902BF674DCD35E5FA3E /* Pods_Poppin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C72220AACB8ED8A3C2919A5E /* Pods_Poppin.framework */; };
+		37F04729E03472B150FAE84C /* libPods-Poppin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FAC6140651744B5B1C52708 /* libPods-Poppin.a */; };
+		38478200700DEF6B99E39C0E /* libPods-Poppin-PoppinUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BE4E584C6656F6C44710A45 /* libPods-Poppin-PoppinUITests.a */; };
+		5D9FF855B918BF7090C6182C /* libPods-PoppinTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 667691B23288CC80E5B0CCCA /* libPods-PoppinTests.a */; };
 		640270752353C51F00641159 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 640270742353C51F00641159 /* AppDelegate.swift */; };
 		640270792353C51F00641159 /* mainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 640270782353C51F00641159 /* mainViewController.swift */; };
 		6402707C2353C51F00641159 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6402707A2353C51F00641159 /* Main.storyboard */; };
@@ -18,6 +20,9 @@
 		640270B12353D43600641159 /* createEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 640270B02353D43600641159 /* createEventViewController.swift */; };
 		6406F3D12363D47C00930CA8 /* doneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6406F3D02363D47C00930CA8 /* doneButton.swift */; };
 		6417F271237B975400033D8D /* mainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6417F270237B975400033D8D /* mainNavigationController.swift */; };
+		642A93962419985B005B027F /* popsicleInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642A939424199859005B027F /* popsicleInfoViewController.swift */; };
+		642A93972419985B005B027F /* popsicleInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 642A93952419985B005B027F /* popsicleInfo.storyboard */; };
+		64337B4E2407257B00DCC9FA /* editProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64337B4D2407257B00DCC9FA /* editProfileViewController.swift */; };
 		6434ED3D235E66E600E1808E /* createEventButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6434ED3C235E66E600E1808E /* createEventButton.swift */; };
 		64484D4D23932AA500F33132 /* createEvent.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64484D4C23932AA500F33132 /* createEvent.storyboard */; };
 		6448D1872372B03C0016A778 /* Octarine-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 648396452372AD980099B703 /* Octarine-Bold.otf */; };
@@ -38,17 +43,17 @@
 		64AFB2DD236A7E4B00D264F0 /* Alerts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64AFB2DC236A7E4B00D264F0 /* Alerts.storyboard */; };
 		64AFB2DF236A81B600D264F0 /* dangerousActionAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64AFB2DE236A81B600D264F0 /* dangerousActionAlert.swift */; };
 		64AFB2E2236A886000D264F0 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64AFB2E1236A886000D264F0 /* Utils.swift */; };
+		64BD292423FC9B2500B5C32D /* loginPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BD292323FC9B2500B5C32D /* loginPageViewController.swift */; };
+		64BD292623FC9B3700B5C32D /* registerPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BD292523FC9B3700B5C32D /* registerPageViewController.swift */; };
+		64BD292A23FC9BFF00B5C32D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BD292923FC9BFF00B5C32D /* LoginViewController.swift */; };
+		64BD292C23FCB11300B5C32D /* loginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BD292B23FCB11300B5C32D /* loginButton.swift */; };
 		64C10D642372A1950087CE23 /* LocationSearchTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C10D632372A1950087CE23 /* LocationSearchTableCell.swift */; };
 		64F91E79237221B900C4DC24 /* LocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F91E78237221B900C4DC24 /* LocationSearchTable.swift */; };
 		64FF1EC323946A3D005DB686 /* categoryButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FF1EC223946A3D005DB686 /* categoryButtonView.swift */; };
-		675C020A90907E3A4CC718F0 /* Pods_Poppin_PoppinUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BC9E4DE0694804D3A182A63 /* Pods_Poppin_PoppinUITests.framework */; };
-		A185516288BB3D7FC3AA75BD /* Pods_PoppinTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B8194C58C1A345C73293ED /* Pods_PoppinTests.framework */; };
 		F56E776223A8F69F009BF8E9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F56E776123A8F69F009BF8E9 /* GoogleService-Info.plist */; };
 		F56E776423A90187009BF8E9 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F56E776323A90187009BF8E9 /* Login.storyboard */; };
-		F56E776623A901BA009BF8E9 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56E776523A901BA009BF8E9 /* LoginViewController.swift */; };
 		F56E776823A906F7009BF8E9 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56E776723A906F6009BF8E9 /* UserService.swift */; };
 		F56E776A23A90737009BF8E9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56E776923A90737009BF8E9 /* User.swift */; };
-		F56E776C23A9078F009BF8E9 /* CreateUsernameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56E776B23A9078F009BF8E9 /* CreateUsernameViewController.swift */; };
 		F56E776E23A907A5009BF8E9 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56E776D23A907A4009BF8E9 /* Post.swift */; };
 		F56E777023A907CA009BF8E9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56E776F23A907CA009BF8E9 /* Constants.swift */; };
 		F56E777223A95FCA009BF8E9 /* Storyboard+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56E777123A95FCA009BF8E9 /* Storyboard+Utility.swift */; };
@@ -93,6 +98,9 @@
 		640270B02353D43600641159 /* createEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = createEventViewController.swift; sourceTree = "<group>"; };
 		6406F3D02363D47C00930CA8 /* doneButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = doneButton.swift; sourceTree = "<group>"; };
 		6417F270237B975400033D8D /* mainNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mainNavigationController.swift; sourceTree = "<group>"; };
+		642A939424199859005B027F /* popsicleInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = popsicleInfoViewController.swift; sourceTree = "<group>"; };
+		642A93952419985B005B027F /* popsicleInfo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = popsicleInfo.storyboard; sourceTree = "<group>"; };
+		64337B4D2407257B00DCC9FA /* editProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = editProfileViewController.swift; sourceTree = "<group>"; };
 		6434ED3C235E66E600E1808E /* createEventButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = createEventButton.swift; sourceTree = "<group>"; };
 		64484D4C23932AA500F33132 /* createEvent.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = createEvent.storyboard; sourceTree = "<group>"; };
 		644FCCAE23E22E780064A008 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
@@ -113,28 +121,30 @@
 		64AFB2DC236A7E4B00D264F0 /* Alerts.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Alerts.storyboard; sourceTree = "<group>"; };
 		64AFB2DE236A81B600D264F0 /* dangerousActionAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dangerousActionAlert.swift; sourceTree = "<group>"; };
 		64AFB2E1236A886000D264F0 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		64BD292323FC9B2500B5C32D /* loginPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginPageViewController.swift; sourceTree = "<group>"; };
+		64BD292523FC9B3700B5C32D /* registerPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = registerPageViewController.swift; sourceTree = "<group>"; };
+		64BD292923FC9BFF00B5C32D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		64BD292B23FCB11300B5C32D /* loginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginButton.swift; sourceTree = "<group>"; };
 		64C10D632372A1950087CE23 /* LocationSearchTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTableCell.swift; sourceTree = "<group>"; };
+		64D8799E23FDA3F4004E24C5 /* GTMSessionFetcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GTMSessionFetcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		64F91E78237221B900C4DC24 /* LocationSearchTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTable.swift; sourceTree = "<group>"; };
 		64FF1EC223946A3D005DB686 /* categoryButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = categoryButtonView.swift; sourceTree = "<group>"; };
-		6BC9E4DE0694804D3A182A63 /* Pods_Poppin_PoppinUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Poppin_PoppinUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		667691B23288CC80E5B0CCCA /* libPods-PoppinTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PoppinTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6BE4E584C6656F6C44710A45 /* libPods-Poppin-PoppinUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Poppin-PoppinUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D4948C07DAC204E73FBC80E /* Pods-Poppin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Poppin.debug.xcconfig"; path = "Target Support Files/Pods-Poppin/Pods-Poppin.debug.xcconfig"; sourceTree = "<group>"; };
+		7FAC6140651744B5B1C52708 /* libPods-Poppin.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Poppin.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8361A6DAE50A0994ED6684D4 /* Pods-PoppinTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PoppinTests.release.xcconfig"; path = "Target Support Files/Pods-PoppinTests/Pods-PoppinTests.release.xcconfig"; sourceTree = "<group>"; };
 		842C55BCC8F55D8E1648ECC5 /* Pods-Poppin-PoppinUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Poppin-PoppinUITests.release.xcconfig"; path = "Target Support Files/Pods-Poppin-PoppinUITests/Pods-Poppin-PoppinUITests.release.xcconfig"; sourceTree = "<group>"; };
-		92B8194C58C1A345C73293ED /* Pods_PoppinTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PoppinTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C72220AACB8ED8A3C2919A5E /* Pods_Poppin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Poppin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2BD1B431590049586CDB402 /* Pods-Poppin-PoppinUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Poppin-PoppinUITests.debug.xcconfig"; path = "Target Support Files/Pods-Poppin-PoppinUITests/Pods-Poppin-PoppinUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		F56E776123A8F69F009BF8E9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F56E776323A90187009BF8E9 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
-		F56E776523A901BA009BF8E9 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		F56E776723A906F6009BF8E9 /* UserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		F56E776923A90737009BF8E9 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		F56E776B23A9078F009BF8E9 /* CreateUsernameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateUsernameViewController.swift; sourceTree = "<group>"; };
 		F56E776D23A907A4009BF8E9 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		F56E776F23A907CA009BF8E9 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F56E777123A95FCA009BF8E9 /* Storyboard+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Storyboard+Utility.swift"; sourceTree = "<group>"; };
 		F56E777323AA823E009BF8E9 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		F56E777523ABD8FC009BF8E9 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
-		F56E777923ABDB87009BF8E9 /* EditProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		F56E777B23CBDE80009BF8E9 /* PopsicleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopsicleViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -143,7 +153,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				15585902BF674DCD35E5FA3E /* Pods_Poppin.framework in Frameworks */,
+				37F04729E03472B150FAE84C /* libPods-Poppin.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,7 +161,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A185516288BB3D7FC3AA75BD /* Pods_PoppinTests.framework in Frameworks */,
+				5D9FF855B918BF7090C6182C /* libPods-PoppinTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,7 +169,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				675C020A90907E3A4CC718F0 /* Pods_Poppin_PoppinUITests.framework in Frameworks */,
+				38478200700DEF6B99E39C0E /* libPods-Poppin-PoppinUITests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,9 +192,10 @@
 		5AFCF0ECEC5A99522A30056D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C72220AACB8ED8A3C2919A5E /* Pods_Poppin.framework */,
-				6BC9E4DE0694804D3A182A63 /* Pods_Poppin_PoppinUITests.framework */,
-				92B8194C58C1A345C73293ED /* Pods_PoppinTests.framework */,
+				64D8799E23FDA3F4004E24C5 /* GTMSessionFetcher.framework */,
+				7FAC6140651744B5B1C52708 /* libPods-Poppin.a */,
+				6BE4E584C6656F6C44710A45 /* libPods-Poppin-PoppinUITests.a */,
+				667691B23288CC80E5B0CCCA /* libPods-PoppinTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -222,12 +233,7 @@
 				6489BBB223A0629F00769793 /* Storyboards and ViewControllers */,
 				640270742353C51F00641159 /* AppDelegate.swift */,
 				F56E777323AA823E009BF8E9 /* SceneDelegate.swift */,
-				F56E776723A906F6009BF8E9 /* UserService.swift */,
-				F56E776F23A907CA009BF8E9 /* Constants.swift */,
-				F56E776923A90737009BF8E9 /* User.swift */,
-				F56E776D23A907A4009BF8E9 /* Post.swift */,
 				6402707F2353C51F00641159 /* LaunchScreen.storyboard */,
-				F56E777123A95FCA009BF8E9 /* Storyboard+Utility.swift */,
 				6402707D2353C51F00641159 /* Assets.xcassets */,
 				640270822353C51F00641159 /* Info.plist */,
 				F56E776123A8F69F009BF8E9 /* GoogleService-Info.plist */,
@@ -262,6 +268,7 @@
 			isa = PBXGroup;
 			children = (
 				6434ED3C235E66E600E1808E /* createEventButton.swift */,
+				64BD292B23FCB11300B5C32D /* loginButton.swift */,
 				649ED12A23CE7944006D31B5 /* myEventsMenuButton.swift */,
 				649ED12C23CE79BA006D31B5 /* menuButton.swift */,
 				64FF1EC223946A3D005DB686 /* categoryButtonView.swift */,
@@ -269,6 +276,18 @@
 				647DA3BD23E365F600B04D79 /* refreshButtonView.swift */,
 			);
 			path = "Buttons and Views";
+			sourceTree = "<group>";
+		};
+		64673CC82400AE3E00CB62C5 /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				F56E776723A906F6009BF8E9 /* UserService.swift */,
+				F56E776F23A907CA009BF8E9 /* Constants.swift */,
+				F56E776923A90737009BF8E9 /* User.swift */,
+				F56E776D23A907A4009BF8E9 /* Post.swift */,
+				F56E777123A95FCA009BF8E9 /* Storyboard+Utility.swift */,
+			);
+			path = Firebase;
 			sourceTree = "<group>";
 		};
 		647350CF23551DD300E6BF98 /* Fonts */ = {
@@ -285,17 +304,17 @@
 		6489BBB223A0629F00769793 /* Storyboards and ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				64BD292223FC9A5600B5C32D /* Login View */,
 				640270B02353D43600641159 /* createEventViewController.swift */,
 				64484D4C23932AA500F33132 /* createEvent.storyboard */,
-				F56E776B23A9078F009BF8E9 /* CreateUsernameViewController.swift */,
 				6402707A2353C51F00641159 /* Main.storyboard */,
 				640270782353C51F00641159 /* mainViewController.swift */,
-				F56E776523A901BA009BF8E9 /* LoginViewController.swift */,
-				F56E776323A90187009BF8E9 /* Login.storyboard */,
 				649ED12623CE7020006D31B5 /* ProfileViewController.swift */,
 				F56E777523ABD8FC009BF8E9 /* Profile.storyboard */,
+				642A93952419985B005B027F /* popsicleInfo.storyboard */,
+				642A939424199859005B027F /* popsicleInfoViewController.swift */,
 				F56E777B23CBDE80009BF8E9 /* PopsicleViewController.swift */,
-				F56E777923ABDB87009BF8E9 /* EditProfileViewController.swift */,
+				64337B4D2407257B00DCC9FA /* editProfileViewController.swift */,
 			);
 			path = "Storyboards and ViewControllers";
 			sourceTree = "<group>";
@@ -303,6 +322,7 @@
 		648AEB95237E2280008743E8 /* Special Objects */ = {
 			isa = PBXGroup;
 			children = (
+				64673CC82400AE3E00CB62C5 /* Firebase */,
 				649ED12823CE73FC006D31B5 /* AppColors.swift */,
 				648AEB98237E250C008743E8 /* pinPopsicle.swift */,
 				649ED13023CE7B45006D31B5 /* PopsicleGroupAnnotationView.swift */,
@@ -320,6 +340,17 @@
 				64AFB2E1236A886000D264F0 /* Utils.swift */,
 			);
 			path = Alerts;
+			sourceTree = "<group>";
+		};
+		64BD292223FC9A5600B5C32D /* Login View */ = {
+			isa = PBXGroup;
+			children = (
+				64BD292523FC9B3700B5C32D /* registerPageViewController.swift */,
+				64BD292323FC9B2500B5C32D /* loginPageViewController.swift */,
+				F56E776323A90187009BF8E9 /* Login.storyboard */,
+				64BD292923FC9BFF00B5C32D /* LoginViewController.swift */,
+			);
+			path = "Login View";
 			sourceTree = "<group>";
 		};
 		64C10D622372A1620087CE23 /* Search Bar */ = {
@@ -343,7 +374,6 @@
 				6402706D2353C51E00641159 /* Sources */,
 				6402706E2353C51E00641159 /* Frameworks */,
 				6402706F2353C51E00641159 /* Resources */,
-				2E765D26F096273DB7E2ED5F /* [CP] Embed Pods Frameworks */,
 				4B0B739BE6C6C50DA3500091 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -382,7 +412,6 @@
 				6402708E2353C52000641159 /* Sources */,
 				6402708F2353C52000641159 /* Frameworks */,
 				640270902353C52000641159 /* Resources */,
-				9F0C6B46C67C69551AD04711 /* [CP] Embed Pods Frameworks */,
 				E40B1547D87C9BA44984EF2E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -419,7 +448,7 @@
 				};
 			};
 			buildConfigurationList = 6402706C2353C51E00641159 /* Build configuration list for PBXProject "Poppin" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 11.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -444,6 +473,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6448D18A2372B0490016A778 /* Octarine-LightOblique.otf in Resources */,
+				642A93972419985B005B027F /* popsicleInfo.storyboard in Resources */,
 				6448D1892372B0450016A778 /* Octarine-Light.otf in Resources */,
 				6448D1882372B0410016A778 /* Octarine-BoldOblique.otf in Resources */,
 				6448D1872372B03C0016A778 /* Octarine-Bold.otf in Resources */,
@@ -476,23 +506,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2E765D26F096273DB7E2ED5F /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Poppin/Pods-Poppin-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Poppin/Pods-Poppin-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Poppin/Pods-Poppin-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		471774353A63FA9719CCA925 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -554,23 +567,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9F0C6B46C67C69551AD04711 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Poppin-PoppinUITests/Pods-Poppin-PoppinUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Poppin-PoppinUITests/Pods-Poppin-PoppinUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Poppin-PoppinUITests/Pods-Poppin-PoppinUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		BCBF84F16615D09CAD0C0043 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -618,7 +614,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				649ED12723CE7020006D31B5 /* ProfileViewController.swift in Sources */,
-				F56E776623A901BA009BF8E9 /* LoginViewController.swift in Sources */,
+				64BD292C23FCB11300B5C32D /* loginButton.swift in Sources */,
 				F56E777023A907CA009BF8E9 /* Constants.swift in Sources */,
 				6406F3D12363D47C00930CA8 /* doneButton.swift in Sources */,
 				640270B12353D43600641159 /* createEventViewController.swift in Sources */,
@@ -628,18 +624,22 @@
 				64FF1EC323946A3D005DB686 /* categoryButtonView.swift in Sources */,
 				64C10D642372A1950087CE23 /* LocationSearchTableCell.swift in Sources */,
 				648AEB99237E250C008743E8 /* pinPopsicle.swift in Sources */,
+				64BD292423FC9B2500B5C32D /* loginPageViewController.swift in Sources */,
 				640270792353C51F00641159 /* mainViewController.swift in Sources */,
+				64BD292A23FC9BFF00B5C32D /* LoginViewController.swift in Sources */,
+				64337B4E2407257B00DCC9FA /* editProfileViewController.swift in Sources */,
 				649ED13123CE7B45006D31B5 /* PopsicleGroupAnnotationView.swift in Sources */,
 				644FCCAF23E22E780064A008 /* DataController.swift in Sources */,
 				649ED13323CE7B4D006D31B5 /* PopsicleGroupIcon.swift in Sources */,
 				64AFB2E2236A886000D264F0 /* Utils.swift in Sources */,
-				F56E776C23A9078F009BF8E9 /* CreateUsernameViewController.swift in Sources */,
 				6434ED3D235E66E600E1808E /* createEventButton.swift in Sources */,
 				647DA3BE23E365F600B04D79 /* refreshButtonView.swift in Sources */,
 				648FE1B723E22B3100C1DCDC /* Poppin.xcdatamodeld in Sources */,
 				64F91E79237221B900C4DC24 /* LocationSearchTable.swift in Sources */,
 				F56E776823A906F7009BF8E9 /* UserService.swift in Sources */,
 				649ED12D23CE79BA006D31B5 /* menuButton.swift in Sources */,
+				64BD292623FC9B3700B5C32D /* registerPageViewController.swift in Sources */,
+				642A93962419985B005B027F /* popsicleInfoViewController.swift in Sources */,
 				F56E777423AA823E009BF8E9 /* SceneDelegate.swift in Sources */,
 				64AFB2DF236A81B600D264F0 /* dangerousActionAlert.swift in Sources */,
 				F56E776E23A907A5009BF8E9 /* Post.swift in Sources */,
@@ -823,6 +823,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4VQFP5DX32;
 				INFOPLIST_FILE = "$(SRCROOT)/Poppin/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -842,6 +843,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4VQFP5DX32;
 				INFOPLIST_FILE = "$(SRCROOT)/Poppin/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

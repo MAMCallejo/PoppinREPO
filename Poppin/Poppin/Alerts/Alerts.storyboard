@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -57,7 +57,7 @@
                                 </constraints>
                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="17" scale="large" weight="regular"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If you proceed some information will be lost." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="5" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H9i-3t-7b3">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If you proceed some information will be lost." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H9i-3t-7b3">
                                 <rect key="frame" x="10" y="62" width="280" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="H9i-3t-7b3" secondAttribute="height" multiplier="7:1" id="tWM-6d-4RS"/>
@@ -106,7 +106,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="300" height="150"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Some information is missing, please fill it out." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="5" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5qF-D8-IrX">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Some information is missing, please fill it out." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5qF-D8-IrX">
                                 <rect key="frame" x="10" y="62" width="280" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="5qF-D8-IrX" secondAttribute="height" multiplier="7:1" id="dHn-pJ-pAz"/>
@@ -165,9 +165,59 @@
             </objects>
             <point key="canvasLocation" x="688" y="84.557721139430285"/>
         </scene>
+        <!--Dangerous Action Alert-->
+        <scene sceneID="GBh-6u-elL">
+            <objects>
+                <viewController storyboardIdentifier="connectionLostAlert" id="ydl-OY-GIu" customClass="dangerousActionAlert" customModule="Poppin" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ZuR-KD-3gj">
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="110"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Some information is missing, please fill it out." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t0n-Bb-JzT">
+                                <rect key="frame" x="10" y="62" width="280" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="t0n-Bb-JzT" secondAttribute="height" multiplier="7:1" id="KD9-xH-wcz"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Octarine-Bold" family="Octarine" pointSize="18"/>
+                                <color key="textColor" name="mainNAVYBLUE"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wifi.exclamationmark" catalog="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PvX-W3-lOd">
+                                <rect key="frame" x="0.0" y="6" width="300" height="48"/>
+                                <color key="tintColor" name="mainNAVYBLUE"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="PvX-W3-lOd" secondAttribute="height" multiplier="300:47" id="asc-Vj-kc3"/>
+                                </constraints>
+                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="17" scale="large" weight="regular"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="PvX-W3-lOd" firstAttribute="leading" secondItem="nb6-fW-fcT" secondAttribute="leading" id="0WB-Jv-Wds"/>
+                            <constraint firstItem="nb6-fW-fcT" firstAttribute="trailing" secondItem="t0n-Bb-JzT" secondAttribute="trailing" constant="10" id="0XS-mb-9i5"/>
+                            <constraint firstItem="nb6-fW-fcT" firstAttribute="bottom" secondItem="t0n-Bb-JzT" secondAttribute="bottom" constant="8" id="BDf-fK-xPp"/>
+                            <constraint firstItem="PvX-W3-lOd" firstAttribute="top" secondItem="nb6-fW-fcT" secondAttribute="top" constant="7" id="BJe-ko-JwL"/>
+                            <constraint firstItem="PvX-W3-lOd" firstAttribute="trailing" secondItem="nb6-fW-fcT" secondAttribute="trailing" id="F4a-SL-PLG"/>
+                            <constraint firstItem="t0n-Bb-JzT" firstAttribute="top" secondItem="PvX-W3-lOd" secondAttribute="bottom" constant="8" id="gyi-dn-6Xc"/>
+                            <constraint firstItem="t0n-Bb-JzT" firstAttribute="leading" secondItem="nb6-fW-fcT" secondAttribute="leading" constant="10" id="zXg-KJ-mBu"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="nb6-fW-fcT"/>
+                    </view>
+                    <size key="freeformSize" width="300" height="110"/>
+                    <connections>
+                        <outlet property="dangerousActionAlertIcon" destination="PvX-W3-lOd" id="Q9e-ZV-Y7D"/>
+                        <outlet property="dangerousActionAlertMessage" destination="t0n-Bb-JzT" id="hWq-l9-UIB"/>
+                        <outlet property="dangerousActionAlertView" destination="ZuR-KD-3gj" id="NxS-1S-9we"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GmK-8u-TtL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-403" y="85"/>
+        </scene>
     </scenes>
     <resources>
         <image name="exclamationmark.triangle.fill" catalog="system" width="64" height="56"/>
+        <image name="wifi.exclamationmark" catalog="system" width="64" height="50"/>
         <image name="xmark.circle.fill" catalog="system" width="64" height="60"/>
         <namedColor name="mainNAVYBLUE">
             <color red="0.0" green="0.15700000524520874" blue="0.40799999237060547" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1100"
+   LastUpgradeVersion = "1130"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "DB19BAA734EF5B9708C837E8647F0B03"
-               BuildableName = "Pods_Poppin_PoppinUITests.framework"
+               BuildableName = "libPods-Poppin-PoppinUITests.a"
                BlueprintName = "Pods-Poppin-PoppinUITests"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>

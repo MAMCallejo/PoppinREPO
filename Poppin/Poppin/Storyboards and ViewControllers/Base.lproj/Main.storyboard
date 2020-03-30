@@ -16,21 +16,6 @@
         </array>
     </customFonts>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="DsM-md-UjS">
-            <objects>
-                <viewController id="Yy4-9d-CMW" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="ht4-dO-RkP">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="NbR-pB-XT5"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1n8-gO-WSR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2029" y="-575"/>
-        </scene>
         <!--Profile-->
         <scene sceneID="MFL-FI-hW0">
             <objects>
@@ -496,7 +481,7 @@
                                                 </constraints>
                                                 <state key="normal" image="Profile Pic"/>
                                                 <connections>
-                                                    <segue destination="lvh-eX-exB" kind="presentation" modalTransitionStyle="crossDissolve" id="eLg-PM-FYv"/>
+                                                    <segue destination="lvh-eX-exB" kind="presentation" identifier="profileViewSegue" modalTransitionStyle="crossDissolve" id="eLg-PM-FYv"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Manolito_Martin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="L0Y-KH-14K">
@@ -660,7 +645,6 @@
                         <outlet property="sportsFilterView" destination="AAn-dO-cdc" id="XSt-IT-rGX"/>
                         <outlet property="usernameLabel" destination="L0Y-KH-14K" id="pRQ-mr-a7b"/>
                         <outlet property="zoomToUserLocationButton" destination="vl0-cY-pAu" id="CRn-aA-bDm"/>
-                        <segue destination="Yy4-9d-CMW" kind="presentation" identifier="toPopsicleView" id="W4Q-Ey-QlN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

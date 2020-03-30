@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -11,9 +12,29 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchScreenBG" translatesAutoresizingMaskIntoConstraints="NO" id="feA-1A-Tgt">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="goldButton" translatesAutoresizingMaskIntoConstraints="NO" id="Kif-g1-Hqs">
+                                <rect key="frame" x="145" y="386" width="124" height="124"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Kif-g1-Hqs" secondAttribute="height" multiplier="1:1" id="9Rf-vL-VZ8"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Kif-g1-Hqs" firstAttribute="width" secondItem="feA-1A-Tgt" secondAttribute="width" multiplier="0.3" id="0ja-oj-E6O"/>
+                            <constraint firstAttribute="trailing" secondItem="feA-1A-Tgt" secondAttribute="trailing" id="8OF-ZP-xVh"/>
+                            <constraint firstItem="feA-1A-Tgt" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="AQa-K1-k4B"/>
+                            <constraint firstItem="Kif-g1-Hqs" firstAttribute="centerY" secondItem="feA-1A-Tgt" secondAttribute="centerY" id="j9z-23-gUO"/>
+                            <constraint firstItem="Kif-g1-Hqs" firstAttribute="centerX" secondItem="feA-1A-Tgt" secondAttribute="centerX" id="jJA-gR-Ofu"/>
+                            <constraint firstItem="feA-1A-Tgt" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="jzE-3Z-Emp"/>
+                            <constraint firstItem="feA-1A-Tgt" firstAttribute="bottom" secondItem="Ze5-6b-2t3" secondAttribute="bottom" id="wKE-fh-985"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
@@ -22,4 +43,8 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="LaunchScreenBG" width="414" height="896"/>
+        <image name="goldButton" width="128" height="128"/>
+    </resources>
 </document>

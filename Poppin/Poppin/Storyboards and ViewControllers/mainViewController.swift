@@ -10,6 +10,8 @@ import UIKit
 import MapKit
 import CoreLocation
 import Firebase
+import Network
+import Kronos
 
 /*
     popsicleSize: popsicle annotation and popsicle group annotation size.
@@ -251,8 +253,12 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
     var dataController: DataController?
     
             // mapPopsicles: array containing all the popsicles placed on the map.
+
+    var mapPopsicles: [pinPopsicle]!
     
-    var mapPopsicles: [pinPopsicle]?
+            // currentPopsicles: array reflecting the currentPopsicles folder in fireBase.
+    
+    var currentPopsicles: [pinPopsicle]!
     
             // newPopsicle: template used to create a new popsicle to be added to mapPopsicles...
             // ...it uses pinPopsicle; a variation of a normal MKPointAnnotation that can hold...
@@ -277,6 +283,8 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
             // changesMade:
     
     var changesMade = false
+
+    var monitor: NWPathMonitor!
     
             // refreshCount:
     
@@ -297,7 +305,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         }
         
     }
-    
+
     // *** VIEWCONTROLLER FUNCTIONS ***
     
     /*
@@ -310,6 +318,8 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        monitor = (UIApplication.shared.delegate as! AppDelegate).monitor
         
         print("\nWELCOME! This is the poppin terminal. Error messages and system notifications can be seen here.\n")
         
@@ -655,7 +665,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         mainMapView.register(PopsicleGroupAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier)
 
         mainMapView.setRegion(campusRegion!, animated: true)
-
+        
         mainMapView.delegate = self
         
             // Sets up the locationManager and asks the user for permission if they have not given it yet.
@@ -685,19 +695,19 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
         //refreshDatabase()
          
-        // popsicleTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(refreshDatabase), userInfo: nil, repeats: true)
+         popsicleTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(refreshDatabase), userInfo: nil, repeats: true)
         
     }
     
     @IBAction func refreshButtonPressed(sender: Any){
+ 
+        refreshCount = 0
         
-        refreshDatabase()
+        //refreshDatabase()
 
-        //getPopsicles()
+        getPopsicles()
         
     }
-    
-    
     
     // getUsername: gets the username of the current user and displays it.
     
@@ -742,9 +752,31 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
         let storyboard = UIStoryboard(name: "Login", bundle: .main)
         
-        let initial = storyboard.instantiateInitialViewController()
-        
-        UIApplication.shared.keyWindow?.rootViewController = initial
+        if let initialViewController = storyboard.instantiateInitialViewController() {
+            
+            guard let window = self.view.window else {
+
+                return
+
+            }
+
+            let transition = CATransition()
+
+            transition.type = .fade
+
+            transition.duration = 0.5
+
+            window.layer.add(transition, forKey: kCATransition)
+
+            window.rootViewController = initialViewController
+
+            window.makeKeyAndVisible()
+            
+            // Prevents MKUserLocation Annotation from glitching back to blue dot.
+            
+            mainMapView.showsUserLocation = false
+            
+        }
         
     }
     
@@ -1325,9 +1357,53 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
                 
                 self.menuButton.alpha = 0.0
                 
+                self.refreshView.alpha = 0.0
+                
                 self.newEventButton.alpha = 0.0
                 
                 self.foregroundBlurView.alpha = 1.0
+                
+                self.view.layoutIfNeeded()
+                
+            })
+            
+        } else if (segue.identifier == "profileViewSegue") {
+            
+            // Hide Menu if it's showing.
+            
+            let navVC = segue.destination as! UINavigationController
+            
+            let inputVC = navVC.viewControllers.first as! ProfileViewController
+            
+            inputVC.returnProtocol = self
+            
+            if (menuShowing) {
+                
+                self.view.layoutIfNeeded()
+                
+                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.95, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                    
+                    self.menuLeadingConstraint.constant =  0 - self.menuView.frame.size.width
+                    
+                    self.view.layoutIfNeeded()
+                    
+                })
+                
+                menuShowing = !menuShowing
+                
+            }
+            
+            // Hide Buttons and blur mapview.
+            
+            self.view.layoutIfNeeded()
+            
+            UIView.animate(withDuration: 0.25, animations: {
+                
+                self.menuButton.alpha = 0.0
+                
+                self.refreshView.alpha = 0.0
+                
+                self.newEventButton.alpha = 0.0
                 
                 self.view.layoutIfNeeded()
                 
@@ -1389,6 +1465,8 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         UIView.animate(withDuration: 0.25, animations: {
             
             self.menuButton.alpha = 1.0
+            
+            self.refreshView.alpha = 1.0
             
             self.newEventButton.alpha = 1.0
             
@@ -1496,55 +1574,75 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
     
     @objc func refreshDatabase(){
         
-        let ref = Database.database().reference(withPath:"currentPopsicles")
+        print("\nREFRESHING\n")
         
-        let ref2 = Database.database().reference(withPath:"upcomingPopsicles")
+        let connectedRef = Database.database().reference(withPath: ".info/connected")
         
-        let ref3 = Database.database().reference(withPath:"completedPopsicles")
-        
-        ref2.observeSingleEvent(of: .value, with: { (snapshot) in
-            if snapshot.childrenCount > 0 {
-                for data in snapshot.children.allObjects as! [DataSnapshot] {
-                    if let data = data.value as? [String: Any] {
-                        
-                        let eventDate = data["eventDate"] as! String
-                        let eventName = data["eventName"] as! String
-                        
-                        let currentDate = Date()
-                        let currentCalendar = Calendar.current
-                        let currentHour = currentCalendar.component(.hour, from: currentDate)
-                        let currentMinute = currentCalendar.component(.minute, from: currentDate)
-                        let currentDay = currentCalendar.component(.day, from: currentDate)
-                        let currentMonth = currentCalendar.component(.month, from: currentDate)
-                        let currentYear = currentCalendar.component(.year, from: currentDate)
-                        
-                        let dateFormatter = DateFormatter()
-                        dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
-                        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
-                        let date = dateFormatter.date(from: eventDate)!
-                        
-                        let calendar = Calendar.current
-                        let components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: date)
-                        
-                        let hour = components.hour!
-                        let year = components.year!
-                        let month = components.month!
-                        let day = components.day!
-                        let minute = components.minute!
-                        
-                        if year == currentYear && month == currentMonth && day >= currentDay {
+        connectedRef.observe(.value, with: { snapshot in
+            
+          if snapshot.value as? Bool ?? false {
+            
+            print("Connected")
+            
+            let ref = Database.database().reference(withPath:"currentPopsicles")
+            
+            let ref2 = Database.database().reference(withPath:"upcomingPopsicles")
+            
+            let ref3 = Database.database().reference(withPath:"completedPopsicles")
+            
+            // Adding Popsicles to currentPopsicles.
+            
+            ref2.observeSingleEvent(of: .value, with: { (snapshot) in
+                
+                print("\nObserved\n")
+                
+                if snapshot.childrenCount > 0 {
+                    for data in snapshot.children.allObjects as! [DataSnapshot] {
+                        if let data = data.value as? [String: Any] {
                             
-                            if (day > currentDay && day - currentDay == 1 && hour < currentHour) || day == currentDay || ( day - currentDay == 1 && hour == currentHour && minute <= currentMinute) {
+                            let eventDate = data["eventDate"] as! String
+                            let eventName = data["eventName"] as! String
+                            
+                            let currentDate = Date().toLocalTime()
+                            
+                            let currentCalendar = Calendar.current
+                            let currentHour = currentCalendar.component(.hour, from: currentDate)
+                            let currentMinute = currentCalendar.component(.minute, from: currentDate)
+                            let currentDay = currentCalendar.component(.day, from: currentDate)
+                            let currentMonth = currentCalendar.component(.month, from: currentDate)
+                            let currentYear = currentCalendar.component(.year, from: currentDate)
+                            
+                            let dateFormatter = DateFormatter()
+                            dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
+                            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+                            let date = dateFormatter.date(from: eventDate)!
+                            
+                            let calendar = Calendar.current
+                            let components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: date)
+                            
+                            let hour = components.hour!
+                            let year = components.year!
+                            let month = components.month!
+                            let day = components.day!
+                            let minute = components.minute!
+                            
+                            if year == currentYear && month == currentMonth && day >= currentDay {
                                 
-                                ref.child(eventName).setValue(data)
-                                
-                                let deleteRef = ref2.child(eventName)
-                                
-                                self.changesMade = true
-                                
-                                deleteRef.removeValue { error, _ in
-                                    self.getPopsicles()
-                                    print(error ?? "Refresh Database Error")
+                                if (day > currentDay && day - currentDay == 1 && hour < currentHour) || day == currentDay || ( day - currentDay == 1 && hour == currentHour && minute <= currentMinute) {
+                                    
+                                    self.refreshCount += 1
+                                    
+                                    ref.child(eventName).setValue(data)
+                                    
+                                    let deleteRef = ref2.child(eventName)
+                                    
+                                    self.changesMade = true
+                                    
+                                    deleteRef.removeValue { error, _ in
+                                        //self.getPopsicles()
+                                        print(error ?? "Refresh Database Error")
+                                    }
+                                    
                                 }
                                 
                             }
@@ -1553,68 +1651,89 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
                         
                     }
                 }
-            }
-        })
-        
-        ref.observeSingleEvent(of: .value, with: { (snapshot) in
-            if snapshot.childrenCount > 0 {
-                for data in snapshot.children.allObjects as! [DataSnapshot] {
-                    if let data = data.value as? [String: Any] {
-                        
-                        let eventDate = data["eventDate"] as! String
-                        let eventName = data["eventName"] as! String
-                        let duration = data["eventDuration"] as! String
-                        let eventDuration:Int? = Int(duration)
-                        
-                        let currentDate = Date()
-                        let currentCalendar = Calendar.current
-                        let currentHour = currentCalendar.component(.hour, from: currentDate)
-                        let currentMinute = currentCalendar.component(.minute, from: currentDate)
-                        let currentDay = currentCalendar.component(.day, from: currentDate)
-                        
-                        let dateFormatter = DateFormatter()
-                        dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
-                        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
-                        let date = dateFormatter.date(from: eventDate)!
-                        
-                        let calendar = Calendar.current
-                        let components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: date)
-                        
-                        
-                        var hour = components.hour!
-                        let minute = components.minute!
-                        let day = components.day!
-                        
-                        let timeHours = eventDuration! / 60
-                        let timeMinute = eventDuration! % 60
-                        
-                        if(timeMinute + minute >= 60){
-                            hour += 1
-                        }
-                        
-                        if day < currentDay || ((hour + timeHours) % 24 <= currentHour && (minute + timeMinute) % 60 <= currentMinute) {
-                            ref3.child(eventName).setValue(data)
-                            let deleteRef = ref.child(eventName)
+                
+            })
+            
+            ref.observeSingleEvent(of: .value, with: { (snapshot) in
+                
+                print("\nObserved2\n")
+                
+                if snapshot.childrenCount > 0 {
+                    for data in snapshot.children.allObjects as! [DataSnapshot] {
+                        if let data = data.value as? [String: Any] {
                             
-                            self.changesMade = true
+                            let eventDate = data["eventDate"] as! String
+                            let eventName = data["eventName"] as! String
+                            let duration = data["eventDuration"] as! String
+                            let eventDuration:Int? = Int(duration)
                             
-                            deleteRef.removeValue { error, _ in
-                                self.getPopsicles()
-                                print(error ?? "Refresh Database Error")
+                            let currentDate = Date().toLocalTime()
+                            
+                            print("\n")
+                            print(currentDate)
+                            print("\n")
+                            
+                            let currentCalendar = Calendar.current
+                            let currentHour = currentCalendar.component(.hour, from: currentDate)
+                            let currentMinute = currentCalendar.component(.minute, from: currentDate)
+                            let currentDay = currentCalendar.component(.day, from: currentDate)
+                            
+                            let dateFormatter = DateFormatter()
+                            dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
+                            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+                            let date = dateFormatter.date(from: eventDate)!
+                            
+                            let calendar = Calendar.current
+                            let components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: date)
+                            
+                            
+                            var hour = components.hour!
+                            let minute = components.minute!
+                            let day = components.day!
+                            
+                            let timeHours = eventDuration! / 60
+                            let timeMinute = eventDuration! % 60
+                            
+                            if(timeMinute + minute >= 60){
+                                hour += 1
                             }
                             
-                            //sleep(2)
+                            if day < currentDay || ((hour + timeHours) % 24 <= currentHour && (minute + timeMinute) % 60 <= currentMinute) {
+                                self.refreshCount += 1
+                                ref3.child(eventName).setValue(data)
+                                let deleteRef = ref.child(eventName)
+                                
+                                self.changesMade = true
+                                
+                                deleteRef.removeValue { error, _ in
+                                    //self.getPopsicles()
+                                    print(error ?? "Refresh Database Error")
+                                }
+                                
+                                //sleep(2)
+                                
+                            }
                             
                         }
+                        
                     }
                 }
+                
+            })
+            
+            // if(self.changesMade){
+            //getPopsicles()
+            self.changesMade = false
+            // }
+            
+          } else {
+            
+            print("Not connected")
+            
             }
+            
         })
         
-        // if(self.changesMade){
-        //getPopsicles()
-        self.changesMade = false
-        // }
     }
     
     /*
@@ -1711,6 +1830,36 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
     }
     
     /*
+     getPopsicles:
+     */
+    
+    /*public func getPopsicles() {
+       
+        for popsicle in mapPopsicles {
+            
+            if (!currentPopsicles.contains(popsicle)) {
+                
+                mainMapView.removeAnnotation(popsicle)
+                
+            }
+            
+        }
+        
+        for popsicle in currentPopsicles {
+            
+            if (!mapPopsicles.contains(popsicle)) {
+                
+                mainMapView.addAnnotation(popsicle)
+                
+            }
+            
+        }
+        
+        mapPopsicles = currentPopsicles
+        
+    }*/
+    
+    /*
         confirmLocation: called by the confirmButton once the user has decided which location to use...
         ...for their popsicle.
             - Once pressed, the map center location is recorded and every element of the pin placement...
@@ -1729,8 +1878,9 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         let ref = Database.database().reference()
         
         let eventDate = newPopsicle.popsicleData.eventDate
+
+        let currentDate = Date().toLocalTime()
         
-        let currentDate = Date()
         let currentCalendar = Calendar.current
         let currentHour = currentCalendar.component(.hour, from: currentDate)
         let currentMinute = currentCalendar.component(.minute, from: currentDate)
@@ -1781,7 +1931,24 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
             ref.child("currentPopsicles/\(en)/eventSubcategory2").setValue(newPopsicle.popsicleData.eventSubcategory2)
             
             ref.child("currentPopsicles/\(en)/eventSubcategory2Details").setValue(newPopsicle.popsicleData.eventSubcategory2Details)
+
+            newPopsicle.popsicleData.eventLocation = mainMapView.centerCoordinate
+                   
+                   newPopsicle.coordinate = newPopsicle.popsicleData.eventLocation
+                   
+                   let popsicleToAdd = pinPopsicle()
+                   
+                   popsicleToAdd.popsicleData = pinData(eventName: newPopsicle.popsicleData.eventName, eventInfo: newPopsicle.popsicleData.eventInfo, eventDate: newPopsicle.popsicleData.eventDate, eventDuration: newPopsicle.popsicleData.eventDuration, eventCategory: newPopsicle.popsicleData.eventCategory, eventCategoryDetails: newPopsicle.popsicleData.eventCategoryDetails, eventSubcategory1: newPopsicle.popsicleData.eventSubcategory1, eventSubcategory1Details: newPopsicle.popsicleData.eventSubcategory1Details, eventSubcategory2: newPopsicle.popsicleData.eventSubcategory2, eventSubcategory2Details: newPopsicle.popsicleData.eventSubcategory2Details, eventLocation: newPopsicle.popsicleData.eventLocation, eventPopsicle: newPopsicle.popsicleData.eventPopsicle)
+                   
+                   popsicleToAdd.coordinate = popsicleToAdd.popsicleData.eventLocation
             
+            mapPopsicles?.append(popsicleToAdd)
+            
+            do{ try dataController?.insertPopsicle(pinPopsicle: popsicleToAdd)
+            } catch let error{
+                print("Error adding popsicle to core data\n")
+            }
+
           } else {
             
             ref.child("upcomingPopsicles/\(newPopsicle.popsicleData.eventName)/latitude").setValue(mainMapView.centerCoordinate.latitude)
@@ -1809,6 +1976,23 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
             ref.child("upcomingPopsicles/\(en)/eventSubcategory2").setValue(newPopsicle.popsicleData.eventSubcategory2)
             
             ref.child("upcomingPopsicles/\(en)/eventSubcategory2Details").setValue(newPopsicle.popsicleData.eventSubcategory2Details)
+
+            newPopsicle.popsicleData.eventLocation = mainMapView.centerCoordinate
+                   
+                   newPopsicle.coordinate = newPopsicle.popsicleData.eventLocation
+                   
+                   let popsicleToAdd = pinPopsicle()
+                   
+                   popsicleToAdd.popsicleData = pinData(eventName: newPopsicle.popsicleData.eventName, eventInfo: newPopsicle.popsicleData.eventInfo, eventDate: newPopsicle.popsicleData.eventDate, eventDuration: newPopsicle.popsicleData.eventDuration, eventCategory: newPopsicle.popsicleData.eventCategory, eventCategoryDetails: newPopsicle.popsicleData.eventCategoryDetails, eventSubcategory1: newPopsicle.popsicleData.eventSubcategory1, eventSubcategory1Details: newPopsicle.popsicleData.eventSubcategory1Details, eventSubcategory2: newPopsicle.popsicleData.eventSubcategory2, eventSubcategory2Details: newPopsicle.popsicleData.eventSubcategory2Details, eventLocation: newPopsicle.popsicleData.eventLocation, eventPopsicle: newPopsicle.popsicleData.eventPopsicle)
+                   
+                   popsicleToAdd.coordinate = popsicleToAdd.popsicleData.eventLocation
+            
+            mapPopsicles?.append(popsicleToAdd)
+            
+            do{ try dataController?.insertPopsicle(pinPopsicle: popsicleToAdd)
+            } catch let error{
+                print("Error adding popsicle to core data\n")
+            }
             
             }
             
@@ -1818,17 +2002,18 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
         confirmationViewIsVisible = false
         
-        /*newPopsicle.popsicleData.eventLocation = mainMapView.centerCoordinate
+
+//        newPopsicle.popsicleData.eventLocation = mainMapView.centerCoordinate
+//
+//        newPopsicle.coordinate = newPopsicle.popsicleData.eventLocation
+//
+//        let popsicleToAdd = pinPopsicle()
+//
+//        popsicleToAdd.popsicleData = pinData(eventName: newPopsicle.popsicleData.eventName, eventInfo: newPopsicle.popsicleData.eventInfo, eventDate: newPopsicle.popsicleData.eventDate, eventDuration: newPopsicle.popsicleData.eventDuration, eventCategory: newPopsicle.popsicleData.eventCategory, eventCategoryDetails: newPopsicle.popsicleData.eventCategoryDetails, eventSubcategory1: newPopsicle.popsicleData.eventSubcategory1, eventSubcategory1Details: newPopsicle.popsicleData.eventSubcategory1Details, eventSubcategory2: newPopsicle.popsicleData.eventSubcategory2, eventSubcategory2Details: newPopsicle.popsicleData.eventSubcategory2Details, eventLocation: newPopsicle.popsicleData.eventLocation, eventPopsicle: newPopsicle.popsicleData.eventPopsicle)
+//
+//        popsicleToAdd.coordinate = popsicleToAdd.popsicleData.eventLocation
         
-        newPopsicle.coordinate = newPopsicle.popsicleData.eventLocation
-        
-        let popsicleToAdd = pinPopsicle()
-        
-        popsicleToAdd.popsicleData = pinData(eventName: newPopsicle.popsicleData.eventName, eventInfo: newPopsicle.popsicleData.eventInfo, eventDate: newPopsicle.popsicleData.eventDate, eventDuration: newPopsicle.popsicleData.eventDuration, eventCategory: newPopsicle.popsicleData.eventCategory, eventCategoryDetails: newPopsicle.popsicleData.eventCategoryDetails, eventSubcategory1: newPopsicle.popsicleData.eventSubcategory1, eventSubcategory1Details: newPopsicle.popsicleData.eventSubcategory1Details, eventSubcategory2: newPopsicle.popsicleData.eventSubcategory2, eventSubcategory2Details: newPopsicle.popsicleData.eventSubcategory2Details, eventLocation: newPopsicle.popsicleData.eventLocation, eventPopsicle: newPopsicle.popsicleData.eventPopsicle)
-        
-        popsicleToAdd.coordinate = popsicleToAdd.popsicleData.eventLocation
-        
-        mapPopsicles?.append(popsicleToAdd)*/
+       // mapPopsicles?.append(popsicleToAdd)
         
         self.view.layoutIfNeeded()
         
@@ -1855,12 +2040,12 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         self.showMainButtons()
         
         self.addEventToMenu(eventName: self.newPopsicle.popsicleData.eventName)
-        
-        //mapPopsicles?.append(popsicleToAdd)
+
+       // mapPopsicles?.append(popsicleToAdd)
          
         //addNewPopsicleToMap()
         
-        refreshDatabase()
+        //refreshDatabase()
         
         getPopsicles()
         
@@ -2082,7 +2267,13 @@ extension mainViewController: MKMapViewDelegate {
         
         // USER ANNOTATION
         
-        if (annotation.isEqual(mainMapView.userLocation)) {
+        print("\n")
+        
+        print(annotation.title)
+        
+        print("\n")
+        
+        if (annotation is MKUserLocation) {
             
             let userIdentifier = "UserLocation"
             
@@ -2097,6 +2288,8 @@ extension mainViewController: MKMapViewDelegate {
             userAnnotationView!.annotation = annotation
             
             userAnnotationView!.canShowCallout = false
+            
+            print("\n ABOUT TO CHANGE USER LOCATION ANNOTATION IMAGE \n")
             
             userAnnotationView!.image = UIImage(named: "Profile Pic")
             
@@ -2438,3 +2631,23 @@ extension UILabel {
     }
     
 }
+
+// For your personal information: NSDate() initializer
+// always returns a date in UTC, no matter the time zone specified.
+
+extension Date {
+    
+    // Convert UTC (or GMT) to MDT.
+    
+    func toLocalTime() -> Date {
+        
+        let timezone: TimeZone = TimeZone(identifier: "America/Denver")!
+        
+        let seconds: TimeInterval = TimeInterval(timezone.secondsFromGMT(for: self))
+        
+        return Date(timeInterval: seconds, since: self)
+        
+    }
+
+}
+

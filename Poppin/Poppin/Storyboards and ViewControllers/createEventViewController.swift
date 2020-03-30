@@ -384,7 +384,7 @@ class createEventViewController : UIViewController {
         
         datePicker.datePickerMode = .dateAndTime
         
-        datePicker.minimumDate = Date()
+        datePicker.minimumDate = Date().toLocalTime()
         
         let dateToolbar = UIToolbar()
         
@@ -1073,7 +1073,7 @@ class createEventViewController : UIViewController {
         
         if (categoryDetailsTextViewEdited || subcategory1DetailsTextViewEdited || subcategory2DetailsTextViewEdited) {
             
-            let utils = Utils();
+            let utils = Utils()
             
             let button1 = AlertButton(title: "Cancel", action: nil)
             
@@ -1334,7 +1334,7 @@ class createEventViewController : UIViewController {
         
         if ((senderView == subcategory1Picked && subcategory1DetailsTextViewEdited) || (senderView == subcategory2Picked && subcategory2DetailsTextViewEdited)) {
             
-            let utils = Utils();
+            let utils = Utils()
             
             let button1 = AlertButton(title: "Cancel", action: nil)
             
@@ -1609,7 +1609,7 @@ class createEventViewController : UIViewController {
         
         if (nameTextViewEdited || infoTextViewEdited || dateTextFieldEdited || durationTextFieldEdited || categoryDetailsTextViewEdited || subcategory1DetailsTextViewEdited || subcategory2DetailsTextViewEdited) {
             
-            let utils = Utils();
+            let utils = Utils()
             
             let button1 = AlertButton(title: "Cancel", action: nil)
             
@@ -1646,7 +1646,7 @@ class createEventViewController : UIViewController {
         
         if (!nameTextViewEdited || !infoTextViewEdited || !dateTextFieldEdited || !durationTextFieldEdited || categoryPicked == nil || !categoryDetailsTextViewEdited || (subcategory1Picked != nil && !subcategory1DetailsTextViewEdited) || (subcategory2Picked != nil && !subcategory2DetailsTextViewEdited)) {
             
-            let utils = Utils();
+            let utils = Utils()
             
             let button1 = AlertButton(title: "Ok", action: {
                 
