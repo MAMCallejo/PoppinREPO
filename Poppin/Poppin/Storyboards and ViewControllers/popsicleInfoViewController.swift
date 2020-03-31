@@ -8,9 +8,11 @@
 
 import UIKit
 
-class popsicleInfoViewController : UIViewController {
+class popsicleInfoViewController : UIViewController, UIImagePickerControllerDelegate {
     
     weak var returnProtocol : createEventViewControllerReturnProtocol?
+    
+    @IBOutlet weak var ratingView: FloatRatingView!
     
     /*
      Properties for the popsicle clicked...
@@ -126,7 +128,7 @@ class popsicleInfoViewController : UIViewController {
         } else if(peventSubcategory1 == "Shows") {
             subcategoryImage.image = UIImage(named: "showsButton")
         }
-    
+        
     }
     
     /*
