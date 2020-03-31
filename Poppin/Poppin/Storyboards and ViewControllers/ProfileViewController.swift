@@ -273,9 +273,10 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         imagePicker.dismiss(animated: true, completion: nil)
         
-        let cameraImage = info[.originalImage] as? UIImage
+        let cameraImage = info[.editedImage] as? UIImage
         
         self.profilePicButton.setImage(cameraImage, for: UIControl.State.normal)
+        self.profilePicButton.imageView?.contentMode = UIView.ContentMode.scaleAspectFill;
         
         let uid = Auth.auth().currentUser!.uid
         let ref = Storage.storage().reference().child( "images/\(uid)/profilepic.jpg")
