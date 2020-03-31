@@ -2404,7 +2404,7 @@ extension mainViewController: MKMapViewDelegate {
             
             popsicleAnnotationView!.annotation = popsicleAnnotation
             
-            popsicleAnnotationView!.canShowCallout = true
+            popsicleAnnotationView!.canShowCallout = false
             
             popsicleAnnotationView!.image = popsicleAnnotation.popsicleData?.eventPopsicle
             
@@ -2474,7 +2474,10 @@ extension mainViewController: MKMapViewDelegate {
         print("\nANNOTATION HAS BEEN PRESSED\n")
         
         let selectedPopsicle = view.annotation as? pinPopsicle
+        
         performSegue(withIdentifier: "popsicleSelected", sender: selectedPopsicle)
+        
+        mainMapView.deselectAnnotation(selectedPopsicle, animated: false)
         
     }
     
