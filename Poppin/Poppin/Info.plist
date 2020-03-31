@@ -20,6 +20,8 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>This application needs to use the camera of this device</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Your location is required to map you onto your campus map.</string>
 	<key>UIAppFonts</key>

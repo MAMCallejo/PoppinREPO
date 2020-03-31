@@ -15,13 +15,15 @@ import MapKit
 
 class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    var imagePicker: UIImagePickerController!
+    
     @IBOutlet weak var profileBGView: UIImageView!
     
     @IBOutlet weak var profileContainerView: UIView!
     
     @IBOutlet weak var closeButton: loginButton!
     
-    @IBOutlet weak var profilePicButton: loginButton!
+    @IBOutlet weak var profilePicButton: UIButton!
 
     @IBOutlet weak var editButton: loginButton!
     
@@ -47,17 +49,25 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         // Do any additional setup after loading the view.
         
-        //getProfilePic()
+        getProfilePic()
         
         getUsername()
         
-        //getBio()
+        getBio()
+        
+        imagePicker =  UIImagePickerController()
+        imagePicker.delegate = self
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
         
-        print("\nHello :D\n")
+        print("\nHello :D we back to the profile view\n")
+        
+        //update user credentials
+        getProfilePic()
+        getUsername()
+        getBio()
         
         let endFrame:CGRect = profileContainerView.frame
         
@@ -197,6 +207,87 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             }
             
         })
+        
+    }
+    
+    @IBAction func changeProfilePic(_ sender: Any) {
+        
+        // if the device has no camera, send an alert
+//        if !UIImagePickerController.isSourceTypeAvailable(.camera){
+//
+//            let alertController = UIAlertController.init(title: nil, message: "Device has no camera.", preferredStyle: .alert)
+//
+//            let okAction = UIAlertAction.init(title: "Alright", style: .default, handler: {(alert: UIAlertAction!) in
+//            })
+//
+//            alertController.addAction(okAction)
+//            self.present(alertController, animated: true, completion: nil)
+//
+//        }
+//        else{
+            //other action
+//            imagePicker =  UIImagePickerController()
+//            imagePicker.delegate = self
+//            imagePicker.sourceType = .camera
+//
+//            present(imagePicker, animated: true, completion: nil)
+//        }
+        let alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
+            self.openCamera()
+        }))
+
+        alert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { _ in
+            self.openGallery()
+        }))
+
+        alert.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func openCamera()
+    {
+        if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerController.SourceType.camera))
+        {
+            imagePicker.sourceType = .camera
+            imagePicker.allowsEditing = true
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+        else
+        {
+            let alert  = UIAlertController(title: "Warning", message: "You don't have camera", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+
+    func openGallery()
+    {
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.allowsEditing = true
+        self.present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        imagePicker.dismiss(animated: true, completion: nil)
+        
+        let cameraImage = info[.originalImage] as? UIImage
+        
+        self.profilePicButton.setImage(cameraImage, for: UIControl.State.normal)
+        
+        let uid = Auth.auth().currentUser!.uid
+        let ref = Storage.storage().reference().child( "images/\(uid)/profilepic.jpg")
+        //print(cameraImage!.jpegData(compressionQuality: 0.6) != nil)
+        ref.putData((cameraImage!.jpegData(compressionQuality: 0.3))!, metadata: nil)
+        { (_, error) in
+            if error != nil
+            {
+                print("Error took place \(String(describing: error?.localizedDescription))")
+                return
+            }
+        }
         
     }
     

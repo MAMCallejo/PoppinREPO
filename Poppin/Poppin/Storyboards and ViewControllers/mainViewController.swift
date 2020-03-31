@@ -797,8 +797,9 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
             
                 // Uh-oh, an error occurred!
                 
-                print("error")
-            
+                //print("error with the profile picture")
+                print("Error took place \(String(describing: error?.localizedDescription))")
+                
             } else {
                 
                 let pic = UIImage(data: data!)
@@ -1101,6 +1102,10 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
     */
     
     @IBAction func openMenuFromButton(_ sender: Any) {
+        
+        //update user credentials
+//        getUsername()
+//        getProfilePic()
         
         if(!menuShowing) {
             
@@ -1514,6 +1519,10 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
      */
     
     public func showMainButtons() {
+        
+        //update user credentials
+        getUsername()
+        getProfilePic()
         
         self.view.layoutIfNeeded()
         

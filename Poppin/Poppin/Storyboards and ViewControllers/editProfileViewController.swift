@@ -158,7 +158,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         
         editProfileViewBio.layer.borderWidth = 1
         
-        editProfileViewBio.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+        editProfileViewBio.attributedPlaceholder = NSAttributedString(string: "Bio", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         
     }
     
@@ -277,18 +277,18 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
             }
             
             ref.child("users/\(uid)/bio").setValue(editProfileViewBio.text)
-            
+            //print("BIOOOOOO")
         }
         
-        if (editProfileViewUsername.isEditing || editProfileViewBio.isEditing) {
-            
-            editProfileViewUsername.resignFirstResponder()
-            
-            editProfileViewBio.resignFirstResponder()
-            
-            self.view.layoutIfNeeded()
-            
-        }
+//        if (editProfileViewUsername.isEditing || editProfileViewBio.isEditing) {
+//
+//            editProfileViewUsername.resignFirstResponder()
+//
+//            editProfileViewBio.resignFirstResponder()
+//
+//            self.view.layoutIfNeeded()
+//
+//        }
         
         let endFrameC:CGRect = CGRect(origin: CGPoint(x: self.editProfileViewContainerView.frame.origin.x + (self.view.frame.size.width/2), y: self.editProfileViewContainerView.frame.origin.y), size: CGSize(width: self.editProfileViewContainerView.frame.size.width, height: self.editProfileViewContainerView.frame.size.height))
         
