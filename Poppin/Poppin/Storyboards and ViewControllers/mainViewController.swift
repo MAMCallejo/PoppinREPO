@@ -325,8 +325,6 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
         monitor = (UIApplication.shared.delegate as! AppDelegate).monitor
         
-        getProfilePic()
-        
         print("\nWELCOME! This is the poppin terminal. Error messages and system notifications can be seen here.\n")
         
         // *** INITIALIZATION OF USEFUL VARIABLES ***
@@ -695,7 +693,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
         getUsername()
         
-        profileButton.setImage(profilePic, for: .normal)
+        getProfilePic()
         
         getPopsicles()
         
@@ -794,6 +792,8 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
         let reference = Storage.storage().reference().child( "images/\(uid)/profilepic.jpg")
         
+        self.mainMapView.showsUserLocation = false
+        
         reference.getData(maxSize: 1 * 1024 * 1024) { data, error in
         
             if error != nil {
@@ -802,6 +802,8 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
                 
                 self.profilePic = UIImage(named: "profilePictureHolder")
                 
+                self.profileButton.setImage(self.profilePic, for: .normal)
+                
                 //print("error with the profile picture")
                 print("Error took place \(String(describing: error?.localizedDescription))")
                 
@@ -809,7 +811,11 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
                 
                 self.profilePic = UIImage(data: data!)
                 
+                self.profileButton.setImage(self.profilePic, for: .normal)
+                
             }
+            
+            self.mainMapView.showsUserLocation = true
             
         }
         
@@ -845,6 +851,12 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         profileButton.layer.borderColor = UIColor.menuCREAM?.cgColor
         
         profileButton.layer.borderWidth = 2
+        
+        profileButton.contentHorizontalAlignment = .fill
+        
+        profileButton.contentVerticalAlignment = .fill
+        
+        profileButton.imageView?.contentMode = .scaleAspectFill
         
         // Styles the event views inside the myEvents stack view by adding round corners and shadows:
         
@@ -1526,7 +1538,9 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
     public func showMainButtons() {
         
         //update user credentials
+        
         getUsername()
+        
         getProfilePic()
         
         self.view.layoutIfNeeded()
@@ -2337,12 +2351,6 @@ extension mainViewController: MKMapViewDelegate {
         
         // USER ANNOTATION
         
-        print("\n")
-        
-        print(annotation.title)
-        
-        print("\n")
-        
         if (annotation is MKUserLocation) {
             
             let userIdentifier = "UserLocation"
@@ -2361,7 +2369,7 @@ extension mainViewController: MKMapViewDelegate {
             
             print("\n ABOUT TO CHANGE USER LOCATION ANNOTATION IMAGE \n")
             
-            userAnnotationView!.image = profilePic
+            userAnnotationView!.image = profilePic ?? UIImage(named: "profilePictureHolder")
             
             userAnnotationView!.frame.size.width = 40
             
@@ -2478,9 +2486,17 @@ extension mainViewController: MKMapViewDelegate {
         
         print("\nANNOTATION HAS BEEN PRESSED\n")
         
-        let selectedPopsicle = view.annotation as? pinPopsicle
+        let selectedPopsicle = view.annotation
         
-        performSegue(withIdentifier: "popsicleSelected", sender: selectedPopsicle)
+        if (selectedPopsicle is pinPopsicle) {
+            
+            performSegue(withIdentifier: "popsicleSelected", sender: selectedPopsicle)
+            
+        } else if (selectedPopsicle is MKUserLocation) {
+            
+            performSegue(withIdentifier: "profileViewSegue", sender: selectedPopsicle)
+            
+        }
         
         mainMapView.deselectAnnotation(selectedPopsicle, animated: false)
         

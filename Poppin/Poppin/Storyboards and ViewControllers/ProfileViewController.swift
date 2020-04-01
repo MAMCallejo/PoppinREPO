@@ -121,6 +121,12 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         profilePicButton.layer.borderColor = UIColor.mainNAVYBLUE?.cgColor
         
+        profilePicButton.contentHorizontalAlignment = .fill
+        
+        profilePicButton.contentVerticalAlignment = .fill
+        
+        profilePicButton.imageView?.contentMode = .scaleAspectFill
+        
     }
     
     func getProfilePic(){
