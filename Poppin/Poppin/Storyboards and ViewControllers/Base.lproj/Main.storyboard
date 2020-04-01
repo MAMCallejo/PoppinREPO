@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="U0W-XD-ZdF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="U0W-XD-ZdF">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -487,7 +487,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="SE2-rH-vOG" secondAttribute="height" multiplier="1:1" id="gtC-vh-29X"/>
                                                 </constraints>
-                                                <state key="normal" image="Profile Pic"/>
+                                                <state key="normal" image="profilePictureHolder"/>
                                                 <connections>
                                                     <segue destination="lvh-eX-exB" kind="presentation" identifier="profileViewSegue" modalTransitionStyle="crossDissolve" id="eLg-PM-FYv"/>
                                                 </connections>
@@ -774,13 +774,13 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Profile Pic" width="333.33334350585938" height="333.33334350585938"/>
         <image name="categoryButtonNP" width="85.333335876464844" height="85.333335876464844"/>
         <image name="createEventButton" width="85.333335876464844" height="85.333335876464844"/>
         <image name="educationButton" width="85.333335876464844" height="85.333335876464844"/>
         <image name="foodButton" width="85.333335876464844" height="85.333335876464844"/>
         <image name="menuButton" width="85.333335876464844" height="85.333335876464844"/>
         <image name="popsicleGroupCountBubble" width="33.333332061767578" height="33.333332061767578"/>
+        <image name="profilePictureHolder" width="40" height="40"/>
         <image name="refreshButton" width="83.333335876464844" height="83.333335876464844"/>
         <image name="settingsButton" width="85.333335876464844" height="85.333335876464844"/>
         <image name="showsButton" width="85.333335876464844" height="85.333335876464844"/>

@@ -13,8 +13,6 @@ import Firebase
 import Network
 import Kronos
 
-// U GUYS SHOULD SEE THIS NEW COMMENT 
-
 /*
     popsicleSize: popsicle annotation and popsicle group annotation size.
  */
@@ -310,6 +308,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
     }
     
+    var profilePic: UIImage?
     
     // *** VIEWCONTROLLER FUNCTIONS ***
     
@@ -325,6 +324,8 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         super.viewDidLoad()
         
         monitor = (UIApplication.shared.delegate as! AppDelegate).monitor
+        
+        getProfilePic()
         
         print("\nWELCOME! This is the poppin terminal. Error messages and system notifications can be seen here.\n")
         
@@ -694,7 +695,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
         getUsername()
         
-        getProfilePic()
+        profileButton.setImage(profilePic, for: .normal)
         
         getPopsicles()
         
@@ -799,14 +800,14 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
             
                 // Uh-oh, an error occurred!
                 
+                self.profilePic = UIImage(named: "profilePictureHolder")
+                
                 //print("error with the profile picture")
                 print("Error took place \(String(describing: error?.localizedDescription))")
                 
             } else {
                 
-                let pic = UIImage(data: data!)
-                
-                self.profileButton.setImage(pic , for: UIControl.State.normal)
+                self.profilePic = UIImage(data: data!)
                 
             }
             
@@ -1388,6 +1389,8 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
             let inputVC = navVC.viewControllers.first as! ProfileViewController
             
             inputVC.returnProtocol = self
+            
+            inputVC.profilePic = profileButton.image(for: .normal)
             
             if (menuShowing) {
                 
@@ -2358,7 +2361,7 @@ extension mainViewController: MKMapViewDelegate {
             
             print("\n ABOUT TO CHANGE USER LOCATION ANNOTATION IMAGE \n")
             
-            userAnnotationView!.image = UIImage(named: "Profile Pic")
+            userAnnotationView!.image = profilePic
             
             userAnnotationView!.frame.size.width = 40
             

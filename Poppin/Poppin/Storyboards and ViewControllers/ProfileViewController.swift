@@ -37,6 +37,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     weak var returnProtocol : createEventViewControllerReturnProtocol?
     
+    weak var profilePic : UIImage?
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -49,13 +51,16 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         // Do any additional setup after loading the view.
         
-        getProfilePic()
+        // getProfilePic()
+        
+        profilePicButton.setImage(profilePic, for: .normal)
         
         getUsername()
         
         getBio()
         
         imagePicker =  UIImagePickerController()
+        
         imagePicker.delegate = self
         
     }
@@ -65,8 +70,11 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         print("\nHello :D we back to the profile view\n")
         
         //update user credentials
-        getProfilePic()
+        
+        // getProfilePic()
+        
         getUsername()
+        
         getBio()
         
         let endFrame:CGRect = profileContainerView.frame
