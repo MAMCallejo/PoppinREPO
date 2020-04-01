@@ -13,7 +13,9 @@ class popsicleInfoViewController : UIViewController, UIImagePickerControllerDele
     weak var returnProtocol : createEventViewControllerReturnProtocol?
     
     @IBOutlet weak var ratingView: FloatRatingView!
+    @IBOutlet weak var numRaters: UILabel!
     
+    @IBOutlet weak var newRatingButton: UIButton!
     /*
      Properties for the popsicle clicked...
      */
@@ -45,6 +47,7 @@ class popsicleInfoViewController : UIViewController, UIImagePickerControllerDele
     @IBOutlet weak var eventInfo: UILabel!
     @IBOutlet weak var eventDate: UILabel!
     @IBOutlet weak var eventDuration: UILabel!
+    @IBOutlet weak var categoryLabel: UILabel!
     
     @IBOutlet weak var categoryImage: UIImageView!
     @IBOutlet weak var subcategoryImage: UIImageView!
@@ -57,17 +60,26 @@ class popsicleInfoViewController : UIViewController, UIImagePickerControllerDele
         
         super.viewDidLoad()
         
+        ratingView.rating = 5
+        
+        numRaters.text = "1,165"
+        
         // Set top color in the gradient based on main category of popsicle
         if(peventCategory == "Education") {
             colorTop = UIColor(red: 235.0 / 255.0, green: 166.0 / 255.0, blue: 177.0 / 255.0, alpha: 1.0).cgColor
+            categoryLabel.text = "Education"
         } else if(peventCategory == "Food") {
             colorTop = UIColor(red: 255.0 / 255.0, green: 201.0 / 255.0, blue: 153.0 / 255.0, alpha: 1.0).cgColor
+            categoryLabel.text = "Food"
         } else if(peventCategory == "Social") {
             colorTop = UIColor(red: 255.0 / 255.0, green: 255.0 / 255.0, blue: 172.0 / 255.0, alpha: 1.0).cgColor
+            categoryLabel.text = "Social"
         } else if(peventCategory == "Sports") {
             colorTop = UIColor(red: 127.0 / 255.0, green: 211.0 / 255.0, blue: 136.0 / 255.0, alpha: 1.0).cgColor
+            categoryLabel.text = "Sports"
         } else if(peventCategory == "Shows") {
             colorTop = UIColor(red: 211.0 / 255.0, green: 147.0 / 255.0, blue: 210.0 / 255.0, alpha: 1.0).cgColor
+            categoryLabel.text = "Shows"
         }
         
         // Set the bottom color in the gradient based on subcategory
@@ -109,24 +121,30 @@ class popsicleInfoViewController : UIViewController, UIImagePickerControllerDele
         
         // Set and display the data from the popsicle sent over the segue
         eventName.text = peventName
-        eventInfo.text = peventInfo
+        eventInfo.text = peventInfo + "\n\n" + peventCategory + " details: " + peventCategoryDetails + "\n\n" + peventSubcategory1 + " details: " + peventSubcategory1Details
         eventDate.text = peventDate
         eventDuration.text = peventDuration + " minutes"
         
         categoryImage.image = peventImage
         print(peventSubcategory1!)
         if(peventSubcategory1 == "First") {
-            subcategoryImage.image = UIImage(named: "categoryButtonNP")
+            //subcategoryImage.image = UIImage(named: "categoryButtonNP")
+            subcategoryImage.image = UIImage()
         } else if(peventSubcategory1 == "Education") {
             subcategoryImage.image = UIImage(named: "educationButton")
+            categoryLabel.text! += " & Education"
         } else if(peventSubcategory1 == "Food") {
             subcategoryImage.image = UIImage(named: "foodButton")
+            categoryLabel.text! += " & Food"
         } else if(peventSubcategory1 == "Social") {
             subcategoryImage.image = UIImage(named: "socialButton")
+            categoryLabel.text! += " & Social"
         } else if(peventSubcategory1 == "Sports") {
             subcategoryImage.image = UIImage(named: "sportsButton")
+            categoryLabel.text! += " & Sports"
         } else if(peventSubcategory1 == "Shows") {
             subcategoryImage.image = UIImage(named: "showsButton")
+            categoryLabel.text! += " & Shows"
         }
         
     }

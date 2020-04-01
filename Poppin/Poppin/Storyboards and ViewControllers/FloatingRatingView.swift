@@ -41,7 +41,7 @@ open class FloatRatingView: UIView {
 //            refresh()
 //        }
 //    }
-    let emptyImage = UIImage(named: "categoryButtonNP")
+    let emptyImage = UIImage(named: "greyStar")
 
     // Sets the full image that is overlayed on top of the empty image.
     // Should be same size and shape as the empty image.
@@ -55,7 +55,7 @@ open class FloatRatingView: UIView {
 //            refresh()
 //        }
 //    }
-    let fullImage = UIImage(named: "goldButton")
+    let fullImage = UIImage(named: "goldStar")
 
     // Sets the empty and full image view content mode.
     open var imageContentMode: UIView.ContentMode = .scaleAspectFit
