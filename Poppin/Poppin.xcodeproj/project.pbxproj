@@ -60,6 +60,7 @@
 		F56E777423AA823E009BF8E9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56E777323AA823E009BF8E9 /* SceneDelegate.swift */; };
 		F56E777623ABD8FC009BF8E9 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F56E777523ABD8FC009BF8E9 /* Profile.storyboard */; };
 		F56E777C23CBDE80009BF8E9 /* PopsicleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56E777B23CBDE80009BF8E9 /* PopsicleViewController.swift */; };
+		F6A8A7502433D68E0069FB36 /* FloatingRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A8A74F2433D68E0069FB36 /* FloatingRatingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -146,6 +147,7 @@
 		F56E777323AA823E009BF8E9 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		F56E777523ABD8FC009BF8E9 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		F56E777B23CBDE80009BF8E9 /* PopsicleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopsicleViewController.swift; sourceTree = "<group>"; };
+		F6A8A74F2433D68E0069FB36 /* FloatingRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingRatingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -315,6 +317,7 @@
 				642A939424199859005B027F /* popsicleInfoViewController.swift */,
 				F56E777B23CBDE80009BF8E9 /* PopsicleViewController.swift */,
 				64337B4D2407257B00DCC9FA /* editProfileViewController.swift */,
+				F6A8A74F2433D68E0069FB36 /* FloatingRatingView.swift */,
 			);
 			path = "Storyboards and ViewControllers";
 			sourceTree = "<group>";
@@ -629,6 +632,7 @@
 				64BD292A23FC9BFF00B5C32D /* LoginViewController.swift in Sources */,
 				64337B4E2407257B00DCC9FA /* editProfileViewController.swift in Sources */,
 				649ED13123CE7B45006D31B5 /* PopsicleGroupAnnotationView.swift in Sources */,
+				F6A8A7502433D68E0069FB36 /* FloatingRatingView.swift in Sources */,
 				644FCCAF23E22E780064A008 /* DataController.swift in Sources */,
 				649ED13323CE7B4D006D31B5 /* PopsicleGroupIcon.swift in Sources */,
 				64AFB2E2236A886000D264F0 /* Utils.swift in Sources */,
