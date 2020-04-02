@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import FirebaseUI
+import FirebaseStorage
+import FirebaseDatabase
 
 class popsicleInfoViewController : UIViewController, UIImagePickerControllerDelegate {
     
@@ -16,6 +19,11 @@ class popsicleInfoViewController : UIViewController, UIImagePickerControllerDele
     @IBOutlet weak var numRaters: UILabel!
     
     @IBOutlet weak var newRatingButton: UIButton!
+    
+    
+    @IBOutlet weak var goingButton: UIButton!
+    //@IBOutlet weak var profileButton: loginButton!
+    var profileButtons: [UIButton] = []
     /*
      Properties for the popsicle clicked...
      */
@@ -31,7 +39,11 @@ class popsicleInfoViewController : UIViewController, UIImagePickerControllerDele
     
     @IBOutlet var popsicleInfoView: UIView!
     
+    @IBOutlet weak var usersGoing: UIStackView!
+    var usersGoingSpacing = 5.0
     @IBOutlet weak var scrollView: UIScrollView!
+//    @IBOutlet weak var usersGoingScrollView: UIScrollView!
+    
 
     @IBOutlet weak var frameView: UIView!
     @IBOutlet weak var topTextView: UIView!
@@ -46,7 +58,7 @@ class popsicleInfoViewController : UIViewController, UIImagePickerControllerDele
     @IBOutlet weak var eventName: UILabel!
     @IBOutlet weak var eventInfo: UILabel!
     @IBOutlet weak var eventDate: UILabel!
-    @IBOutlet weak var eventDuration: UILabel!
+    //@IBOutlet weak var eventDuration: UILabel!
     @IBOutlet weak var categoryLabel: UILabel!
     
     @IBOutlet weak var categoryImage: UIImageView!
@@ -56,13 +68,28 @@ class popsicleInfoViewController : UIViewController, UIImagePickerControllerDele
     var colorTop = UIColor(red: 255.0 / 255.0, green: 201.0 / 255.0, blue: 153.0 / 255.0, alpha: 1.0).cgColor
     var colorBottom = UIColor(red: 255.0 / 255.0, green: 179.0 / 255.0, blue: 254.0 / 255.0, alpha: 1.0).cgColor
     
+    var currentUser = Auth.auth().currentUser
+    
+    // view did load function
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
+        goingButton.layer.cornerRadius = 8
+        //goingButton.layer.borderWidth = 2
+        //goingButton.layer.borderColor = UIColor(red: 211.0 / 255.0, green: 147.0 / 255.0, blue: 210.0 / 255.0, alpha: 1.0).cgColor
+
         ratingView.rating = 5
         
         numRaters.text = "1,165"
+        
+        usersGoing.spacing = CGFloat(usersGoingSpacing)
+//        for pB in profileButtons {
+//            pB.clipsToBounds = true
+//            pB.layer.cornerRadius = pB.frame.size.width / 2
+//            pB.layer.borderWidth = 0.1
+//            pB.layer.borderColor = UIColor.mainNAVYBLUE?.cgColor
+//        }
         
         // Set top color in the gradient based on main category of popsicle
         if(peventCategory == "Education") {
@@ -122,8 +149,28 @@ class popsicleInfoViewController : UIViewController, UIImagePickerControllerDele
         // Set and display the data from the popsicle sent over the segue
         eventName.text = peventName
         eventInfo.text = peventInfo + "\n\n" + peventCategory + " details: " + peventCategoryDetails + "\n\n" + peventSubcategory1 + " details: " + peventSubcategory1Details
-        eventDate.text = peventDate
-        eventDuration.text = peventDuration + " minutes"
+        
+        let dur = Int(peventDuration)
+        let hrs = dur! / 60
+        let mins = dur! % 60
+        
+        var timeHrs = String(peventDate.suffix(5).prefix(2))
+        let timeMins = String(peventDate.suffix(5).suffix(2))
+        var ampm = ""
+        if(Int(timeHrs)! > 12) {
+            timeHrs = String(Int(timeHrs)! - 12)
+            ampm = "pm"
+        } else if(Int(timeHrs)! == 12) {
+            ampm = "pm"
+        } else {
+            ampm = "am"
+        }
+        
+        eventDate.text = timeHrs + ":" + timeMins + ampm + " for " + String(hrs) + " hrs"
+        if(mins != 0) {
+            eventDate.text! += " and " + String(mins) + " mins"
+        }
+        //eventDuration.text = peventDuration + " minutes"
         
         categoryImage.image = peventImage
         print(peventSubcategory1!)
@@ -187,6 +234,64 @@ class popsicleInfoViewController : UIViewController, UIImagePickerControllerDele
         
         currentView.layer.shadowRadius = 2
          */
+    }
+    
+    @IBAction func addUserToGoingList(_ sender: Any) {
+        
+        let profilePicButton = UIButton()
+        let uid = Auth.auth().currentUser!.uid
+        
+        let reference = Storage.storage().reference().child( "images/\(uid)/profilepic.jpg")
+        reference.getData(maxSize: 1 * 1024 * 1024) { data, error in
+            if error != nil {
+                // Uh-oh, an error occurred!
+                print("error")
+            } else {
+                let pic = UIImage(data: data! )
+                profilePicButton.setImage(pic, for: .normal)
+            }
+        }
+        
+        profilePicButton.frame = CGRect(x: 0, y: 0, width: 48, height: 48)
+        profilePicButton.clipsToBounds = true
+        profilePicButton.layer.cornerRadius = profilePicButton.frame.size.width / 2
+        profilePicButton.layer.borderWidth = 0.1
+        profilePicButton.layer.borderColor = UIColor.mainNAVYBLUE?.cgColor
+        
+        NSLayoutConstraint(item: profilePicButton,
+                           attribute: .height,
+                           relatedBy: .equal,
+                           toItem: nil,
+                           attribute: .notAnAttribute,
+                           multiplier: 1,
+                           constant: 48).isActive = true
+
+        NSLayoutConstraint(item: profilePicButton,
+                           attribute: .width,
+                           relatedBy: .equal,
+                           toItem: nil,
+                           attribute: .notAnAttribute,
+                           multiplier: 1,
+                           constant: 48).isActive = true
+        
+        
+        if(profileButtons.count == 3) {
+            usersGoing.spacing -= 15
+        } else if(profileButtons.count == 4) {
+            usersGoing.spacing -= 10
+        } else if(profileButtons.count > 7) {
+                // dont change spacing
+        } else if(profileButtons.count > 4) {
+            usersGoing.spacing -= CGFloat(usersGoingSpacing)
+            usersGoingSpacing -= 1
+        }
+        
+        // if theres too many profiles to display, stop adding to stack view
+        if(profileButtons.count < 8) {
+            usersGoing.addArrangedSubview(profilePicButton)
+        }
+        
+        profileButtons.append(profilePicButton)
     }
     
     @IBAction func closeView(_ sender: Any) {
