@@ -22,8 +22,10 @@ class popsicleInfoViewController : UIViewController, UIImagePickerControllerDele
     
     
     @IBOutlet weak var goingButton: UIButton!
+    var going = false
     //@IBOutlet weak var profileButton: loginButton!
     var profileButtons: [UIButton] = []
+    var profilePicButton = UIButton()
     /*
      Properties for the popsicle clicked...
      */
@@ -238,60 +240,80 @@ class popsicleInfoViewController : UIViewController, UIImagePickerControllerDele
     
     @IBAction func addUserToGoingList(_ sender: Any) {
         
-        let profilePicButton = UIButton()
-        let uid = Auth.auth().currentUser!.uid
-        
-        let reference = Storage.storage().reference().child( "images/\(uid)/profilepic.jpg")
-        reference.getData(maxSize: 1 * 1024 * 1024) { data, error in
-            if error != nil {
-                // Uh-oh, an error occurred!
-                print("error")
-            } else {
-                let pic = UIImage(data: data! )
-                profilePicButton.setImage(pic, for: .normal)
+        // if already going and wanna not go anymore
+        if(going) {
+            
+            goingButton.setTitleColor(UIColor.darkGray, for: .normal)
+            goingButton.backgroundColor = UIColor.lightGray
+            going = !going
+            
+            self.usersGoing.viewWithTag(100)?.removeFromSuperview()
+            profileButtons = profileButtons.dropLast()
+            
+        // else if not going and want to go
+        } else {
+            
+            goingButton.setTitleColor(UIColor.white, for: .normal)
+            goingButton.backgroundColor = UIColor(named: "sportsGREEN")
+            going = !going
+            
+            //let profilePicButton = UIButton()
+            let uid = Auth.auth().currentUser!.uid
+            
+            let reference = Storage.storage().reference().child( "images/\(uid)/profilepic.jpg")
+            reference.getData(maxSize: 1 * 1024 * 1024) { data, error in
+                if error != nil {
+                    // Uh-oh, an error occurred!
+                    print("error")
+                } else {
+                    let pic = UIImage(data: data! )
+                    self.profilePicButton.setImage(pic, for: .normal)
+                }
             }
-        }
-        
-        profilePicButton.frame = CGRect(x: 0, y: 0, width: 48, height: 48)
-        profilePicButton.clipsToBounds = true
-        profilePicButton.layer.cornerRadius = profilePicButton.frame.size.width / 2
-        profilePicButton.layer.borderWidth = 0.1
-        profilePicButton.layer.borderColor = UIColor.mainNAVYBLUE?.cgColor
-        
-        NSLayoutConstraint(item: profilePicButton,
-                           attribute: .height,
-                           relatedBy: .equal,
-                           toItem: nil,
-                           attribute: .notAnAttribute,
-                           multiplier: 1,
-                           constant: 48).isActive = true
+            
+            profilePicButton.tag = 100
+            
+            profilePicButton.frame = CGRect(x: 0, y: 0, width: 48, height: 48)
+            profilePicButton.clipsToBounds = true
+            profilePicButton.layer.cornerRadius = profilePicButton.frame.size.width / 2
+            profilePicButton.layer.borderWidth = 0.1
+            profilePicButton.layer.borderColor = UIColor.mainNAVYBLUE?.cgColor
+            
+            NSLayoutConstraint(item: profilePicButton,
+                               attribute: .height,
+                               relatedBy: .equal,
+                               toItem: nil,
+                               attribute: .notAnAttribute,
+                               multiplier: 1,
+                               constant: 48).isActive = true
 
-        NSLayoutConstraint(item: profilePicButton,
-                           attribute: .width,
-                           relatedBy: .equal,
-                           toItem: nil,
-                           attribute: .notAnAttribute,
-                           multiplier: 1,
-                           constant: 48).isActive = true
-        
-        
-        if(profileButtons.count == 3) {
-            usersGoing.spacing -= 15
-        } else if(profileButtons.count == 4) {
-            usersGoing.spacing -= 10
-        } else if(profileButtons.count > 7) {
-                // dont change spacing
-        } else if(profileButtons.count > 4) {
-            usersGoing.spacing -= CGFloat(usersGoingSpacing)
-            usersGoingSpacing -= 1
+            NSLayoutConstraint(item: profilePicButton,
+                               attribute: .width,
+                               relatedBy: .equal,
+                               toItem: nil,
+                               attribute: .notAnAttribute,
+                               multiplier: 1,
+                               constant: 48).isActive = true
+            
+            
+            if(profileButtons.count == 3) {
+                usersGoing.spacing -= 15
+            } else if(profileButtons.count == 4) {
+                usersGoing.spacing -= 10
+            } else if(profileButtons.count > 7) {
+                    // dont change spacing
+            } else if(profileButtons.count > 4) {
+                usersGoing.spacing -= CGFloat(usersGoingSpacing)
+                usersGoingSpacing -= 1
+            }
+            
+            // if theres too many profiles to display, stop adding to stack view
+            if(profileButtons.count < 8) {
+                usersGoing.addArrangedSubview(profilePicButton)
+            }
+            profileButtons.append(profilePicButton)
         }
-        
-        // if theres too many profiles to display, stop adding to stack view
-        if(profileButtons.count < 8) {
-            usersGoing.addArrangedSubview(profilePicButton)
-        }
-        
-        profileButtons.append(profilePicButton)
+
     }
     
     @IBAction func closeView(_ sender: Any) {
