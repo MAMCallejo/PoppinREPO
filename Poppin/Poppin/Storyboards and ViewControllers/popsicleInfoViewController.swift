@@ -80,25 +80,14 @@ class popsicleInfoViewController : UIViewController, UIImagePickerControllerDele
         super.viewDidLoad()
         
         goingButton.layer.cornerRadius = 8
-        //goingButton.layer.borderWidth = 2
-        //goingButton.layer.borderColor = UIColor(red: 211.0 / 255.0, green: 147.0 / 255.0, blue: 210.0 / 255.0, alpha: 1.0).cgColor
-
-        ratingView.rating = 5
         
+        ratingView.rating = 5
         numRaters.text = "1,165"
         
         // refresh the popsicle info view
         usersGoing.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
-        
         usersGoing.spacing = CGFloat(usersGoingSpacing)
-//        for pB in profileButtons {
-//            pB.clipsToBounds = true
-//            pB.layer.cornerRadius = pB.frame.size.width / 2
-//            pB.layer.borderWidth = 0.1
-//            pB.layer.borderColor = UIColor.mainNAVYBLUE?.cgColor
-//        }
-        
-        // Set top color in the gradient based on main category of popsicle
+
         if(peventCategory == "Education") {
             colorTop = UIColor(red: 235.0 / 255.0, green: 166.0 / 255.0, blue: 177.0 / 255.0, alpha: 1.0).cgColor
             categoryLabel.text = "Education"
