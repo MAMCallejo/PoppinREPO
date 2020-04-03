@@ -1817,9 +1817,10 @@ class createEventViewController : UIViewController {
             
         }
         
+        // MARK: change
         if (categoryName != "") {
             
-            returnProtocol?.setUserPinData(en: nameTextView.text, ei: infoTextView.text, ed: dateFormatted!, edu: durationFormatted!, ec: categoryName, ecd: categoryDetailsTextView.text, es1: subcategory1Name, es1d: subcategory1DetailsTextView.text, es2: subcategory2Name, es2d: subcategory2DetailsTextView.text)
+            returnProtocol?.setUserPinData(en: nameTextView.text, ei: infoTextView.text, ed: dateFormatted!, edu: durationFormatted!, ec: categoryName, ecd: categoryDetailsTextView.text, es1: subcategory1Name, es1d: subcategory1DetailsTextView.text, es2: subcategory2Name, es2d: subcategory2DetailsTextView.text, wgList: [])
             
         } else {
             

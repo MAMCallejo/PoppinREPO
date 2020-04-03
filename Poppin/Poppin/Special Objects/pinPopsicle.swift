@@ -35,6 +35,10 @@ struct pinData {
     
     var eventPopsicle: UIImage
     
+    // MARK: change
+    // new features
+    var whosGoing: [String]
+    
 }
 
 class pinPopsicle: MKPointAnnotation {

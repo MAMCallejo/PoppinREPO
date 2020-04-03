@@ -71,6 +71,9 @@ class DataController: NSObject {
         
         popsicle.eventLongitude = pinPopsicle.popsicleData.eventLocation.longitude
         
+//        // MARK: change
+//        popsicle.whosGoing = pinPopsicle.popsicleData.whosGoing
+        
         self.context.insert(popsicle)
         
         try self.context.save()
@@ -105,6 +108,9 @@ class DataController: NSObject {
         popsicle.eventLatitude = eventLatitude
         
         popsicle.eventLongitude = eventLongitude
+        
+//        // MARK: change
+//        popsicle.whosGoing = pinPopsicle.popsicleData.whosGoing
      
         self.context.insert(popsicle)
         
@@ -122,7 +128,8 @@ class DataController: NSObject {
             
             let newPinPopsicle: pinPopsicle = pinPopsicle()
             
-            newPinPopsicle.popsicleData = pinData(eventName: popsicle.eventName ?? "", eventInfo: popsicle.eventInfo ?? "", eventDate: popsicle.eventDate ?? "", eventDuration: popsicle.eventDuration ?? "", eventCategory: popsicle.eventCategory ?? "", eventCategoryDetails: popsicle.eventCategoryDetails ?? "", eventSubcategory1: popsicle.eventSubcategory1 ?? "", eventSubcategory1Details: popsicle.eventSubcategory1 ?? "", eventSubcategory2: popsicle.eventSubcategory1 ?? "", eventSubcategory2Details: popsicle.eventSubcategory1 ?? "", eventLocation: CLLocationCoordinate2D(latitude: popsicle.eventLatitude, longitude: popsicle.eventLongitude), eventPopsicle: UIImage(named: popsicle.eventImage ?? "categoryButtonNP")!)
+            // MARK: change
+            newPinPopsicle.popsicleData = pinData(eventName: popsicle.eventName ?? "", eventInfo: popsicle.eventInfo ?? "", eventDate: popsicle.eventDate ?? "", eventDuration: popsicle.eventDuration ?? "", eventCategory: popsicle.eventCategory ?? "", eventCategoryDetails: popsicle.eventCategoryDetails ?? "", eventSubcategory1: popsicle.eventSubcategory1 ?? "", eventSubcategory1Details: popsicle.eventSubcategory1 ?? "", eventSubcategory2: popsicle.eventSubcategory1 ?? "", eventSubcategory2Details: popsicle.eventSubcategory1 ?? "", eventLocation: CLLocationCoordinate2D(latitude: popsicle.eventLatitude, longitude: popsicle.eventLongitude), eventPopsicle: UIImage(named: popsicle.eventImage ?? "categoryButtonNP")!, whosGoing: [])
             
         }
         
@@ -144,7 +151,8 @@ class DataController: NSObject {
             
             let newPinPopsicle: pinPopsicle = pinPopsicle()
             
-            newPinPopsicle.popsicleData = pinData(eventName: popsicle.eventName ?? "", eventInfo: popsicle.eventInfo ?? "", eventDate: popsicle.eventDate ?? "", eventDuration: popsicle.eventDuration ?? "", eventCategory: popsicle.eventCategory ?? "", eventCategoryDetails: popsicle.eventCategoryDetails ?? "", eventSubcategory1: popsicle.eventSubcategory1 ?? "", eventSubcategory1Details: popsicle.eventSubcategory1 ?? "", eventSubcategory2: popsicle.eventSubcategory1 ?? "", eventSubcategory2Details: popsicle.eventSubcategory1 ?? "", eventLocation: CLLocationCoordinate2D(latitude: popsicle.eventLatitude, longitude: popsicle.eventLongitude), eventPopsicle: UIImage(named: popsicle.eventImage ?? "categoryButtonNP")!)
+            // MARK: change
+            newPinPopsicle.popsicleData = pinData(eventName: popsicle.eventName ?? "", eventInfo: popsicle.eventInfo ?? "", eventDate: popsicle.eventDate ?? "", eventDuration: popsicle.eventDuration ?? "", eventCategory: popsicle.eventCategory ?? "", eventCategoryDetails: popsicle.eventCategoryDetails ?? "", eventSubcategory1: popsicle.eventSubcategory1 ?? "", eventSubcategory1Details: popsicle.eventSubcategory1 ?? "", eventSubcategory2: popsicle.eventSubcategory1 ?? "", eventSubcategory2Details: popsicle.eventSubcategory1 ?? "", eventLocation: CLLocationCoordinate2D(latitude: popsicle.eventLatitude, longitude: popsicle.eventLongitude), eventPopsicle: UIImage(named: popsicle.eventImage ?? "categoryButtonNP")!, whosGoing: [])
             
         }
         
@@ -166,7 +174,8 @@ class DataController: NSObject {
             
             let newPinPopsicle: pinPopsicle = pinPopsicle()
             
-            newPinPopsicle.popsicleData = pinData(eventName: popsicle.eventName ?? "", eventInfo: popsicle.eventInfo ?? "", eventDate: popsicle.eventDate ?? "", eventDuration: popsicle.eventDuration ?? "", eventCategory: popsicle.eventCategory ?? "", eventCategoryDetails: popsicle.eventCategoryDetails ?? "", eventSubcategory1: popsicle.eventSubcategory1 ?? "", eventSubcategory1Details: popsicle.eventSubcategory1 ?? "", eventSubcategory2: popsicle.eventSubcategory1 ?? "", eventSubcategory2Details: popsicle.eventSubcategory1 ?? "", eventLocation: CLLocationCoordinate2D(latitude: popsicle.eventLatitude, longitude: popsicle.eventLongitude), eventPopsicle: UIImage(named: popsicle.eventImage ?? "categoryButtonNP")!)
+            // MARK: change
+            newPinPopsicle.popsicleData = pinData(eventName: popsicle.eventName ?? "", eventInfo: popsicle.eventInfo ?? "", eventDate: popsicle.eventDate ?? "", eventDuration: popsicle.eventDuration ?? "", eventCategory: popsicle.eventCategory ?? "", eventCategoryDetails: popsicle.eventCategoryDetails ?? "", eventSubcategory1: popsicle.eventSubcategory1 ?? "", eventSubcategory1Details: popsicle.eventSubcategory1 ?? "", eventSubcategory2: popsicle.eventSubcategory1 ?? "", eventSubcategory2Details: popsicle.eventSubcategory1 ?? "", eventLocation: CLLocationCoordinate2D(latitude: popsicle.eventLatitude, longitude: popsicle.eventLongitude), eventPopsicle: UIImage(named: popsicle.eventImage ?? "categoryButtonNP")!, whosGoing: [])
             
         }
         

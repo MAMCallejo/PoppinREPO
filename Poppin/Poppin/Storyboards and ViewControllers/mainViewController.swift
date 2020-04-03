@@ -28,7 +28,7 @@ public var popsicleSize: CGSize?
 
 protocol createEventViewControllerReturnProtocol : NSObjectProtocol {
 
-    func setUserPinData(en: String, ei: String, ed: String, edu: String, ec: String, ecd: String, es1: String, es1d: String, es2: String, es2d: String)
+    func setUserPinData(en: String, ei: String, ed: String, edu: String, ec: String, ecd: String, es1: String, es1d: String, es2: String, es2d: String, wgList: [String])
      
     func showMainButtons()
     
@@ -416,7 +416,8 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
                    
         newPopsicle = pinPopsicle()
         
-        newPopsicle.popsicleData = pinData(eventName: "", eventInfo: "", eventDate: "", eventDuration: "", eventCategory: "", eventCategoryDetails: "", eventSubcategory1: "", eventSubcategory1Details: "", eventSubcategory2: "", eventSubcategory2Details: "", eventLocation: CLLocationCoordinate2D(), eventPopsicle: UIImage(named: "categoryButtonNP")!)
+        // MARK: change
+        newPopsicle.popsicleData = pinData(eventName: "", eventInfo: "", eventDate: "", eventDuration: "", eventCategory: "", eventCategoryDetails: "", eventSubcategory1: "", eventSubcategory1Details: "", eventSubcategory2: "", eventSubcategory2Details: "", eventLocation: CLLocationCoordinate2D(), eventPopsicle: UIImage(named: "categoryButtonNP")!, whosGoing: [])
         
             // Initializes the campus region (DU by default).
         
@@ -1435,6 +1436,9 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
             inputVC.peventSubcategory1Details = (sender as! pinPopsicle).popsicleData.eventSubcategory1Details
             inputVC.peventImage = (sender as! pinPopsicle).popsicleData.eventPopsicle
             
+            // MARK: change
+            inputVC.profiles = (sender as! pinPopsicle).popsicleData.whosGoing
+            
             // Hide Menu if it's showing.
 
             if (menuShowing) {
@@ -1480,7 +1484,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
             - Then the private helper method placePinOnMap is called which handles the pin placement interface.
      */
     
-    public func setUserPinData(en: String, ei: String, ed: String, edu: String, ec: String, ecd: String, es1: String, es1d: String, es2: String, es2d: String) {
+    public func setUserPinData(en: String, ei: String, ed: String, edu: String, ec: String, ecd: String, es1: String, es1d: String, es2: String, es2d: String, wgList: [String]) {
        
         newPopsicle.popsicleData.eventName = en
         
@@ -1501,6 +1505,9 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         newPopsicle.popsicleData.eventSubcategory2 = es2
         
         newPopsicle.popsicleData.eventSubcategory2Details = es2d
+        
+        // MARK: change
+        newPopsicle.popsicleData.whosGoing = wgList
         
         // Checker if you want to see the data passed to the popsicle.
         
@@ -1842,6 +1849,9 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
                         let latitude = data["latitude"] as! CLLocationDegrees
                         let longitude = data["longitude"] as! CLLocationDegrees
                         
+                        // MARK: change
+                        let whosGoing = data["whosGoing"] ?? [] as! [String]
+                        
                         let popsicleToAdd = pinPopsicle()
                         
                         let coordinates = CLLocationCoordinate2DMake(latitude, longitude)
@@ -1875,7 +1885,8 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
                             eventPopsicle = UIImage(named: "showsButton")!
                             
                         }
-                        popsicleToAdd.popsicleData = pinData(eventName: eventName, eventInfo: eventInfo, eventDate: eventDate, eventDuration: eventDuration, eventCategory: eventCategory, eventCategoryDetails: eventCategoryDetails, eventSubcategory1: eventSubcategory1, eventSubcategory1Details: eventSubcategory1Details, eventSubcategory2: eventSubcategory2, eventSubcategory2Details: eventSubcategory2Details, eventLocation: coordinates, eventPopsicle: eventPopsicle)
+                        // MARK: change
+                        popsicleToAdd.popsicleData = pinData(eventName: eventName, eventInfo: eventInfo, eventDate: eventDate, eventDuration: eventDuration, eventCategory: eventCategory, eventCategoryDetails: eventCategoryDetails, eventSubcategory1: eventSubcategory1, eventSubcategory1Details: eventSubcategory1Details, eventSubcategory2: eventSubcategory2, eventSubcategory2Details: eventSubcategory2Details, eventLocation: coordinates, eventPopsicle: eventPopsicle, whosGoing: whosGoing as! [String])
                         
                         popsicleToAdd.coordinate = coordinates
                         
@@ -1995,13 +2006,17 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
             
             ref.child("currentPopsicles/\(en)/eventSubcategory2Details").setValue(newPopsicle.popsicleData.eventSubcategory2Details)
             
+            // MARK: change
+            ref.child("currentPopsicles/\(en)/whosGoing").setValue(newPopsicle.popsicleData.whosGoing)
+            
             newPopsicle.popsicleData.eventLocation = mainMapView.centerCoordinate
                    
                    newPopsicle.coordinate = newPopsicle.popsicleData.eventLocation
                    
                    let popsicleToAdd = pinPopsicle()
                    
-                   popsicleToAdd.popsicleData = pinData(eventName: newPopsicle.popsicleData.eventName, eventInfo: newPopsicle.popsicleData.eventInfo, eventDate: newPopsicle.popsicleData.eventDate, eventDuration: newPopsicle.popsicleData.eventDuration, eventCategory: newPopsicle.popsicleData.eventCategory, eventCategoryDetails: newPopsicle.popsicleData.eventCategoryDetails, eventSubcategory1: newPopsicle.popsicleData.eventSubcategory1, eventSubcategory1Details: newPopsicle.popsicleData.eventSubcategory1Details, eventSubcategory2: newPopsicle.popsicleData.eventSubcategory2, eventSubcategory2Details: newPopsicle.popsicleData.eventSubcategory2Details, eventLocation: newPopsicle.popsicleData.eventLocation, eventPopsicle: newPopsicle.popsicleData.eventPopsicle)
+            // MARK: change
+            popsicleToAdd.popsicleData = pinData(eventName: newPopsicle.popsicleData.eventName, eventInfo: newPopsicle.popsicleData.eventInfo, eventDate: newPopsicle.popsicleData.eventDate, eventDuration: newPopsicle.popsicleData.eventDuration, eventCategory: newPopsicle.popsicleData.eventCategory, eventCategoryDetails: newPopsicle.popsicleData.eventCategoryDetails, eventSubcategory1: newPopsicle.popsicleData.eventSubcategory1, eventSubcategory1Details: newPopsicle.popsicleData.eventSubcategory1Details, eventSubcategory2: newPopsicle.popsicleData.eventSubcategory2, eventSubcategory2Details: newPopsicle.popsicleData.eventSubcategory2Details, eventLocation: newPopsicle.popsicleData.eventLocation, eventPopsicle: newPopsicle.popsicleData.eventPopsicle, whosGoing: newPopsicle.popsicleData.whosGoing)
                    
                    popsicleToAdd.coordinate = popsicleToAdd.popsicleData.eventLocation
             
@@ -2041,13 +2056,17 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
             
             ref.child("upcomingPopsicles/\(en)/eventSubcategory2Details").setValue(newPopsicle.popsicleData.eventSubcategory2Details)
             
+            // MARK: change
+            ref.child("currentPopsicles/\(en)/whosGoing").setValue(newPopsicle.popsicleData.whosGoing)
+            
             newPopsicle.popsicleData.eventLocation = mainMapView.centerCoordinate
                    
                    newPopsicle.coordinate = newPopsicle.popsicleData.eventLocation
                    
                    let popsicleToAdd = pinPopsicle()
-                   
-                   popsicleToAdd.popsicleData = pinData(eventName: newPopsicle.popsicleData.eventName, eventInfo: newPopsicle.popsicleData.eventInfo, eventDate: newPopsicle.popsicleData.eventDate, eventDuration: newPopsicle.popsicleData.eventDuration, eventCategory: newPopsicle.popsicleData.eventCategory, eventCategoryDetails: newPopsicle.popsicleData.eventCategoryDetails, eventSubcategory1: newPopsicle.popsicleData.eventSubcategory1, eventSubcategory1Details: newPopsicle.popsicleData.eventSubcategory1Details, eventSubcategory2: newPopsicle.popsicleData.eventSubcategory2, eventSubcategory2Details: newPopsicle.popsicleData.eventSubcategory2Details, eventLocation: newPopsicle.popsicleData.eventLocation, eventPopsicle: newPopsicle.popsicleData.eventPopsicle)
+             
+            // MARK: change
+            popsicleToAdd.popsicleData = pinData(eventName: newPopsicle.popsicleData.eventName, eventInfo: newPopsicle.popsicleData.eventInfo, eventDate: newPopsicle.popsicleData.eventDate, eventDuration: newPopsicle.popsicleData.eventDuration, eventCategory: newPopsicle.popsicleData.eventCategory, eventCategoryDetails: newPopsicle.popsicleData.eventCategoryDetails, eventSubcategory1: newPopsicle.popsicleData.eventSubcategory1, eventSubcategory1Details: newPopsicle.popsicleData.eventSubcategory1Details, eventSubcategory2: newPopsicle.popsicleData.eventSubcategory2, eventSubcategory2Details: newPopsicle.popsicleData.eventSubcategory2Details, eventLocation: newPopsicle.popsicleData.eventLocation, eventPopsicle: newPopsicle.popsicleData.eventPopsicle, whosGoing: newPopsicle.popsicleData.whosGoing)
                    
                    popsicleToAdd.coordinate = popsicleToAdd.popsicleData.eventLocation
             

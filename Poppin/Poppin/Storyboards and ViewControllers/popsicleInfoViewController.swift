@@ -23,9 +23,11 @@ class popsicleInfoViewController : UIViewController, UIImagePickerControllerDele
     
     @IBOutlet weak var goingButton: UIButton!
     var going = false
+    var alreadyGoing = false
     //@IBOutlet weak var profileButton: loginButton!
-    var profileButtons: [UIButton] = []
+    var profiles: [String] = []
     var profilePicButton = UIButton()
+    var profilePicButtons: [UIButton] = []
     /*
      Properties for the popsicle clicked...
      */
@@ -84,6 +86,9 @@ class popsicleInfoViewController : UIViewController, UIImagePickerControllerDele
         ratingView.rating = 5
         
         numRaters.text = "1,165"
+        
+        // refresh the popsicle info view
+        usersGoing.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
         
         usersGoing.spacing = CGFloat(usersGoingSpacing)
 //        for pB in profileButtons {
@@ -195,6 +200,94 @@ class popsicleInfoViewController : UIViewController, UIImagePickerControllerDele
             subcategoryImage.image = UIImage(named: "showsButton")
             categoryLabel.text! += " & Shows"
         }
+
+        profiles = []
+        
+        let ref = Database.database().reference()
+        // display all friends currently going
+        var uids: [String] = []
+        ref.child("currentPopsicles/\(peventName ?? "")").observeSingleEvent(of: .value, with: { (snapshot) in
+          // ...
+//          let value = snapshot.value as? NSDictionary
+//          let username = value?["username"] as? String ?? ""
+//          let user = User(username: username)
+            //print("currentPopsicles accessed")
+            let value = snapshot.value as? NSDictionary
+            //print(value)
+            uids = value?["whosGoing"] as? [String] ?? []
+            print(uids)
+            
+            for uid in uids {
+                
+                let pB = UIButton()
+                
+                let reference = Storage.storage().reference().child( "images/\(uid)/profilepic.jpg")
+                reference.getData(maxSize: 1 * 1024 * 1024) { data, error in
+                    if error != nil {
+                        // Uh-oh, an error occurred!
+                        print("error")
+                    } else {
+                        let pic = UIImage(data: data! )
+                        pB.setImage(pic, for: .normal)
+                    }
+                }
+                
+                //profilePicButton.tag = 111
+                
+                pB.frame = CGRect(x: 0, y: 0, width: 48, height: 48)
+                pB.clipsToBounds = true
+                pB.layer.cornerRadius = pB.frame.size.width / 2
+                //profilePicButton.layer.borderWidth = 0.1
+                //profilePicButton.layer.borderColor = UIColor.mainNAVYBLUE?.cgColor
+                
+                NSLayoutConstraint(item: pB,
+                                   attribute: .height,
+                                   relatedBy: .equal,
+                                   toItem: nil,
+                                   attribute: .notAnAttribute,
+                                   multiplier: 1,
+                                   constant: 48).isActive = true
+
+                NSLayoutConstraint(item: pB,
+                                   attribute: .width,
+                                   relatedBy: .equal,
+                                   toItem: nil,
+                                   attribute: .notAnAttribute,
+                                   multiplier: 1,
+                                   constant: 48).isActive = true
+                
+                
+                if(self.profiles.count == 3) {
+                    self.usersGoing.spacing -= 15
+                } else if(self.profiles.count == 4) {
+                    self.usersGoing.spacing -= 10
+                } else if(self.profiles.count > 7) {
+                        // dont change spacing
+                } else if(self.profiles.count > 4) {
+                    self.usersGoing.spacing -= CGFloat(self.usersGoingSpacing)
+                    self.usersGoingSpacing -= 1
+                }
+                
+                // if theres too many profiles to display, stop adding to stack view
+                if(self.profiles.count < 8) {
+                    self.usersGoing.addArrangedSubview(pB)
+                }
+                self.profiles.append(uid)
+                self.profilePicButtons.append(pB)
+            }
+            
+            if(self.profiles.contains(self.currentUser!.uid)) {
+                self.alreadyGoing = true
+                self.goingButton.setTitleColor(UIColor.white, for: .normal)
+                self.goingButton.backgroundColor = UIColor(named: "sportsGREEN")
+            }
+            
+          // ...
+          }) { (error) in
+            print(error.localizedDescription)
+        }
+        
+        //print(uids)
         
     }
     
@@ -239,26 +332,69 @@ class popsicleInfoViewController : UIViewController, UIImagePickerControllerDele
     }
     
     @IBAction func addUserToGoingList(_ sender: Any) {
+        print("Current profiles: ")
+        print(profiles)
         
-        // if already going and wanna not go anymore
-        if(going) {
+        let ref = Database.database().reference()
+        
+        let uid = Auth.auth().currentUser!.uid
+        
+        if(going || alreadyGoing) {
             
             goingButton.setTitleColor(UIColor.darkGray, for: .normal)
             goingButton.backgroundColor = UIColor.lightGray
-            going = !going
+            
+            if(going) {
+                going = !going
+            }
+            if(alreadyGoing) {
+                alreadyGoing = !alreadyGoing
+            }
+            
+//            if(profiles.count == 3) {
+//                usersGoing.spacing += 15
+//            } else if(profiles.count == 4) {
+//                usersGoing.spacing += 10
+//            } else if(profiles.count > 7) {
+//                    // dont change spacing
+//            } else if(profiles.count == 5 && profiles.count == 6 && profiles.count == 7) {
+//                usersGoing.spacing += CGFloat(usersGoingSpacing)
+//                usersGoingSpacing += 1
+//            }
+            if(profiles.count == 2) {
+                usersGoing.spacing = 5
+            }else if(profiles.count == 3) {
+                //usersGoing.spacing -= 15
+                usersGoing.spacing = -10
+            } else if(profiles.count == 4) {
+                //usersGoing.spacing -= 10
+                usersGoing.spacing = -20
+            } else if(profiles.count > 7) {
+                    // dont change spacing
+            } else if(profiles.count == 5) {
+                usersGoing.spacing = -25
+            } else if(profiles.count == 6) {
+                usersGoing.spacing = -29
+            } else if(profiles.count == 7) {
+                usersGoing.spacing = -32
+            }
             
             self.usersGoing.viewWithTag(100)?.removeFromSuperview()
-            profileButtons = profileButtons.dropLast()
+            
+            profiles = profiles.dropLast()
+            profilePicButtons = profilePicButtons.dropLast()
+            
+            ref.child("currentPopsicles/\(peventName ?? "")/whosGoing").setValue(profiles)
             
         // else if not going and want to go
-        } else {
+        } else if(!going && !alreadyGoing){
             
             goingButton.setTitleColor(UIColor.white, for: .normal)
             goingButton.backgroundColor = UIColor(named: "sportsGREEN")
             going = !going
             
             //let profilePicButton = UIButton()
-            let uid = Auth.auth().currentUser!.uid
+            
             
             let reference = Storage.storage().reference().child( "images/\(uid)/profilepic.jpg")
             reference.getData(maxSize: 1 * 1024 * 1024) { data, error in
@@ -276,8 +412,8 @@ class popsicleInfoViewController : UIViewController, UIImagePickerControllerDele
             profilePicButton.frame = CGRect(x: 0, y: 0, width: 48, height: 48)
             profilePicButton.clipsToBounds = true
             profilePicButton.layer.cornerRadius = profilePicButton.frame.size.width / 2
-            profilePicButton.layer.borderWidth = 0.1
-            profilePicButton.layer.borderColor = UIColor.mainNAVYBLUE?.cgColor
+            //profilePicButton.layer.borderWidth = 0.1
+            //profilePicButton.layer.borderColor = UIColor.mainNAVYBLUE?.cgColor
             
             NSLayoutConstraint(item: profilePicButton,
                                attribute: .height,
@@ -296,23 +432,36 @@ class popsicleInfoViewController : UIViewController, UIImagePickerControllerDele
                                constant: 48).isActive = true
             
             
-            if(profileButtons.count == 3) {
-                usersGoing.spacing -= 15
-            } else if(profileButtons.count == 4) {
-                usersGoing.spacing -= 10
-            } else if(profileButtons.count > 7) {
+            if(profiles.count == 3) {
+                //usersGoing.spacing -= 15
+                usersGoing.spacing = -10
+            } else if(profiles.count == 4) {
+                //usersGoing.spacing -= 10
+                usersGoing.spacing = -20
+            } else if(profiles.count > 7) {
                     // dont change spacing
-            } else if(profileButtons.count > 4) {
-                usersGoing.spacing -= CGFloat(usersGoingSpacing)
-                usersGoingSpacing -= 1
+            } else if(profiles.count == 5) {
+                usersGoing.spacing = -25
+            } else if(profiles.count == 6) {
+                usersGoing.spacing = -29
+            } else if(profiles.count == 7) {
+                usersGoing.spacing = -32
             }
             
             // if theres too many profiles to display, stop adding to stack view
-            if(profileButtons.count < 8) {
+            if(profiles.count < 8) {
                 usersGoing.addArrangedSubview(profilePicButton)
             }
-            profileButtons.append(profilePicButton)
+            profiles.append(uid)
+            profilePicButtons.append(profilePicButton)
+            
+            //ref.child("currentPopsicles/\(peventName ?? "")/whosGoing").removeValue()
+            ref.child("currentPopsicles/\(peventName ?? "")/whosGoing").setValue(profiles)
+            
         }
+        
+        print("Profiles after press: ")
+        print(profiles)
 
     }
     
