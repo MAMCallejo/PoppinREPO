@@ -34,6 +34,8 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     
     var distanceMoved: CGFloat = 0.0
     
+    var returnProtocol: editProfileViewControllerReturnProtocol?
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -170,93 +172,23 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         
     }
     
-    //    func getProfilePic(){
-    //            let uid = Auth.auth().currentUser!.uid
-    //
-    //           let reference = Storage.storage().reference().child( "images/\(uid)/profilepic.jpg")
-    //
-    //
-    //           // UIImageView in your ViewController
-    //           let imageView: UIImageView = self.profilePic
-    //
-    //           // Placeholder image
-    //           let placeholderImage = UIImage(named: "placeholder.jpg")
-    //
-    //           // Load the image using SDWebImage
-    //           imageView.sd_setImage(with: reference, placeholderImage: placeholderImage)
-    
-    /*
-    @IBAction func addPicture(button: UIButton) {
-        //        photoHelper.presentActionSheet(from: self)
-        let profileImagePicker = UIImagePickerController()
-        profileImagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
-        profileImagePicker.mediaTypes = [kUTTypeImage as String]
-        profileImagePicker.delegate = self
-        present(profileImagePicker, animated: true, completion: nil)
+    @IBAction func saveButtonPressed(button: UIButton) {
         
-    }
-    
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any])
-    {
-        if let profileImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage, let optimizedImageData = profileImage.jpegData(compressionQuality: 0.6)
-        {
-            // upload image from here
-            
-            uploadProfileImage(imageData: optimizedImageData)
-            
-        }
-        picker.dismiss(animated: true, completion:nil)
-    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController)
-    {
-        picker.dismiss(animated: true, completion:nil)
-    }
-    func uploadProfileImage(imageData: Data)
-    {
-        let activityIndicator = UIActivityIndicatorView.init(style: .gray)
-        activityIndicator.startAnimating()
-        activityIndicator.center = self.view.center
-        self.view.addSubview(activityIndicator)
+        var returnUsername = false
         
-        
-        let storageReference = Storage.storage().reference()
-        let uid = Auth.auth().currentUser!.uid
-        
-        let profileImageRef = storageReference.child("images/\(uid)/profilepic.jpg")
-        
-        let uploadMetaData = StorageMetadata()
-        uploadMetaData.contentType = "image/jpeg"
-        
-        profileImageRef.putData(imageData, metadata: uploadMetaData) { (uploadedImageMeta, error) in
-            
-            activityIndicator.stopAnimating()
-            activityIndicator.removeFromSuperview()
-            
-            if error != nil
-            {
-                print("Error took place \(String(describing: error?.localizedDescription))")
-                return
-            } else {
-                
-                //                    self.profilePic.image =  UIImage(data: imageData)
-                
-                print("Meta data of uploaded image \(String(describing: uploadedImageMeta))")
-            }
-        }
-    }
-    */
-    
-    @IBAction func saveButtonPressed(button: UIButton){
+        var returnBio = false
         
         if (editProfileViewUsername.text != "") {
+            
+            returnUsername = true
             
             let uid = Auth.auth().currentUser!.uid
             
             let ref = Database.database().reference()
             
             if (editProfileViewBio.text != "") {
+                
+                returnBio = true
                 
                 ref.child("users/\(uid)/bio").setValue(editProfileViewBio.text)
                 
@@ -266,29 +198,43 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
             
         } else if (editProfileViewBio.text != "") {
             
+            returnBio = true
+            
             let uid = Auth.auth().currentUser!.uid
             
             let ref = Database.database().reference()
             
             if (editProfileViewUsername.text != "") {
                 
+                returnUsername = true
+                
                 ref.child("users/\(uid)/username").setValue(editProfileViewUsername.text)
                 
             }
             
             ref.child("users/\(uid)/bio").setValue(editProfileViewBio.text)
-            //print("BIOOOOOO")
+            
         }
         
-//        if (editProfileViewUsername.isEditing || editProfileViewBio.isEditing) {
-//
-//            editProfileViewUsername.resignFirstResponder()
-//
-//            editProfileViewBio.resignFirstResponder()
-//
-//            self.view.layoutIfNeeded()
-//
-//        }
+        if (editProfileViewUsername.isEditing || editProfileViewBio.isEditing) {
+
+            editProfileViewUsername.resignFirstResponder()
+
+            editProfileViewBio.resignFirstResponder()
+
+            self.view.layoutIfNeeded()
+
+        }
+        
+        if (returnUsername) {
+            
+            returnProtocol?.setProfileInfo(newUsername: editProfileViewUsername.text!, newBio: nil)
+            
+        } else if (returnBio) {
+            
+            returnProtocol?.setProfileInfo(newUsername: nil, newBio: editProfileViewBio.text!)
+            
+        }
         
         let endFrameC:CGRect = CGRect(origin: CGPoint(x: self.editProfileViewContainerView.frame.origin.x + (self.view.frame.size.width/2), y: self.editProfileViewContainerView.frame.origin.y), size: CGSize(width: self.editProfileViewContainerView.frame.size.width, height: self.editProfileViewContainerView.frame.size.height))
         
@@ -313,48 +259,5 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         })
         
     }
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    /*
-    func getUsername(){
-        let ref = Database.database().reference()
-        
-        let uid = Auth.auth().currentUser!.uid
-        ref.child("users/\(uid)/username").observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value
-            let value = snapshot.value as? String
-            
-            self.username.text = value
-            
-            // ...
-        }) { (error) in
-            print(error.localizedDescription)
-        }
-        
-    }
-    
-    func getBio(){
-        let ref = Database.database().reference()
-        
-        let uid = Auth.auth().currentUser!.uid
-        ref.child("users/\(uid)/bio").observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value
-            let value = snapshot.value as? String
-            
-            self.about.text = value
-            
-            // ...
-        }) { (error) in
-            print(error.localizedDescription)
-        }
-        
-    }*/
+ 
 }

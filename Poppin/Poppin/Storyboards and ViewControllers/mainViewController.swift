@@ -34,8 +34,6 @@ protocol createEventViewControllerReturnProtocol : NSObjectProtocol {
     
 }
 
-
-
 /*
     MapSearchProtocol: this protocol defines the functions that a MapSearchDelegate needs to implement...
     ...The LocationSearchTable has a MapSearchDelegate.
@@ -48,7 +46,19 @@ protocol MapSearchProtocol: class {
     
 }
 
-class mainViewController: UIViewController, createEventViewControllerReturnProtocol, CLLocationManagerDelegate, UIGestureRecognizerDelegate {
+/*
+   profileViewControllerReturnProtocol:
+*/
+
+protocol profileViewControllerReturnProtocol : NSObjectProtocol {
+    
+    func setUserInfo(newProfilePic: UIImage, newUsername: String)
+    
+    func showMainButtons()
+    
+}
+
+class mainViewController: UIViewController, createEventViewControllerReturnProtocol, CLLocationManagerDelegate, UIGestureRecognizerDelegate, profileViewControllerReturnProtocol {
     
     // *** SLIDE OUT MENU DECLARATION ***
     
@@ -308,8 +318,6 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
     }
     
-    var profilePic: UIImage?
-    
     // *** VIEWCONTROLLER FUNCTIONS ***
     
     /*
@@ -418,6 +426,72 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         newPopsicle = pinPopsicle()
         
         newPopsicle.popsicleData = pinData(eventName: "", eventInfo: "", eventDate: "", eventDuration: "", eventCategory: "", eventCategoryDetails: "", eventSubcategory1: "", eventSubcategory1Details: "", eventSubcategory2: "", eventSubcategory2Details: "", eventLocation: CLLocationCoordinate2D(), eventPopsicle: UIImage(named: "categoryButtonNP")!)
+        
+            // Initialize userInfo:
+        
+        var userInfo : (String, UIImage)!
+        
+        do {
+            
+            userInfo = try dataController?.fetchUserInfo()
+            
+        } catch {
+            
+            print("\nERROR: Unable to load userInfo\n")
+            
+        }
+        
+        if (userInfo.0 == "-NoUsername-" && userInfo.1 == UIImage(named: "profilePictureHolder")) {
+            
+            // First userInfo:
+            
+            do {
+                
+                try dataController?.insertUser(with: nil, profilePicture: nil)
+                
+            } catch {
+                
+                print("\nERROR: Unable to insert first user\n")
+                
+            }
+            
+            usernameLabel.text = "-NoUsername-"
+            
+            profileButton.setImage(userInfo.1, for: .normal)
+            
+        } else if (userInfo.0 == "-IncorrectUsername-" || userInfo.1 == UIImage(named: "cautionIcon")) {
+            
+            // Future userInfo Glitch Fix:
+            
+            do {
+                
+                try dataController?.deleteUserInfo()
+                
+                try dataController?.insertUser(with: nil, profilePicture: nil)
+                
+            } catch {
+                
+                print("\nERROR: Unable to insert first user\n")
+                
+            }
+            
+            usernameLabel.text = "-NoUsername-"
+            
+            profileButton.setImage(userInfo.1, for: .normal)
+            
+        } else {
+            
+            // Recurring userInfo:
+            
+            usernameLabel.text = userInfo.0
+            
+            profileButton.setImage(userInfo.1, for: .normal)
+            
+        }
+        
+        getUsername()
+        
+        getProfilePic()
         
             // Initializes the campus region (DU by default).
         
@@ -690,14 +764,6 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
             // FIREBASE FUNCTIONS:
             //  - Fetches the user info and popsicle info from the database by calling the private helper methods: getUsername, getProfilePic and getPopsicles.
-        
-        getUsername()
-        
-        getProfilePic()
-        
-        getPopsicles()
-        
-        //refreshDatabase()
          
          popsicleTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(refreshDatabase), userInfo: nil, repeats: true)
         
@@ -713,8 +779,6 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
     }
     
-    
-    
     // getUsername: gets the username of the current user and displays it.
     
     private func getUsername() {
@@ -729,9 +793,21 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
             
             let value = snapshot.value as? String
             
-            self.usernameLabel.text = value
-            
-            // ...
+            if (value != self.usernameLabel.text) {
+                
+                self.usernameLabel.text = value
+                
+                do {
+                    
+                    try self.dataController?.updateUserInfo(with: value, newProfilePicture: nil)
+                    
+                } catch {
+                    
+                    print("\nERROR: Unable to update username")
+                    
+                }
+                
+            }
             
         }) { (error) in
             
@@ -792,44 +868,48 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
         let reference = Storage.storage().reference().child( "images/\(uid)/profilepic.jpg")
         
-        self.mainMapView.showsUserLocation = false
-        
         reference.getData(maxSize: 1 * 1024 * 1024) { data, error in
         
             if error != nil {
             
                 // Uh-oh, an error occurred!
                 
-                self.profilePic = UIImage(named: "profilePictureHolder")
-                
-                self.profileButton.setImage(self.profilePic, for: .normal)
-                
                 //print("error with the profile picture")
                 print("Error took place \(String(describing: error?.localizedDescription))")
                 
             } else {
                 
-                self.profilePic = UIImage(data: data!)
-                
-                self.profileButton.setImage(self.profilePic, for: .normal)
+                if (data != nil) {
+                    
+                    let profilePic = UIImage(data: data!)
+                    
+                    if (profilePic != self.profileButton.imageView?.image) {
+                        
+                        self.mainMapView.showsUserLocation = false
+                        
+                        self.profileButton.setImage(profilePic, for: .normal)
+                        
+                        self.mainMapView.showsUserLocation = true
+                        
+                        do {
+                            
+                            try self.dataController?.updateUserInfo(with: nil, newProfilePicture: profilePic)
+                            
+                        } catch {
+                            
+                            print("\nERROR: Unable to update profile picture\n")
+                            
+                        }
+                        
+                    }
+                    
+                }
                 
             }
-            
-            self.mainMapView.showsUserLocation = true
             
         }
         
     }
-    
-
-//        // UIImageView in your ViewController
-//        let imageView: UIButton = self.profileButton
-//
-//        // Placeholder image
-//        let placeholderImage = UIImage(named: "placeholder.jpg")
-//
-//        // Load the image using SDWebImage
-//        imageView.sd_setImage(with: referenceURL, for: .normal)
     
     /*
      viewDidLayoutSubviews: Super useful function. It's called every time the view controller has to update...
@@ -1118,10 +1198,6 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
     
     @IBAction func openMenuFromButton(_ sender: Any) {
         
-        //update user credentials
-//        getUsername()
-//        getProfilePic()
-        
         if(!menuShowing) {
             
             menuLeadingConstraint.constant = 0
@@ -1244,7 +1320,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
     
     private func filterPopsicles() {
         
-        for annotation in mainMapView.annotations {
+        /*for annotation in mainMapView.annotations {
             
             if (annotation is pinPopsicle) {
                 
@@ -1338,7 +1414,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
                 
             }
             
-        }
+        }*/
         
     }
     
@@ -1403,6 +1479,8 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
             inputVC.returnProtocol = self
             
             inputVC.profilePic = profileButton.image(for: .normal)
+            
+            inputVC.username = usernameLabel.text!
             
             if (menuShowing) {
                 
@@ -1539,10 +1617,6 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
         //update user credentials
         
-        getUsername()
-        
-        getProfilePic()
-        
         self.view.layoutIfNeeded()
         
         UIView.animate(withDuration: 0.25, animations: {
@@ -1558,6 +1632,50 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
             self.view.layoutIfNeeded()
             
         })
+        
+    }
+    
+    /*
+        setUserInfo:
+     */
+    
+    public func setUserInfo(newProfilePic: UIImage, newUsername: String) {
+        
+        if (profileButton.imageView?.image != newProfilePic) {
+            
+            mainMapView.showsUserLocation = false
+            
+            profileButton.setImage(newProfilePic, for: .normal)
+            
+            mainMapView.showsUserLocation = true
+            
+            do {
+                
+                try dataController?.updateUserInfo(with: nil, newProfilePicture: newProfilePic)
+                
+            } catch {
+                
+                print("\nERROR: Unable to update profile picture\n")
+                
+            }
+            
+        }
+        
+        if (usernameLabel.text != newUsername) {
+            
+            usernameLabel.text = newUsername
+            
+            do {
+                
+                try dataController?.updateUserInfo(with: newUsername, newProfilePicture: nil)
+                
+            } catch {
+                
+                print("\nERROR: Unable to update username\n")
+                
+            }
+            
+        }
         
     }
     
@@ -2369,7 +2487,7 @@ extension mainViewController: MKMapViewDelegate {
             
             print("\n ABOUT TO CHANGE USER LOCATION ANNOTATION IMAGE \n")
             
-            userAnnotationView!.image = profilePic ?? UIImage(named: "profilePictureHolder")
+            userAnnotationView!.image = self.profileButton.imageView?.image ?? UIImage(named: "profilePictureHolder")
             
             userAnnotationView!.frame.size.width = 40
             

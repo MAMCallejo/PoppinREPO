@@ -312,11 +312,11 @@
 				6402707A2353C51F00641159 /* Main.storyboard */,
 				640270782353C51F00641159 /* mainViewController.swift */,
 				649ED12623CE7020006D31B5 /* ProfileViewController.swift */,
+				64337B4D2407257B00DCC9FA /* editProfileViewController.swift */,
 				F56E777523ABD8FC009BF8E9 /* Profile.storyboard */,
 				642A93952419985B005B027F /* popsicleInfo.storyboard */,
 				642A939424199859005B027F /* popsicleInfoViewController.swift */,
 				F56E777B23CBDE80009BF8E9 /* PopsicleViewController.swift */,
-				64337B4D2407257B00DCC9FA /* editProfileViewController.swift */,
 				F6A8A74F2433D68E0069FB36 /* FloatingRatingView.swift */,
 			);
 			path = "Storyboards and ViewControllers";

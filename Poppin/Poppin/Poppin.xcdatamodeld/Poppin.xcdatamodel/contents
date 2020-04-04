@@ -15,7 +15,12 @@
         <attribute name="eventSubcategory2" optional="YES" attributeType="String"/>
         <attribute name="eventSubcategory2Details" optional="YES" attributeType="String"/>
     </entity>
+    <entity name="UserInfo" representedClassName="UserInfo" syncable="YES" codeGenerationType="class">
+        <attribute name="profilePicture" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
+        <attribute name="username" optional="YES" attributeType="String"/>
+    </entity>
     <elements>
         <element name="Popsicle" positionX="-63" positionY="-18" width="128" height="238"/>
+        <element name="UserInfo" positionX="-63" positionY="81" width="128" height="73"/>
     </elements>
 </model>

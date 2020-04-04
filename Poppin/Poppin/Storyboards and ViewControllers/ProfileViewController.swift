@@ -13,7 +13,14 @@ import MobileCoreServices
 import CoreLocation
 import MapKit
 
-class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+protocol editProfileViewControllerReturnProtocol : NSObjectProtocol {
+    
+    func setProfileInfo(newUsername: String?, newBio: String?)
+    
+}
+
+class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, editProfileViewControllerReturnProtocol {
+    
     
     var imagePicker: UIImagePickerController!
     
@@ -35,9 +42,11 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     @IBOutlet weak var bioLabel: UILabel!
     
-    weak var returnProtocol : createEventViewControllerReturnProtocol?
+    weak var returnProtocol : profileViewControllerReturnProtocol?
     
-    weak var profilePic : UIImage?
+    var profilePic : UIImage?
+    
+    var username: String?
     
     override func viewDidLoad() {
         
@@ -51,11 +60,9 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         // Do any additional setup after loading the view.
         
-        // getProfilePic()
-        
         profilePicButton.setImage(profilePic, for: .normal)
         
-        getUsername()
+        usernameLabel.text = username
         
         getBio()
         
@@ -70,12 +77,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         print("\nHello :D we back to the profile view\n")
         
         //update user credentials
-        
-        // getProfilePic()
-        
-        getUsername()
-        
-        getBio()
         
         let endFrame:CGRect = profileContainerView.frame
         
@@ -129,40 +130,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
     }
     
-    func getProfilePic(){
-        let uid = Auth.auth().currentUser!.uid
-        
-        let reference = Storage.storage().reference().child( "images/\(uid)/profilepic.jpg")
-        
-        reference.getData(maxSize: 1 * 1024 * 1024) { data, error in
-            if error != nil {
-                // Uh-oh, an error occurred!
-                print("error")
-            } else {
-                
-                let pic = UIImage(data: data! )
-                self.profilePicButton.setImage(pic , for: UIControl.State.normal)
-            }
-        }
-    }
-    
-    func getUsername(){
-        let ref = Database.database().reference()
-        
-        let uid = Auth.auth().currentUser!.uid
-        ref.child("users/\(uid)/username").observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value
-            let value = snapshot.value as? String
-            
-            self.usernameLabel.text = value
-            
-            // ...
-        }) { (error) in
-            print(error.localizedDescription)
-        }
-        
-    }
-    
     func getBio(){
         let ref = Database.database().reference()
         
@@ -188,9 +155,27 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
     }
     
+    public func setProfileInfo(newUsername: String?, newBio: String?) {
+        
+        if (newUsername != nil && usernameLabel.text != newUsername) {
+            
+            usernameLabel.text = newUsername
+            
+        }
+        
+        if (newBio != nil && bioLabel.text != newBio) {
+            
+            bioLabel.text = newBio
+            
+        }
+        
+    }
+    
     @IBAction func segueToEditProfileView(_ sender: Any) {
         
         let editProfileVC = UIStoryboard(name: "Profile", bundle: nil).instantiateViewController(identifier: "EditProfileVC") as EditProfileViewController
+        
+        editProfileVC.returnProtocol = self
         
         let oldFrame:CGRect = profileContainerView.frame
         
@@ -290,6 +275,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         let cameraImage = info[.editedImage] as? UIImage
         
         self.profilePicButton.setImage(cameraImage, for: UIControl.State.normal)
+        
         self.profilePicButton.imageView?.contentMode = UIView.ContentMode.scaleAspectFill;
         
         let uid = Auth.auth().currentUser!.uid
@@ -307,6 +293,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     @IBAction func closeView(_ sender: Any) {
+        
+        returnProtocol?.setUserInfo(newProfilePic: (profilePicButton.imageView?.image)!, newUsername: usernameLabel.text!)
         
         returnProtocol?.showMainButtons()
         
