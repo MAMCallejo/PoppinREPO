@@ -43,6 +43,92 @@ class DataController: NSObject {
         
     }
     
+    public func insertUser(with username: String?, profilePicture: UIImage?) throws {
+        
+        let userInfo = UserInfo(context: self.context)
+        
+        userInfo.username = username
+        
+        if (profilePicture == nil) {
+            
+            userInfo.profilePicture = nil
+            
+        } else {
+            
+            userInfo.profilePicture = profilePicture!.pngData()
+            
+        }
+        
+        self.context.insert(userInfo)
+        
+        try self.context.save()
+        
+    }
+    
+    public func fetchUserInfo() throws -> (String, UIImage) {
+        
+        let userInfo = try self.context.fetch(UserInfo.fetchRequest() as NSFetchRequest<UserInfo>)
+        
+        var username = "-NoUsername-"
+        
+        var profilePicture = UIImage(named: "profilePictureHolder")!
+        
+        if (userInfo.count == 1) {
+            
+            if (userInfo[0].username != nil) {
+                
+                username = userInfo[0].username!
+                
+            }
+            
+            if (userInfo[0].profilePicture != nil) {
+                
+                profilePicture = UIImage(data: userInfo[0].profilePicture!) ?? UIImage(named: "profilePictureHolder")!
+                
+            }
+            
+        }
+        
+        return (username, profilePicture)
+        
+    }
+    
+    public func deleteUserInfo() throws {
+        
+        let userInfo = UserInfo.fetchRequest() as NSFetchRequest<NSFetchRequestResult>
+        
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: userInfo)
+        
+        try self.context.execute(deleteRequest)
+        
+        try self.context.save()
+        
+    }
+    
+    public func updateUserInfo(with newUsername: String?, newProfilePicture: UIImage?) throws {
+        
+        let userInfo = try self.context.fetch(UserInfo.fetchRequest() as NSFetchRequest<UserInfo>)
+        
+        if (userInfo.count == 1) {
+            
+            if (newUsername != nil) {
+                
+                userInfo[0].username = newUsername
+                
+            }
+            
+            if (newProfilePicture != nil) {
+                
+                userInfo[0].profilePicture = newProfilePicture!.pngData()
+                
+            }
+            
+        }
+        
+        try self.context.save()
+        
+    }
+    
     public func insertPopsicle(pinPopsicle: pinPopsicle) throws {
         
         let popsicle = Popsicle(context: self.context)

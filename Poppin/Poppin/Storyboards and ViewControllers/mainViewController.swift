@@ -447,24 +447,6 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
             
             do {
                 
-                try dataController?.insertUser(with: nil, profilePicture: nil)
-                
-            } catch {
-                
-                print("\nERROR: Unable to insert first user\n")
-                
-            }
-            
-            usernameLabel.text = "-NoUsername-"
-            
-            profileButton.setImage(userInfo.1, for: .normal)
-            
-        } else if (userInfo.0 == "-IncorrectUsername-" || userInfo.1 == UIImage(named: "cautionIcon")) {
-            
-            // Future userInfo Glitch Fix:
-            
-            do {
-                
                 try dataController?.deleteUserInfo()
                 
                 try dataController?.insertUser(with: nil, profilePicture: nil)
@@ -883,7 +865,9 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
                     
                     let profilePic = UIImage(data: data!)
                     
-                    if (profilePic != self.profileButton.imageView?.image) {
+                    if (profilePic?.pngData() != self.profileButton.image(for: .normal)?.pngData()) {
+                        
+                        print("\nChanging Profile Picture\n")
                         
                         self.mainMapView.showsUserLocation = false
                         
