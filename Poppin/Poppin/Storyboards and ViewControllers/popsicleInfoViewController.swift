@@ -274,7 +274,7 @@ class popsicleInfoViewController : UIViewController, UIImagePickerControllerDele
                 self.usersGoing.spacing = 5
             } else if(self.profiles.count == 4) {
                 //usersGoing.spacing -= 10
-                self.usersGoing.spacing = -10
+                self.usersGoing.spacing = -11
             } else if(self.profiles.count > 7) {
                     // dont change spacing
             } else if(self.profiles.count == 5) {
@@ -520,7 +520,7 @@ class popsicleInfoViewController : UIViewController, UIImagePickerControllerDele
             usersGoing.spacing = 5
         } else if(profiles.count == 4) {
             //usersGoing.spacing -= 10
-            usersGoing.spacing = -10
+            usersGoing.spacing = -11
         } else if(profiles.count > 7) {
                 // dont change spacing
         } else if(profiles.count == 5) {
