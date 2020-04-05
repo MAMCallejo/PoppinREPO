@@ -306,18 +306,13 @@
 		6489BBB223A0629F00769793 /* Storyboards and ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				F6DB6621243A8159007F02BB /* Profile View */,
+				F6DB6620243A8145007F02BB /* Create Event View */,
+				F6DB661F243A811B007F02BB /* Popsicle View */,
 				64BD292223FC9A5600B5C32D /* Login View */,
-				640270B02353D43600641159 /* createEventViewController.swift */,
-				64484D4C23932AA500F33132 /* createEvent.storyboard */,
 				6402707A2353C51F00641159 /* Main.storyboard */,
 				640270782353C51F00641159 /* mainViewController.swift */,
-				649ED12623CE7020006D31B5 /* ProfileViewController.swift */,
-				F56E777523ABD8FC009BF8E9 /* Profile.storyboard */,
-				642A93952419985B005B027F /* popsicleInfo.storyboard */,
-				642A939424199859005B027F /* popsicleInfoViewController.swift */,
 				F56E777B23CBDE80009BF8E9 /* PopsicleViewController.swift */,
-				64337B4D2407257B00DCC9FA /* editProfileViewController.swift */,
-				F6A8A74F2433D68E0069FB36 /* FloatingRatingView.swift */,
 			);
 			path = "Storyboards and ViewControllers";
 			sourceTree = "<group>";
@@ -364,6 +359,35 @@
 				6417F270237B975400033D8D /* mainNavigationController.swift */,
 			);
 			path = "Search Bar";
+			sourceTree = "<group>";
+		};
+		F6DB661F243A811B007F02BB /* Popsicle View */ = {
+			isa = PBXGroup;
+			children = (
+				642A93952419985B005B027F /* popsicleInfo.storyboard */,
+				642A939424199859005B027F /* popsicleInfoViewController.swift */,
+				F6A8A74F2433D68E0069FB36 /* FloatingRatingView.swift */,
+			);
+			path = "Popsicle View";
+			sourceTree = "<group>";
+		};
+		F6DB6620243A8145007F02BB /* Create Event View */ = {
+			isa = PBXGroup;
+			children = (
+				640270B02353D43600641159 /* createEventViewController.swift */,
+				64484D4C23932AA500F33132 /* createEvent.storyboard */,
+			);
+			path = "Create Event View";
+			sourceTree = "<group>";
+		};
+		F6DB6621243A8159007F02BB /* Profile View */ = {
+			isa = PBXGroup;
+			children = (
+				F56E777523ABD8FC009BF8E9 /* Profile.storyboard */,
+				649ED12623CE7020006D31B5 /* ProfileViewController.swift */,
+				64337B4D2407257B00DCC9FA /* editProfileViewController.swift */,
+			);
+			path = "Profile View";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
