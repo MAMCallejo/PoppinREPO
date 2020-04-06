@@ -60,7 +60,9 @@
 		F56E777423AA823E009BF8E9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56E777323AA823E009BF8E9 /* SceneDelegate.swift */; };
 		F56E777623ABD8FC009BF8E9 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F56E777523ABD8FC009BF8E9 /* Profile.storyboard */; };
 		F56E777C23CBDE80009BF8E9 /* PopsicleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56E777B23CBDE80009BF8E9 /* PopsicleViewController.swift */; };
+		F647A6EA243BDE8A006EC083 /* Shimmer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F647A6E9243BDE8A006EC083 /* Shimmer.swift */; };
 		F6A8A7502433D68E0069FB36 /* FloatingRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A8A74F2433D68E0069FB36 /* FloatingRatingView.swift */; };
+		F6DB6623243ACD57007F02BB /* Twinkle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6DB6622243ACD57007F02BB /* Twinkle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,7 +149,9 @@
 		F56E777323AA823E009BF8E9 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		F56E777523ABD8FC009BF8E9 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		F56E777B23CBDE80009BF8E9 /* PopsicleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopsicleViewController.swift; sourceTree = "<group>"; };
+		F647A6E9243BDE8A006EC083 /* Shimmer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shimmer.swift; sourceTree = "<group>"; };
 		F6A8A74F2433D68E0069FB36 /* FloatingRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingRatingView.swift; sourceTree = "<group>"; };
+		F6DB6622243ACD57007F02BB /* Twinkle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Twinkle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -306,6 +310,7 @@
 		6489BBB223A0629F00769793 /* Storyboards and ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				F6DB6624243BD5AF007F02BB /* Misc Effects */,
 				F6DB6621243A8159007F02BB /* Profile View */,
 				F6DB6620243A8145007F02BB /* Create Event View */,
 				F6DB661F243A811B007F02BB /* Popsicle View */,
@@ -388,6 +393,15 @@
 				64337B4D2407257B00DCC9FA /* editProfileViewController.swift */,
 			);
 			path = "Profile View";
+			sourceTree = "<group>";
+		};
+		F6DB6624243BD5AF007F02BB /* Misc Effects */ = {
+			isa = PBXGroup;
+			children = (
+				F6DB6622243ACD57007F02BB /* Twinkle.swift */,
+				F647A6E9243BDE8A006EC083 /* Shimmer.swift */,
+			);
+			path = "Misc Effects";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -642,6 +656,7 @@
 			files = (
 				649ED12723CE7020006D31B5 /* ProfileViewController.swift in Sources */,
 				64BD292C23FCB11300B5C32D /* loginButton.swift in Sources */,
+				F6DB6623243ACD57007F02BB /* Twinkle.swift in Sources */,
 				F56E777023A907CA009BF8E9 /* Constants.swift in Sources */,
 				6406F3D12363D47C00930CA8 /* doneButton.swift in Sources */,
 				640270B12353D43600641159 /* createEventViewController.swift in Sources */,
@@ -673,6 +688,7 @@
 				F56E776E23A907A5009BF8E9 /* Post.swift in Sources */,
 				F56E777C23CBDE80009BF8E9 /* PopsicleViewController.swift in Sources */,
 				640270752353C51F00641159 /* AppDelegate.swift in Sources */,
+				F647A6EA243BDE8A006EC083 /* Shimmer.swift in Sources */,
 				F56E777223A95FCA009BF8E9 /* Storyboard+Utility.swift in Sources */,
 				649ED12B23CE7944006D31B5 /* myEventsMenuButton.swift in Sources */,
 			);

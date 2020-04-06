@@ -1768,21 +1768,22 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
                                 hour += 1
                             }
                             
-                            if day < currentDay || ((hour + timeHours) % 24 <= currentHour && (minute + timeMinute) % 60 <= currentMinute) {
-                                self.refreshCount += 1
-                                ref3.child(eventName).setValue(data)
-                                let deleteRef = ref.child(eventName)
-                                
-                                self.changesMade = true
-                                
-                                deleteRef.removeValue { error, _ in
-                                    //self.getPopsicles()
-                                    print(error ?? "Refresh Database Error")
-                                }
-                                
-                                //sleep(2)
-                                
-                            }
+                            // MARK: DELETE
+//                            if day < currentDay || ((hour + timeHours) % 24 <= currentHour && (minute + timeMinute) % 60 <= currentMinute) {
+//                                self.refreshCount += 1
+//                                ref3.child(eventName).setValue(data)
+//                                let deleteRef = ref.child(eventName)
+//
+//                                self.changesMade = true
+//
+//                                deleteRef.removeValue { error, _ in
+//                                    //self.getPopsicles()
+//                                    print(error ?? "Refresh Database Error")
+//                                }
+//
+//                                //sleep(2)
+//
+//                            }
                             
                         }
                         
@@ -1795,6 +1796,21 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
             //getPopsicles()
             self.changesMade = false
             // }
+            
+            // MARK: Twinkle
+            // makes any popsicle that are poppin have a twinkle effect
+            for ann in self.mainMapView.annotations {
+                //popsicle.popsicleData.eventPopsicle
+                if(ann is pinPopsicle) {
+                    let popsicleAnn = ann as! pinPopsicle
+                    if(popsicleAnn.popsicleData!.whosGoing.count > 2)
+                    {
+                        let popsicleView = self.mainMapView.view(for: ann)
+                        popsicleView?.twinkle()
+                        //popsicleView?.shimmer()
+                    }
+                }
+            }
             
           } else {
             
@@ -1858,11 +1874,16 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
                         
                         let eventPopsicle: UIImage
                         
-                        if (eventCategory == "Education") {
+                        // MARK: change
+                        if((whosGoing as! [String]).count > 2) {
+                            
+                            eventPopsicle = UIImage(named: "goldButton")!
+                            
+                        } else if (eventCategory == "Education") {
                             
                             eventPopsicle = UIImage(named: "educationButton")!
                             
-                            
+                        
                             
                         } else if (eventCategory == "Food") {
                             
