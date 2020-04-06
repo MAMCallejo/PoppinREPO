@@ -59,7 +59,7 @@ public class Twinkle {
             view.layer.addSublayer(twinkleLayer)
             
             twinkleLayer.addPositionAnimation()
-            twinkleLayer.addRotationAnimation()
+            //twinkleLayer.addRotationAnimation()
             twinkleLayer.addFadeInOutAnimation( CACurrentMediaTime() + CFTimeInterval(0.15 * Float(i)))
         }
         
@@ -211,7 +211,7 @@ extension UIView {
     
     // UIView extension that provides a convenient means for triggering a twinkle effect.
     public func twinkle() {
-        Twinkle.twinkle(self, image: UIImage(named: "sparkle-9"))
+        Twinkle.twinkle(self, image: UIImage(named: "sparkle-7"))
     }
     
 }
