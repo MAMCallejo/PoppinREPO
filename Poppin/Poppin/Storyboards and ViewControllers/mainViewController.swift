@@ -1800,16 +1800,26 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
             // MARK: Twinkle
             // makes any popsicle that are poppin have a twinkle effect
             for ann in self.mainMapView.annotations {
-                //popsicle.popsicleData.eventPopsicle
+                
                 if(ann is pinPopsicle) {
+                    
                     let popsicleAnn = ann as! pinPopsicle
+                    let popsicleView = self.mainMapView.view(for: ann)
+                    
                     if(popsicleAnn.popsicleData!.whosGoing.count > 2)
                     {
-                        let popsicleView = self.mainMapView.view(for: ann)
                         popsicleView?.twinkle()
                         //popsicleView?.shimmer()
                     }
+                    
+                    let progressBar = UIProgressView(frame: CGRect(x: 15, y: 60, width: 28, height: 5))
+                    progressBar.progress = 0.75 // progress to be determined by duration of event
+                    progressBar.transform = progressBar.transform.scaledBy(x: 1, y: 3)
+                    progressBar.progressTintColor = UIColor.green
+                    popsicleView?.addSubview(progressBar)
+                    
                 }
+                
             }
             
           } else {
