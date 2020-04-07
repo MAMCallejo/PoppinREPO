@@ -1812,11 +1812,43 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
                         //popsicleView?.shimmer()
                     }
                     
-                    let progressBar = UIProgressView(frame: CGRect(x: 15, y: 60, width: 28, height: 5))
-                    progressBar.progress = 0.75 // progress to be determined by duration of event
-                    progressBar.transform = progressBar.transform.scaledBy(x: 1, y: 3)
-                    progressBar.progressTintColor = UIColor.green
-                    popsicleView?.addSubview(progressBar)
+                    let dur = Int(popsicleAnn.popsicleData!.eventDuration)!
+                    
+                    let time = popsicleAnn.popsicleData!.eventDate
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+                    let timeDate = dateFormatter.date(from: time)!
+                    let calendar = Calendar.current
+                    let timeComponents = calendar.dateComponents([.hour, .minute], from: timeDate)
+                    let nowComponents = calendar.dateComponents([.hour, .minute], from: Date())
+
+                    let diff = calendar.dateComponents([.minute], from: timeComponents, to: nowComponents).minute!
+                    
+                    // only add progress bars to popsicles that are in progress
+                    if(diff > 0)
+                    {
+                        let progressBar = UIProgressView(frame: CGRect(x: 15, y: 60, width: 28, height: 5))
+                        progressBar.tag = -2
+                        //progressBar.progress = 0.75 // progress to be determined by duration of event
+                        progressBar.progress = Float(dur - diff) / Float(dur)
+                        print(dur)
+                        print(diff)
+                        print(Float(dur - diff) / Float(dur))
+                        progressBar.transform = progressBar.transform.scaledBy(x: 1, y: 3)
+                        
+                        //adjust color of progress bar appropriately
+                        if(progressBar.progress < 0.25) {
+                            progressBar.progressTintColor = UIColor.red
+                        } else if(progressBar.progress < 0.5) {
+                            progressBar.progressTintColor = UIColor.yellow
+                        } else {
+                            progressBar.progressTintColor = UIColor.green
+                        }
+                        
+                        popsicleView?.viewWithTag(-2)?.removeFromSuperview()
+                        popsicleView?.addSubview(progressBar)
+                        
+                    }
                     
                 }
                 
