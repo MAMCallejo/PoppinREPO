@@ -1825,7 +1825,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
                     let diff = calendar.dateComponents([.minute], from: timeComponents, to: nowComponents).minute!
                     
                     // only add progress bars to popsicles that are in progress
-                    if(diff > 0)
+                    if(diff > 0 && diff <= dur)
                     {
                         let progressBar = UIProgressView(frame: CGRect(x: 15, y: 60, width: 28, height: 5))
                         progressBar.tag = -2
