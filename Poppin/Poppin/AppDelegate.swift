@@ -27,8 +27,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         
-        self.configureInitialRootViewController(for: self.window)
-        
         dataController = DataController()
         
         dataController.initalizeStack()
@@ -38,6 +36,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         monitor.start(queue: DispatchQueue(label: "Monitor"))
         
         Clock.sync()
+        
+        self.configureInitialRootViewController(for: self.window)
         
         return true
         

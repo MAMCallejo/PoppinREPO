@@ -17,17 +17,36 @@ class DataController: NSObject {
     
     public func initalizeStack() {
         
-        // 2.
+        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         
+        // 2.
         self.persistentContainer.loadPersistentStores { description, error in
             
             // 3.
-            
             if let error = error {
                 
                 print("could not load store \(error.localizedDescription)")
-                
                 return
+                
+            }
+            
+            do {
+                
+                //try self.deletePopsicles() // ----> Uncomment to reset popsicles in coreData
+                
+                let oldUserInfo = try self.fetchUserInfo()
+                
+                if oldUserInfo.0 == "-NoUsername-" && oldUserInfo.1.jpegData(compressionQuality: 0.3) == UIImage(named: "profilePictureHolder")?.jpegData(compressionQuality: 0.3){
+                    
+                    print("\nFirstTimeLoggingIn\n")
+                    
+                    try self.insertUser(with: nil, profilePicture: nil)
+                    
+                }
+                
+            } catch {
+                
+                print("\nERROR: Unable to insert template user in coreData\n")
                 
             }
             
@@ -37,11 +56,11 @@ class DataController: NSObject {
         
     }
     
-    var context: NSManagedObjectContext {
+    lazy var context: NSManagedObjectContext = {
         
         return self.persistentContainer.viewContext
         
-    }
+    }()
     
     public func insertUser(with username: String?, profilePicture: UIImage?) throws {
         
@@ -49,13 +68,13 @@ class DataController: NSObject {
         
         userInfo.username = username
         
-        if (profilePicture == nil) {
+        if let pp = profilePicture {
             
-            userInfo.profilePicture = nil
+            userInfo.profilePicture = pp.jpegData(compressionQuality: 0.3)
             
         } else {
             
-            userInfo.profilePicture = profilePicture!.pngData()
+            userInfo.profilePicture = nil
             
         }
         
@@ -70,26 +89,85 @@ class DataController: NSObject {
         let userInfo = try self.context.fetch(UserInfo.fetchRequest() as NSFetchRequest<UserInfo>)
         
         var username = "-NoUsername-"
+        var profilePicture = #imageLiteral(resourceName: "profilePictureHolder")
         
-        var profilePicture = UIImage(named: "profilePictureHolder")!
-        
-        if (userInfo.count == 1) {
+        if userInfo.count == 1 {
             
-            if (userInfo[0].username != nil) {
+            if let un = userInfo[0].username {
                 
-                username = userInfo[0].username!
+                username = un
                 
             }
             
-            if (userInfo[0].profilePicture != nil) {
+            if let ppData = userInfo[0].profilePicture {
                 
-                profilePicture = UIImage(data: userInfo[0].profilePicture!) ?? UIImage(named: "profilePictureHolder")!
+                if let pp = UIImage(data: ppData) {
+                    
+                    profilePicture = pp
+                    
+                }
+                
+            }
+            
+        } else {
+            
+            do {
+            
+                try deleteUserInfo()
+                
+            } catch {
+                
+                print("\nERROR: Unable to delete userInfo\n")
                 
             }
             
         }
         
         return (username, profilePicture)
+        
+    }
+    
+    public func fetchUsername() throws -> String {
+        
+        let userInfo = try self.context.fetch(UserInfo.fetchRequest() as NSFetchRequest<UserInfo>)
+        
+        var username = "-NoUsername-"
+        
+        if userInfo.count == 1 {
+            
+            if let un = userInfo[0].username {
+                
+                username = un
+                
+            }
+            
+        }
+        
+        return username
+        
+    }
+    
+    public func fetchProfilePic() throws -> UIImage {
+        
+        let userInfo = try self.context.fetch(UserInfo.fetchRequest() as NSFetchRequest<UserInfo>)
+        
+        var profilePicture = #imageLiteral(resourceName: "profilePictureHolder")
+        
+        if userInfo.count == 1 {
+            
+            if let ppData = userInfo[0].profilePicture {
+                
+                if let pp = UIImage(data: ppData) {
+                    
+                    profilePicture = pp
+                    
+                }
+                
+            }
+            
+        }
+        
+        return profilePicture
         
     }
     
@@ -109,17 +187,17 @@ class DataController: NSObject {
         
         let userInfo = try self.context.fetch(UserInfo.fetchRequest() as NSFetchRequest<UserInfo>)
         
-        if (userInfo.count == 1) {
+        if userInfo.count == 1 {
             
-            if (newUsername != nil) {
+            if let nu = newUsername {
                 
-                userInfo[0].username = newUsername
+                userInfo[0].username = nu
                 
             }
             
-            if (newProfilePicture != nil) {
+            if let newpp = newProfilePicture {
                 
-                userInfo[0].profilePicture = newProfilePicture!.pngData()
+                userInfo[0].profilePicture = newpp.jpegData(compressionQuality: 0.3)
                 
             }
             
@@ -134,27 +212,16 @@ class DataController: NSObject {
         let popsicle = Popsicle(context: self.context)
         
         popsicle.eventName = pinPopsicle.popsicleData.eventName
-        
         popsicle.eventInfo = pinPopsicle.popsicleData.eventInfo
-        
         popsicle.eventDate = pinPopsicle.popsicleData.eventDate
-        
         popsicle.eventDuration = pinPopsicle.popsicleData.eventDuration
-        
         popsicle.eventCategory = pinPopsicle.popsicleData.eventCategory
-        
         popsicle.eventCategoryDetails = pinPopsicle.popsicleData.eventCategoryDetails
-        
         popsicle.eventSubcategory1 = pinPopsicle.popsicleData.eventSubcategory1
-        
         popsicle.eventSubcategory1Details = pinPopsicle.popsicleData.eventSubcategory1Details
-        
         popsicle.eventSubcategory2 = pinPopsicle.popsicleData.eventSubcategory2
-        
         popsicle.eventSubcategory2Details = pinPopsicle.popsicleData.eventSubcategory2Details
-        
         popsicle.eventLatitude = pinPopsicle.popsicleData.eventLocation.latitude
-        
         popsicle.eventLongitude = pinPopsicle.popsicleData.eventLocation.longitude
         
         self.context.insert(popsicle)
@@ -169,27 +236,16 @@ class DataController: NSObject {
         let popsicle = Popsicle(context: self.context)
         
         popsicle.eventName = eventName
-        
         popsicle.eventInfo = eventInfo
-        
         popsicle.eventDate = eventDate
-        
         popsicle.eventDuration = eventDuration
-        
         popsicle.eventCategory = eventCategory
-        
         popsicle.eventCategoryDetails = eventCategoryDetails
-        
         popsicle.eventSubcategory1 = eventSubcategory1
-        
         popsicle.eventSubcategory1Details = eventSubcategory1Details
-        
         popsicle.eventSubcategory2 = eventSubcategory2
-        
         popsicle.eventSubcategory2Details = eventSubcategory2Details
-        
         popsicle.eventLatitude = eventLatitude
-        
         popsicle.eventLongitude = eventLongitude
      
         self.context.insert(popsicle)
@@ -198,17 +254,21 @@ class DataController: NSObject {
         
     }
     
-    public func fetchPopsicles() throws -> [pinPopsicle] {
+    public func fetchPopsicles() throws -> Set<pinPopsicle> {
         
         let popsicles = try self.context.fetch(Popsicle.fetchRequest() as NSFetchRequest<Popsicle>)
         
-        let pinPopsicles: [pinPopsicle] = []
+        var pinPopsicles: Set<pinPopsicle> = []
         
         for popsicle in popsicles {
             
             let newPinPopsicle: pinPopsicle = pinPopsicle()
             
-            newPinPopsicle.popsicleData = pinData(eventName: popsicle.eventName ?? "", eventInfo: popsicle.eventInfo ?? "", eventDate: popsicle.eventDate ?? "", eventDuration: popsicle.eventDuration ?? "", eventCategory: popsicle.eventCategory ?? "", eventCategoryDetails: popsicle.eventCategoryDetails ?? "", eventSubcategory1: popsicle.eventSubcategory1 ?? "", eventSubcategory1Details: popsicle.eventSubcategory1 ?? "", eventSubcategory2: popsicle.eventSubcategory1 ?? "", eventSubcategory2Details: popsicle.eventSubcategory1 ?? "", eventLocation: CLLocationCoordinate2D(latitude: popsicle.eventLatitude, longitude: popsicle.eventLongitude), eventPopsicle: UIImage(named: popsicle.eventImage ?? "categoryButtonNP")!)
+            newPinPopsicle.popsicleData = pinData(eventName: popsicle.eventName ?? "", eventInfo: popsicle.eventInfo ?? "", eventDate: popsicle.eventDate ?? "", eventDuration: popsicle.eventDuration ?? "", eventCategory: popsicle.eventCategory ?? "", eventCategoryDetails: popsicle.eventCategoryDetails ?? "", eventSubcategory1: popsicle.eventSubcategory1 ?? "", eventSubcategory1Details: popsicle.eventSubcategory1 ?? "", eventSubcategory2: popsicle.eventSubcategory1 ?? "", eventSubcategory2Details: popsicle.eventSubcategory1 ?? "", eventLocation: CLLocationCoordinate2D(latitude: popsicle.eventLatitude, longitude: popsicle.eventLongitude))
+            
+            newPinPopsicle.coordinate = newPinPopsicle.popsicleData.eventLocation
+            
+            pinPopsicles.insert(newPinPopsicle)
             
         }
         
@@ -216,7 +276,7 @@ class DataController: NSObject {
         
     }
     
-    public func fetchPopsicles(withCategory eventCategory: String) throws -> [pinPopsicle] {
+    public func fetchPopsicles(withCategory eventCategory: String) throws -> Set<pinPopsicle> {
         
         let request = NSFetchRequest<Popsicle>(entityName: "Popsicle")
         
@@ -224,13 +284,17 @@ class DataController: NSObject {
         
         let popsicles = try self.context.fetch(request)
         
-        let pinPopsicles: [pinPopsicle] = []
+        var pinPopsicles: Set<pinPopsicle> = []
         
         for popsicle in popsicles {
             
             let newPinPopsicle: pinPopsicle = pinPopsicle()
             
-            newPinPopsicle.popsicleData = pinData(eventName: popsicle.eventName ?? "", eventInfo: popsicle.eventInfo ?? "", eventDate: popsicle.eventDate ?? "", eventDuration: popsicle.eventDuration ?? "", eventCategory: popsicle.eventCategory ?? "", eventCategoryDetails: popsicle.eventCategoryDetails ?? "", eventSubcategory1: popsicle.eventSubcategory1 ?? "", eventSubcategory1Details: popsicle.eventSubcategory1 ?? "", eventSubcategory2: popsicle.eventSubcategory1 ?? "", eventSubcategory2Details: popsicle.eventSubcategory1 ?? "", eventLocation: CLLocationCoordinate2D(latitude: popsicle.eventLatitude, longitude: popsicle.eventLongitude), eventPopsicle: UIImage(named: popsicle.eventImage ?? "categoryButtonNP")!)
+            newPinPopsicle.popsicleData = pinData(eventName: popsicle.eventName ?? "", eventInfo: popsicle.eventInfo ?? "", eventDate: popsicle.eventDate ?? "", eventDuration: popsicle.eventDuration ?? "", eventCategory: popsicle.eventCategory ?? "", eventCategoryDetails: popsicle.eventCategoryDetails ?? "", eventSubcategory1: popsicle.eventSubcategory1 ?? "", eventSubcategory1Details: popsicle.eventSubcategory1 ?? "", eventSubcategory2: popsicle.eventSubcategory1 ?? "", eventSubcategory2Details: popsicle.eventSubcategory1 ?? "", eventLocation: CLLocationCoordinate2D(latitude: popsicle.eventLatitude, longitude: popsicle.eventLongitude))
+            
+            newPinPopsicle.coordinate = newPinPopsicle.popsicleData.eventLocation
+            
+            pinPopsicles.insert(newPinPopsicle)
             
         }
         
@@ -238,7 +302,7 @@ class DataController: NSObject {
         
     }
     
-    public func fetchPopsicles(withName eventName: String) throws -> [pinPopsicle] {
+    public func fetchPopsicles(withName eventName: String) throws -> Set<pinPopsicle> {
         
         let request = NSFetchRequest<Popsicle>(entityName: "Popsicle")
         
@@ -246,13 +310,17 @@ class DataController: NSObject {
         
         let popsicles = try self.context.fetch(request)
         
-        let pinPopsicles: [pinPopsicle] = []
+        var pinPopsicles: Set<pinPopsicle> = []
         
         for popsicle in popsicles {
             
             let newPinPopsicle: pinPopsicle = pinPopsicle()
             
-            newPinPopsicle.popsicleData = pinData(eventName: popsicle.eventName ?? "", eventInfo: popsicle.eventInfo ?? "", eventDate: popsicle.eventDate ?? "", eventDuration: popsicle.eventDuration ?? "", eventCategory: popsicle.eventCategory ?? "", eventCategoryDetails: popsicle.eventCategoryDetails ?? "", eventSubcategory1: popsicle.eventSubcategory1 ?? "", eventSubcategory1Details: popsicle.eventSubcategory1 ?? "", eventSubcategory2: popsicle.eventSubcategory1 ?? "", eventSubcategory2Details: popsicle.eventSubcategory1 ?? "", eventLocation: CLLocationCoordinate2D(latitude: popsicle.eventLatitude, longitude: popsicle.eventLongitude), eventPopsicle: UIImage(named: popsicle.eventImage ?? "categoryButtonNP")!)
+            newPinPopsicle.popsicleData = pinData(eventName: popsicle.eventName ?? "", eventInfo: popsicle.eventInfo ?? "", eventDate: popsicle.eventDate ?? "", eventDuration: popsicle.eventDuration ?? "", eventCategory: popsicle.eventCategory ?? "", eventCategoryDetails: popsicle.eventCategoryDetails ?? "", eventSubcategory1: popsicle.eventSubcategory1 ?? "", eventSubcategory1Details: popsicle.eventSubcategory1 ?? "", eventSubcategory2: popsicle.eventSubcategory1 ?? "", eventSubcategory2Details: popsicle.eventSubcategory1 ?? "", eventLocation: CLLocationCoordinate2D(latitude: popsicle.eventLatitude, longitude: popsicle.eventLongitude))
+            
+            newPinPopsicle.coordinate = newPinPopsicle.popsicleData.eventLocation
+            
+            pinPopsicles.insert(newPinPopsicle)
             
         }
         
@@ -268,7 +336,7 @@ class DataController: NSObject {
         
         let popsicles = try self.context.fetch(request)
         
-        if (popsicles.count == 1) {
+        if popsicles.count == 1 {
             
             let popsicle = popsicles.first!
             

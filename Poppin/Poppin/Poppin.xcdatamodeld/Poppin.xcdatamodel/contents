@@ -5,7 +5,6 @@
         <attribute name="eventCategoryDetails" optional="YES" attributeType="String"/>
         <attribute name="eventDate" optional="YES" attributeType="String"/>
         <attribute name="eventDuration" optional="YES" attributeType="String"/>
-        <attribute name="eventImage" optional="YES" attributeType="String"/>
         <attribute name="eventInfo" optional="YES" attributeType="String"/>
         <attribute name="eventLatitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="eventLongitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -14,13 +13,18 @@
         <attribute name="eventSubcategory1Details" optional="YES" attributeType="String"/>
         <attribute name="eventSubcategory2" optional="YES" attributeType="String"/>
         <attribute name="eventSubcategory2Details" optional="YES" attributeType="String"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="eventName"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <entity name="UserInfo" representedClassName="UserInfo" syncable="YES" codeGenerationType="class">
         <attribute name="profilePicture" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
         <attribute name="username" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="Popsicle" positionX="-63" positionY="-18" width="128" height="238"/>
+        <element name="Popsicle" positionX="-63" positionY="-18" width="128" height="223"/>
         <element name="UserInfo" positionX="-63" positionY="81" width="128" height="73"/>
     </elements>
 </model>

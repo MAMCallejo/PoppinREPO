@@ -48,6 +48,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     var username: String?
     
+    var profilePicWasChanged = false
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -210,27 +212,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     @IBAction func changeProfilePic(_ sender: Any) {
-        
-        // if the device has no camera, send an alert
-//        if !UIImagePickerController.isSourceTypeAvailable(.camera){
-//
-//            let alertController = UIAlertController.init(title: nil, message: "Device has no camera.", preferredStyle: .alert)
-//
-//            let okAction = UIAlertAction.init(title: "Alright", style: .default, handler: {(alert: UIAlertAction!) in
-//            })
-//
-//            alertController.addAction(okAction)
-//            self.present(alertController, animated: true, completion: nil)
-//
-//        }
-//        else{
-            //other action
-//            imagePicker =  UIImagePickerController()
-//            imagePicker.delegate = self
-//            imagePicker.sourceType = .camera
-//
-//            present(imagePicker, animated: true, completion: nil)
-//        }
+
         let alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
             self.openCamera()
@@ -270,8 +252,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
-        imagePicker.dismiss(animated: true, completion: nil)
-        
         let cameraImage = info[.editedImage] as? UIImage
         
         self.profilePicButton.setImage(cameraImage, for: UIControl.State.normal)
@@ -280,21 +260,35 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         let uid = Auth.auth().currentUser!.uid
         let ref = Storage.storage().reference().child( "images/\(uid)/profilepic.jpg")
-        //print(cameraImage!.jpegData(compressionQuality: 0.6) != nil)
-        ref.putData((cameraImage!.jpegData(compressionQuality: 0.3))!, metadata: nil)
+        
+        ref.putData((cameraImage?.jpegData(compressionQuality: 0.3))!, metadata: nil)
         { (_, error) in
+            
+            self.imagePicker.dismiss(animated: true, completion: nil)
+            
             if error != nil
             {
                 print("Error took place \(String(describing: error?.localizedDescription))")
                 return
             }
+            
+            self.profilePicWasChanged = true
+            
         }
         
     }
     
     @IBAction func closeView(_ sender: Any) {
         
-        returnProtocol?.setUserInfo(newProfilePic: (profilePicButton.imageView?.image)!, newUsername: usernameLabel.text!)
+        if (profilePicWasChanged) {
+            
+            returnProtocol?.setUserInfo(newProfilePic: (profilePicButton.imageView?.image)!, newUsername: usernameLabel.text!)
+            
+        } else {
+            
+            returnProtocol?.setUserInfo(newProfilePic: nil, newUsername: usernameLabel.text!)
+            
+        }
         
         returnProtocol?.showMainButtons()
         
