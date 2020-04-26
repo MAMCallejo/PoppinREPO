@@ -157,6 +157,12 @@ class AlertButton: UIButton {
         
     lazy var alertButtonAction: (() -> Void) = {}
     
+    convenience init() {
+        
+        self.init(alertTitle: nil, alertButtonAction: nil)
+        
+    }
+    
     init(alertTitle: String?, alertButtonAction: (() -> Void)?) {
         
         super.init(frame: .zero)
