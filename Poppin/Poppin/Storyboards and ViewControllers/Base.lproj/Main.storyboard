@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="U0W-XD-ZdF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="U0W-XD-ZdF">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -443,7 +443,7 @@
                                                                 <color key="textColor" name="mainNAVYBLUE"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dOe-0c-Vac" customClass="myEventsMenuButton" customModule="Poppin" customModuleProvider="target">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dOe-0c-Vac">
                                                                 <rect key="frame" x="0.0" y="54" width="126.66666666666667" height="44"/>
                                                                 <color key="backgroundColor" name="mainNAVYBLUE"/>
                                                                 <fontDescription key="fontDescription" name="Octarine-Bold" family="Octarine" pointSize="17"/>
@@ -548,7 +548,7 @@
                                     <constraint firstItem="GEW-p3-kLR" firstAttribute="width" secondItem="2Lk-0H-yQq" secondAttribute="width" multiplier="0.85" id="xsc-Y9-Mtf"/>
                                 </constraints>
                             </view>
-                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W45-bi-3YH" customClass="menuButton" customModule="Poppin" customModuleProvider="target">
+                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W45-bi-3YH">
                                 <rect key="frame" x="314.33333333333331" y="98" width="74.666666666666686" height="74.666666666666686"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="W45-bi-3YH" secondAttribute="height" multiplier="1:1" id="FSG-El-Zfa"/>

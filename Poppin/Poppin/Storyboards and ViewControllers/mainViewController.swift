@@ -62,7 +62,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
     
     @IBOutlet weak var menuView: UIView!
     
-    @IBOutlet weak var menuButton: menuButton!
+    @IBOutlet weak var menuButton: BouncyButton!
     
     @IBOutlet weak var profileView: UIView!
     
@@ -187,7 +187,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
     
     @IBOutlet weak var mainMapView: MKMapView!
     
-    @IBOutlet weak var newEventButton: createEventButton!
+    @IBOutlet weak var newEventButton: BouncyButton!
     
             // Refresh Button View:
     
@@ -840,7 +840,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
         profileButton.layer.cornerRadius = profileButton.frame.size.width / 2
         
-        profileButton.layer.borderColor = UIColor.menuCREAM?.cgColor
+        profileButton.layer.borderColor = UIColor.menuCREAM.cgColor
         
         profileButton.layer.borderWidth = 2
         
@@ -2235,7 +2235,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
             
             noEventsLabel.isHidden = true
             
-            let newEventView = myEventsMenuButton(type: .system)
+            let newEventView = BouncyButton(bouncyButtonImage: nil)
             
             newEventView.setTitle(eventName, for: .normal)
             
@@ -2259,7 +2259,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
             
         } else if (myEventsMenuStackView.arrangedSubviews.count < 5) {
             
-            let newEventView = myEventsMenuButton(type: .system)
+            let newEventView = BouncyButton(bouncyButtonImage: nil)
             
             newEventView.setTitle(eventName, for: .normal)
             

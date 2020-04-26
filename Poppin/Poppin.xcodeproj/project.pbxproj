@@ -17,13 +17,10 @@
 		640270812353C51F00641159 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6402707F2353C51F00641159 /* LaunchScreen.storyboard */; };
 		6402708C2353C52000641159 /* PoppinTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6402708B2353C52000641159 /* PoppinTests.swift */; };
 		640270972353C52000641159 /* PoppinUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 640270962353C52000641159 /* PoppinUITests.swift */; };
-		640270B12353D43600641159 /* createEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 640270B02353D43600641159 /* createEventViewController.swift */; };
-		6406F3D12363D47C00930CA8 /* doneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6406F3D02363D47C00930CA8 /* doneButton.swift */; };
 		6417F271237B975400033D8D /* mainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6417F270237B975400033D8D /* mainNavigationController.swift */; };
 		642A93962419985B005B027F /* popsicleInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642A939424199859005B027F /* popsicleInfoViewController.swift */; };
 		642A93972419985B005B027F /* popsicleInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 642A93952419985B005B027F /* popsicleInfo.storyboard */; };
 		64337B4E2407257B00DCC9FA /* editProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64337B4D2407257B00DCC9FA /* editProfileViewController.swift */; };
-		6434ED3D235E66E600E1808E /* createEventButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6434ED3C235E66E600E1808E /* createEventButton.swift */; };
 		64484D4D23932AA500F33132 /* createEvent.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64484D4C23932AA500F33132 /* createEvent.storyboard */; };
 		6448D1872372B03C0016A778 /* Octarine-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 648396452372AD980099B703 /* Octarine-Bold.otf */; };
 		6448D1882372B0410016A778 /* Octarine-BoldOblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = 648396432372AD980099B703 /* Octarine-BoldOblique.otf */; };
@@ -35,19 +32,17 @@
 		648FE1B723E22B3100C1DCDC /* Poppin.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 648FE1B523E22B3100C1DCDC /* Poppin.xcdatamodeld */; };
 		649ED12723CE7020006D31B5 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649ED12623CE7020006D31B5 /* ProfileViewController.swift */; };
 		649ED12923CE73FC006D31B5 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649ED12823CE73FC006D31B5 /* AppColors.swift */; };
-		649ED12B23CE7944006D31B5 /* myEventsMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649ED12A23CE7944006D31B5 /* myEventsMenuButton.swift */; };
-		649ED12D23CE79BA006D31B5 /* menuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649ED12C23CE79BA006D31B5 /* menuButton.swift */; };
 		649ED12F23CE7B30006D31B5 /* PopsicleGroupIcon.xib in Resources */ = {isa = PBXBuildFile; fileRef = 649ED12E23CE7B30006D31B5 /* PopsicleGroupIcon.xib */; };
 		649ED13123CE7B45006D31B5 /* PopsicleGroupAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649ED13023CE7B45006D31B5 /* PopsicleGroupAnnotationView.swift */; };
 		649ED13323CE7B4D006D31B5 /* PopsicleGroupIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649ED13223CE7B4D006D31B5 /* PopsicleGroupIcon.swift */; };
-		64AFB2DD236A7E4B00D264F0 /* Alerts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64AFB2DC236A7E4B00D264F0 /* Alerts.storyboard */; };
-		64AFB2DF236A81B600D264F0 /* dangerousActionAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64AFB2DE236A81B600D264F0 /* dangerousActionAlert.swift */; };
-		64AFB2E2236A886000D264F0 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64AFB2E1236A886000D264F0 /* Utils.swift */; };
 		64BD292423FC9B2500B5C32D /* loginPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BD292323FC9B2500B5C32D /* loginPageViewController.swift */; };
 		64BD292623FC9B3700B5C32D /* registerPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BD292523FC9B3700B5C32D /* registerPageViewController.swift */; };
 		64BD292A23FC9BFF00B5C32D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BD292923FC9BFF00B5C32D /* LoginViewController.swift */; };
-		64BD292C23FCB11300B5C32D /* loginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BD292B23FCB11300B5C32D /* loginButton.swift */; };
 		64C10D642372A1950087CE23 /* LocationSearchTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C10D632372A1950087CE23 /* LocationSearchTableCell.swift */; };
+		64EBC29F2454A69A005D445C /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EBC29E2454A69A005D445C /* AlertViewController.swift */; };
+		64EBC2A12454BD31005D445C /* Scaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EBC2A02454BD31005D445C /* Scaling.swift */; };
+		64EBC2A32455C453005D445C /* createEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EBC2A22455C453005D445C /* createEventViewController.swift */; };
+		64EBC2A52455F505005D445C /* BouncyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EBC2A42455F505005D445C /* BouncyButton.swift */; };
 		64F91E79237221B900C4DC24 /* LocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F91E78237221B900C4DC24 /* LocationSearchTable.swift */; };
 		64FF1EC323946A3D005DB686 /* categoryButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FF1EC223946A3D005DB686 /* categoryButtonView.swift */; };
 		F56E776223A8F69F009BF8E9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F56E776123A8F69F009BF8E9 /* GoogleService-Info.plist */; };
@@ -98,13 +93,10 @@
 		640270922353C52000641159 /* PoppinUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PoppinUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		640270962353C52000641159 /* PoppinUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoppinUITests.swift; sourceTree = "<group>"; };
 		640270982353C52000641159 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		640270B02353D43600641159 /* createEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = createEventViewController.swift; sourceTree = "<group>"; };
-		6406F3D02363D47C00930CA8 /* doneButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = doneButton.swift; sourceTree = "<group>"; };
 		6417F270237B975400033D8D /* mainNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mainNavigationController.swift; sourceTree = "<group>"; };
 		642A939424199859005B027F /* popsicleInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = popsicleInfoViewController.swift; sourceTree = "<group>"; };
 		642A93952419985B005B027F /* popsicleInfo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = popsicleInfo.storyboard; sourceTree = "<group>"; };
 		64337B4D2407257B00DCC9FA /* editProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = editProfileViewController.swift; sourceTree = "<group>"; };
-		6434ED3C235E66E600E1808E /* createEventButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = createEventButton.swift; sourceTree = "<group>"; };
 		64484D4C23932AA500F33132 /* createEvent.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = createEvent.storyboard; sourceTree = "<group>"; };
 		644FCCAE23E22E780064A008 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		647DA3BD23E365F600B04D79 /* refreshButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = refreshButtonView.swift; sourceTree = "<group>"; };
@@ -116,20 +108,18 @@
 		648FE1B623E22B3100C1DCDC /* Poppin.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Poppin.xcdatamodel; sourceTree = "<group>"; };
 		649ED12623CE7020006D31B5 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		649ED12823CE73FC006D31B5 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
-		649ED12A23CE7944006D31B5 /* myEventsMenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myEventsMenuButton.swift; sourceTree = "<group>"; };
-		649ED12C23CE79BA006D31B5 /* menuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = menuButton.swift; sourceTree = "<group>"; };
 		649ED12E23CE7B30006D31B5 /* PopsicleGroupIcon.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopsicleGroupIcon.xib; sourceTree = "<group>"; };
 		649ED13023CE7B45006D31B5 /* PopsicleGroupAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopsicleGroupAnnotationView.swift; sourceTree = "<group>"; };
 		649ED13223CE7B4D006D31B5 /* PopsicleGroupIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopsicleGroupIcon.swift; sourceTree = "<group>"; };
-		64AFB2DC236A7E4B00D264F0 /* Alerts.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Alerts.storyboard; sourceTree = "<group>"; };
-		64AFB2DE236A81B600D264F0 /* dangerousActionAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dangerousActionAlert.swift; sourceTree = "<group>"; };
-		64AFB2E1236A886000D264F0 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		64BD292323FC9B2500B5C32D /* loginPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginPageViewController.swift; sourceTree = "<group>"; };
 		64BD292523FC9B3700B5C32D /* registerPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = registerPageViewController.swift; sourceTree = "<group>"; };
 		64BD292923FC9BFF00B5C32D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		64BD292B23FCB11300B5C32D /* loginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginButton.swift; sourceTree = "<group>"; };
 		64C10D632372A1950087CE23 /* LocationSearchTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTableCell.swift; sourceTree = "<group>"; };
 		64D8799E23FDA3F4004E24C5 /* GTMSessionFetcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GTMSessionFetcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		64EBC29E2454A69A005D445C /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
+		64EBC2A02454BD31005D445C /* Scaling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scaling.swift; sourceTree = "<group>"; };
+		64EBC2A22455C453005D445C /* createEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = createEventViewController.swift; sourceTree = "<group>"; };
+		64EBC2A42455F505005D445C /* BouncyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BouncyButton.swift; sourceTree = "<group>"; };
 		64F91E78237221B900C4DC24 /* LocationSearchTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTable.swift; sourceTree = "<group>"; };
 		64FF1EC223946A3D005DB686 /* categoryButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = categoryButtonView.swift; sourceTree = "<group>"; };
 		667691B23288CC80E5B0CCCA /* libPods-PoppinTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PoppinTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -273,13 +263,9 @@
 		640270A42353CD4D00641159 /* Buttons and Views */ = {
 			isa = PBXGroup;
 			children = (
-				6434ED3C235E66E600E1808E /* createEventButton.swift */,
-				64BD292B23FCB11300B5C32D /* loginButton.swift */,
-				649ED12A23CE7944006D31B5 /* myEventsMenuButton.swift */,
-				649ED12C23CE79BA006D31B5 /* menuButton.swift */,
 				64FF1EC223946A3D005DB686 /* categoryButtonView.swift */,
-				6406F3D02363D47C00930CA8 /* doneButton.swift */,
 				647DA3BD23E365F600B04D79 /* refreshButtonView.swift */,
+				64EBC2A42455F505005D445C /* BouncyButton.swift */,
 			);
 			path = "Buttons and Views";
 			sourceTree = "<group>";
@@ -327,6 +313,7 @@
 			children = (
 				64673CC82400AE3E00CB62C5 /* Firebase */,
 				649ED12823CE73FC006D31B5 /* AppColors.swift */,
+				64EBC2A02454BD31005D445C /* Scaling.swift */,
 				648AEB98237E250C008743E8 /* pinPopsicle.swift */,
 				649ED13023CE7B45006D31B5 /* PopsicleGroupAnnotationView.swift */,
 				649ED12E23CE7B30006D31B5 /* PopsicleGroupIcon.xib */,
@@ -338,9 +325,7 @@
 		64AFB2E0236A882300D264F0 /* Alerts */ = {
 			isa = PBXGroup;
 			children = (
-				64AFB2DC236A7E4B00D264F0 /* Alerts.storyboard */,
-				64AFB2DE236A81B600D264F0 /* dangerousActionAlert.swift */,
-				64AFB2E1236A886000D264F0 /* Utils.swift */,
+				64EBC29E2454A69A005D445C /* AlertViewController.swift */,
 			);
 			path = Alerts;
 			sourceTree = "<group>";
@@ -379,8 +364,8 @@
 		F6DB6620243A8145007F02BB /* Create Event View */ = {
 			isa = PBXGroup;
 			children = (
-				640270B02353D43600641159 /* createEventViewController.swift */,
 				64484D4C23932AA500F33132 /* createEvent.storyboard */,
+				64EBC2A22455C453005D445C /* createEventViewController.swift */,
 			);
 			path = "Create Event View";
 			sourceTree = "<group>";
@@ -518,7 +503,6 @@
 				6448D1892372B0450016A778 /* Octarine-Light.otf in Resources */,
 				6448D1882372B0410016A778 /* Octarine-BoldOblique.otf in Resources */,
 				6448D1872372B03C0016A778 /* Octarine-Bold.otf in Resources */,
-				64AFB2DD236A7E4B00D264F0 /* Alerts.storyboard in Resources */,
 				640270812353C51F00641159 /* LaunchScreen.storyboard in Resources */,
 				649ED12F23CE7B30006D31B5 /* PopsicleGroupIcon.xib in Resources */,
 				F56E777623ABD8FC009BF8E9 /* Profile.storyboard in Resources */,
@@ -655,16 +639,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				649ED12723CE7020006D31B5 /* ProfileViewController.swift in Sources */,
-				64BD292C23FCB11300B5C32D /* loginButton.swift in Sources */,
 				F6DB6623243ACD57007F02BB /* Twinkle.swift in Sources */,
 				F56E777023A907CA009BF8E9 /* Constants.swift in Sources */,
-				6406F3D12363D47C00930CA8 /* doneButton.swift in Sources */,
-				640270B12353D43600641159 /* createEventViewController.swift in Sources */,
 				649ED12923CE73FC006D31B5 /* AppColors.swift in Sources */,
 				6417F271237B975400033D8D /* mainNavigationController.swift in Sources */,
+				64EBC2A12454BD31005D445C /* Scaling.swift in Sources */,
 				F56E776A23A90737009BF8E9 /* User.swift in Sources */,
 				64FF1EC323946A3D005DB686 /* categoryButtonView.swift in Sources */,
 				64C10D642372A1950087CE23 /* LocationSearchTableCell.swift in Sources */,
+				64EBC2A32455C453005D445C /* createEventViewController.swift in Sources */,
 				648AEB99237E250C008743E8 /* pinPopsicle.swift in Sources */,
 				64BD292423FC9B2500B5C32D /* loginPageViewController.swift in Sources */,
 				640270792353C51F00641159 /* mainViewController.swift in Sources */,
@@ -672,25 +655,22 @@
 				64337B4E2407257B00DCC9FA /* editProfileViewController.swift in Sources */,
 				649ED13123CE7B45006D31B5 /* PopsicleGroupAnnotationView.swift in Sources */,
 				F6A8A7502433D68E0069FB36 /* FloatingRatingView.swift in Sources */,
+				64EBC2A52455F505005D445C /* BouncyButton.swift in Sources */,
 				644FCCAF23E22E780064A008 /* DataController.swift in Sources */,
 				649ED13323CE7B4D006D31B5 /* PopsicleGroupIcon.swift in Sources */,
-				64AFB2E2236A886000D264F0 /* Utils.swift in Sources */,
-				6434ED3D235E66E600E1808E /* createEventButton.swift in Sources */,
 				647DA3BE23E365F600B04D79 /* refreshButtonView.swift in Sources */,
+				64EBC29F2454A69A005D445C /* AlertViewController.swift in Sources */,
 				648FE1B723E22B3100C1DCDC /* Poppin.xcdatamodeld in Sources */,
 				64F91E79237221B900C4DC24 /* LocationSearchTable.swift in Sources */,
 				F56E776823A906F7009BF8E9 /* UserService.swift in Sources */,
-				649ED12D23CE79BA006D31B5 /* menuButton.swift in Sources */,
 				64BD292623FC9B3700B5C32D /* registerPageViewController.swift in Sources */,
 				642A93962419985B005B027F /* popsicleInfoViewController.swift in Sources */,
 				F56E777423AA823E009BF8E9 /* SceneDelegate.swift in Sources */,
-				64AFB2DF236A81B600D264F0 /* dangerousActionAlert.swift in Sources */,
 				F56E776E23A907A5009BF8E9 /* Post.swift in Sources */,
 				F56E777C23CBDE80009BF8E9 /* PopsicleViewController.swift in Sources */,
 				640270752353C51F00641159 /* AppDelegate.swift in Sources */,
 				F647A6EA243BDE8A006EC083 /* Shimmer.swift in Sources */,
 				F56E777223A95FCA009BF8E9 /* Storyboard+Utility.swift in Sources */,
-				649ED12B23CE7944006D31B5 /* myEventsMenuButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -18,7 +18,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     
     @IBOutlet weak var editProfileViewContainerView: UIView!
     
-    @IBOutlet weak var editProfileViewSaveButton: loginButton!
+    @IBOutlet weak var editProfileViewSaveButton: BouncyButton!
     
     @IBOutlet weak var editProfileViewUsernameLabel: UILabel!
     

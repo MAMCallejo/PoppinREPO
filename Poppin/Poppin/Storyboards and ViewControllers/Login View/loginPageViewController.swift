@@ -25,9 +25,9 @@ class loginPageViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var loginPagePasswordTextField: UITextField!
     
-    @IBOutlet weak var loginPageNextButton: loginButton!
+    @IBOutlet weak var loginPageNextButton: BouncyButton!
     
-    @IBOutlet weak var loginPageBackButton: loginButton!
+    @IBOutlet weak var loginPageBackButton: BouncyButton!
     
     var firstAppearance = true
     
@@ -207,11 +207,9 @@ class loginPageViewController: UIViewController, UITextFieldDelegate {
         
         if (loginPageEmailTextField.text != "" || loginPagePasswordTextField.text != "") {
             
-            let utils = Utils()
+            let button1 = AlertButton(alertTitle: "Cancel", alertButtonAction: nil)
             
-            let button1 = AlertButton(title: "Cancel", action: nil)
-            
-            let button2 = AlertButton(title: "Continue", action: {
+            let button2 = AlertButton(alertTitle: "Continue", alertButtonAction: {
                 
                 NotificationCenter.default.removeObserver(self)
                 
@@ -247,9 +245,9 @@ class loginPageViewController: UIViewController, UITextFieldDelegate {
                 
             })
             
-            let alertPayload = AlertPayload(icon: UIImage.init(systemName: "exclamationmark.triangle.fill"), message: "If you proceed, some information will be lost.", buttons: [button1, button2])
+            let alertVC = AlertViewController(alertIcon: nil, alertMessage: "If you proceed, some information will be lost.", alertButtons: [button1, button2])
             
-            utils.showAlert(payload: alertPayload, parentViewController: self)
+            self.present(alertVC, animated: true, completion: nil)
             
         } else {
             
@@ -311,13 +309,11 @@ class loginPageViewController: UIViewController, UITextFieldDelegate {
         
         if (loginPageEmailTextField.text == "" || loginPagePasswordTextField.text == "") {
             
-            let utils = Utils()
+            let button1 = AlertButton(alertTitle: "Ok", alertButtonAction: nil)
             
-            let button1 = AlertButton(title: "Ok", action: nil)
+            let alertVC = AlertViewController(alertIcon: UIImage(systemName: "xmark.circle.fill"), alertMessage: "Some information is missing, please fill it out.", alertButtons: [button1])
             
-            let alertPayload = AlertPayload(icon: UIImage.init(systemName: "xmark.circle.fill"), message: "Some information is missing, please fill it out.", buttons: [button1])
-            
-            utils.showAlert(payload: alertPayload, parentViewController: self)
+            self.present(alertVC, animated: true, completion: nil)
             
         } else {
             
@@ -350,13 +346,11 @@ class loginPageViewController: UIViewController, UITextFieldDelegate {
                         errorMessage = "Oops! Something went wrong. Please try again."
                     }
                     
-                    let utils = Utils()
+                    let button1 = AlertButton(alertTitle: "Ok", alertButtonAction: nil)
                     
-                    let button1 = AlertButton(title: "Ok", action: nil)
+                    let alertVC = AlertViewController(alertIcon: UIImage(systemName: "xmark.circle.fill"), alertMessage: errorMessage, alertButtons: [button1])
                     
-                    let alertPayload = AlertPayload(icon: UIImage.init(systemName: "xmark.circle.fill"), message: errorMessage, buttons: [button1])
-                    
-                    utils.showAlert(payload: alertPayload, parentViewController: strongSelf)
+                    strongSelf.present(alertVC, animated: true, completion: nil)
                     
                 } else {
                     

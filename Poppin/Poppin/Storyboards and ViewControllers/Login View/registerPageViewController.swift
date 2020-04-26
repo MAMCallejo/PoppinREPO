@@ -26,9 +26,9 @@ class registerPageViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var registerPagePasswordTextField: UITextField!
     
-    @IBOutlet weak var registerPageNextButton: loginButton!
+    @IBOutlet weak var registerPageNextButton: BouncyButton!
     
-    @IBOutlet weak var registerPageBackButton: loginButton!
+    @IBOutlet weak var registerPageBackButton: BouncyButton!
     
     var firstAppearance = true
     
@@ -222,11 +222,9 @@ class registerPageViewController: UIViewController, UITextFieldDelegate {
         
         if (registerPageUsernameTextField.text != "" || registerPageEmailTextField.text != "" || registerPagePasswordTextField.text != "") {
             
-            let utils = Utils()
+            let button1 = AlertButton(alertTitle: "Cancel", alertButtonAction: nil)
             
-            let button1 = AlertButton(title: "Cancel", action: nil)
-            
-            let button2 = AlertButton(title: "Continue", action: {
+            let button2 = AlertButton(alertTitle: "Continue", alertButtonAction: {
              
                 let endFrameB:CGRect = CGRect(origin: CGPoint(x: self.registerPageBackButton.frame.origin.x + (self.view.frame.size.width/2), y: self.registerPageBackButton.frame.origin.y), size: CGSize(width: self.registerPageBackButton.frame.size.width, height: self.registerPageBackButton.frame.size.height))
                 
@@ -258,9 +256,9 @@ class registerPageViewController: UIViewController, UITextFieldDelegate {
                 
             })
             
-            let alertPayload = AlertPayload(icon: UIImage.init(systemName: "exclamationmark.triangle.fill"), message: "If you proceed, some information will be lost.", buttons: [button1, button2])
+            let alertVC = AlertViewController(alertIcon: nil, alertMessage: "If you proceed, some information will be lost.", alertButtons: [button1, button2])
             
-            utils.showAlert(payload: alertPayload, parentViewController: self)
+            self.present(alertVC, animated: true, completion: nil)
             
         } else {
             
@@ -320,13 +318,11 @@ class registerPageViewController: UIViewController, UITextFieldDelegate {
         
         if (registerPageUsernameTextField.text == "" || registerPageEmailTextField.text == "" || registerPagePasswordTextField.text == "") {
             
-            let utils = Utils()
+            let button1 = AlertButton(alertTitle: "Ok", alertButtonAction: nil)
             
-            let button1 = AlertButton(title: "Ok", action: nil)
+            let alertVC = AlertViewController(alertIcon: UIImage(systemName: "xmark.circle.fill"), alertMessage: "Some information is missing, please fill it out.", alertButtons: [button1])
             
-            let alertPayload = AlertPayload(icon: UIImage.init(systemName: "xmark.circle.fill"), message: "Some information is missing, please fill it out.", buttons: [button1])
-            
-            utils.showAlert(payload: alertPayload, parentViewController: self)
+            self.present(alertVC, animated: true, completion: nil)
             
         } else {
             
@@ -357,13 +353,11 @@ class registerPageViewController: UIViewController, UITextFieldDelegate {
                         errorMessage = "Oops! Something went wrong. Please try again."
                     }
                     
-                    let utils = Utils()
+                    let button1 = AlertButton(alertTitle: "Ok", alertButtonAction: nil)
                     
-                    let button1 = AlertButton(title: "Ok", action: nil)
+                    let alertVC = AlertViewController(alertIcon: UIImage(systemName: "xmark.circle.fill"), alertMessage: errorMessage, alertButtons: [button1])
                     
-                    let alertPayload = AlertPayload(icon: UIImage.init(systemName: "xmark.circle.fill"), message: errorMessage, buttons: [button1])
-                    
-                    utils.showAlert(payload: alertPayload, parentViewController: self)
+                    self.present(alertVC, animated: true, completion: nil)
                     
                 } else {
                     

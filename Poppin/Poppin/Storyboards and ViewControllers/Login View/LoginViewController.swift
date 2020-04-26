@@ -20,9 +20,9 @@ class LoginViewController: UIViewController{
     
     @IBOutlet weak var loginInfoLabel: UILabel!
     
-    @IBOutlet weak var loginButton: loginButton!
+    @IBOutlet weak var loginButton: BouncyButton!
     
-    @IBOutlet weak var loginRegisterButton: loginButton!
+    @IBOutlet weak var loginRegisterButton: BouncyButton!
     
     override func viewDidLoad() {
         

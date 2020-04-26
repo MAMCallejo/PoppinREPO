@@ -21,11 +21,11 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     @IBOutlet weak var profileContainerView: UIView!
     
-    @IBOutlet weak var closeButton: loginButton!
+    @IBOutlet weak var closeButton: BouncyButton!
     
     @IBOutlet weak var profilePicButton: UIButton!
 
-    @IBOutlet weak var editButton: loginButton!
+    @IBOutlet weak var editButton: BouncyButton!
     
     @IBOutlet weak var usernameTitleLabel: UILabel!
     
@@ -111,7 +111,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         profilePicButton.layer.borderWidth = 2
         
-        profilePicButton.layer.borderColor = UIColor.mainNAVYBLUE?.cgColor
+        profilePicButton.layer.borderColor = UIColor.mainNAVYBLUE.cgColor
         
     }
     

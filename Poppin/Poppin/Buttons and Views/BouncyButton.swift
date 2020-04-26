@@ -1,18 +1,24 @@
 //
-//  loginButton.swift
+//  BouncyButton.swift - UIButton with a bouncy animation when pressed.
 //  Poppin
 //
-//  Created by Manuel Alejandro Martin Callejo on 2/18/20.
+//  Created by Manuel Alejandro Martin Callejo on 4/26/20.
 //  Copyright © 2020 whatspoppinREPO. All rights reserved.
 //
 
 import UIKit
 
-class loginButton: UIButton {
+class BouncyButton: UIButton {
     
-    override init(frame: CGRect) {
+    private var bouncyButtonImage: UIImage?
+    
+    init(bouncyButtonImage: UIImage?) {
         
-        super.init(frame: frame)
+        super.init(frame: .zero)
+        
+        self.bouncyButtonImage = bouncyButtonImage
+        
+        setupButton()
         
     }
     
@@ -20,23 +26,18 @@ class loginButton: UIButton {
         
         super.init(coder: aDecoder)
         
+        setupButton()
+        
     }
     
-    override func awakeFromNib() {
+    private func setupButton() {
         
-        super.awakeFromNib()
-        
-        // Creates notification targets that check if the user is pressing down the button or not in order to animate it.
-        //  - They call two private object helper methods called animateDown and animateUp which take care of the animation.
-        
+        setImage(bouncyButtonImage?.withRenderingMode(.alwaysOriginal), for: .normal)
+        imageView?.contentMode = .scaleAspectFit
         addTarget(self, action: #selector(animateDown), for: [.touchDown, .touchDragEnter])
-        
         addTarget(self, action: #selector(animateUp), for: [.touchDragExit, .touchCancel, .touchUpInside, .touchUpOutside])
 
     }
-    
-    // Private object helper method that animates the button when it has been pressed.
-    //  - It calls the private helper method animate to take care of the animation.
     
     @objc private func animateDown(sender: UIButton) {
         
@@ -44,16 +45,11 @@ class loginButton: UIButton {
         
     }
     
-    // Private object helper method that animates the button when it has been released.
-    //  - It calls the private helper method animate to take care of the animation.
-    
     @objc private func animateUp(sender: UIButton) {
         
         animate(sender, transform: .identity)
         
     }
-    
-    // Private helper method that animates the button animation.
     
     private func animate(_ button: UIButton, transform: CGAffineTransform) {
         

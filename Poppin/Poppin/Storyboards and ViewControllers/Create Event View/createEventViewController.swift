@@ -28,7 +28,7 @@ class createEventViewController : UIViewController {
 
     @IBOutlet weak var returnButton: UIButton!
     
-    @IBOutlet weak var doneButton: doneButton!
+    @IBOutlet weak var doneButton: BouncyButton!
     
             // Name View variables inside the StackView:
     
@@ -821,7 +821,7 @@ class createEventViewController : UIViewController {
             
             self.dateTextField.textColor = UIColor.mainNAVYBLUE
             
-            self.dateTextField.layer.shadowColor = UIColor.mainNAVYBLUE?.cgColor
+            self.dateTextField.layer.shadowColor = UIColor.mainNAVYBLUE.cgColor
             
             self.dateMinLabel.textColor = UIColor.mainNAVYBLUE
             
@@ -854,7 +854,7 @@ class createEventViewController : UIViewController {
             
             self.durationTextField.textColor = UIColor.mainNAVYBLUE
             
-            self.durationTextField.layer.shadowColor = UIColor.mainNAVYBLUE?.cgColor
+            self.durationTextField.layer.shadowColor = UIColor.mainNAVYBLUE.cgColor
             
             self.durationMinMaxLabel.textColor = UIColor.mainNAVYBLUE
             
@@ -872,7 +872,7 @@ class createEventViewController : UIViewController {
             
             self.dateTextField.textColor = UIColor.mainNAVYBLUE
             
-            self.dateTextField.layer.shadowColor = UIColor.mainNAVYBLUE?.cgColor
+            self.dateTextField.layer.shadowColor = UIColor.mainNAVYBLUE.cgColor
             
             self.dateMinLabel.textColor = UIColor.mainNAVYBLUE
                    
@@ -910,7 +910,7 @@ class createEventViewController : UIViewController {
             
             self.nameTextView.textColor = UIColor.mainNAVYBLUE
             
-            self.nameTextView.layer.shadowColor = UIColor.mainNAVYBLUE?.cgColor
+            self.nameTextView.layer.shadowColor = UIColor.mainNAVYBLUE.cgColor
             
             nameTextViewEdited = true
             
@@ -928,7 +928,7 @@ class createEventViewController : UIViewController {
             
             self.infoTextView.textColor = UIColor.mainNAVYBLUE
             
-            self.infoTextView.layer.shadowColor = UIColor.mainNAVYBLUE?.cgColor
+            self.infoTextView.layer.shadowColor = UIColor.mainNAVYBLUE.cgColor
             
             infoTextViewEdited = true
             
@@ -946,7 +946,7 @@ class createEventViewController : UIViewController {
             
             self.categoryDetailsTextView.textColor = UIColor.mainNAVYBLUE
             
-            self.categoryDetailsTextView.layer.shadowColor = UIColor.mainNAVYBLUE?.cgColor
+            self.categoryDetailsTextView.layer.shadowColor = UIColor.mainNAVYBLUE.cgColor
             
             categoryDetailsTextViewEdited = true
             
@@ -964,7 +964,7 @@ class createEventViewController : UIViewController {
             
             self.subcategory1DetailsTextView.textColor = UIColor.mainNAVYBLUE
             
-            self.subcategory1DetailsTextView.layer.shadowColor = UIColor.mainNAVYBLUE?.cgColor
+            self.subcategory1DetailsTextView.layer.shadowColor = UIColor.mainNAVYBLUE.cgColor
             
             subcategory1DetailsTextViewEdited = true
             
@@ -982,7 +982,7 @@ class createEventViewController : UIViewController {
             
             self.subcategory2DetailsTextView.textColor = UIColor.mainNAVYBLUE
             
-            self.subcategory2DetailsTextView.layer.shadowColor = UIColor.mainNAVYBLUE?.cgColor
+            self.subcategory2DetailsTextView.layer.shadowColor = UIColor.mainNAVYBLUE.cgColor
             
             subcategory2DetailsTextViewEdited = true
             
@@ -1073,19 +1073,17 @@ class createEventViewController : UIViewController {
         
         if (categoryDetailsTextViewEdited || subcategory1DetailsTextViewEdited || subcategory2DetailsTextViewEdited) {
             
-            let utils = Utils()
+            let button1 = AlertButton(alertTitle: "Cancel", alertButtonAction: nil)
             
-            let button1 = AlertButton(title: "Cancel", action: nil)
-            
-            let button2 = AlertButton(title: "Continue", action: {
+            let button2 = AlertButton(alertTitle: "Continue", alertButtonAction: {
                 
                 self.buildCategoryView(sender)
                 
             })
             
-            let alertPayload = AlertPayload(icon: UIImage.init(systemName: "exclamationmark.triangle.fill"), message: "If you proceed, some information will be lost.", buttons: [button1, button2])
+            let alertVC = AlertViewController(alertIcon: AlertViewController.defaultWarningIcon, alertMessage: AlertViewController.defaultWarningMessage, alertButtons: [button1, button2])
             
-            utils.showAlert(payload: alertPayload, parentViewController: self)
+            self.present(alertVC, animated: true, completion: nil)
             
         } else {
             
@@ -1156,7 +1154,7 @@ class createEventViewController : UIViewController {
         
         categoryDetailsTextView.textColor = UIColor.mainNAVYBLUE
         
-        categoryDetailsTextView.layer.shadowColor = UIColor.mainNAVYBLUE?.cgColor
+        categoryDetailsTextView.layer.shadowColor = UIColor.mainNAVYBLUE.cgColor
 
         if (selectedCategoryView.categoryLegendLabel?.text == "Education") {
             
@@ -1334,19 +1332,17 @@ class createEventViewController : UIViewController {
         
         if ((senderView == subcategory1Picked && subcategory1DetailsTextViewEdited) || (senderView == subcategory2Picked && subcategory2DetailsTextViewEdited)) {
             
-            let utils = Utils()
+            let button1 = AlertButton(alertTitle: "Cancel", alertButtonAction: nil)
             
-            let button1 = AlertButton(title: "Cancel", action: nil)
-            
-            let button2 = AlertButton(title: "Continue", action: {
+            let button2 = AlertButton(alertTitle: "Continue", alertButtonAction: {
                 
                 self.buildSubcategoryView(selectedSubcategoryView: senderView)
                 
             })
             
-            let alertPayload = AlertPayload(icon: UIImage.init(systemName: "exclamationmark.triangle.fill"), message: "If you proceed, some information will be lost.", buttons: [button1, button2])
-            
-            utils.showAlert(payload: alertPayload, parentViewController: self)
+            let alertVC = AlertViewController(alertIcon: AlertViewController.defaultWarningIcon, alertMessage: AlertViewController.defaultWarningMessage, alertButtons: [button1, button2])
+
+            self.present(alertVC, animated: true, completion: nil)
             
         } else {
             
@@ -1446,7 +1442,7 @@ class createEventViewController : UIViewController {
             
             subcategory1DetailsTextView.textColor = UIColor.mainNAVYBLUE
             
-            subcategory1DetailsTextView.layer.shadowColor = UIColor.mainNAVYBLUE?.cgColor
+            subcategory1DetailsTextView.layer.shadowColor = UIColor.mainNAVYBLUE.cgColor
             
             subcategory1DetailsLabel.text = subcategoryDetailsLabelText
             
@@ -1488,7 +1484,7 @@ class createEventViewController : UIViewController {
             
             subcategory2DetailsTextView.textColor = UIColor.mainNAVYBLUE
             
-            subcategory2DetailsTextView.layer.shadowColor = UIColor.mainNAVYBLUE?.cgColor
+            subcategory2DetailsTextView.layer.shadowColor = UIColor.mainNAVYBLUE.cgColor
             
             subcategory2DetailsLabel.text = subcategoryDetailsLabelText
             
@@ -1608,12 +1604,10 @@ class createEventViewController : UIViewController {
     @IBAction func closeView(_ sender: Any) {
         
         if (nameTextViewEdited || infoTextViewEdited || dateTextFieldEdited || durationTextFieldEdited || categoryDetailsTextViewEdited || subcategory1DetailsTextViewEdited || subcategory2DetailsTextViewEdited) {
+        
+            let button1 = AlertButton(alertTitle: "Cancel", alertButtonAction: nil)
             
-            let utils = Utils()
-            
-            let button1 = AlertButton(title: "Cancel", action: nil)
-            
-            let button2 = AlertButton(title: "Continue", action: {
+            let button2 = AlertButton(alertTitle: "Continue", alertButtonAction: {
                 
                 self.returnProtocol?.showMainButtons()
                 
@@ -1621,9 +1615,9 @@ class createEventViewController : UIViewController {
                 
             })
             
-            let alertPayload = AlertPayload(icon: UIImage.init(systemName: "exclamationmark.triangle.fill"), message: "If you proceed, some information will be lost.", buttons: [button1, button2])
+            let alertVC = AlertViewController(alertIcon: AlertViewController.defaultWarningIcon, alertMessage: AlertViewController.defaultWarningMessage, alertButtons: [button1, button2])
             
-            utils.showAlert(payload: alertPayload, parentViewController: self)
+            self.present(alertVC, animated: true, completion: nil)
             
         } else {
             
@@ -1646,9 +1640,7 @@ class createEventViewController : UIViewController {
         
         if (!nameTextViewEdited || !infoTextViewEdited || !dateTextFieldEdited || !durationTextFieldEdited || categoryPicked == nil || !categoryDetailsTextViewEdited || (subcategory1Picked != nil && !subcategory1DetailsTextViewEdited) || (subcategory2Picked != nil && !subcategory2DetailsTextViewEdited)) {
             
-            let utils = Utils()
-            
-            let button1 = AlertButton(title: "Ok", action: {
+            let button1 = AlertButton(alertTitle: "Ok", alertButtonAction: {
                 
                 // Not all fields have been filled yet.
                 
@@ -1656,9 +1648,9 @@ class createEventViewController : UIViewController {
                 
             })
             
-            let alertPayload = AlertPayload(icon: UIImage.init(systemName: "xmark.circle.fill"), message: "Some information is missing, please fill it out.", buttons: [button1])
+            let alertVC = AlertViewController(alertIcon: AlertViewController.defaultErrorIcon, alertMessage: "Some required fields are empty, please fill them out.", alertButtons: [button1])
             
-            utils.showAlert(payload: alertPayload, parentViewController: self)
+            self.present(alertVC, animated: true, completion: nil)
             
         } else {
             
@@ -1875,7 +1867,7 @@ extension UITextField {
       self.borderStyle = .none
       self.layer.backgroundColor = UIColor.white.cgColor
       self.layer.masksToBounds = false
-        self.layer.shadowColor = UIColor.mainNAVYBLUE?.cgColor
+        self.layer.shadowColor = UIColor.mainNAVYBLUE.cgColor
       self.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
       self.layer.shadowOpacity = 1.0
       self.layer.shadowRadius = 0.0
@@ -1894,7 +1886,7 @@ extension UITextView {
 
       self.layer.backgroundColor = UIColor.white.cgColor
       self.layer.masksToBounds = false
-      self.layer.shadowColor = UIColor.mainNAVYBLUE?.cgColor
+      self.layer.shadowColor = UIColor.mainNAVYBLUE.cgColor
       self.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
       self.layer.shadowOpacity = 1.0
       self.layer.shadowRadius = 0.0
@@ -1902,3 +1894,4 @@ extension UITextView {
     }
     
 }
+
