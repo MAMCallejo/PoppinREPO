@@ -128,6 +128,8 @@ class createEventViewController : UIViewController {
    
     @IBOutlet weak var showsButton: UIButton!
     
+    lazy var newShowsCategoryView: NewCategoryButtonView = NewCategoryButtonView(category: .Education)
+    
             // Category Details View and Subcategory Picker (inside the StackView):
     
     @IBOutlet weak var categoryView: UIView!
@@ -290,9 +292,23 @@ class createEventViewController : UIViewController {
         - Adjusts certain parameters for the correct functioning of the create event view.
      */
     
+    // NEW PROGRAMMATIC CODE:
+    
+    @objc func selectCategoryButtonView (sender: UIButton) {
+        
+        newShowsCategoryView.isSelected = !newShowsCategoryView.isSelected
+        
+    }
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        // NEW PROGRAMMATIC CODE:
+        
+        categoryButtonsStackView.addArrangedSubview(newShowsCategoryView)
+        
+        newShowsCategoryView.categoryButton.addTarget(self, action: #selector(selectCategoryButtonView), for: .touchUpInside)
         
         // *** INITIALIZATION OF USEFUL VARIABLES ***
         

@@ -1,17 +1,29 @@
-//
-//  refreshButtonView.swift
+/*//
+//  NewRefreshButtonView.swift - Abstraction of the refresh button/counter.
 //  Poppin
 //
 //  Created by Manuel Alejandro Martin Callejo on 1/30/20.
 //  Copyright © 2020 whatspoppinREPO. All rights reserved.
 //
+
 import UIKit
 
-class refreshButtonView: UIView {
+class NewRefreshButtonView: UIView {
     
-    var refreshButton: UIButton?
+    lazy public var refreshButton: UIButton = {
+        
+        var refreshButton = UIButton()
+        refreshButton.addTarget(self, action: #selector(animateDown), for: [.touchDown, .touchDragEnter])
+        refreshButton.addTarget(self, action: #selector(animateUp), for: [.touchDragExit, .touchCancel, .touchUpInside, .touchUpOutside])
+        return refreshButton
+        
+    }()
     
-    var refreshButtonIcon: UIImageView?
+    lazy private var refreshButtonIcon: UIImageView = {
+        
+        
+        
+    }()
     
     var refreshCountBubble: UIImageView?
     
@@ -21,7 +33,7 @@ class refreshButtonView: UIView {
     
     override init(frame: CGRect) {
         
-      super.init(frame: frame)
+        super.init(frame: frame)
         
     }
     
@@ -29,44 +41,24 @@ class refreshButtonView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         
-      super.init(coder: aDecoder)
-
+        super.init(coder: aDecoder)
+        
     }
-    
-    // Private object helper method that animates the button when it has been pressed.
-    //  - It calls the private helper method animate to take care of the animation.
     
     @objc private func animateDown(sender: UIButton) {
         
-        animate(down: true, transform: CGAffineTransform.identity.scaledBy(x: 0.9, y: 0.9))
+        let transform = CGAffineTransform.identity.scaledBy(x: 0.9, y: 0.9)
         
-    }
-    
-    // Private object helper method that animates the button when it has been released.
-    //  - It calls the private helper method animate to take care of the animation.
-    
-    @objc private func animateUp(sender: UIButton) {
-        
-        animate(down: false, transform: .identity)
-        
-    }
-    
-    // Private helper method that animates the button animation.
-    
-    private func animate(down: Bool, transform: CGAffineTransform) {
-        
-        if (down) {
-            
-            UIView.animate(withDuration: 0.4,
+        UIView.animate(withDuration: 0.4,
                        delay: 0,
                        usingSpringWithDamping: 0.5,
                        initialSpringVelocity: 3,
                        options: [.curveEaseInOut],
                        animations: {
                         
-                        self.refreshButtonIcon!.transform = transform
+                        self.refreshButtonIcon.transform = transform
                         
-                        self.refreshButtonIcon!.layer.opacity = 0.5
+                        self.refreshButtonIcon.layer.opacity = 0.5
                         
                         self.refreshCountBubble!.transform = transform
                         
@@ -76,20 +68,24 @@ class refreshButtonView: UIView {
                         
                         self.refreshCountLabel!.layer.opacity = 0.5
                         
-            }, completion: nil)
-            
-        } else {
-            
-            UIView.animate(withDuration: 0.4,
+        }, completion: nil)
+        
+    }
+    
+    @objc private func animateUp(sender: UIButton) {
+        
+        let transform = CGAffineTransform.identity
+        
+        UIView.animate(withDuration: 0.4,
                        delay: 0,
                        usingSpringWithDamping: 0.5,
                        initialSpringVelocity: 3,
                        options: [.curveEaseInOut],
                        animations: {
                         
-                        self.refreshButtonIcon!.transform = transform
+                        self.refreshButtonIcon.transform = transform
                         
-                        self.refreshButtonIcon!.layer.opacity = 1.0
+                        self.refreshButtonIcon.layer.opacity = 1.0
                         
                         self.refreshCountBubble!.transform = transform
                         
@@ -99,9 +95,7 @@ class refreshButtonView: UIView {
                         
                         self.refreshCountLabel!.layer.opacity = 1.0
                         
-            }, completion: nil)
-            
-        }
+        }, completion: nil)
         
     }
     
@@ -202,4 +196,4 @@ class refreshButtonView: UIView {
         
     }
     
-}
+}*/

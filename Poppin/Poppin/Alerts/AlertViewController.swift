@@ -25,6 +25,7 @@ class AlertViewController: UIViewController {
         var alertContainerView = UIView()
         alertContainerView.backgroundColor = .white
         alertContainerView.addShadowAndRoundCorners()
+        alertContainerView.clipsToBounds = true
         
         alertContainerView.addSubview(alertButtonsStackView)
         alertButtonsStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -69,7 +70,6 @@ class AlertViewController: UIViewController {
         alertMessageLabel.textColor = UIColor.mainNAVYBLUE
         alertMessageLabel.backgroundColor = .white
         alertMessageLabel.font = UIFont(name: "Octarine-Bold", size: Scaling.getWidthFitSize(minSize: 18.0, maxSize: 20.0))
-        alertMessageLabel.adjustsFontForContentSizeCategory = true
         return alertMessageLabel
         
     }()
@@ -193,7 +193,6 @@ extension UIView {
     public func addShadowAndRoundCorners(cornerRadius: CGFloat? = nil, shadowColor: UIColor? = nil, shadowOffset: CGSize? = nil, shadowOpacity: Float? = nil, shadowRadius: CGFloat? = nil, topRightMask: Bool = true, topLeftMask: Bool = true, bottomRightMask: Bool = true, bottomLeftMask: Bool = true) {
             
         layer.masksToBounds = false
-        clipsToBounds = true
         layer.cornerRadius = 8.0
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOffset = CGSize(width: 0.0, height: 2.0) // Shifts shadow

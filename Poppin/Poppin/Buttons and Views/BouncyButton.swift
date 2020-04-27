@@ -57,7 +57,7 @@ class BouncyButton: UIButton {
                        delay: 0,
                        usingSpringWithDamping: 0.5,
                        initialSpringVelocity: 3,
-                       options: [.curveEaseInOut],
+                       options: [.curveEaseInOut, .allowUserInteraction],
                        animations: {
                         button.transform = transform
             }, completion: nil)

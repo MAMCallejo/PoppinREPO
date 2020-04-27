@@ -9,6 +9,17 @@
 import UIKit
 import MapKit
 
+enum PopsicleCategory: String {
+    
+    case Education
+    case Food
+    case Social
+    case Sports
+    case Shows
+    case Default
+    
+}
+
 struct pinData {
     
     var eventName: String

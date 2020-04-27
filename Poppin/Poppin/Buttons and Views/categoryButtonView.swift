@@ -5,7 +5,6 @@
 //  Created by Manuel Alejandro Martin Callejo on 12/1/19.
 //  Copyright © 2019 PoppinREPO. All rights reserved.
 //
-
 import UIKit
 
 class categoryButtonView: UIView {
@@ -93,4 +92,3 @@ class categoryButtonView: UIView {
     }
     
 }
-

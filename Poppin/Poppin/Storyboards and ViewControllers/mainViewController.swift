@@ -308,6 +308,16 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
     }
     
+    // PROGRAMMATIC CODE
+    
+    lazy var newCategoryButton = NewCategoryButtonView(category: .Education)
+    
+    @objc private func selectCategoryButton(sender: UIButton) {
+        
+        print("SECOND TARGET")
+        
+    }
+    
     
     // *** VIEWCONTROLLER FUNCTIONS ***
     
@@ -321,6 +331,12 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        // PROGRAMMATIC CODE
+        
+        filtersStackView.addArrangedSubview(newCategoryButton)
+        
+        newCategoryButton.categoryButton.addTarget(self, action: #selector(selectCategoryButton(sender:)), for: .touchUpInside)
         
         monitor = (UIApplication.shared.delegate as! AppDelegate).monitor
         
@@ -417,7 +433,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         newPopsicle = pinPopsicle()
         
         // MARK: change
-        newPopsicle.popsicleData = pinData(eventName: "", eventInfo: "", eventDate: "", eventDuration: "", eventCategory: "", eventCategoryDetails: "", eventSubcategory1: "", eventSubcategory1Details: "", eventSubcategory2: "", eventSubcategory2Details: "", eventLocation: CLLocationCoordinate2D(), eventPopsicle: UIImage(named: "categoryButtonNP")!, whosGoing: [])
+        newPopsicle.popsicleData = pinData(eventName: "", eventInfo: "", eventDate: "", eventDuration: "", eventCategory: "", eventCategoryDetails: "", eventSubcategory1: "", eventSubcategory1Details: "", eventSubcategory2: "", eventSubcategory2Details: "", eventLocation: CLLocationCoordinate2D(), eventPopsicle: UIImage(named: "defaultCategoryButton")!, whosGoing: [])
         
             // Initializes the campus region (DU by default).
         
