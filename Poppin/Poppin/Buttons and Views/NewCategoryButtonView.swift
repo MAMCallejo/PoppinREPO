@@ -12,11 +12,11 @@ class NewCategoryButtonView: UIView {
     
     public static let defaultCategory: PopsicleCategory = .Default
     
-    lazy private var category: PopsicleCategory = NewCategoryButtonView.defaultCategory
+    lazy private(set) var category: PopsicleCategory = NewCategoryButtonView.defaultCategory
     private let horizontalEdgeInset: CGFloat = Scaling.getPercentageWidth(percentage: 0.5)
     private let verticalEdgeInset: CGFloat = Scaling.getPercentageWidth(percentage: 1)
     
-    private var isSelected: Bool = false {
+    private(set) var isSelected: Bool = false {
         
         willSet (newState) {
             
@@ -44,7 +44,7 @@ class NewCategoryButtonView: UIView {
         
     }
     
-    lazy private var categoryIconImageView: UIImageView = {
+    lazy public var categoryIconImageView: UIImageView = {
         
         var categoryIconImageView = UIImageView()
         categoryIconImageView.contentMode = .scaleAspectFit
@@ -53,7 +53,7 @@ class NewCategoryButtonView: UIView {
         
     }()
     
-    lazy private var categoryNameLabel: UILabel = {
+    lazy public var categoryNameLabel: UILabel = {
         
         var categoryNameLabel = UILabel()
         categoryNameLabel.textAlignment = .left
@@ -130,7 +130,7 @@ class NewCategoryButtonView: UIView {
         categoryButton.addTarget(self, action: #selector(animateCategoryButton), for: .touchUpInside)
         
         backgroundColor = .white
-        addShadowAndRoundCorners(cornerRadius: Scaling.getWidthFitSize(minSize: 8.0, maxSize: 15.0), shadowOpacity: 0.0)
+        addShadowAndRoundCorners(shadowOpacity: 0.0)
         
         addSubview(categoryIconImageView)
         categoryIconImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -160,6 +160,12 @@ class NewCategoryButtonView: UIView {
     @objc private func animateCategoryButton() {
         
         isSelected = !isSelected
+        
+    }
+    
+    override func layoutSubviews() {
+        
+        layer.cornerRadius = getCornerRadiusFit(percentage: 40)
         
     }
     

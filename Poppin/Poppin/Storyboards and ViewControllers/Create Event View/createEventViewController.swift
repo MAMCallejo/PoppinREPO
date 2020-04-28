@@ -296,7 +296,7 @@ class createEventViewController : UIViewController {
     
     @objc func selectCategoryButtonView (sender: UIButton) {
         
-        newShowsCategoryView.isSelected = !newShowsCategoryView.isSelected
+        print(newShowsCategoryView.isSelected)
         
     }
     

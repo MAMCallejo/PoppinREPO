@@ -314,7 +314,8 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
     
     @objc private func selectCategoryButton(sender: UIButton) {
         
-        print("SECOND TARGET")
+        print(newCategoryButton.isSelected)
+        print(newCategoryButton.category)
         
     }
     

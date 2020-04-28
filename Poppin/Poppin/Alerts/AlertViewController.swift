@@ -194,6 +194,7 @@ extension UIView {
             
         layer.masksToBounds = false
         layer.cornerRadius = 8.0
+        layer.cornerCurve = .continuous
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOffset = CGSize(width: 0.0, height: 2.0) // Shifts shadow
         layer.shadowOpacity = 0.2 // Higher value means more opaque
@@ -211,6 +212,12 @@ extension UIView {
         if bottomRightMask { maskedCorners.insert(.layerMaxXMaxYCorner) }
         if bottomLeftMask { maskedCorners.insert(.layerMinXMaxYCorner) }
         if !maskedCorners.isEmpty { layer.maskedCorners = maskedCorners }
+        
+    }
+    
+    public func getCornerRadiusFit(percentage: CGFloat) -> CGFloat {
+        
+        return (CGFloat(abs(percentage))/100)*0.5*min(frame.height, frame.width)
         
     }
     
