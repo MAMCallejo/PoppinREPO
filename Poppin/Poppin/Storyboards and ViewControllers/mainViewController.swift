@@ -319,6 +319,8 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
     }
     
+    lazy var newRefreshButtonView: NewRefreshButtonView = NewRefreshButtonView()
+    
     
     // *** VIEWCONTROLLER FUNCTIONS ***
     
@@ -332,12 +334,6 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
-        // PROGRAMMATIC CODE
-        
-        filtersStackView.addArrangedSubview(newCategoryButton)
-        
-        newCategoryButton.categoryButton.addTarget(self, action: #selector(selectCategoryButton(sender:)), for: .touchUpInside)
         
         monitor = (UIApplication.shared.delegate as! AppDelegate).monitor
         
@@ -717,6 +713,21 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         //refreshDatabase()
          
          popsicleTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(refreshDatabase), userInfo: nil, repeats: true)
+        
+        
+        // PROGRAMMATIC CODE
+        
+        filtersStackView.addArrangedSubview(newCategoryButton)
+        
+        view.addSubview(newRefreshButtonView)
+        
+        newRefreshButtonView.translatesAutoresizingMaskIntoConstraints = false
+        newRefreshButtonView.topAnchor.constraint(equalTo: refreshButton.bottomAnchor, constant: Scaling.getPercentageWidth(percentage: 3)).isActive = true
+        newRefreshButtonView.trailingAnchor.constraint(equalTo: refreshButton.trailingAnchor).isActive = true
+        newRefreshButtonView.widthAnchor.constraint(equalTo: refreshButton.widthAnchor).isActive = true
+        newRefreshButtonView.heightAnchor.constraint(equalTo: newRefreshButtonView.widthAnchor, multiplier: 1).isActive = true
+        
+        newCategoryButton.categoryButton.addTarget(self, action: #selector(selectCategoryButton(sender:)), for: .touchUpInside)
         
     }
     

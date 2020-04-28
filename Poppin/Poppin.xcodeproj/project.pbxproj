@@ -30,6 +30,7 @@
 		646FF6332457361300BD4271 /* categoryButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646FF6322457361300BD4271 /* categoryButtonView.swift */; };
 		646FF635245736B500BD4271 /* NewRefreshButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646FF634245736B500BD4271 /* NewRefreshButtonView.swift */; };
 		646FF6372457373100BD4271 /* refreshButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646FF6362457373100BD4271 /* refreshButtonView.swift */; };
+		646FF63B2458979500BD4271 /* BubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646FF63A2458979500BD4271 /* BubbleView.swift */; };
 		648AEB99237E250C008743E8 /* pinPopsicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648AEB98237E250C008743E8 /* pinPopsicle.swift */; };
 		648FE1B723E22B3100C1DCDC /* Poppin.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 648FE1B523E22B3100C1DCDC /* Poppin.xcdatamodeld */; };
 		649ED12723CE7020006D31B5 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649ED12623CE7020006D31B5 /* ProfileViewController.swift */; };
@@ -104,6 +105,7 @@
 		646FF6322457361300BD4271 /* categoryButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = categoryButtonView.swift; sourceTree = "<group>"; };
 		646FF634245736B500BD4271 /* NewRefreshButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRefreshButtonView.swift; sourceTree = "<group>"; };
 		646FF6362457373100BD4271 /* refreshButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = refreshButtonView.swift; sourceTree = "<group>"; };
+		646FF63A2458979500BD4271 /* BubbleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleView.swift; sourceTree = "<group>"; };
 		648396422372AD980099B703 /* Octarine-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Octarine-Light.otf"; sourceTree = "<group>"; };
 		648396432372AD980099B703 /* Octarine-BoldOblique.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Octarine-BoldOblique.otf"; sourceTree = "<group>"; };
 		648396442372AD980099B703 /* Octarine-LightOblique.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Octarine-LightOblique.otf"; sourceTree = "<group>"; };
@@ -267,9 +269,10 @@
 		640270A42353CD4D00641159 /* Buttons and Views */ = {
 			isa = PBXGroup;
 			children = (
-				64FF1EC223946A3D005DB686 /* NewCategoryButtonView.swift */,
 				646FF6322457361300BD4271 /* categoryButtonView.swift */,
 				646FF6362457373100BD4271 /* refreshButtonView.swift */,
+				646FF63A2458979500BD4271 /* BubbleView.swift */,
+				64FF1EC223946A3D005DB686 /* NewCategoryButtonView.swift */,
 				646FF634245736B500BD4271 /* NewRefreshButtonView.swift */,
 				64EBC2A42455F505005D445C /* BouncyButton.swift */,
 			);
@@ -674,6 +677,7 @@
 				64BD292623FC9B3700B5C32D /* registerPageViewController.swift in Sources */,
 				642A93962419985B005B027F /* popsicleInfoViewController.swift in Sources */,
 				F56E777423AA823E009BF8E9 /* SceneDelegate.swift in Sources */,
+				646FF63B2458979500BD4271 /* BubbleView.swift in Sources */,
 				F56E776E23A907A5009BF8E9 /* Post.swift in Sources */,
 				F56E777C23CBDE80009BF8E9 /* PopsicleViewController.swift in Sources */,
 				640270752353C51F00641159 /* AppDelegate.swift in Sources */,

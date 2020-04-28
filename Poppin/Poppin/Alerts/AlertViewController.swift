@@ -67,7 +67,7 @@ class AlertViewController: UIViewController {
         alertMessageLabel.textAlignment = .center
         alertMessageLabel.numberOfLines = 0
         alertMessageLabel.sizeToFit()
-        alertMessageLabel.textColor = UIColor.mainNAVYBLUE
+        alertMessageLabel.textColor = .mainNAVYBLUE
         alertMessageLabel.backgroundColor = .white
         alertMessageLabel.font = UIFont(name: "Octarine-Bold", size: Scaling.getWidthFitSize(minSize: 18.0, maxSize: 20.0))
         return alertMessageLabel
