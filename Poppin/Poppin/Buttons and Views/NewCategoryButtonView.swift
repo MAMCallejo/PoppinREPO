@@ -13,8 +13,8 @@ class NewCategoryButtonView: UIView {
     public static let defaultCategory: PopsicleCategory = .Default
     
     lazy private(set) var category: PopsicleCategory = NewCategoryButtonView.defaultCategory
-    private let horizontalEdgeInset: CGFloat = Scaling.getPercentageWidth(percentage: 0.5)
-    private let verticalEdgeInset: CGFloat = Scaling.getPercentageWidth(percentage: 1)
+    private let horizontalEdgeInset: CGFloat = .getPercentageWidth(percentage: 0.5)
+    private let verticalEdgeInset: CGFloat = .getPercentageWidth(percentage: 1)
     
     private(set) var isSelected: Bool = false {
         
@@ -60,7 +60,7 @@ class NewCategoryButtonView: UIView {
         categoryNameLabel.numberOfLines = 1
         categoryNameLabel.textColor = .mainNAVYBLUE
         categoryNameLabel.backgroundColor = .clear
-        categoryNameLabel.font = UIFont(name: "Octarine-Bold", size: Scaling.getWidthFitSize(minSize: 18.0, maxSize: 20.0))
+        categoryNameLabel.font = UIFont(name: "Octarine-Bold", size: .getWidthFitSize(minSize: 18.0, maxSize: 20.0))
         return categoryNameLabel
         
     }()
@@ -97,33 +97,33 @@ class NewCategoryButtonView: UIView {
             
         case .Education:
             
-            categoryNameLabel.text = "Education"
-            categoryIconImageView.image = #imageLiteral(resourceName: "educationButton")
+            categoryNameLabel.text = PopsicleCategory.Education.rawValue
+            categoryIconImageView.image = .educationPopsicleIcon
             
         case .Food:
             
-            categoryNameLabel.text = "Food"
-            categoryIconImageView.image = #imageLiteral(resourceName: "foodButton")
+            categoryNameLabel.text = PopsicleCategory.Food.rawValue
+            categoryIconImageView.image = .foodPopsicleIcon
             
         case .Social:
             
-            categoryNameLabel.text = "Social"
-            categoryIconImageView.image = #imageLiteral(resourceName: "socialButton")
+            categoryNameLabel.text = PopsicleCategory.Social.rawValue
+            categoryIconImageView.image = .socialPopsicleIcon
             
         case .Sports:
             
-            categoryNameLabel.text = "Sports"
-            categoryIconImageView.image = #imageLiteral(resourceName: "sportsButton")
+            categoryNameLabel.text = PopsicleCategory.Sports.rawValue
+            categoryIconImageView.image = .sportsPopsicleIcon
             
         case .Shows:
             
-            categoryNameLabel.text = "Shows"
-            categoryIconImageView.image = #imageLiteral(resourceName: "showsButton")
+            categoryNameLabel.text = PopsicleCategory.Shows.rawValue
+            categoryIconImageView.image = .showsPopsicleIcon
             
         case .Default:
             
-            categoryNameLabel.text = "Default"
-            categoryIconImageView.image = #imageLiteral(resourceName: "defaultCategoryButton")
+            categoryNameLabel.text = PopsicleCategory.Default.rawValue
+            categoryIconImageView.image = .defaultPopsicleIcon
             
         }
         

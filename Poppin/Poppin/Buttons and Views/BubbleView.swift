@@ -14,8 +14,6 @@ class BubbleView: UIView {
         
         addShadowAndRoundCorners(cornerRadius: min(bounds.width, bounds.height) / 2)
         
-        layer.cornerCurve = .continuous
-        
     }
     
 }

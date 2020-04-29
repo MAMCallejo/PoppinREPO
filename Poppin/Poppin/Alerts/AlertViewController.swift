@@ -10,15 +10,15 @@ import UIKit
 
 class AlertViewController: UIViewController {
     
-    public static let defaultWarningIcon = UIImage(systemName: "exclamationmark.triangle.fill")!
-    public static let defaultErrorIcon = UIImage(systemName: "xmark.circle.fill")!
+    public static let defaultWarningIcon = UIImage(systemSymbol: .exclamationmarkTriangleFill)
+    public static let defaultErrorIcon = UIImage(systemSymbol: .xmarkCircleFill)
     public static let defaultWarningMessage = "If you proceed, some information might be lost."
     public static let defaultErrorMessage = "Unable to proceed, please try again."
     
     lazy private var alertIcon: UIImage = AlertViewController.defaultErrorIcon
     lazy private var alertMessage: String = AlertViewController.defaultErrorMessage
     lazy private var alertButtons: [AlertButton] = [AlertButton(alertTitle: nil, alertButtonAction: nil)]
-    private let edgeInset: CGFloat = Scaling.getPercentageWidth(percentage: 3)
+    private let edgeInset: CGFloat = .getPercentageWidth(percentage: 3)
     
     lazy private var alertContainerView: UIView = {
         
@@ -69,7 +69,7 @@ class AlertViewController: UIViewController {
         alertMessageLabel.sizeToFit()
         alertMessageLabel.textColor = .mainNAVYBLUE
         alertMessageLabel.backgroundColor = .white
-        alertMessageLabel.font = UIFont(name: "Octarine-Bold", size: Scaling.getWidthFitSize(minSize: 18.0, maxSize: 20.0))
+        alertMessageLabel.font = UIFont(name: "Octarine-Bold", size: .getWidthFitSize(minSize: 18.0, maxSize: 20.0))
         return alertMessageLabel
         
     }()
@@ -139,7 +139,7 @@ class AlertViewController: UIViewController {
         alertContainerView.translatesAutoresizingMaskIntoConstraints = false
         alertContainerView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         alertContainerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        alertContainerView.widthAnchor.constraint(equalToConstant: Scaling.getPercentageWidth(percentage: 70)).isActive = true
+        alertContainerView.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 70)).isActive = true
         
     }
     
@@ -170,7 +170,7 @@ class AlertButton: UIButton {
         setTitle(alertTitle ?? AlertButton.defaultTitle, for: .normal)
         backgroundColor = .mainNAVYBLUE
         tintColor = .white
-        titleLabel?.font = UIFont(name: "Octarine-Bold", size: Scaling.getWidthFitSize(minSize: 18.0, maxSize: 20.0))
+        titleLabel?.font = UIFont(name: "Octarine-Bold", size: .getWidthFitSize(minSize: 18.0, maxSize: 20.0))
         if let newAlertButtonAction = alertButtonAction { self.alertButtonAction = newAlertButtonAction }
         
     }
@@ -182,42 +182,7 @@ class AlertButton: UIButton {
         setTitle(AlertButton.defaultTitle, for: .normal)
         backgroundColor = .mainNAVYBLUE
         tintColor = .white
-        titleLabel?.font = UIFont(name: "Octarine-Bold", size: Scaling.getWidthFitSize(minSize: 18.0, maxSize: 20.0))
-        
-    }
-    
-}
-
-extension UIView {
-    
-    public func addShadowAndRoundCorners(cornerRadius: CGFloat? = nil, shadowColor: UIColor? = nil, shadowOffset: CGSize? = nil, shadowOpacity: Float? = nil, shadowRadius: CGFloat? = nil, topRightMask: Bool = true, topLeftMask: Bool = true, bottomRightMask: Bool = true, bottomLeftMask: Bool = true) {
-            
-        layer.masksToBounds = false
-        layer.cornerRadius = 8.0
-        layer.cornerCurve = .continuous
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOffset = CGSize(width: 0.0, height: 2.0) // Shifts shadow
-        layer.shadowOpacity = 0.2 // Higher value means more opaque
-        layer.shadowRadius = 2 // Higher value means more blurry
-        var maskedCorners = CACornerMask()
-        
-        if let cr = cornerRadius { layer.cornerRadius = cr }
-        if let sc = shadowColor { layer.shadowColor = sc.cgColor }
-        if let sof = shadowOffset { layer.shadowOffset = sof }
-        if let sop = shadowOpacity { layer.shadowOpacity = sop }
-        if let sr = shadowRadius { layer.shadowRadius = sr }
-        
-        if topRightMask { maskedCorners.insert(.layerMaxXMinYCorner) }
-        if topLeftMask { maskedCorners.insert(.layerMinXMinYCorner) }
-        if bottomRightMask { maskedCorners.insert(.layerMaxXMaxYCorner) }
-        if bottomLeftMask { maskedCorners.insert(.layerMinXMaxYCorner) }
-        if !maskedCorners.isEmpty { layer.maskedCorners = maskedCorners }
-        
-    }
-    
-    public func getCornerRadiusFit(percentage: CGFloat) -> CGFloat {
-        
-        return (CGFloat(abs(percentage))/100)*0.5*min(frame.height, frame.width)
+        titleLabel?.font = UIFont(name: "Octarine-Bold", size: .getWidthFitSize(minSize: 18.0, maxSize: 20.0))
         
     }
     

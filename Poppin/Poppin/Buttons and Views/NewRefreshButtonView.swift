@@ -10,7 +10,7 @@ import UIKit
 
 class NewRefreshButtonView: BubbleView {
     
-    private let edgeInset: CGFloat = Scaling.getPercentageWidth(percentage: 1)
+    private let edgeInset: CGFloat = .getPercentageWidth(percentage: 1)
     
     private(set) var refreshButtonCount: Int = 0 {
         
@@ -79,10 +79,10 @@ class NewRefreshButtonView: BubbleView {
         refreshButtonIconView.backgroundColor = .mainNAVYBLUE
         
         let refreshButtonIconImageView = UIImageView()
-        refreshButtonIconImageView.image = UIImage(systemName: "checkmark.circle.fill")!.withTintColor(.white, renderingMode: .alwaysOriginal)
+        refreshButtonIconImageView.image = UIImage(systemSymbol: .checkmarkCircleFill).withTintColor(.white, renderingMode: .alwaysOriginal)
         refreshButtonIconImageView.contentMode = .scaleAspectFit
         
-        let edgeInset = Scaling.getWidthFitSize(minSize: 3.5, maxSize: 4.5)
+        let edgeInset: CGFloat = .getWidthFitSize(minSize: 3.5, maxSize: 4.5)
         
         refreshButtonIconView.addSubview(refreshButtonIconImageView)
         refreshButtonIconImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -119,7 +119,7 @@ class NewRefreshButtonView: BubbleView {
         refreshCountLabel.text = String(refreshButtonCount)
         refreshCountLabel.numberOfLines = 1
         refreshCountLabel.textColor = .white
-        refreshCountLabel.font = UIFont(name: "Octarine-Bold", size: Scaling.getWidthFitSize(minSize: 13.0, maxSize: 15.0))
+        refreshCountLabel.font = UIFont(name: "Octarine-Bold", size: .getWidthFitSize(minSize: 13.0, maxSize: 15.0))
         return refreshCountLabel
         
     }()

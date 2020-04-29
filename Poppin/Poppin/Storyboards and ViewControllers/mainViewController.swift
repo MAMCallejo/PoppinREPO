@@ -317,6 +317,10 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         print(newCategoryButton.isSelected)
         print(newCategoryButton.category)
         
+        /*let ann2 = NewPopsicleAnnotation(popsicleAnnotationData: NewPopsicleAnnotation.defaultPopsicleAnnotationData)
+        
+        mainMapView.addAnnotation(ann2)*/
+        
     }
     
     lazy var newRefreshButtonView: NewRefreshButtonView = NewRefreshButtonView()
@@ -679,7 +683,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
         mainMapView.register(MKUserLocation.self, forAnnotationViewWithReuseIdentifier: NSStringFromClass(MKUserLocation.self))
         
-        mainMapView.register(PopsicleGroupAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier)
+        mainMapView.register(NewPopsicleGroupAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier)
 
         mainMapView.setRegion(campusRegion!, animated: true)
         
@@ -722,12 +726,16 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         view.addSubview(newRefreshButtonView)
         
         newRefreshButtonView.translatesAutoresizingMaskIntoConstraints = false
-        newRefreshButtonView.topAnchor.constraint(equalTo: refreshButton.bottomAnchor, constant: Scaling.getPercentageWidth(percentage: 3)).isActive = true
+        newRefreshButtonView.topAnchor.constraint(equalTo: refreshButton.bottomAnchor, constant: .getPercentageWidth(percentage: 3)).isActive = true
         newRefreshButtonView.trailingAnchor.constraint(equalTo: refreshButton.trailingAnchor).isActive = true
         newRefreshButtonView.widthAnchor.constraint(equalTo: refreshButton.widthAnchor).isActive = true
         newRefreshButtonView.heightAnchor.constraint(equalTo: newRefreshButtonView.widthAnchor, multiplier: 1).isActive = true
         
         newCategoryButton.categoryButton.addTarget(self, action: #selector(selectCategoryButton(sender:)), for: .touchUpInside)
+        
+        /*let ann1 = NewPopsicleAnnotation(popsicleAnnotationData: NewPopsicleAnnotation.defaultPopsicleAnnotationData)
+        
+        mainMapView.addAnnotation(ann1)*/
         
     }
     
@@ -2517,6 +2525,40 @@ extension mainViewController: MKMapViewDelegate {
             popsicleAnnotationView!.canShowCallout = false
             
             popsicleAnnotationView!.image = popsicleAnnotation.popsicleData?.eventPopsicle
+            
+            popsicleAnnotationView!.frame.size = popsicleSize ?? eventLocationPin.frame.size
+            
+            popsicleAnnotationView!.clusteringIdentifier = "PopsicleGroup"
+            
+            popsicleAnnotationView!.displayPriority = .required
+            
+            return popsicleAnnotationView
+            
+        }
+        
+        else if annotation is NewPopsicleAnnotation {
+            
+            let popsicleAnnotation = annotation as! NewPopsicleAnnotation
+            
+            let popsicleIdentifier = popsicleAnnotation.popsicleAnnotationData.eventTitle
+            
+            var popsicleAnnotationView = mainMapView.dequeueReusableAnnotationView(withIdentifier: popsicleIdentifier)
+            
+            if popsicleAnnotationView == nil {
+                
+                popsicleAnnotationView = MKAnnotationView(annotation:annotation, reuseIdentifier:popsicleIdentifier)
+                
+            }
+            
+            popsicleAnnotation.title = popsicleAnnotation.popsicleAnnotationData.eventTitle
+            
+            popsicleAnnotation.subtitle = popsicleAnnotation.popsicleAnnotationData.eventDetails
+            
+            popsicleAnnotationView!.annotation = popsicleAnnotation
+            
+            popsicleAnnotationView!.canShowCallout = false
+            
+            popsicleAnnotationView!.image = popsicleAnnotation.getPopsicleAnnotationImage()
             
             popsicleAnnotationView!.frame.size = popsicleSize ?? eventLocationPin.frame.size
             

@@ -106,6 +106,7 @@ PODS:
   - SDWebImage (5.5.2):
     - SDWebImage/Core (= 5.5.2)
   - SDWebImage/Core (5.5.2)
+  - SFSafeSymbols (1.2.0)
 
 DEPENDENCIES:
   - Firebase/Auth
@@ -116,6 +117,7 @@ DEPENDENCIES:
   - FirebaseUI/Email
   - FirebaseUI/Storage
   - Kronos
+  - SFSafeSymbols (~> 1.2.0)
 
 SPEC REPOS:
   trunk:
@@ -141,6 +143,7 @@ SPEC REPOS:
     - nanopb
     - PromisesObjC
     - SDWebImage
+    - SFSafeSymbols
 
 SPEC CHECKSUMS:
   Firebase: 2672e5636b42f977177716317e68346ae5e9de25
@@ -165,7 +168,8 @@ SPEC CHECKSUMS:
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   SDWebImage: 4d5c027c935438f341ed33dbac53ff9f479922ca
+  SFSafeSymbols: deeb973675d234251b215d3cf4c1965249fb7440
 
-PODFILE CHECKSUM: 76f55a7ac874975fa7a4f18e7f346bb8f1cb11b2
+PODFILE CHECKSUM: 93d47a9879783de10566475da7a1df5b002a1632
 
 COCOAPODS: 1.8.1
