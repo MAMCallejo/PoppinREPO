@@ -10,6 +10,8 @@ import UIKit
 
 class BouncyButton: UIButton {
     
+    private let edgeInset: CGFloat = .getPercentageWidth(percentage: 3)
+    
     private var bouncyButtonImage: UIImage?
     
     init(bouncyButtonImage: UIImage?) {
@@ -17,7 +19,6 @@ class BouncyButton: UIButton {
         super.init(frame: .zero)
         
         self.bouncyButtonImage = bouncyButtonImage
-        
         setupButton()
         
     }
@@ -33,6 +34,9 @@ class BouncyButton: UIButton {
     private func setupButton() {
         
         setImage(bouncyButtonImage?.withRenderingMode(.alwaysOriginal), for: .normal)
+        contentHorizontalAlignment = .fill
+        contentVerticalAlignment = .fill
+        contentEdgeInsets = UIEdgeInsets(top: edgeInset, left: edgeInset, bottom: edgeInset, right: edgeInset)
         imageView?.contentMode = .scaleAspectFit
         addTarget(self, action: #selector(animateDown), for: [.touchDown, .touchDragEnter])
         addTarget(self, action: #selector(animateUp), for: [.touchDragExit, .touchCancel, .touchUpInside, .touchUpOutside])
@@ -41,17 +45,17 @@ class BouncyButton: UIButton {
     
     @objc private func animateDown(sender: UIButton) {
         
-        animate(sender, transform: CGAffineTransform.identity.scaledBy(x: 0.95, y: 0.95))
+        animate(sender, transform: CGAffineTransform.identity.scaledBy(x: 0.95, y: 0.95), alpha: 0.9)
         
     }
     
     @objc private func animateUp(sender: UIButton) {
         
-        animate(sender, transform: .identity)
+        animate(sender, transform: .identity, alpha: 1.0)
         
     }
     
-    private func animate(_ button: UIButton, transform: CGAffineTransform) {
+    private func animate(_ button: UIButton, transform: CGAffineTransform, alpha: CGFloat) {
         
         UIView.animate(withDuration: 0.4,
                        delay: 0,
@@ -59,8 +63,23 @@ class BouncyButton: UIButton {
                        initialSpringVelocity: 3,
                        options: [.curveEaseInOut, .allowUserInteraction],
                        animations: {
+                        
+                        button.alpha = alpha
                         button.transform = transform
+                        
             }, completion: nil)
+        
+    }
+    
+}
+
+class BubbleButton: BouncyButton {
+    
+    override func layoutSubviews() {
+        
+        super.layoutSubviews()
+        
+        addShadowAndRoundCorners(cornerRadius: min(bounds.width, bounds.height) / 2)
         
     }
     

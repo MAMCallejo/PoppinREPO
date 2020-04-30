@@ -14,8 +14,6 @@ import Kronos
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    var window: UIWindow?
     
     var dataController: DataController!
     
@@ -26,18 +24,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         FirebaseApp.configure()
-        
-        self.configureInitialRootViewController(for: self.window)
-        
-        dataController = DataController()
-        
-        dataController.initalizeStack()
-        
         monitor = NWPathMonitor()
-        
         monitor.start(queue: DispatchQueue(label: "Monitor"))
-        
         Clock.sync()
+        dataController = DataController()
+        dataController.initalizeStack()
         
         return true
         
@@ -62,49 +53,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     }
 
-}
-extension AppDelegate {
-    
-    func configureInitialRootViewController(for window: UIWindow?) {
-        
-        let defaults = UserDefaults.standard
-        
-        let initialViewController: UIViewController
-
-        if let _ = Auth.auth().currentUser,
-            
-           let userData = defaults.object(forKey: Constants.UserDefaults.currentUser) as? Data,
-            
-           let user = try? JSONDecoder().decode(User.self, from: userData) {
-            
-            User.setCurrent(user)
-            
-            initialViewController = UIStoryboard.initialViewController(for: .main)
-            
-        } else {
-            
-            initialViewController = UIStoryboard.initialViewController(for: .login)
-            
-        }
-        
-        let transition = CATransition()
-        
-        transition.type = .fade
-        
-        transition.duration = 0.5
-        
-        guard let window = self.window else {
-
-            return
-
-        }
-        
-        window.layer.add(transition, forKey: kCATransition)
-        
-        window.rootViewController = initialViewController
-        
-        window.makeKeyAndVisible()
-        
-    }
-    
 }

@@ -10,8 +10,10 @@ import UIKit
 import Firebase
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
+    
     var window: UIWindow?
+    
+    //var navigationController: UINavigationController?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
@@ -19,9 +21,33 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        
         configureInitialRootViewController(for: window)
         
-        guard let _ = (scene as? UIWindowScene) else { return }
+        // PROGRAMMATIC:
+        
+        /*
+         
+         window = UIWindow(frame: windowsScene.coordinateSpace.bounds)
+         
+         window?.windowScene = windowScene
+         
+         let rootVC = LoginViewController()
+         navigationController = UINavigationController(rootViewController: rootVC)
+         navigationController?.setNavigationBarHidden(true, animated: false)
+         
+         if Auth.auth().currentUser != nil {
+         
+         let mainVC = mainViewController()
+         navigationController?.pushViewController(mainVC, animated: true)
+         
+         }
+         
+         window?.rootViewController = navigationController
+         window?.makeKeyAndVisible()
+         
+         }*/
         
     }
 
@@ -64,23 +90,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
     }
 
-
 }
+
 extension SceneDelegate {
     
     func configureInitialRootViewController(for window: UIWindow?) {
         
-        let defaults = UserDefaults.standard
-        
         let initialViewController: UIViewController
 
-        if let _ = Auth.auth().currentUser,
-            
-           let userData = defaults.object(forKey: Constants.UserDefaults.currentUser) as? Data,
-            
-           let user = try? JSONDecoder().decode(User.self, from: userData) {
-            
-            User.setCurrent(user)
+        if Auth.auth().currentUser != nil {
             
             initialViewController = UIStoryboard.initialViewController(for: .main)
             
@@ -89,10 +107,24 @@ extension SceneDelegate {
             initialViewController = UIStoryboard.initialViewController(for: .login)
             
         }
-
-        window?.rootViewController = initialViewController
         
-        window?.makeKeyAndVisible()
+        let transition = CATransition()
+        
+        transition.type = .fade
+        
+        transition.duration = 0.5
+        
+        guard let window = self.window else {
+
+            return
+
+        }
+        
+        window.layer.add(transition, forKey: kCATransition)
+        
+        window.rootViewController = initialViewController
+        
+        window.makeKeyAndVisible()
         
     }
     

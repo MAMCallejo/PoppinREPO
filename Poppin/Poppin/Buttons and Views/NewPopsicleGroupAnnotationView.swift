@@ -11,7 +11,9 @@ import MapKit
 
 class NewPopsicleGroupAnnotationView: MKAnnotationView {
     
-    private var popsicleGroupCount: Int = 2 {
+    public static let defaultPopsicleGroupAnnotationViewReuseIdentifier = "PopsicleGroupAnnotationView"
+    
+    private(set) var popsicleGroupCount: Int = 0 {
         
         didSet {
             
@@ -75,7 +77,7 @@ class NewPopsicleGroupAnnotationView: MKAnnotationView {
         popsicleGroupCountLabel.text = String(popsicleGroupCount)
         popsicleGroupCountLabel.numberOfLines = 1
         popsicleGroupCountLabel.textColor = .white
-        popsicleGroupCountLabel.font = UIFont(name: "Octarine-Bold", size: .getWidthFitSize(minSize: 13.0, maxSize: 15.0))
+        popsicleGroupCountLabel.font = UIFont(name: "Octarine-Bold", size: .getWidthFitSize(minSize: 12.0, maxSize: 14.0))
         return popsicleGroupCountLabel
         
     }()
@@ -98,6 +100,11 @@ class NewPopsicleGroupAnnotationView: MKAnnotationView {
     
     private func configureView() {
         
+        canShowCallout = false
+        collisionMode = .circle
+        frame.size = CGSize(width: .getPercentageWidth(percentage: 12.5), height: .getPercentageWidth(percentage: 12.5))
+        displayPriority = .required
+        
         addSubview(popsicleGroupContainerView)
         popsicleGroupContainerView.translatesAutoresizingMaskIntoConstraints = false
         popsicleGroupContainerView.topAnchor.constraint(equalTo: topAnchor).isActive = true
@@ -107,25 +114,9 @@ class NewPopsicleGroupAnnotationView: MKAnnotationView {
         
     }
     
-    override func prepareForDisplay() {
+    public func setGroupCount(count: Int) {
         
-        super.prepareForDisplay()
-        
-        canShowCallout = false
-        
-        collisionMode = .circle
-        
-        centerOffset = CGPoint(x: 0, y: -10)
-        
-        if let cluster = annotation as? MKClusterAnnotation {
-            
-            popsicleGroupCount = cluster.memberAnnotations.count
-            
-            frame.size = popsicleSize ?? CGSize(width: 58, height: 58)
-            
-            displayPriority = .required
-            
-        }
+        popsicleGroupCount = count
         
     }
     

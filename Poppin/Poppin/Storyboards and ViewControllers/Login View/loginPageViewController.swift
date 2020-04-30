@@ -353,16 +353,6 @@ class loginPageViewController: UIViewController, UITextFieldDelegate {
                     strongSelf.present(alertVC, animated: true, completion: nil)
                     
                 } else {
-                    
-                    let newUser = authResult!.user
-                    
-                    let ref = Database.database().reference().child("users").child(newUser.uid)
-                    
-                    ref.observeSingleEvent(of: .value, with: { (snapshot) in
-                        
-                        let user = User(snapshot: snapshot)
-                        
-                        User.setCurrent(user!, writeToUserDefaults: true)
                         
                         let storyboard = UIStoryboard(name: "Main", bundle: .main)
                         
@@ -388,7 +378,7 @@ class loginPageViewController: UIViewController, UITextFieldDelegate {
                             
                         }
                         
-                    })
+                    
                     
                 }
                 

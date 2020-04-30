@@ -8,6 +8,7 @@
 
 import UIKit
 import SFSafeSymbols // Allows for easy access of Apple Symbols
+import MapKit
 
 extension UIColor {
     
@@ -44,6 +45,7 @@ extension UIImage {
     static let showsPopsicleIcon = UIImage(named: "showsButton")!
     static let goldPopsicleIcon = UIImage(named: "goldButton")!
     static let rainbowPopsicleIcon = UIImage(named: "popsicleGroupButton")!
+    static let appBackground = UIImage(named: "LaunchScreenBG")!
     
 }
 

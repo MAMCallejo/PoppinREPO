@@ -10,7 +10,7 @@ import UIKit
 
 class NewRefreshButtonView: BubbleView {
     
-    private let edgeInset: CGFloat = .getPercentageWidth(percentage: 1)
+    private let edgeInset: CGFloat = .getPercentageWidth(percentage: 1.5)
     
     private(set) var refreshButtonCount: Int = 0 {
         
@@ -25,10 +25,9 @@ class NewRefreshButtonView: BubbleView {
                     UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.55, initialSpringVelocity: 3,
                                    options: .curveEaseOut, animations: {
                                     
-                                    self.refreshCountBubbleView.alpha = 0
-                                    self.refreshCountBubbleView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
-                                    self.refreshButtonIconView.alpha = 1.0
-                                    self.refreshButtonIconView.transform = .identity
+                                    self.refreshButtonBubbleView.backgroundColor = .white
+                                    self.refreshButtonIconImageView.alpha = 1.0
+                                    self.refreshCountLabel.alpha = 0.0
                                     
                     }, completion: nil)
                     
@@ -37,21 +36,9 @@ class NewRefreshButtonView: BubbleView {
                     UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.55, initialSpringVelocity: 3,
                                    options: .curveEaseOut, animations: {
                                     
-                                    self.refreshCountBubbleView.alpha = 1.0
-                                    self.refreshCountBubbleView.transform = .identity
-                                    self.refreshButtonIconView.alpha = 0.0
-                                    self.refreshButtonIconView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
-                                    
-                    }, completion: nil)
-                    
-                } else { // Change Counter
-                    
-                    refreshCountBubbleView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
-                    
-                    UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.55, initialSpringVelocity: 3,
-                                   options: .curveEaseOut, animations: {
-                                    
-                                    self.refreshCountBubbleView.transform = .identity
+                                    self.refreshButtonBubbleView.backgroundColor = .mainNAVYBLUE
+                                    self.refreshButtonIconImageView.alpha = 0.0
+                                    self.refreshCountLabel.alpha = 1.0
                                     
                     }, completion: nil)
                     
@@ -73,42 +60,35 @@ class NewRefreshButtonView: BubbleView {
         
     }()
     
-    lazy private var refreshButtonIconView: BubbleView = {
+    lazy private var refreshButtonBubbleView: BubbleView = {
         
-        var refreshButtonIconView = BubbleView()
-        refreshButtonIconView.backgroundColor = .mainNAVYBLUE
+        var refreshButtonBubbleView = BubbleView()
+        refreshButtonBubbleView.backgroundColor = .white
         
-        let refreshButtonIconImageView = UIImageView()
-        refreshButtonIconImageView.image = UIImage(systemSymbol: .checkmarkCircleFill).withTintColor(.white, renderingMode: .alwaysOriginal)
-        refreshButtonIconImageView.contentMode = .scaleAspectFit
-        
-        let edgeInset: CGFloat = .getWidthFitSize(minSize: 3.5, maxSize: 4.5)
-        
-        refreshButtonIconView.addSubview(refreshButtonIconImageView)
+        refreshButtonBubbleView.addSubview(refreshButtonIconImageView)
         refreshButtonIconImageView.translatesAutoresizingMaskIntoConstraints = false
-        refreshButtonIconImageView.topAnchor.constraint(equalTo: refreshButtonIconView.topAnchor, constant: -edgeInset).isActive = true
-        refreshButtonIconImageView.bottomAnchor.constraint(equalTo: refreshButtonIconView.bottomAnchor, constant: edgeInset).isActive = true
-        refreshButtonIconImageView.leadingAnchor.constraint(equalTo: refreshButtonIconView.leadingAnchor, constant: -edgeInset).isActive = true
-        refreshButtonIconImageView.trailingAnchor.constraint(equalTo: refreshButtonIconView.trailingAnchor, constant: edgeInset).isActive = true
+        refreshButtonIconImageView.topAnchor.constraint(equalTo: refreshButtonBubbleView.topAnchor, constant: edgeInset*1.2).isActive = true
+        refreshButtonIconImageView.bottomAnchor.constraint(equalTo: refreshButtonBubbleView.bottomAnchor, constant: -edgeInset).isActive = true
+        refreshButtonIconImageView.leadingAnchor.constraint(equalTo: refreshButtonBubbleView.leadingAnchor, constant: edgeInset).isActive = true
+        refreshButtonIconImageView.trailingAnchor.constraint(equalTo: refreshButtonBubbleView.trailingAnchor, constant: -edgeInset*1.2).isActive = true
         
-        return refreshButtonIconView
+        refreshButtonBubbleView.addSubview(refreshCountLabel)
+        refreshCountLabel.translatesAutoresizingMaskIntoConstraints = false
+        refreshCountLabel.centerYAnchor.constraint(equalTo: refreshButtonBubbleView.centerYAnchor).isActive = true
+        refreshCountLabel.centerXAnchor.constraint(equalTo: refreshButtonBubbleView.centerXAnchor).isActive = true
+        
+        refreshCountLabel.alpha = 0.0
+        
+        return refreshButtonBubbleView
         
     }()
     
-    lazy private var refreshCountBubbleView: BubbleView = {
+    lazy private var refreshButtonIconImageView: UIImageView = {
         
-        var refreshCountBubbleView = BubbleView()
-        refreshCountBubbleView.backgroundColor = .mainNAVYBLUE
-        refreshCountBubbleView.clipsToBounds = true
-        
-        refreshCountBubbleView.addSubview(refreshCountLabel)
-        refreshCountLabel.translatesAutoresizingMaskIntoConstraints = false
-        refreshCountLabel.centerYAnchor.constraint(equalTo: refreshCountBubbleView.centerYAnchor).isActive = true
-        refreshCountLabel.centerXAnchor.constraint(equalTo: refreshCountBubbleView.centerXAnchor).isActive = true
-        
-        refreshCountBubbleView.alpha = 0.0
-        
-        return refreshCountBubbleView
+        let refreshButtonIconImageView = UIImageView()
+        refreshButtonIconImageView.image = UIImage(systemSymbol: .checkmark, withConfiguration: UIImage.SymbolConfiguration(pointSize: 0, weight: .semibold)).withTintColor(.mainNAVYBLUE, renderingMode: .alwaysOriginal)
+        refreshButtonIconImageView.contentMode = .scaleAspectFit
+        return refreshButtonIconImageView
         
     }()
     
@@ -142,19 +122,12 @@ class NewRefreshButtonView: BubbleView {
     
     private func configureView() {
         
-        addSubview(refreshButtonIconView)
-        refreshButtonIconView.translatesAutoresizingMaskIntoConstraints = false
-        refreshButtonIconView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        refreshButtonIconView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        refreshButtonIconView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        refreshButtonIconView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        
-        addSubview(refreshCountBubbleView)
-        refreshCountBubbleView.translatesAutoresizingMaskIntoConstraints = false
-        refreshCountBubbleView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        refreshCountBubbleView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        refreshCountBubbleView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        refreshCountBubbleView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        addSubview(refreshButtonBubbleView)
+        refreshButtonBubbleView.translatesAutoresizingMaskIntoConstraints = false
+        refreshButtonBubbleView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        refreshButtonBubbleView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        refreshButtonBubbleView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        refreshButtonBubbleView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         
         addSubview(refreshButton)
         refreshButton.translatesAutoresizingMaskIntoConstraints = false
@@ -178,13 +151,13 @@ class NewRefreshButtonView: BubbleView {
                         
                         if self.refreshButtonCount == 0 {
                             
-                            self.refreshButtonIconView.transform = transform
-                            self.refreshButtonIconView.layer.opacity = 0.5
+                            self.refreshButtonBubbleView.transform = transform
+                            self.refreshButtonBubbleView.layer.opacity = 0.5
                             
                         } else {
                         
-                            self.refreshCountBubbleView.transform = transform
-                            self.refreshCountBubbleView.layer.opacity = 0.5
+                            self.refreshButtonBubbleView.transform = transform
+                            self.refreshButtonBubbleView.layer.opacity = 0.5
                             
                         }
                         
@@ -205,13 +178,13 @@ class NewRefreshButtonView: BubbleView {
                         
                         if self.refreshButtonCount == 0 {
                             
-                            self.refreshButtonIconView.transform = transform
-                            self.refreshButtonIconView.layer.opacity = 1.0
+                            self.refreshButtonBubbleView.transform = transform
+                            self.refreshButtonBubbleView.layer.opacity = 1.0
                             
                         } else {
                         
-                            self.refreshCountBubbleView.transform = transform
-                            self.refreshCountBubbleView.layer.opacity = 1
+                            self.refreshButtonBubbleView.transform = transform
+                            self.refreshButtonBubbleView.layer.opacity = 1
                             
                         }
                         
@@ -261,6 +234,18 @@ class NewRefreshButtonView: BubbleView {
             }
             
         }
+        
+    }
+    
+}
+
+class BubbleView: UIView {
+    
+    override func layoutSubviews() {
+        
+        super.layoutSubviews()
+        
+        addShadowAndRoundCorners(cornerRadius: min(bounds.width, bounds.height) / 2)
         
     }
     

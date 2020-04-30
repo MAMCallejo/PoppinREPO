@@ -365,11 +365,9 @@ class registerPageViewController: UIViewController, UITextFieldDelegate {
                     
                     let username = self.registerPageUsernameTextField.text
                     
-                    let userAttrs = ["username": username]
+                    let ref = Database.database().reference()
                     
-                    let ref = Database.database().reference().child("users").child(newUser.uid)
-                    
-                    ref.setValue(userAttrs) { (error, ref) in
+                    ref.child("users/\(newUser.uid)/username").setValue(username) { (error, ref) in
                         
                         if let error = error {
                             
@@ -377,12 +375,6 @@ class registerPageViewController: UIViewController, UITextFieldDelegate {
                         }
                         
                         ref.observeSingleEvent(of: .value, with: { (snapshot) in
-                            
-                            let user = User(snapshot: snapshot)
-                            
-                            User.setCurrent(user!, writeToUserDefaults: true)
-                            
-                            print("Created new user: \(user!.username)")
                             
                             let storyboard = UIStoryboard(name: "Main", bundle: .main)
                             

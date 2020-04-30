@@ -319,7 +319,13 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
         /*let ann2 = NewPopsicleAnnotation(popsicleAnnotationData: NewPopsicleAnnotation.defaultPopsicleAnnotationData)
         
+        ann2.coordinate = CLLocationCoordinate2D(latitude: 39.676, longitude: -104.961)
+        
         mainMapView.addAnnotation(ann2)*/
+        
+        campusRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 36.5101, longitude: -4.8824), latitudinalMeters: 3000, longitudinalMeters: 3000)
+        
+        //mainMapView.cameraBoundary = MKMapView.CameraBoundary(coordinateRegion: )
         
     }
     
@@ -338,6 +344,8 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        // present(NewMainViewController(), animated: true, completion: nil) // FOR TRIAL PURPOSES
         
         monitor = (UIApplication.shared.delegate as! AppDelegate).monitor
         
@@ -440,7 +448,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
         campusLocation = CLLocationCoordinate2D(latitude: 39.6766, longitude: -104.9619)
         
-        campusRegionRadius = 1500.0
+        campusRegionRadius = 3000.0
         
         campusRegion = MKCoordinateRegion(center: campusLocation!, latitudinalMeters: campusRegionRadius!, longitudinalMeters: campusRegionRadius!)
         
@@ -676,14 +684,10 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
              and out users can zoom in the map view.
             */
         
-        mainMapView.cameraZoomRange = MKMapView.CameraZoomRange(minCenterCoordinateDistance: 250, maxCenterCoordinateDistance: 3000)
+        mainMapView.cameraZoomRange = MKMapView.CameraZoomRange(minCenterCoordinateDistance: 0, maxCenterCoordinateDistance: 3000)
         
             // The user location annotation is added to the map. The cluster annotation representing a group of popsicles close together is added to the map...
             // ...The region of the map is defined. The map is set to be its own delegate so it can call functions on itself (later defined).
-        
-        mainMapView.register(MKUserLocation.self, forAnnotationViewWithReuseIdentifier: NSStringFromClass(MKUserLocation.self))
-        
-        mainMapView.register(NewPopsicleGroupAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier)
 
         mainMapView.setRegion(campusRegion!, animated: true)
         
@@ -733,9 +737,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
         newCategoryButton.categoryButton.addTarget(self, action: #selector(selectCategoryButton(sender:)), for: .touchUpInside)
         
-        /*let ann1 = NewPopsicleAnnotation(popsicleAnnotationData: NewPopsicleAnnotation.defaultPopsicleAnnotationData)
-        
-        mainMapView.addAnnotation(ann1)*/
+        mainMapView.showsUserLocation = false
         
     }
     
@@ -2450,53 +2452,19 @@ extension mainViewController: MKMapViewDelegate {
         
         // USER ANNOTATION
         
-        print("\n")
-        
-        print(annotation.title)
-        
-        print("\n")
-        
-        if (annotation is MKUserLocation) {
+        if annotation is MKUserLocation {
             
-            let userIdentifier = "UserLocation"
+            var userLocationAnnotationView = mainMapView.dequeueReusableAnnotationView(withIdentifier: NewUserLocationAnnotationView.defaultUserLocationAnnotationViewReuseIdentifier)
             
-            var userAnnotationView = mainMapView.dequeueReusableAnnotationView(withIdentifier: userIdentifier)
-            
-            if userAnnotationView == nil {
+            if userLocationAnnotationView == nil {
                 
-                userAnnotationView = MKAnnotationView(annotation:annotation, reuseIdentifier:userIdentifier)
+                userLocationAnnotationView = NewUserLocationAnnotationView(annotation: annotation, reuseIdentifier: NewUserLocationAnnotationView.defaultUserLocationAnnotationViewReuseIdentifier)
                 
             }
             
-            userAnnotationView!.annotation = annotation
+            (userLocationAnnotationView as! NewUserLocationAnnotationView).setUserLocationIcon(icon: nil)
             
-            userAnnotationView!.canShowCallout = false
-            
-            print("\n ABOUT TO CHANGE USER LOCATION ANNOTATION IMAGE \n")
-            
-            userAnnotationView!.image = UIImage(named: "Profile Pic")
-            
-            userAnnotationView!.frame.size.width = 40
-            
-            userAnnotationView!.frame.size.height = 40
-            
-            userAnnotationView!.layer.cornerRadius = userAnnotationView!.frame.height / 2
-            
-            userAnnotationView!.layer.borderColor = UIColor.white.cgColor
-            
-            userAnnotationView!.layer.borderWidth = 3
-            
-            userAnnotationView!.clipsToBounds = true
-            
-            userAnnotationView!.layer.masksToBounds = true
-            
-            userAnnotationView!.contentMode = .scaleAspectFit
-            
-            // Makes sure the userAnnotation is always below the popsicle annotations.
-            
-            userAnnotationView!.displayPriority = .required
-            
-            return userAnnotationView
+            return userLocationAnnotationView
             
         }
             
@@ -2538,35 +2506,31 @@ extension mainViewController: MKMapViewDelegate {
         
         else if annotation is NewPopsicleAnnotation {
             
-            let popsicleAnnotation = annotation as! NewPopsicleAnnotation
-            
-            let popsicleIdentifier = popsicleAnnotation.popsicleAnnotationData.eventTitle
-            
-            var popsicleAnnotationView = mainMapView.dequeueReusableAnnotationView(withIdentifier: popsicleIdentifier)
+            var popsicleAnnotationView = mainMapView.dequeueReusableAnnotationView(withIdentifier: NewPopsicleAnnotationView.defaultPopsicleAnnotationViewReuseIdentifier)
             
             if popsicleAnnotationView == nil {
                 
-                popsicleAnnotationView = MKAnnotationView(annotation:annotation, reuseIdentifier:popsicleIdentifier)
+                popsicleAnnotationView = NewPopsicleAnnotationView(annotation: annotation, reuseIdentifier: NewPopsicleAnnotationView.defaultPopsicleAnnotationViewReuseIdentifier)
                 
             }
             
-            popsicleAnnotation.title = popsicleAnnotation.popsicleAnnotationData.eventTitle
-            
-            popsicleAnnotation.subtitle = popsicleAnnotation.popsicleAnnotationData.eventDetails
-            
-            popsicleAnnotationView!.annotation = popsicleAnnotation
-            
-            popsicleAnnotationView!.canShowCallout = false
-            
-            popsicleAnnotationView!.image = popsicleAnnotation.getPopsicleAnnotationImage()
-            
-            popsicleAnnotationView!.frame.size = popsicleSize ?? eventLocationPin.frame.size
-            
-            popsicleAnnotationView!.clusteringIdentifier = "PopsicleGroup"
-            
-            popsicleAnnotationView!.displayPriority = .required
-            
             return popsicleAnnotationView
+            
+        }
+        
+        else if annotation is MKClusterAnnotation {
+            
+            var popsicleGroupAnnotationView = mainMapView.dequeueReusableAnnotationView(withIdentifier: NewPopsicleGroupAnnotationView.defaultPopsicleGroupAnnotationViewReuseIdentifier)
+            
+            if popsicleGroupAnnotationView == nil {
+                
+                popsicleGroupAnnotationView = NewPopsicleGroupAnnotationView(annotation: annotation, reuseIdentifier: NewPopsicleGroupAnnotationView.defaultPopsicleGroupAnnotationViewReuseIdentifier)
+                
+            }
+            
+            (popsicleGroupAnnotationView as! NewPopsicleGroupAnnotationView).setGroupCount(count: (annotation as! MKClusterAnnotation).memberAnnotations.count)
+            
+            return popsicleGroupAnnotationView
             
         }
         
@@ -2581,37 +2545,55 @@ extension mainViewController: MKMapViewDelegate {
     
     public func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
         
-        for view in views {
+        for annotationView in views {
             
-            if (!(view.annotation is pinPopsicle)) {
-             
-             continue
-             
-            }
-            
-            let point: MKMapPoint = MKMapPoint(view.annotation!.coordinate)
-            
-            if (!self.mainMapView.visibleMapRect.contains(point)) {
+            if annotationView is NewPopsicleAnnotationView, let annotationCoordinates = annotationView.annotation?.coordinate, mapView.visibleMapRect.contains(MKMapPoint(annotationCoordinates)) {
                 
-                continue
+                let endFrame:CGRect = annotationView.frame
                 
-            }
-            
-            let endFrame:CGRect = view.frame
-            
-            view.frame = CGRect(origin: CGPoint(x: view.frame.origin.x, y: view.frame.origin.y - self.view.frame.size.height), size: CGSize(width: view.frame.size.width, height: view.frame.size.height))
-            
-            self.view.layoutIfNeeded()
-            
-            UIView.animate(withDuration: 0.5, delay: 0, options: UIView.AnimationOptions.curveEaseIn, animations:{() in
-                
-                view.frame = endFrame
+                annotationView.frame = CGRect(origin: CGPoint(x: annotationView.frame.origin.x, y: annotationView.frame.origin.y - self.view.frame.size.height), size: CGSize(width: annotationView.frame.size.width, height: annotationView.frame.size.height))
                 
                 self.view.layoutIfNeeded()
                 
-            }, completion:{(Bool) in
+                UIView.animate(withDuration: 0.5, delay: 0, options: UIView.AnimationOptions.curveEaseIn, animations:{() in
+                    
+                    annotationView.frame = endFrame
+                    
+                    self.view.layoutIfNeeded()
+                    
+                }, completion: nil)
                 
-            })
+            } else if annotationView is NewPopsicleGroupAnnotationView || annotationView is NewUserLocationAnnotationView, let annotationCoordinates = annotationView.annotation?.coordinate, mapView.visibleMapRect.contains(MKMapPoint(annotationCoordinates)) {
+                
+                annotationView.alpha = 0
+                annotationView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+                
+                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.55, initialSpringVelocity: 3,
+                               options: .curveEaseOut, animations: {
+                                
+                                annotationView.transform = .identity
+                                annotationView.alpha = 1
+                                
+                }, completion: nil)
+                
+            }
+            
+        }
+        
+    }
+    
+    /*
+     didFinishRenderingMap:
+     */
+    
+    public func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
+        
+        if !mainMapView.showsUserLocation {
+        
+            let ann1 = NewPopsicleAnnotation(popsicleAnnotationData: NewPopsicleAnnotation.defaultPopsicleAnnotationData)
+            mainMapView.addAnnotation(ann1)
+        
+            mainMapView.showsUserLocation = true
             
         }
         
