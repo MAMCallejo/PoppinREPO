@@ -121,3 +121,15 @@ class NewPopsicleGroupAnnotationView: MKAnnotationView {
     }
     
 }
+
+class BubbleView: UIView {
+    
+    override func layoutSubviews() {
+        
+        super.layoutSubviews()
+        
+        layer.cornerRadius = min(frame.width, frame.height)/2
+        
+    }
+    
+}

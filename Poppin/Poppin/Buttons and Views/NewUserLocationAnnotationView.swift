@@ -18,13 +18,6 @@ class NewUserLocationAnnotationView: MKAnnotationView {
         var userLocationContainerView = UIView()
         userLocationContainerView.backgroundColor = .clear
         
-        userLocationContainerView.addSubview(userLocationIconBackgroundImageView)
-        userLocationIconBackgroundImageView.translatesAutoresizingMaskIntoConstraints = false
-        userLocationIconBackgroundImageView.topAnchor.constraint(equalTo: userLocationContainerView.topAnchor).isActive = true
-        userLocationIconBackgroundImageView.leadingAnchor.constraint(equalTo: userLocationContainerView.leadingAnchor).isActive = true
-        userLocationIconBackgroundImageView.trailingAnchor.constraint(equalTo: userLocationContainerView.trailingAnchor).isActive = true
-        userLocationIconBackgroundImageView.bottomAnchor.constraint(equalTo: userLocationContainerView.bottomAnchor).isActive = true
-        
         userLocationContainerView.addSubview(userLocationIconImageView)
         userLocationIconImageView.translatesAutoresizingMaskIntoConstraints = false
         userLocationIconImageView.topAnchor.constraint(equalTo: userLocationContainerView.topAnchor).isActive = true
@@ -36,19 +29,10 @@ class NewUserLocationAnnotationView: MKAnnotationView {
         
     }()
     
-    lazy private var userLocationIconBackgroundImageView: UIImageView = {
-        
-        var userLocationIconBackgroundImageView = UIImageView()
-        userLocationIconBackgroundImageView.image = .appBackground
-        userLocationIconBackgroundImageView.contentMode = .scaleToFill
-        return userLocationIconBackgroundImageView
-        
-    }()
-    
     lazy private var userLocationIconImageView: UIImageView = {
         
         var userLocationIconImageView = UIImageView()
-        userLocationIconImageView.image = UIImage(systemSymbol: .personFill).withTintColor(.mainNAVYBLUE, renderingMode: .alwaysOriginal)
+        userLocationIconImageView.image = .defaultUserPictureXS
         userLocationIconImageView.contentMode = .scaleAspectFit
         return userLocationIconImageView
         
@@ -76,8 +60,7 @@ class NewUserLocationAnnotationView: MKAnnotationView {
         frame.size = CGSize(width: .getPercentageWidth(percentage: 9), height: .getPercentageWidth(percentage: 9))
         layer.cornerRadius = frame.height / 2
         layer.borderColor = UIColor.mainNAVYBLUE.cgColor
-        layer.borderWidth = .getWidthFitSize(minSize: 2.9, maxSize: 3.5)
-        clipsToBounds = true
+        layer.borderWidth = .getWidthFitSize(minSize: 1, maxSize: 2)
         displayPriority = .required
         
         addSubview(userLocationContainerView)

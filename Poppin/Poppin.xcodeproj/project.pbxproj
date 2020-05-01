@@ -28,7 +28,6 @@
 		6448D18A2372B0490016A778 /* Octarine-LightOblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = 648396442372AD980099B703 /* Octarine-LightOblique.otf */; };
 		644FCCAF23E22E780064A008 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644FCCAE23E22E780064A008 /* DataController.swift */; };
 		646FF6332457361300BD4271 /* categoryButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646FF6322457361300BD4271 /* categoryButtonView.swift */; };
-		646FF635245736B500BD4271 /* NewRefreshButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646FF634245736B500BD4271 /* NewRefreshButtonView.swift */; };
 		646FF6372457373100BD4271 /* refreshButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646FF6362457373100BD4271 /* refreshButtonView.swift */; };
 		646FF63F2458B8AB00BD4271 /* NewPopsicleAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646FF63E2458B8AB00BD4271 /* NewPopsicleAnnotation.swift */; };
 		648AEB99237E250C008743E8 /* pinPopsicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648AEB98237E250C008743E8 /* pinPopsicle.swift */; };
@@ -37,6 +36,7 @@
 		6492F92A2459D180006EC261 /* NewPopsicleAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6492F9292459D180006EC261 /* NewPopsicleAnnotationView.swift */; };
 		6492F92C2459E606006EC261 /* NewPopsicleGroupAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6492F92B2459E606006EC261 /* NewPopsicleGroupAnnotationView.swift */; };
 		6492F92E245A009C006EC261 /* NewUserLocationAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6492F92D245A009C006EC261 /* NewUserLocationAnnotationView.swift */; };
+		649BDD30245BB4FF00A7BEF3 /* NewRefreshButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649BDD2F245BB4FF00A7BEF3 /* NewRefreshButton.swift */; };
 		649ED12723CE7020006D31B5 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649ED12623CE7020006D31B5 /* ProfileViewController.swift */; };
 		649ED12923CE73FC006D31B5 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649ED12823CE73FC006D31B5 /* Extensions.swift */; };
 		649ED12F23CE7B30006D31B5 /* PopsicleGroupIcon.xib in Resources */ = {isa = PBXBuildFile; fileRef = 649ED12E23CE7B30006D31B5 /* PopsicleGroupIcon.xib */; };
@@ -101,7 +101,6 @@
 		64484D4C23932AA500F33132 /* createEvent.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = createEvent.storyboard; sourceTree = "<group>"; };
 		644FCCAE23E22E780064A008 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		646FF6322457361300BD4271 /* categoryButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = categoryButtonView.swift; sourceTree = "<group>"; };
-		646FF634245736B500BD4271 /* NewRefreshButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRefreshButtonView.swift; sourceTree = "<group>"; };
 		646FF6362457373100BD4271 /* refreshButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = refreshButtonView.swift; sourceTree = "<group>"; };
 		646FF63E2458B8AB00BD4271 /* NewPopsicleAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPopsicleAnnotation.swift; sourceTree = "<group>"; };
 		648396422372AD980099B703 /* Octarine-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Octarine-Light.otf"; sourceTree = "<group>"; };
@@ -114,6 +113,7 @@
 		6492F9292459D180006EC261 /* NewPopsicleAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPopsicleAnnotationView.swift; sourceTree = "<group>"; };
 		6492F92B2459E606006EC261 /* NewPopsicleGroupAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPopsicleGroupAnnotationView.swift; sourceTree = "<group>"; };
 		6492F92D245A009C006EC261 /* NewUserLocationAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserLocationAnnotationView.swift; sourceTree = "<group>"; };
+		649BDD2F245BB4FF00A7BEF3 /* NewRefreshButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRefreshButton.swift; sourceTree = "<group>"; };
 		649ED12623CE7020006D31B5 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		649ED12823CE73FC006D31B5 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		649ED12E23CE7B30006D31B5 /* PopsicleGroupIcon.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopsicleGroupIcon.xib; sourceTree = "<group>"; };
@@ -268,7 +268,7 @@
 				646FF6322457361300BD4271 /* categoryButtonView.swift */,
 				646FF6362457373100BD4271 /* refreshButtonView.swift */,
 				64FF1EC223946A3D005DB686 /* NewCategoryButtonView.swift */,
-				646FF634245736B500BD4271 /* NewRefreshButtonView.swift */,
+				649BDD2F245BB4FF00A7BEF3 /* NewRefreshButton.swift */,
 				6492F92B2459E606006EC261 /* NewPopsicleGroupAnnotationView.swift */,
 				6492F9292459D180006EC261 /* NewPopsicleAnnotationView.swift */,
 				6492F92D245A009C006EC261 /* NewUserLocationAnnotationView.swift */,
@@ -660,12 +660,12 @@
 				64EBC29F2454A69A005D445C /* AlertViewController.swift in Sources */,
 				648FE1B723E22B3100C1DCDC /* Poppin.xcdatamodeld in Sources */,
 				64F91E79237221B900C4DC24 /* LocationSearchTable.swift in Sources */,
-				646FF635245736B500BD4271 /* NewRefreshButtonView.swift in Sources */,
 				6492F92C2459E606006EC261 /* NewPopsicleGroupAnnotationView.swift in Sources */,
 				64BD292623FC9B3700B5C32D /* registerPageViewController.swift in Sources */,
 				642A93962419985B005B027F /* popsicleInfoViewController.swift in Sources */,
 				F56E777423AA823E009BF8E9 /* SceneDelegate.swift in Sources */,
 				F647A6EA243BDE8A006EC083 /* Shimmer.swift in Sources */,
+				649BDD30245BB4FF00A7BEF3 /* NewRefreshButton.swift in Sources */,
 				F56E777223A95FCA009BF8E9 /* Storyboard+Utility.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

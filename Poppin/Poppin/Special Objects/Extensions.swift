@@ -46,6 +46,9 @@ extension UIImage {
     static let goldPopsicleIcon = UIImage(named: "goldButton")!
     static let rainbowPopsicleIcon = UIImage(named: "popsicleGroupButton")!
     static let appBackground = UIImage(named: "LaunchScreenBG")!
+    static let defaultUserPictureM = UIImage(named: "defaultUserPictureM")!
+    static let defaultUserPictureXL = UIImage(named: "defaultUserPictureXL")!
+    static let defaultUserPictureXS = UIImage(named: "defaultUserPictureXS")!
     
 }
 
@@ -57,9 +60,9 @@ extension UIView {
         layer.cornerRadius = 8.0
         layer.cornerCurve = .continuous
         layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOffset = CGSize(width: 0.0, height: 2.0) // Shifts shadow
-        layer.shadowOpacity = 0.2 // Higher value means more opaque
-        layer.shadowRadius = 2 // Higher value means more blurry
+        layer.shadowOffset = CGSize(width: 0.0, height: 3.0) // Shifts shadow
+        layer.shadowOpacity = 0.3 // Higher value means more opaque
+        layer.shadowRadius = 3 // Higher value means more blurry
         var maskedCorners = CACornerMask()
         
         if let cr = cornerRadius { layer.cornerRadius = cr }

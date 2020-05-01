@@ -329,7 +329,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
     }
     
-    lazy var newRefreshButtonView: NewRefreshButtonView = NewRefreshButtonView()
+    lazy var newRefreshButtonView: NewRefreshButton = NewRefreshButton()
     
     
     // *** VIEWCONTROLLER FUNCTIONS ***
@@ -345,7 +345,9 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
         super.viewDidLoad()
         
-        // present(NewMainViewController(), animated: true, completion: nil) // FOR TRIAL PURPOSES
+        // PROGRAMMATIC
+        
+        // present(NewMainViewController(), animated: true, completion: nil) // DESELECT TO SEE NEW MAIN - FOR TRIAL PURPOSES
         
         monitor = (UIApplication.shared.delegate as! AppDelegate).monitor
         

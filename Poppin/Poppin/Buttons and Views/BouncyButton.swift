@@ -10,7 +10,7 @@ import UIKit
 
 class BouncyButton: UIButton {
     
-    private let edgeInset: CGFloat = .getPercentageWidth(percentage: 3)
+    public static let bouncyButtonEdgeInset: CGFloat = .getPercentageWidth(percentage: 3)
     
     private var bouncyButtonImage: UIImage?
     
@@ -36,7 +36,6 @@ class BouncyButton: UIButton {
         setImage(bouncyButtonImage?.withRenderingMode(.alwaysOriginal), for: .normal)
         contentHorizontalAlignment = .fill
         contentVerticalAlignment = .fill
-        contentEdgeInsets = UIEdgeInsets(top: edgeInset, left: edgeInset, bottom: edgeInset, right: edgeInset)
         imageView?.contentMode = .scaleAspectFit
         addTarget(self, action: #selector(animateDown), for: [.touchDown, .touchDragEnter])
         addTarget(self, action: #selector(animateUp), for: [.touchDragExit, .touchCancel, .touchUpInside, .touchUpOutside])
@@ -71,6 +70,17 @@ class BouncyButton: UIButton {
         
     }
     
+    public func changeBouncyButtonImage(image: UIImage?) {
+        
+        if let newImage = image {
+            
+            self.bouncyButtonImage = newImage
+            setImage(bouncyButtonImage, for: .normal)
+            
+        }
+        
+    }
+    
 }
 
 class BubbleButton: BouncyButton {
@@ -79,7 +89,7 @@ class BubbleButton: BouncyButton {
         
         super.layoutSubviews()
         
-        addShadowAndRoundCorners(cornerRadius: min(bounds.width, bounds.height) / 2)
+        addShadowAndRoundCorners(cornerRadius: min(frame.width, frame.height)/2, shadowOffset: CGSize(width: 0.0, height: 1.0), shadowOpacity: 0.3, shadowRadius: 8.0)
         
     }
     
