@@ -36,6 +36,8 @@
 		6492F92A2459D180006EC261 /* NewPopsicleAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6492F9292459D180006EC261 /* NewPopsicleAnnotationView.swift */; };
 		6492F92C2459E606006EC261 /* NewPopsicleGroupAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6492F92B2459E606006EC261 /* NewPopsicleGroupAnnotationView.swift */; };
 		6492F92E245A009C006EC261 /* NewUserLocationAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6492F92D245A009C006EC261 /* NewUserLocationAnnotationView.swift */; };
+		64986C6D245DDE5300B840A0 /* NewMapFiltersStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64986C6C245DDE5300B840A0 /* NewMapFiltersStackView.swift */; };
+		64986C6F245E088D00B840A0 /* NewBouncyButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64986C6E245E088D00B840A0 /* NewBouncyButtons.swift */; };
 		649BDD30245BB4FF00A7BEF3 /* NewRefreshButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649BDD2F245BB4FF00A7BEF3 /* NewRefreshButton.swift */; };
 		649ED12723CE7020006D31B5 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649ED12623CE7020006D31B5 /* ProfileViewController.swift */; };
 		649ED12923CE73FC006D31B5 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649ED12823CE73FC006D31B5 /* Extensions.swift */; };
@@ -48,7 +50,6 @@
 		64C10D642372A1950087CE23 /* LocationSearchTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C10D632372A1950087CE23 /* LocationSearchTableCell.swift */; };
 		64EBC29F2454A69A005D445C /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EBC29E2454A69A005D445C /* AlertViewController.swift */; };
 		64EBC2A32455C453005D445C /* createEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EBC2A22455C453005D445C /* createEventViewController.swift */; };
-		64EBC2A52455F505005D445C /* BouncyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EBC2A42455F505005D445C /* BouncyButton.swift */; };
 		64EC089D245C5C4E007ED7AC /* NewSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EC089C245C5C4E007ED7AC /* NewSearchBar.swift */; };
 		64EC089F245C887D007ED7AC /* NewSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EC089E245C887D007ED7AC /* NewSearchViewController.swift */; };
 		64EC08A3245C9FF8007ED7AC /* NewViewControllerTransitionAnimators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EC08A2245C9FF8007ED7AC /* NewViewControllerTransitionAnimators.swift */; };
@@ -116,6 +117,8 @@
 		6492F9292459D180006EC261 /* NewPopsicleAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPopsicleAnnotationView.swift; sourceTree = "<group>"; };
 		6492F92B2459E606006EC261 /* NewPopsicleGroupAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPopsicleGroupAnnotationView.swift; sourceTree = "<group>"; };
 		6492F92D245A009C006EC261 /* NewUserLocationAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserLocationAnnotationView.swift; sourceTree = "<group>"; };
+		64986C6C245DDE5300B840A0 /* NewMapFiltersStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMapFiltersStackView.swift; sourceTree = "<group>"; };
+		64986C6E245E088D00B840A0 /* NewBouncyButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBouncyButtons.swift; sourceTree = "<group>"; };
 		649BDD2F245BB4FF00A7BEF3 /* NewRefreshButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRefreshButton.swift; sourceTree = "<group>"; };
 		649ED12623CE7020006D31B5 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		649ED12823CE73FC006D31B5 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -129,7 +132,6 @@
 		64D8799E23FDA3F4004E24C5 /* GTMSessionFetcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GTMSessionFetcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		64EBC29E2454A69A005D445C /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 		64EBC2A22455C453005D445C /* createEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = createEventViewController.swift; sourceTree = "<group>"; };
-		64EBC2A42455F505005D445C /* BouncyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BouncyButton.swift; sourceTree = "<group>"; };
 		64EC089C245C5C4E007ED7AC /* NewSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSearchBar.swift; sourceTree = "<group>"; };
 		64EC089E245C887D007ED7AC /* NewSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSearchViewController.swift; sourceTree = "<group>"; };
 		64EC08A2245C9FF8007ED7AC /* NewViewControllerTransitionAnimators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewViewControllerTransitionAnimators.swift; sourceTree = "<group>"; };
@@ -278,7 +280,8 @@
 				6492F92B2459E606006EC261 /* NewPopsicleGroupAnnotationView.swift */,
 				6492F9292459D180006EC261 /* NewPopsicleAnnotationView.swift */,
 				6492F92D245A009C006EC261 /* NewUserLocationAnnotationView.swift */,
-				64EBC2A42455F505005D445C /* BouncyButton.swift */,
+				64986C6E245E088D00B840A0 /* NewBouncyButtons.swift */,
+				64986C6C245DDE5300B840A0 /* NewMapFiltersStackView.swift */,
 			);
 			path = "Buttons and Views";
 			sourceTree = "<group>";
@@ -663,7 +666,7 @@
 				64337B4E2407257B00DCC9FA /* editProfileViewController.swift in Sources */,
 				649ED13123CE7B45006D31B5 /* PopsicleGroupAnnotationView.swift in Sources */,
 				F6A8A7502433D68E0069FB36 /* FloatingRatingView.swift in Sources */,
-				64EBC2A52455F505005D445C /* BouncyButton.swift in Sources */,
+				64986C6D245DDE5300B840A0 /* NewMapFiltersStackView.swift in Sources */,
 				646FF6372457373100BD4271 /* refreshButtonView.swift in Sources */,
 				646FF6332457361300BD4271 /* categoryButtonView.swift in Sources */,
 				644FCCAF23E22E780064A008 /* DataController.swift in Sources */,
@@ -674,6 +677,7 @@
 				6492F92C2459E606006EC261 /* NewPopsicleGroupAnnotationView.swift in Sources */,
 				64BD292623FC9B3700B5C32D /* registerPageViewController.swift in Sources */,
 				642A93962419985B005B027F /* popsicleInfoViewController.swift in Sources */,
+				64986C6F245E088D00B840A0 /* NewBouncyButtons.swift in Sources */,
 				F56E777423AA823E009BF8E9 /* SceneDelegate.swift in Sources */,
 				F647A6EA243BDE8A006EC083 /* Shimmer.swift in Sources */,
 				649BDD30245BB4FF00A7BEF3 /* NewRefreshButton.swift in Sources */,

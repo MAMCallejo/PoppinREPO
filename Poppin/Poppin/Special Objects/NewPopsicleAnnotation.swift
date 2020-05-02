@@ -16,6 +16,7 @@ enum PopsicleCategory: String {
     case Social = "Social"
     case Sports = "Sports"
     case Shows = "Shows"
+    case Poppin = "Poppin"
     case Default = "Default"
     
 }
@@ -61,12 +62,13 @@ class NewPopsicleAnnotation: MKPointAnnotation {
         
         switch popsicleAnnotationData.eventCategory {
             
-        case .Education: return UIImage(named: "educationButton")!
-        case .Food: return UIImage(named: "foodButton")!
-        case .Social: return UIImage(named: "socialButton")!
-        case .Sports: return UIImage(named: "sportsButton")!
-        case .Shows: return UIImage(named: "showsButton")!
-        case .Default: return UIImage(named: "defaultCategoryButton")!
+        case .Education: return .educationPopsicleIcon
+        case .Food: return .foodPopsicleIcon
+        case .Social: return .socialPopsicleIcon
+        case .Sports: return .sportsPopsicleIcon
+        case .Shows: return .showsPopsicleIcon
+        case .Poppin: return .poppinPopsicleIcon
+        case .Default: return .defaultPopsicleIcon
             
         }
         

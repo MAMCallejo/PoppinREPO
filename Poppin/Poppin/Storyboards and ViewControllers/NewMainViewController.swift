@@ -20,7 +20,7 @@ class NewMainViewController: UIViewController {
     public static let defaultMainMapViewCenterLocation = CLLocationCoordinate2D(latitude: 39.6766, longitude: -104.9619) // DU Campus
     
     private let mainVerticalEdgeInset: CGFloat = .getPercentageWidth(percentage: 5)
-    private let mainHorizontalEdgeInset: CGFloat = .getPercentageWidth(percentage: 5)
+    private let mainHorizontalEdgeInset: CGFloat = .getPercentageWidth(percentage: 3)
     
     lazy private var mainUserPicture: UIImage = .defaultUserPicture64
     
@@ -74,40 +74,74 @@ class NewMainViewController: UIViewController {
         
         var mainCreateEventButton = BubbleButton(bouncyButtonImage: UIImage(systemSymbol: .plus, withConfiguration: UIImage.SymbolConfiguration(pointSize: 0, weight: .bold)).withTintColor(.mainNAVYBLUE, renderingMode: .alwaysOriginal))
         mainCreateEventButton.backgroundColor = .white
-        mainCreateEventButton.contentEdgeInsets = UIEdgeInsets(top: BubbleButton.bouncyButtonEdgeInset, left: BubbleButton.bouncyButtonEdgeInset, bottom: BubbleButton.bouncyButtonEdgeInset, right: BubbleButton.bouncyButtonEdgeInset)
+        mainCreateEventButton.contentEdgeInsets = UIEdgeInsets(top: mainHorizontalEdgeInset, left: mainHorizontalEdgeInset, bottom: mainHorizontalEdgeInset, right: mainHorizontalEdgeInset)
         mainCreateEventButton.addTarget(self, action: #selector(transitionToCreateEvent(sender:)), for: .touchUpInside)
+        
+        mainCreateEventButton.translatesAutoresizingMaskIntoConstraints = false
+        mainCreateEventButton.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 17)).isActive = true
+        mainCreateEventButton.heightAnchor.constraint(equalTo: mainCreateEventButton.widthAnchor).isActive = true
+        
         return mainCreateEventButton
         
     }()
     
-    lazy private var mainSearchBar: NewSearchBar = {
-    
-        var mainSearchBar = NewSearchBar()
+    lazy private var mainTopStackView: UIStackView = {
+        
+        let mainSearchBar = NewSearchBar()
         mainSearchBar.delegate = self
-        return mainSearchBar
         
-    }()
-    
-    lazy private var mainMenuButton: ImageBubbleButton = {
-        
-        var mainMenuButton = ImageBubbleButton(bouncyButtonImage: mainUserPicture)
+        let mainMenuButton = ImageBubbleButton(bouncyButtonImage: mainUserPicture)
         mainMenuButton.layer.borderColor = UIColor.white.cgColor
         mainMenuButton.addTarget(self, action: #selector(openMenu(sender:)), for: .touchUpInside)
-        return mainMenuButton
+        
+        mainMenuButton.translatesAutoresizingMaskIntoConstraints = false
+        mainMenuButton.heightAnchor.constraint(equalTo: mainMenuButton.widthAnchor).isActive = true
+        
+        let mainRefreshButton = NewRefreshButton()
+        
+        mainRefreshButton.translatesAutoresizingMaskIntoConstraints = false
+        mainRefreshButton.heightAnchor.constraint(equalTo: mainRefreshButton.widthAnchor).isActive = true
+        
+        var mainTopStackView = UIStackView(arrangedSubviews: [mainMenuButton, mainSearchBar, mainRefreshButton])
+        mainTopStackView.axis = .horizontal
+        mainTopStackView.alignment = .fill
+        mainTopStackView.distribution = .fill
+        mainTopStackView.spacing = mainHorizontalEdgeInset
+        
+        mainTopStackView.translatesAutoresizingMaskIntoConstraints = false
+        mainTopStackView.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 90)).isActive = true
+        mainTopStackView.heightAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 11)).isActive = true
+        
+        return mainTopStackView
         
     }()
     
-    lazy private var mainRefreshButton: NewRefreshButton = NewRefreshButton()
-    
-    lazy private var mainMapOptionsButton: BubbleButton = {
+    lazy private var mainMapFiltersStackView: NewMapFiltersStackView = {
         
-        var mainMapOptionsButton = BubbleButton(bouncyButtonImage: UIImage(systemSymbol: .arrowtriangleDownFill, withConfiguration: UIImage.SymbolConfiguration(pointSize: 0, weight: .bold)).withTintColor(.mainNAVYBLUE, renderingMode: .alwaysOriginal))
-        mainMapOptionsButton.backgroundColor = .white
-        mainMapOptionsButton.contentEdgeInsets = UIEdgeInsets(top: BubbleButton.bouncyButtonEdgeInset*0.6, left: BubbleButton.bouncyButtonEdgeInset*0.6, bottom: BubbleButton.bouncyButtonEdgeInset*0.6, right: BubbleButton.bouncyButtonEdgeInset*0.6)
-        mainMapOptionsButton.addTarget(self, action: #selector(showMapOptions), for: .touchUpInside)
-        return mainMapOptionsButton
+        var mainMapFiltersStackView = NewMapFiltersStackView()
+        
+        for view in mainMapFiltersStackView.arrangedSubviews {
+            
+            if let filterButton = view as? PopsicleBubbleButton {
+                
+                filterButton.addTarget(self, action: #selector(filterPopsicles(sender:)), for: .touchUpInside)
+                
+            }
+            
+        }
+        
+        mainMapFiltersStackView.translatesAutoresizingMaskIntoConstraints = false
+        mainMapFiltersStackView.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 11)).isActive = true
+        
+        return mainMapFiltersStackView
         
     }()
+    
+    @objc func filterPopsicles(sender: PopsicleBubbleButton) {
+        
+        
+        
+    }
     
     @objc func showMapOptions(sender: BouncyButton) {
         
@@ -116,6 +150,7 @@ class NewMainViewController: UIViewController {
     }
     
     @objc func transitionToCreateEvent(sender: BouncyButton) {
+        
         
     }
     
@@ -179,39 +214,16 @@ class NewMainViewController: UIViewController {
         mainMapView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         
         view.addSubview(mainCreateEventButton)
-        mainCreateEventButton.translatesAutoresizingMaskIntoConstraints = false
         mainCreateEventButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -mainVerticalEdgeInset).isActive = true
         mainCreateEventButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        mainCreateEventButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.17).isActive = true
-        mainCreateEventButton.heightAnchor.constraint(equalTo: mainCreateEventButton.widthAnchor).isActive = true
         
-        view.addSubview(mainMenuButton)
-        mainMenuButton.translatesAutoresizingMaskIntoConstraints = false
-        mainMenuButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: mainVerticalEdgeInset/2).isActive = true
-        mainMenuButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: mainHorizontalEdgeInset*0.8).isActive = true
-        mainMenuButton.widthAnchor.constraint(equalTo: mainCreateEventButton.widthAnchor, multiplier: 0.62).isActive = true
-        mainMenuButton.heightAnchor.constraint(equalTo: mainMenuButton.widthAnchor).isActive = true
+        view.addSubview(mainTopStackView)
+        mainTopStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: mainVerticalEdgeInset).isActive = true
+        mainTopStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
-        view.addSubview(mainRefreshButton)
-        mainRefreshButton.translatesAutoresizingMaskIntoConstraints = false
-        mainRefreshButton.centerYAnchor.constraint(equalTo: mainMenuButton.centerYAnchor).isActive = true
-        mainRefreshButton.widthAnchor.constraint(equalTo: mainMenuButton.widthAnchor).isActive = true
-        mainRefreshButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -mainHorizontalEdgeInset*0.8).isActive = true
-        mainRefreshButton.heightAnchor.constraint(equalTo: mainRefreshButton.widthAnchor).isActive = true
-        
-        view.addSubview(mainSearchBar)
-        mainSearchBar.translatesAutoresizingMaskIntoConstraints = false
-        mainSearchBar.centerYAnchor.constraint(equalTo: mainMenuButton.centerYAnchor).isActive = true
-        mainSearchBar.leadingAnchor.constraint(equalTo: mainMenuButton.trailingAnchor, constant: mainHorizontalEdgeInset*0.8).isActive = true
-        mainSearchBar.trailingAnchor.constraint(equalTo: mainRefreshButton.leadingAnchor, constant: -mainHorizontalEdgeInset*0.8).isActive = true
-        mainSearchBar.heightAnchor.constraint(equalTo: mainMenuButton.heightAnchor, multiplier: 1).isActive = true
-        
-        view.addSubview(mainMapOptionsButton)
-        mainMapOptionsButton.translatesAutoresizingMaskIntoConstraints = false
-        mainMapOptionsButton.centerXAnchor.constraint(equalTo: mainRefreshButton.centerXAnchor).isActive = true
-        mainMapOptionsButton.topAnchor.constraint(equalTo: mainRefreshButton.bottomAnchor, constant: mainVerticalEdgeInset*0.8).isActive = true
-        mainMapOptionsButton.widthAnchor.constraint(equalTo: mainRefreshButton.widthAnchor, multiplier: 0.6).isActive = true
-        mainMapOptionsButton.heightAnchor.constraint(equalTo: mainMapOptionsButton.widthAnchor).isActive = true
+        view.addSubview(mainMapFiltersStackView)
+        mainMapFiltersStackView.trailingAnchor.constraint(equalTo: mainTopStackView.trailingAnchor).isActive = true
+        mainMapFiltersStackView.topAnchor.constraint(equalTo: mainTopStackView.bottomAnchor, constant: mainHorizontalEdgeInset).isActive = true
         
     }
     

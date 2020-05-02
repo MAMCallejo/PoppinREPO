@@ -11,25 +11,35 @@ import UIKit
 class NewSearchViewController: UIViewController {
     
     private let searchVerticalEdgeInset: CGFloat = .getPercentageWidth(percentage: 5)
-    private let searchHorizontalEdgeInset: CGFloat = .getPercentageWidth(percentage: 5)
+    private let searchHorizontalEdgeInset: CGFloat = .getPercentageWidth(percentage: 3)
     
-    lazy private var searchBar: NewSearchBar = {
-    
-        var mainSearchBar = NewSearchBar(tintColor: UIColor.darkGray)
-        mainSearchBar.delegate = self
-        return mainSearchBar
+    lazy private var searchTopStackView: UIStackView = {
         
-    }()
-    
-    lazy private var cancelButton: BouncyButton = {
+        let searchBar = NewSearchBar(tintColor: UIColor.darkGray)
+        searchBar.becomeFirstResponder()
+        searchBar.delegate = self
         
-        var cancelButton = BouncyButton(bouncyButtonImage: nil)
+        let cancelButton = BouncyButton(bouncyButtonImage: nil)
         cancelButton.setTitle("Cancel", for: .normal)
         cancelButton.titleLabel!.textAlignment = .center
         cancelButton.setTitleColor(.darkGray, for: .normal)
-        cancelButton.titleLabel!.font = UIFont(name: "Octarine-Bold", size: .getWidthFitSize(minSize: 14.0, maxSize: 19.0))
+        cancelButton.titleLabel!.font = UIFont(name: "Octarine-Bold", size: .getWidthFitSize(minSize: 15.0, maxSize: 20.0))
         cancelButton.addTarget(self, action: #selector(closeSearchBar), for: .touchUpInside)
-        return cancelButton
+        
+        cancelButton.translatesAutoresizingMaskIntoConstraints = false
+        cancelButton.widthAnchor.constraint(equalToConstant: cancelButton.intrinsicContentSize.width).isActive = true
+        
+        var searchTopStackView = UIStackView(arrangedSubviews: [searchBar, cancelButton])
+        searchTopStackView.axis = .horizontal
+        searchTopStackView.alignment = .fill
+        searchTopStackView.distribution = .fill
+        searchTopStackView.spacing = searchHorizontalEdgeInset
+        
+        searchTopStackView.translatesAutoresizingMaskIntoConstraints = false
+        searchTopStackView.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 90)).isActive = true
+        searchTopStackView.heightAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 11)).isActive = true
+        
+        return searchTopStackView
         
     }()
     
@@ -59,21 +69,10 @@ class NewSearchViewController: UIViewController {
         
         view.backgroundColor = .white
         
-        view.addSubview(cancelButton)
-        cancelButton.translatesAutoresizingMaskIntoConstraints = false
-        cancelButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: searchVerticalEdgeInset/2).isActive = true
-        cancelButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -searchHorizontalEdgeInset*0.8).isActive = true
-        cancelButton.widthAnchor.constraint(equalToConstant: cancelButton.intrinsicContentSize.width).isActive = true
-        cancelButton.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.17*0.62).isActive = true
-        
-        view.addSubview(searchBar)
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        searchBar.centerYAnchor.constraint(equalTo: cancelButton.centerYAnchor).isActive = true
-        searchBar.heightAnchor.constraint(equalTo: cancelButton.heightAnchor).isActive = true
-        searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: searchHorizontalEdgeInset*0.8).isActive = true
-        searchBar.trailingAnchor.constraint(equalTo: cancelButton.leadingAnchor, constant: -searchHorizontalEdgeInset*0.8).isActive = true
-        
-        searchBar.becomeFirstResponder()
+        view.addSubview(searchTopStackView)
+        searchTopStackView.translatesAutoresizingMaskIntoConstraints = false
+        searchTopStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: searchVerticalEdgeInset).isActive = true
+        searchTopStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
     }
     

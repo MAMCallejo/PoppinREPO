@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class NewPopsicleGroupAnnotationView: MKAnnotationView {
+final class NewPopsicleGroupAnnotationView: MKAnnotationView {
     
     public static let defaultPopsicleGroupAnnotationViewReuseIdentifier = "PopsicleGroupAnnotationView"
     

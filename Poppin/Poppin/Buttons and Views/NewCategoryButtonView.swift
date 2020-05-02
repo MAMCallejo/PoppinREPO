@@ -1,5 +1,5 @@
 //
-//  NewCategoryButtonView.swift - Abstraction of the category pickers. They simply represent when a category has been picked or not.
+//  NewCategoryButtonView.swift
 //  Poppin
 //
 //  Created by Manuel Alejandro Martin Callejo on 12/1/19.
@@ -119,6 +119,10 @@ class NewCategoryButtonView: UIView {
             
             categoryNameLabel.text = PopsicleCategory.Shows.rawValue
             categoryIconImageView.image = .showsPopsicleIcon
+            
+        case .Poppin:
+            
+            categoryNameLabel.text = PopsicleCategory.Poppin.rawValue
             
         case .Default:
             

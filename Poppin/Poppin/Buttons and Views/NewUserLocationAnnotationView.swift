@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class NewUserLocationAnnotationView: MKAnnotationView {
+final class NewUserLocationAnnotationView: MKAnnotationView {
     
     public static let defaultUserLocationAnnotationViewReuseIdentifier = "UserLocationAnnotationView"
     

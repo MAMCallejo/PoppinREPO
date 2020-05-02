@@ -1,5 +1,5 @@
 //
-//  BouncyButton.swift - UIButton with a bouncy animation when pressed.
+//  NewBouncyButtons.swift - UIButtons with a bouncy animation when pressed (and subclasses).
 //  Poppin
 //
 //  Created by Manuel Alejandro Martin Callejo on 4/26/20.
@@ -95,7 +95,53 @@ class BubbleButton: BouncyButton {
     
 }
 
-class ImageBubbleButton: BubbleButton {
+final class PopsicleBubbleButton: BubbleButton {
+    
+    private(set) var popsicleCategory: PopsicleCategory = .Default
+    
+    public var isActive: Bool = false
+    
+    init(popsicleCategory: PopsicleCategory?) {
+        
+        if let newPopsicleCategory = popsicleCategory {
+            
+            self.popsicleCategory = newPopsicleCategory
+            
+            switch newPopsicleCategory {
+                
+            case .Education: super.init(bouncyButtonImage: UIImage.educationPopsicleIcon)
+                
+            case .Food: super.init(bouncyButtonImage: UIImage.foodPopsicleIcon)
+                
+            case .Social: super.init(bouncyButtonImage: UIImage.socialPopsicleIcon)
+                
+            case .Sports: super.init(bouncyButtonImage: UIImage.sportsPopsicleIcon)
+                
+            case .Shows: super.init(bouncyButtonImage: UIImage.showsPopsicleIcon)
+                
+            case .Poppin: super.init(bouncyButtonImage: UIImage.poppinPopsicleIcon)
+                
+            case .Default: super.init(bouncyButtonImage: UIImage.defaultPopsicleIcon)
+                
+            }
+            
+        } else {
+            
+            super.init(bouncyButtonImage: UIImage.defaultPopsicleIcon)
+            
+        }
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        
+        super.init(coder: aDecoder)
+        
+    }
+    
+}
+
+final class ImageBubbleButton: BubbleButton {
     
     override func layoutSubviews() {
         

@@ -55,9 +55,9 @@ class NewSearchBar: UISearchBar {
         
         super.layoutSubviews()
         
-        searchTextField.font = UIFont(name: "Octarine-Bold", size: .getWidthFitSize(minSize: 14.0, maxSize: 19.0))
+        searchTextField.font = UIFont(name: "Octarine-Bold", size: .getWidthFitSize(minSize: 15.0, maxSize: 20.0))
         searchTextField.textColor = searchBarTintColor
-        searchTextField.layer.cornerRadius = .getWidthFitSize(minSize: 15.0, maxSize: 20.0)
+        searchTextField.layer.cornerRadius = .getWidthFitSize(minSize: 14.0, maxSize: 19.0)
         searchTextField.layer.cornerCurve = .continuous
         searchTextField.layer.masksToBounds = true
         searchTextField.leftView?.tintColor = searchBarTintColor

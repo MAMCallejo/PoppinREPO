@@ -8,9 +8,9 @@
 
 import UIKit
 
-class NewRefreshButton: BubbleButton {
+final class NewRefreshButton: BubbleButton {
     
-    private let edgeInset: CGFloat = .getPercentageWidth(percentage: 1.5)
+    private let edgeInset: CGFloat = .getPercentageWidth(percentage: 1.8)
     
     private let refreshButtonIcon: UIImage = .upToDateSymbol128
     
@@ -28,7 +28,7 @@ class NewRefreshButton: BubbleButton {
                                     self.backgroundColor = .white
                                     self.setImage(self.refreshButtonIcon, for: .normal)
                                     self.setTitle(nil, for: .normal)
-                                    self.contentEdgeInsets = UIEdgeInsets(top: BubbleButton.bouncyButtonEdgeInset*0.65, left: BubbleButton.bouncyButtonEdgeInset*0.65, bottom: BubbleButton.bouncyButtonEdgeInset*0.65, right: BubbleButton.bouncyButtonEdgeInset*0.65)
+                                    self.contentEdgeInsets = UIEdgeInsets(top: self.edgeInset, left: self.edgeInset, bottom: self.edgeInset, right: self.edgeInset)
                                     
                     }, completion: nil)
                     
@@ -84,7 +84,7 @@ class NewRefreshButton: BubbleButton {
         titleLabel!.textAlignment = .center
         titleLabel!.textColor = .white
         titleLabel!.font = UIFont(name: "Octarine-Bold", size: .getWidthFitSize(minSize: 12, maxSize: 14))
-        contentEdgeInsets = UIEdgeInsets(top: BubbleButton.bouncyButtonEdgeInset*0.65, left: BubbleButton.bouncyButtonEdgeInset*0.65, bottom: BubbleButton.bouncyButtonEdgeInset*0.65, right: BubbleButton.bouncyButtonEdgeInset*0.65)
+        contentEdgeInsets = UIEdgeInsets(top: edgeInset, left: edgeInset, bottom: edgeInset, right: edgeInset)
         
     }
     

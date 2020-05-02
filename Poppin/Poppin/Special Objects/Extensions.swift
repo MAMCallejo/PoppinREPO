@@ -43,7 +43,7 @@ extension UIImage {
     static let socialPopsicleIcon = UIImage(named: "socialButton")!
     static let sportsPopsicleIcon = UIImage(named: "sportsButton")!
     static let showsPopsicleIcon = UIImage(named: "showsButton")!
-    static let goldPopsicleIcon = UIImage(named: "goldButton")!
+    static let poppinPopsicleIcon = UIImage(named: "goldButton")!
     static let rainbowPopsicleIcon = UIImage(named: "popsicleGroupButton")!
     static let appBackground = UIImage(named: "LaunchScreenBG")!
     static let defaultUserPicture64 = UIImage(named: "defaultUserPicture64")!
