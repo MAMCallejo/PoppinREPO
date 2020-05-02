@@ -22,7 +22,7 @@ class NewMainViewController: UIViewController {
     private let mainVerticalEdgeInset: CGFloat = .getPercentageWidth(percentage: 5)
     private let mainHorizontalEdgeInset: CGFloat = .getPercentageWidth(percentage: 5)
     
-    lazy private var mainUserPicture: UIImage = .defaultUserPictureXS
+    lazy private var mainUserPicture: UIImage = .defaultUserPicture64
     
     lazy private var mainMapView: MKMapView = {
         
@@ -80,24 +80,18 @@ class NewMainViewController: UIViewController {
         
     }()
     
-    lazy private var mainSearchBar: UISearchBar = {
+    lazy private var mainSearchBar: NewSearchBar = {
     
-        var searchBar = UISearchBar()
-        searchBar.isTranslucent = true
-        searchBar.searchBarStyle = .minimal
-        searchBar.placeholder = "Search..."
-        searchBar.searchTextField.font = UIFont(name: "Octarine-Bold", size: .getWidthFitSize(minSize: 14.0, maxSize: 19.0))
-        searchBar.searchTextField.textColor = .mainNAVYBLUE
-        searchBar.delegate = self
-        return searchBar
+        var mainSearchBar = NewSearchBar()
+        mainSearchBar.delegate = self
+        return mainSearchBar
         
     }()
     
-    lazy private var mainMenuButton: BubbleButton = {
+    lazy private var mainMenuButton: ImageBubbleButton = {
         
-        var mainMenuButton = BubbleButton(bouncyButtonImage: mainUserPicture)
+        var mainMenuButton = ImageBubbleButton(bouncyButtonImage: mainUserPicture)
         mainMenuButton.layer.borderColor = UIColor.white.cgColor
-        mainMenuButton.layer.borderWidth = .getWidthFitSize(minSize: 3.5, maxSize: 4.5)
         mainMenuButton.addTarget(self, action: #selector(openMenu(sender:)), for: .touchUpInside)
         return mainMenuButton
         
@@ -105,8 +99,23 @@ class NewMainViewController: UIViewController {
     
     lazy private var mainRefreshButton: NewRefreshButton = NewRefreshButton()
     
-    @objc func transitionToCreateEvent(sender: BouncyButton) {
+    lazy private var mainMapOptionsButton: BubbleButton = {
         
+        var mainMapOptionsButton = BubbleButton(bouncyButtonImage: UIImage(systemSymbol: .arrowtriangleDownFill, withConfiguration: UIImage.SymbolConfiguration(pointSize: 0, weight: .bold)).withTintColor(.mainNAVYBLUE, renderingMode: .alwaysOriginal))
+        mainMapOptionsButton.backgroundColor = .white
+        mainMapOptionsButton.contentEdgeInsets = UIEdgeInsets(top: BubbleButton.bouncyButtonEdgeInset*0.6, left: BubbleButton.bouncyButtonEdgeInset*0.6, bottom: BubbleButton.bouncyButtonEdgeInset*0.6, right: BubbleButton.bouncyButtonEdgeInset*0.6)
+        mainMapOptionsButton.addTarget(self, action: #selector(showMapOptions), for: .touchUpInside)
+        return mainMapOptionsButton
+        
+    }()
+    
+    @objc func showMapOptions(sender: BouncyButton) {
+        
+        
+        
+    }
+    
+    @objc func transitionToCreateEvent(sender: BouncyButton) {
         
     }
     
@@ -173,29 +182,36 @@ class NewMainViewController: UIViewController {
         mainCreateEventButton.translatesAutoresizingMaskIntoConstraints = false
         mainCreateEventButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -mainVerticalEdgeInset).isActive = true
         mainCreateEventButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        mainCreateEventButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/6).isActive = true
+        mainCreateEventButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.17).isActive = true
         mainCreateEventButton.heightAnchor.constraint(equalTo: mainCreateEventButton.widthAnchor).isActive = true
-        
-        view.addSubview(mainSearchBar)
-        mainSearchBar.translatesAutoresizingMaskIntoConstraints = false
-        mainSearchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: mainVerticalEdgeInset/2).isActive = true
-        mainSearchBar.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        mainSearchBar.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7).isActive = true
-        mainSearchBar.heightAnchor.constraint(equalTo: mainCreateEventButton.heightAnchor, multiplier: 1/2).isActive = true
         
         view.addSubview(mainMenuButton)
         mainMenuButton.translatesAutoresizingMaskIntoConstraints = false
-        mainMenuButton.centerYAnchor.constraint(equalTo: mainSearchBar.centerYAnchor).isActive = true
+        mainMenuButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: mainVerticalEdgeInset/2).isActive = true
         mainMenuButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: mainHorizontalEdgeInset*0.8).isActive = true
-        mainMenuButton.trailingAnchor.constraint(equalTo: mainSearchBar.leadingAnchor, constant: -mainHorizontalEdgeInset*0.28).isActive = true
+        mainMenuButton.widthAnchor.constraint(equalTo: mainCreateEventButton.widthAnchor, multiplier: 0.62).isActive = true
         mainMenuButton.heightAnchor.constraint(equalTo: mainMenuButton.widthAnchor).isActive = true
         
         view.addSubview(mainRefreshButton)
         mainRefreshButton.translatesAutoresizingMaskIntoConstraints = false
-        mainRefreshButton.centerYAnchor.constraint(equalTo: mainSearchBar.centerYAnchor).isActive = true
-        mainRefreshButton.leadingAnchor.constraint(equalTo: mainSearchBar.trailingAnchor, constant: mainHorizontalEdgeInset*0.28).isActive = true
+        mainRefreshButton.centerYAnchor.constraint(equalTo: mainMenuButton.centerYAnchor).isActive = true
+        mainRefreshButton.widthAnchor.constraint(equalTo: mainMenuButton.widthAnchor).isActive = true
         mainRefreshButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -mainHorizontalEdgeInset*0.8).isActive = true
         mainRefreshButton.heightAnchor.constraint(equalTo: mainRefreshButton.widthAnchor).isActive = true
+        
+        view.addSubview(mainSearchBar)
+        mainSearchBar.translatesAutoresizingMaskIntoConstraints = false
+        mainSearchBar.centerYAnchor.constraint(equalTo: mainMenuButton.centerYAnchor).isActive = true
+        mainSearchBar.leadingAnchor.constraint(equalTo: mainMenuButton.trailingAnchor, constant: mainHorizontalEdgeInset*0.8).isActive = true
+        mainSearchBar.trailingAnchor.constraint(equalTo: mainRefreshButton.leadingAnchor, constant: -mainHorizontalEdgeInset*0.8).isActive = true
+        mainSearchBar.heightAnchor.constraint(equalTo: mainMenuButton.heightAnchor, multiplier: 1).isActive = true
+        
+        view.addSubview(mainMapOptionsButton)
+        mainMapOptionsButton.translatesAutoresizingMaskIntoConstraints = false
+        mainMapOptionsButton.centerXAnchor.constraint(equalTo: mainRefreshButton.centerXAnchor).isActive = true
+        mainMapOptionsButton.topAnchor.constraint(equalTo: mainRefreshButton.bottomAnchor, constant: mainVerticalEdgeInset*0.8).isActive = true
+        mainMapOptionsButton.widthAnchor.constraint(equalTo: mainRefreshButton.widthAnchor, multiplier: 0.6).isActive = true
+        mainMapOptionsButton.heightAnchor.constraint(equalTo: mainMapOptionsButton.widthAnchor).isActive = true
         
     }
     
@@ -444,7 +460,30 @@ extension NewMainViewController: MKMapViewDelegate {
 
 extension NewMainViewController: UISearchBarDelegate {
     
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        
+        let searchVC = NewSearchViewController()
+        searchVC.transitioningDelegate = self
+        self.present(searchVC, animated: true, completion: nil)
+        
+        return false
+        
+    }
     
-    
+}
+
+extension NewMainViewController: UIViewControllerTransitioningDelegate {
+
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        return ViewControllerFadeTransitionAnimator(presenting: true)
+        
+    }
+
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        return ViewControllerFadeTransitionAnimator(presenting: false)
+        
+    }
 }
 

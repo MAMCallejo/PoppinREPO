@@ -88,8 +88,20 @@ class BubbleButton: BouncyButton {
     override func layoutSubviews() {
         
         super.layoutSubviews()
+    
+        addShadowAndRoundCorners(cornerRadius: min(frame.width, frame.height)/2, shadowColor: UIColor.darkGray, shadowOffset: CGSize(width: 0.0, height: 1.0), shadowOpacity: 0.3, shadowRadius: 8.0)
         
-        addShadowAndRoundCorners(cornerRadius: min(frame.width, frame.height)/2, shadowOffset: CGSize(width: 0.0, height: 1.0), shadowOpacity: 0.3, shadowRadius: 8.0)
+    }
+    
+}
+
+class ImageBubbleButton: BubbleButton {
+    
+    override func layoutSubviews() {
+        
+        super.layoutSubviews()
+        
+        imageView?.layer.cornerRadius = min(frame.width, frame.height)/2
         
     }
     

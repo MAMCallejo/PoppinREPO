@@ -12,7 +12,7 @@ class NewRefreshButton: BubbleButton {
     
     private let edgeInset: CGFloat = .getPercentageWidth(percentage: 1.5)
     
-    private let refreshButtonIcon: UIImage = UIImage(systemSymbol: .checkmark, withConfiguration: UIImage.SymbolConfiguration(pointSize: 0, weight: .semibold)).withTintColor(.mainNAVYBLUE, renderingMode: .alwaysOriginal)
+    private let refreshButtonIcon: UIImage = .upToDateSymbol128
     
     private(set) var refreshButtonCount: Int = 0 {
         

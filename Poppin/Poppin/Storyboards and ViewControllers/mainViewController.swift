@@ -347,7 +347,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
         // PROGRAMMATIC
         
-        // present(NewMainViewController(), animated: true, completion: nil) // DESELECT TO SEE NEW MAIN - FOR TRIAL PURPOSES
+        present(NewMainViewController(), animated: true, completion: nil) // DESELECT TO SEE NEW MAIN - FOR TRIAL PURPOSES
         
         monitor = (UIApplication.shared.delegate as! AppDelegate).monitor
         

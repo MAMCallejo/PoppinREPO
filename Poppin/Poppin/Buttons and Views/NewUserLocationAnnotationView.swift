@@ -13,26 +13,10 @@ class NewUserLocationAnnotationView: MKAnnotationView {
     
     public static let defaultUserLocationAnnotationViewReuseIdentifier = "UserLocationAnnotationView"
     
-    lazy private var userLocationContainerView: UIView = {
-        
-        var userLocationContainerView = UIView()
-        userLocationContainerView.backgroundColor = .clear
-        
-        userLocationContainerView.addSubview(userLocationIconImageView)
-        userLocationIconImageView.translatesAutoresizingMaskIntoConstraints = false
-        userLocationIconImageView.topAnchor.constraint(equalTo: userLocationContainerView.topAnchor).isActive = true
-        userLocationIconImageView.leadingAnchor.constraint(equalTo: userLocationContainerView.leadingAnchor).isActive = true
-        userLocationIconImageView.trailingAnchor.constraint(equalTo: userLocationContainerView.trailingAnchor).isActive = true
-        userLocationIconImageView.bottomAnchor.constraint(equalTo: userLocationContainerView.bottomAnchor).isActive = true
-        
-        return userLocationContainerView
-        
-    }()
-    
     lazy private var userLocationIconImageView: UIImageView = {
         
         var userLocationIconImageView = UIImageView()
-        userLocationIconImageView.image = .defaultUserPictureXS
+        userLocationIconImageView.image = .defaultUserPicture64
         userLocationIconImageView.contentMode = .scaleAspectFit
         return userLocationIconImageView
         
@@ -56,19 +40,21 @@ class NewUserLocationAnnotationView: MKAnnotationView {
     
     private func configureView() {
         
-        canShowCallout = false
         frame.size = CGSize(width: .getPercentageWidth(percentage: 9), height: .getPercentageWidth(percentage: 9))
-        layer.cornerRadius = frame.height / 2
+        addShadowAndRoundCorners(cornerRadius: min(frame.width, frame.height)/2, shadowColor: UIColor.darkGray, shadowOffset: CGSize(width: 0.0, height: 1.0), shadowOpacity: 0.3, shadowRadius: 8.0)
+        userLocationIconImageView.layer.cornerRadius = min(frame.width, frame.height)/2
+        userLocationIconImageView.clipsToBounds = true
         layer.borderColor = UIColor.mainNAVYBLUE.cgColor
         layer.borderWidth = .getWidthFitSize(minSize: 1, maxSize: 2)
         displayPriority = .required
+        canShowCallout = false
         
-        addSubview(userLocationContainerView)
-        userLocationContainerView.translatesAutoresizingMaskIntoConstraints = false
-        userLocationContainerView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        userLocationContainerView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        userLocationContainerView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        userLocationContainerView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        addSubview(userLocationIconImageView)
+        userLocationIconImageView.translatesAutoresizingMaskIntoConstraints = false
+        userLocationIconImageView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        userLocationIconImageView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        userLocationIconImageView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        userLocationIconImageView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         
     }
     

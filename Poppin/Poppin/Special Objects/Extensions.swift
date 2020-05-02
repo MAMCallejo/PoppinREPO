@@ -46,9 +46,12 @@ extension UIImage {
     static let goldPopsicleIcon = UIImage(named: "goldButton")!
     static let rainbowPopsicleIcon = UIImage(named: "popsicleGroupButton")!
     static let appBackground = UIImage(named: "LaunchScreenBG")!
-    static let defaultUserPictureM = UIImage(named: "defaultUserPictureM")!
-    static let defaultUserPictureXL = UIImage(named: "defaultUserPictureXL")!
-    static let defaultUserPictureXS = UIImage(named: "defaultUserPictureXS")!
+    static let defaultUserPicture64 = UIImage(named: "defaultUserPicture64")!
+    static let defaultUserPicture128 = UIImage(named: "defaultUserPicture128")!
+    static let defaultUserPicture256 = UIImage(named: "defaultUserPicture256")!
+    static let upToDateSymbol256 = UIImage(named: "upToDateButton256")!
+    static let upToDateSymbol128 = UIImage(named: "upToDateButton128")!
+    static let upToDateSymbol64 = UIImage(named: "upToDateButton64")!
     
 }
 

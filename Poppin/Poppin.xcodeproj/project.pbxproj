@@ -49,6 +49,9 @@
 		64EBC29F2454A69A005D445C /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EBC29E2454A69A005D445C /* AlertViewController.swift */; };
 		64EBC2A32455C453005D445C /* createEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EBC2A22455C453005D445C /* createEventViewController.swift */; };
 		64EBC2A52455F505005D445C /* BouncyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EBC2A42455F505005D445C /* BouncyButton.swift */; };
+		64EC089D245C5C4E007ED7AC /* NewSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EC089C245C5C4E007ED7AC /* NewSearchBar.swift */; };
+		64EC089F245C887D007ED7AC /* NewSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EC089E245C887D007ED7AC /* NewSearchViewController.swift */; };
+		64EC08A3245C9FF8007ED7AC /* NewViewControllerTransitionAnimators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EC08A2245C9FF8007ED7AC /* NewViewControllerTransitionAnimators.swift */; };
 		64F91E79237221B900C4DC24 /* LocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F91E78237221B900C4DC24 /* LocationSearchTable.swift */; };
 		64FF1EC323946A3D005DB686 /* NewCategoryButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FF1EC223946A3D005DB686 /* NewCategoryButtonView.swift */; };
 		F56E776223A8F69F009BF8E9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F56E776123A8F69F009BF8E9 /* GoogleService-Info.plist */; };
@@ -127,6 +130,9 @@
 		64EBC29E2454A69A005D445C /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 		64EBC2A22455C453005D445C /* createEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = createEventViewController.swift; sourceTree = "<group>"; };
 		64EBC2A42455F505005D445C /* BouncyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BouncyButton.swift; sourceTree = "<group>"; };
+		64EC089C245C5C4E007ED7AC /* NewSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSearchBar.swift; sourceTree = "<group>"; };
+		64EC089E245C887D007ED7AC /* NewSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSearchViewController.swift; sourceTree = "<group>"; };
+		64EC08A2245C9FF8007ED7AC /* NewViewControllerTransitionAnimators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewViewControllerTransitionAnimators.swift; sourceTree = "<group>"; };
 		64F91E78237221B900C4DC24 /* LocationSearchTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTable.swift; sourceTree = "<group>"; };
 		64FF1EC223946A3D005DB686 /* NewCategoryButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCategoryButtonView.swift; sourceTree = "<group>"; };
 		667691B23288CC80E5B0CCCA /* libPods-PoppinTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PoppinTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -299,6 +305,7 @@
 				6402707A2353C51F00641159 /* Main.storyboard */,
 				640270782353C51F00641159 /* mainViewController.swift */,
 				6439FFEC245A54D5007ED50F /* NewMainViewController.swift */,
+				64EC089E245C887D007ED7AC /* NewSearchViewController.swift */,
 			);
 			path = "Storyboards and ViewControllers";
 			sourceTree = "<group>";
@@ -313,6 +320,7 @@
 				649ED13223CE7B4D006D31B5 /* PopsicleGroupIcon.swift */,
 				649ED12823CE73FC006D31B5 /* Extensions.swift */,
 				646FF63E2458B8AB00BD4271 /* NewPopsicleAnnotation.swift */,
+				64EC08A2245C9FF8007ED7AC /* NewViewControllerTransitionAnimators.swift */,
 			);
 			path = "Special Objects";
 			sourceTree = "<group>";
@@ -342,6 +350,7 @@
 				64F91E78237221B900C4DC24 /* LocationSearchTable.swift */,
 				64C10D632372A1950087CE23 /* LocationSearchTableCell.swift */,
 				6417F270237B975400033D8D /* mainNavigationController.swift */,
+				64EC089C245C5C4E007ED7AC /* NewSearchBar.swift */,
 			);
 			path = "Search Bar";
 			sourceTree = "<group>";
@@ -639,10 +648,12 @@
 				649ED12923CE73FC006D31B5 /* Extensions.swift in Sources */,
 				6417F271237B975400033D8D /* mainNavigationController.swift in Sources */,
 				64FF1EC323946A3D005DB686 /* NewCategoryButtonView.swift in Sources */,
+				64EC089D245C5C4E007ED7AC /* NewSearchBar.swift in Sources */,
 				646FF63F2458B8AB00BD4271 /* NewPopsicleAnnotation.swift in Sources */,
 				64C10D642372A1950087CE23 /* LocationSearchTableCell.swift in Sources */,
 				6492F92A2459D180006EC261 /* NewPopsicleAnnotationView.swift in Sources */,
 				64EBC2A32455C453005D445C /* createEventViewController.swift in Sources */,
+				64EC089F245C887D007ED7AC /* NewSearchViewController.swift in Sources */,
 				648AEB99237E250C008743E8 /* pinPopsicle.swift in Sources */,
 				6439FFED245A54D5007ED50F /* NewMainViewController.swift in Sources */,
 				64BD292423FC9B2500B5C32D /* loginPageViewController.swift in Sources */,
@@ -667,6 +678,7 @@
 				F647A6EA243BDE8A006EC083 /* Shimmer.swift in Sources */,
 				649BDD30245BB4FF00A7BEF3 /* NewRefreshButton.swift in Sources */,
 				F56E777223A95FCA009BF8E9 /* Storyboard+Utility.swift in Sources */,
+				64EC08A3245C9FF8007ED7AC /* NewViewControllerTransitionAnimators.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
