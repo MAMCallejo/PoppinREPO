@@ -310,12 +310,10 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
     
     // PROGRAMMATIC CODE
     
-    lazy var newCategoryButton = NewCategoryButtonView(category: .Education)
-    
     @objc private func selectCategoryButton(sender: UIButton) {
         
-        print(newCategoryButton.isSelected)
-        print(newCategoryButton.category)
+        //print(newCategoryButton.isSelected)
+        //print(newCategoryButton.category)
         
         /*let ann2 = NewPopsicleAnnotation(popsicleAnnotationData: NewPopsicleAnnotation.defaultPopsicleAnnotationData)
         
@@ -727,8 +725,6 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
         // PROGRAMMATIC CODE
         
-        filtersStackView.addArrangedSubview(newCategoryButton)
-        
         view.addSubview(newRefreshButtonView)
         
         newRefreshButtonView.translatesAutoresizingMaskIntoConstraints = false
@@ -737,7 +733,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         newRefreshButtonView.widthAnchor.constraint(equalTo: refreshButton.widthAnchor).isActive = true
         newRefreshButtonView.heightAnchor.constraint(equalTo: newRefreshButtonView.widthAnchor, multiplier: 1).isActive = true
         
-        newCategoryButton.categoryButton.addTarget(self, action: #selector(selectCategoryButton(sender:)), for: .touchUpInside)
+        //newCategoryButton.categoryButton.addTarget(self, action: #selector(selectCategoryButton(sender:)), for: .touchUpInside)
         
         mainMapView.showsUserLocation = false
         
