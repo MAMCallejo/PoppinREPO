@@ -52,6 +52,9 @@ extension UIImage {
     static let upToDateSymbol256 = UIImage(named: "upToDateButton256")!
     static let upToDateSymbol128 = UIImage(named: "upToDateButton128")!
     static let upToDateSymbol64 = UIImage(named: "upToDateButton64")!
+    static let showMoreOptionsButton256 = UIImage(named: "showMoreOptionsButton256")!
+    static let showMoreOptionsButton128 = UIImage(named: "showMoreOptionsButton128")!
+    static let showMoreOptionsButton64 = UIImage(named: "showMoreOptionsButton64")!
     
 }
 

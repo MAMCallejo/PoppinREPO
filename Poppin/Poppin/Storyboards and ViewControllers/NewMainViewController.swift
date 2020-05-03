@@ -75,7 +75,7 @@ class NewMainViewController: UIViewController {
         var mainCreateEventButton = BubbleButton(bouncyButtonImage: UIImage(systemSymbol: .plus, withConfiguration: UIImage.SymbolConfiguration(pointSize: 0, weight: .bold)).withTintColor(.mainNAVYBLUE, renderingMode: .alwaysOriginal))
         mainCreateEventButton.backgroundColor = .white
         mainCreateEventButton.contentEdgeInsets = UIEdgeInsets(top: mainHorizontalEdgeInset, left: mainHorizontalEdgeInset, bottom: mainHorizontalEdgeInset, right: mainHorizontalEdgeInset)
-        mainCreateEventButton.addTarget(self, action: #selector(transitionToCreateEvent(sender:)), for: .touchUpInside)
+        mainCreateEventButton.addTarget(self, action: #selector(transitionToCreateEvent), for: .touchUpInside)
         
         mainCreateEventButton.translatesAutoresizingMaskIntoConstraints = false
         mainCreateEventButton.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 17)).isActive = true
@@ -92,7 +92,7 @@ class NewMainViewController: UIViewController {
         
         let mainMenuButton = ImageBubbleButton(bouncyButtonImage: mainUserPicture)
         mainMenuButton.layer.borderColor = UIColor.white.cgColor
-        mainMenuButton.addTarget(self, action: #selector(openMenu(sender:)), for: .touchUpInside)
+        mainMenuButton.addTarget(self, action: #selector(openMenu), for: .touchUpInside)
         
         mainMenuButton.translatesAutoresizingMaskIntoConstraints = false
         mainMenuButton.heightAnchor.constraint(equalTo: mainMenuButton.widthAnchor).isActive = true
@@ -124,7 +124,11 @@ class NewMainViewController: UIViewController {
             
             if let filterButton = view as? PopsicleBubbleButton {
                 
-                filterButton.addTarget(self, action: #selector(filterPopsicles(sender:)), for: .touchUpInside)
+                filterButton.addTarget(self, action: #selector(filterPopsicles), for: .touchUpInside)
+                
+            } else if let showHideFiltersButton = view as? BubbleButton {
+                
+                showHideFiltersButton.addTarget(self, action: #selector(toggleMainMapDarkLayerView), for: .touchUpInside)
                 
             }
             
@@ -137,20 +141,52 @@ class NewMainViewController: UIViewController {
         
     }()
     
-    @objc func filterPopsicles(sender: PopsicleBubbleButton) {
+    lazy private var mainMapDarkLayerView: NewDarkLayerView = {
+    
+        var mainMapDarkLayerView = NewDarkLayerView()
         
+        let darkLayerViewTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(toggleFilters))
+        let darkLayerViewSwipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(toggleFilters))
+        mainMapDarkLayerView.addGestureRecognizer(darkLayerViewTapRecognizer)
+        mainMapDarkLayerView.addGestureRecognizer(darkLayerViewSwipeRecognizer)
+        mainMapDarkLayerView.isUserInteractionEnabled = true
         
+        mainMapDarkLayerView.isVisible = false
+        
+        return mainMapDarkLayerView
+    
+    }()
+    
+    @objc func toggleMainMapDarkLayerView() {
+        
+        mainMapDarkLayerView.toggleDarkLayerView()
         
     }
     
-    @objc func showMapOptions(sender: BouncyButton) {
+    @objc func toggleFilters() {
         
-        
+        toggleMainMapDarkLayerView()
+        mainMapFiltersStackView.toggleFilters()
         
     }
     
-    @objc func transitionToCreateEvent(sender: BouncyButton) {
+    @objc func filterPopsicles() {
         
+        if mainMapDarkLayerView.isVisible {
+            
+            toggleMainMapDarkLayerView()
+            
+        }
+        
+    }
+    
+    @objc func transitionToCreateEvent() {
+        
+        if mainMapDarkLayerView.isVisible {
+            
+            toggleFilters()
+            
+        }
         
     }
     
@@ -160,7 +196,7 @@ class NewMainViewController: UIViewController {
         
     }
     
-    @objc func openMenu(sender: BouncyButton) {
+    @objc func openMenu() {
         
         
         
@@ -212,6 +248,13 @@ class NewMainViewController: UIViewController {
         mainMapView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         mainMapView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         mainMapView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        
+        view.addSubview(mainMapDarkLayerView)
+        mainMapDarkLayerView.translatesAutoresizingMaskIntoConstraints = false
+        mainMapDarkLayerView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        mainMapDarkLayerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        mainMapDarkLayerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        mainMapDarkLayerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         
         view.addSubview(mainCreateEventButton)
         mainCreateEventButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -mainVerticalEdgeInset).isActive = true
@@ -473,6 +516,12 @@ extension NewMainViewController: MKMapViewDelegate {
 extension NewMainViewController: UISearchBarDelegate {
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        
+        if mainMapDarkLayerView.isVisible {
+            
+            toggleFilters()
+            
+        }
         
         let searchVC = NewSearchViewController()
         searchVC.transitioningDelegate = self
