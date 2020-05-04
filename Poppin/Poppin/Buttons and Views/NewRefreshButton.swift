@@ -94,7 +94,7 @@ final class NewRefreshButton: BubbleButton {
         
     }
     
-    public func increaseCounter(by step: Int?) {
+    func increaseCounter(by step: Int?) {
         
         if let newStep = step {
             
@@ -113,7 +113,7 @@ final class NewRefreshButton: BubbleButton {
         
     }
     
-    public func decreaseCounter(by step: Int?) {
+    func decreaseCounter(by step: Int?) {
         
         if let newStep = step {
             

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AlertViewController: UIViewController {
+final class AlertViewController: UIViewController {
     
     public static let defaultWarningIcon = UIImage(systemSymbol: .exclamationmarkTriangleFill)
     public static let defaultErrorIcon = UIImage(systemSymbol: .xmarkCircleFill)
@@ -155,7 +155,7 @@ class AlertButton: UIButton {
     
     public static let defaultTitle = "Ok"
         
-    lazy var alertButtonAction: (() -> Void) = {}
+    lazy fileprivate var alertButtonAction: (() -> Void) = {}
     
     convenience init() {
         

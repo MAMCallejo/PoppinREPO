@@ -116,11 +116,11 @@ class NewMainViewController: UIViewController {
         
     }()
     
-    lazy private var mainMapFiltersStackView: NewMapFiltersStackView = {
+    lazy private var mainMapFiltersView: NewMapFiltersView = {
         
-        var mainMapFiltersStackView = NewMapFiltersStackView()
+        var mainMapFiltersStackView = NewMapFiltersView()
         
-        for view in mainMapFiltersStackView.arrangedSubviews {
+        for view in mainMapFiltersStackView.mapFiltersStackView.arrangedSubviews {
             
             if let filterButton = view as? PopsicleBubbleButton {
                 
@@ -133,9 +133,6 @@ class NewMainViewController: UIViewController {
             }
             
         }
-        
-        mainMapFiltersStackView.translatesAutoresizingMaskIntoConstraints = false
-        mainMapFiltersStackView.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 11)).isActive = true
         
         return mainMapFiltersStackView
         
@@ -151,7 +148,7 @@ class NewMainViewController: UIViewController {
         mainMapDarkLayerView.addGestureRecognizer(darkLayerViewSwipeRecognizer)
         mainMapDarkLayerView.isUserInteractionEnabled = true
         
-        mainMapDarkLayerView.isVisible = false
+        mainMapDarkLayerView.toggleDarkLayerView()
         
         return mainMapDarkLayerView
     
@@ -166,7 +163,7 @@ class NewMainViewController: UIViewController {
     @objc func toggleFilters() {
         
         toggleMainMapDarkLayerView()
-        mainMapFiltersStackView.toggleFilters()
+        mainMapFiltersView.toggleFilters()
         
     }
     
@@ -264,9 +261,10 @@ class NewMainViewController: UIViewController {
         mainTopStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: mainVerticalEdgeInset).isActive = true
         mainTopStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
-        view.addSubview(mainMapFiltersStackView)
-        mainMapFiltersStackView.trailingAnchor.constraint(equalTo: mainTopStackView.trailingAnchor).isActive = true
-        mainMapFiltersStackView.topAnchor.constraint(equalTo: mainTopStackView.bottomAnchor, constant: mainHorizontalEdgeInset).isActive = true
+        view.addSubview(mainMapFiltersView)
+        mainMapFiltersView.translatesAutoresizingMaskIntoConstraints = false
+        mainMapFiltersView.trailingAnchor.constraint(equalTo: mainTopStackView.trailingAnchor).isActive = true
+        mainMapFiltersView.topAnchor.constraint(equalTo: mainTopStackView.bottomAnchor, constant: mainHorizontalEdgeInset).isActive = true
         
     }
     

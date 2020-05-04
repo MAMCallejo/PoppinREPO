@@ -12,7 +12,7 @@ final class NewDarkLayerView: UIView {
     
     lazy private var darkAlpha: CGFloat = 0.3
     
-    public var isVisible: Bool = true {
+    private(set) var isVisible: Bool = true {
         
         willSet (newVisibility) {
             
@@ -72,7 +72,7 @@ final class NewDarkLayerView: UIView {
         
     }
     
-    public func toggleDarkLayerView() {
+    func toggleDarkLayerView() {
         
         isVisible = !isVisible
         

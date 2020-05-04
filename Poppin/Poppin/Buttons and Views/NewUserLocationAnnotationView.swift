@@ -58,7 +58,7 @@ final class NewUserLocationAnnotationView: MKAnnotationView {
         
     }
     
-    public func setUserLocationIcon(icon: UIImage?) {
+    func setUserLocationIcon(icon: UIImage?) {
         
         if let newIcon = icon { self.userLocationIconImageView.image = newIcon }
         

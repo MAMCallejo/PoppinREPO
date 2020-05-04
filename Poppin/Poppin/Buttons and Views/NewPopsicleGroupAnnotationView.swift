@@ -114,7 +114,7 @@ final class NewPopsicleGroupAnnotationView: MKAnnotationView {
         
     }
     
-    public func setGroupCount(count: Int) {
+    func setGroupCount(count: Int) {
         
         popsicleGroupCount = count
         

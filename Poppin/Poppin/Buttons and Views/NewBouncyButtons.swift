@@ -70,7 +70,7 @@ class BouncyButton: UIButton {
         
     }
     
-    public func changeBouncyButtonImage(image: UIImage?) {
+    func changeBouncyButtonImage(image: UIImage?) {
         
         if let newImage = image {
             
@@ -90,52 +90,6 @@ class BubbleButton: BouncyButton {
         super.layoutSubviews()
     
         addShadowAndRoundCorners(cornerRadius: min(frame.width, frame.height)/2, shadowColor: UIColor.darkGray, shadowOffset: CGSize(width: 0.0, height: 1.0), shadowOpacity: 0.3, shadowRadius: 8.0)
-        
-    }
-    
-}
-
-final class PopsicleBubbleButton: BubbleButton {
-    
-    private(set) var popsicleCategory: PopsicleCategory = .Default
-    
-    public var isActive: Bool = false
-    
-    init(popsicleCategory: PopsicleCategory?) {
-        
-        if let newPopsicleCategory = popsicleCategory {
-            
-            self.popsicleCategory = newPopsicleCategory
-            
-            switch newPopsicleCategory {
-                
-            case .Education: super.init(bouncyButtonImage: UIImage.educationPopsicleIcon)
-                
-            case .Food: super.init(bouncyButtonImage: UIImage.foodPopsicleIcon)
-                
-            case .Social: super.init(bouncyButtonImage: UIImage.socialPopsicleIcon)
-                
-            case .Sports: super.init(bouncyButtonImage: UIImage.sportsPopsicleIcon)
-                
-            case .Shows: super.init(bouncyButtonImage: UIImage.showsPopsicleIcon)
-                
-            case .Poppin: super.init(bouncyButtonImage: UIImage.poppinPopsicleIcon)
-                
-            case .Default: super.init(bouncyButtonImage: UIImage.defaultPopsicleIcon)
-                
-            }
-            
-        } else {
-            
-            super.init(bouncyButtonImage: UIImage.defaultPopsicleIcon)
-            
-        }
-        
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        
-        super.init(coder: aDecoder)
         
     }
     
