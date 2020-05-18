@@ -230,9 +230,10 @@ class NewCreateEventViewController : UIViewController {
         // collection view constraints
         coverCollectionView.translatesAutoresizingMaskIntoConstraints = false
         coverCollectionView.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 100)).isActive = true
-        coverCollectionView.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 20)).isActive = true
-        coverCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 55)).isActive = true
+        coverCollectionView.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 25)).isActive = true
+        coverCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 50)).isActive = true
         coverCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
     }
     
 }
@@ -253,7 +254,7 @@ extension NewCreateEventViewController : UICollectionViewDataSource {
 // Cell width = cell height = collection view's height
 extension NewCreateEventViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.size.height, height: collectionView.frame.size.height)
+        return CGSize(width: .getPercentageWidth(percentage: 45), height: collectionView.frame.size.height)
     }
 }
 
@@ -335,7 +336,7 @@ class CollectionViewCell : UICollectionViewCell {
         //contentView.backgroundColor = .brown
         contentView.backgroundColor = .white
         contentView.layer.masksToBounds = false
-        contentView.layer.cornerRadius = 15
+        contentView.layer.cornerRadius = 16
 //        contentView.layer.shadowColor = UIColor.black.cgColor
 //        contentView.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
 //        contentView.layer.shadowOpacity = 0.3
@@ -354,6 +355,7 @@ class CustomFlowLayout: UICollectionViewFlowLayout {
     override init() {
         super.init()
         scrollDirection = .horizontal
+        minimumLineSpacing = .getPercentageWidth(percentage: 5)
     }
 
     required init?(coder aDecoder: NSCoder) {
