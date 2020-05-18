@@ -184,8 +184,35 @@ import UIKit
 
 class NewCreateEventViewController : UIViewController {
     
+    lazy var coverCollectionView : UICollectionView = {
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = .getPercentageWidth(percentage: 5)
+        
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        
+        cv.backgroundColor = UIColor(white: 1, alpha: 0.0)
+        cv.dataSource = self
+        cv.delegate = self
+        //cv.isPagingEnabled = true
+        cv.contentInsetAdjustmentBehavior = .always
+        cv.register(CollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        
+        // padding space = collection view width - cell width
+        let leftPadding = (cv.frame.size.width - cv.frame.size.height) / 2.0
+        let rightPadding = leftPadding
+        
+        cv.contentInset = UIEdgeInsets(top: 0, left: leftPadding, bottom: 0, right: rightPadding)
+        
+        // hide the scroll indicator
+        cv.showsHorizontalScrollIndicator = false
+        return cv
+        
+    }()
+    
     // initialize empty collection view (i think there's a better way to do this with lazy variables
-    var coverCollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), collectionViewLayout: UICollectionViewFlowLayout.init())
+//    var coverCollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), collectionViewLayout: UICollectionViewFlowLayout.init())
     
     let cellReuseIdentifier = "cell"
     
@@ -206,24 +233,27 @@ class NewCreateEventViewController : UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        view.backgroundColor = .black
 
-        coverCollectionView = UICollectionView(frame: view.frame, collectionViewLayout: CustomFlowLayout())
-        
-        // make collection view background transparent
-        coverCollectionView.backgroundColor = UIColor(white: 1, alpha: 0.0)
-        coverCollectionView.dataSource = self
-        coverCollectionView.delegate = self
-        coverCollectionView.contentInsetAdjustmentBehavior = .always
-        coverCollectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: "cell")
-        
-        // padding space = collection view width - cell width
-        let leftPadding = (coverCollectionView.frame.size.width - coverCollectionView.frame.size.height) / 2.0
-        let rightPadding = leftPadding
-        
-        coverCollectionView.contentInset = UIEdgeInsets(top: 0, left: leftPadding, bottom: 0, right: rightPadding)
-        
-        // hide the scroll indicator
-        coverCollectionView.showsHorizontalScrollIndicator = false
+//        coverCollectionView = UICollectionView(frame: view.frame, collectionViewLayout: CustomFlowLayout())
+//
+//        //makes collection view background transparent
+//        coverCollectionView.backgroundColor = UIColor(white: 1, alpha: 0.0)
+//        //coverCollectionView.backgroundColor = .black
+//        coverCollectionView.dataSource = self
+//        coverCollectionView.delegate = self
+//        coverCollectionView.contentInsetAdjustmentBehavior = .always
+//        coverCollectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+//
+//        // padding space = collection view width - cell width
+//        let leftPadding = (coverCollectionView.frame.size.width - coverCollectionView.frame.size.height) / 2.0
+//        let rightPadding = leftPadding
+//
+//        coverCollectionView.contentInset = UIEdgeInsets(top: 0, left: leftPadding, bottom: 0, right: rightPadding)
+//
+//        // hide the scroll indicator
+//        coverCollectionView.showsHorizontalScrollIndicator = false
         
         view.addSubview(coverCollectionView)
         
@@ -231,7 +261,7 @@ class NewCreateEventViewController : UIViewController {
         coverCollectionView.translatesAutoresizingMaskIntoConstraints = false
         coverCollectionView.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 100)).isActive = true
         coverCollectionView.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 25)).isActive = true
-        coverCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 50)).isActive = true
+        coverCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 35)).isActive = true
         coverCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
     }
@@ -350,16 +380,16 @@ class CollectionViewCell : UICollectionViewCell {
     
 }
 
-class CustomFlowLayout: UICollectionViewFlowLayout {
-
-    override init() {
-        super.init()
-        scrollDirection = .horizontal
-        minimumLineSpacing = .getPercentageWidth(percentage: 5)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-}
+//class CustomFlowLayout: UICollectionViewFlowLayout {
+//
+//    override init() {
+//        super.init()
+//        scrollDirection = .horizontal
+//        minimumLineSpacing = .getPercentageWidth(percentage: 5)
+//    }
+//
+//    required init?(coder aDecoder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
+//
+//}
