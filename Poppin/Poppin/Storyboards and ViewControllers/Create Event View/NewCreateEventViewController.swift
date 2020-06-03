@@ -10,7 +10,15 @@ import UIKit
 
 class NewCreateEventViewController : UIViewController {
     
-    lazy var coverCollectionView : UICollectionView = {
+//    lazy var category : UIView = {
+//        let card = UIView()
+//        card.backgroundColor = .white
+//        card.layer.masksToBounds = false
+//        card.layer.cornerRadius = 16
+//        return card
+//    }()
+    
+    lazy var categoryCollectionView : UICollectionView = {
         
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -57,16 +65,33 @@ class NewCreateEventViewController : UIViewController {
         
         super.viewDidLoad()
         
-        view.backgroundColor = .black
+        //UIGraphicsGetCurrentContext()?.setPatternPhase(CGSize(width: 2, height: 3))
+        view.backgroundColor = .white
+        let l = CAGradientLayer()
+        l.type = .radial
+        l.colors = [ UIColor.white.cgColor,
+            UIColor.purple.cgColor]
+        l.locations = [ 0.45 , 1 ]
+        l.startPoint = CGPoint(x: 0.5, y: 0.5)
+        l.endPoint = CGPoint(x: 1.3, y: 1.05)
+        l.frame = view.layer.bounds
+        view.layer.addSublayer(l)
         
-        view.addSubview(coverCollectionView)
+//        view.addSubview(category)
+//        // card-to-be-made view constraints
+//        category.translatesAutoresizingMaskIntoConstraints = false
+//        category.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 65)).isActive = true
+//        category.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 15)).isActive = true
+//        category.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 20)).isActive = true
+//        category.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
+        view.addSubview(categoryCollectionView)
         // collection view constraints
-        coverCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        coverCollectionView.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 100)).isActive = true
-        coverCollectionView.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 25)).isActive = true
-        coverCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 35)).isActive = true
-        coverCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        categoryCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        categoryCollectionView.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 100)).isActive = true
+        categoryCollectionView.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 30)).isActive = true
+        categoryCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 30)).isActive = true
+        categoryCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
     }
     
@@ -75,11 +100,33 @@ class NewCreateEventViewController : UIViewController {
 extension NewCreateEventViewController : UICollectionViewDataSource {
     // hardcode to show 10 cells, you can use array for this if you want
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return 7
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! CollectionViewCell
+        switch (indexPath.row)   {
+          case 0:
+            //
+            cell.contentView.backgroundColor = .white
+            cell.contentView.alpha = 0.0
+          case 1:
+            cell.contentView.backgroundColor = .purple
+          case 2:
+            cell.contentView.backgroundColor = .red
+          case 3:
+            cell.contentView.backgroundColor = .orange
+          case 4:
+            cell.contentView.backgroundColor = .yellow
+          case 5:
+            cell.contentView.backgroundColor = .green
+          case 6:
+            //
+            cell.contentView.backgroundColor = .white
+            cell.contentView.alpha = 0.0
+        default:
+           break
+         }
         return cell
     }
 }
@@ -87,9 +134,38 @@ extension NewCreateEventViewController : UICollectionViewDataSource {
 // Cell height is equal to the collection view's height
 // Cell width = cell height = collection view's height
 extension NewCreateEventViewController : UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: .getPercentageWidth(percentage: 45), height: collectionView.frame.size.height)
+        return CGSize(width: .getPercentageWidth(percentage: 50), height: collectionView.frame.size.height)
     }
+    
+}
+
+extension NewCreateEventViewController : UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
+
+     switch (indexPath.row)   {
+         case 0:
+            print("0")
+         case 1:
+            print("1")
+         case 2:
+            print("2")
+         case 3:
+            print("3")
+         case 4:
+            print("4")
+         case 5:
+            print("5")
+         case 6:
+            print("6")
+       default:
+          break
+        }
+
+    }
+    
 }
 
 extension NewCreateEventViewController : UIScrollViewDelegate {
@@ -98,14 +174,14 @@ extension NewCreateEventViewController : UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         // center X of collection View
-        let centerX = self.coverCollectionView.center.x
+        let centerX = self.categoryCollectionView.center.x
     
         // only perform the scaling on cells that are visible on screen
-        for cell in self.coverCollectionView.visibleCells {
+        for cell in self.categoryCollectionView.visibleCells {
             
             // coordinate of the cell in the viewcontroller's root view coordinate space
             let basePosition = cell.convert(CGPoint.zero, to: self.view)
-            let cellCenterX = basePosition.x + self.coverCollectionView.frame.size.height / 2.0
+            let cellCenterX = basePosition.x + self.categoryCollectionView.frame.size.height / 2.0
             
             let distance = abs(cellCenterX - centerX)
             
@@ -147,16 +223,16 @@ extension NewCreateEventViewController : UIScrollViewDelegate {
         var indexOfCellWithLargestWidth = 0
         var largestWidth : CGFloat = 1
         
-        for cell in self.coverCollectionView.visibleCells {
+        for cell in self.categoryCollectionView.visibleCells {
             if cell.frame.size.width > largestWidth {
                 largestWidth = cell.frame.size.width
-                if let indexPath = self.coverCollectionView.indexPath(for: cell) {
+                if let indexPath = self.categoryCollectionView.indexPath(for: cell) {
                     indexOfCellWithLargestWidth = indexPath.item
                 }
             }
         }
         
-        coverCollectionView.scrollToItem(at: IndexPath(item: indexOfCellWithLargestWidth, section: 0), at: .centeredHorizontally, animated: true)
+        categoryCollectionView.scrollToItem(at: IndexPath(item: indexOfCellWithLargestWidth, section: 0), at: .centeredHorizontally, animated: true)
     }
 
 }
@@ -167,8 +243,7 @@ class CollectionViewCell : UICollectionViewCell {
         
         super.init(frame: frame)
 
-        //contentView.backgroundColor = .brown
-        contentView.backgroundColor = .white
+        //contentView.backgroundColor = .white
         contentView.layer.masksToBounds = false
         contentView.layer.cornerRadius = 16
 //        contentView.layer.shadowColor = UIColor.black.cgColor
