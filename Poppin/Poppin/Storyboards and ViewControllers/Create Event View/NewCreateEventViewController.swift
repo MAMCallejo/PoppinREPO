@@ -18,6 +18,12 @@ class NewCreateEventViewController : UIViewController {
 //        return card
 //    }()
     
+    lazy var gLayer : CAGradientLayer = {
+        let g = CAGradientLayer()
+        g.type = .radial
+        return g
+    }()
+    
     lazy var categoryCollectionView : UICollectionView = {
         
         let layout = UICollectionViewFlowLayout()
@@ -74,15 +80,16 @@ class NewCreateEventViewController : UIViewController {
         
         //UIGraphicsGetCurrentContext()?.setPatternPhase(CGSize(width: 2, height: 3))
         view.backgroundColor = .white
-        let l = CAGradientLayer()
-        l.type = .radial
-        l.colors = [ UIColor.white.cgColor,
-            UIColor.purple.cgColor]
-        l.locations = [ 0 , 1 ]
-        l.startPoint = CGPoint(x: 0.5, y: 0.5)
-        l.endPoint = CGPoint(x: 1.4, y: 1.15)
-        l.frame = view.layer.bounds
-        view.layer.addSublayer(l)
+//        let l = CAGradientLayer()
+//        l.type = .radial
+//        l.colors = [ UIColor.white.cgColor,
+//            UIColor.purple.cgColor]
+//        l.locations = [ 0 , 1 ]
+//        l.startPoint = CGPoint(x: 0.5, y: 0.5)
+//        l.endPoint = CGPoint(x: 1.4, y: 1.15)
+//        l.frame = view.layer.bounds
+//        view.layer.addSublayer(l)
+        view.layer.insertSublayer(gLayer, at: 0)
         
 //        view.addSubview(category)
 //        // card-to-be-made view constraints
@@ -250,6 +257,37 @@ extension NewCreateEventViewController : UIScrollViewDelegate {
         }
         
         categoryCollectionView.scrollToItem(at: IndexPath(item: indexOfCellWithLargestWidth, section: 0), at: .centeredHorizontally, animated: true)
+        
+        var bColor = UIColor()
+        switch (indexOfCellWithLargestWidth)   {
+          case 0:
+            bColor = UIColor.white
+          case 1:
+             bColor = UIColor.purple
+          case 2:
+             bColor = UIColor.red
+          case 3:
+             bColor = UIColor.orange
+          case 4:
+             bColor = UIColor.yellow
+          case 5:
+             bColor = UIColor.green
+          case 6:
+             bColor = UIColor.white
+        default:
+           break
+         }
+        
+        let l = CAGradientLayer()
+        l.type = .radial
+        l.colors = [ UIColor.white.cgColor,
+                     bColor.cgColor]
+        l.locations = [ 0 , 1 ]
+        l.startPoint = CGPoint(x: 0.5, y: 0.5)
+        l.endPoint = CGPoint(x: 1.4, y: 1.15)
+        l.frame = view.layer.bounds
+        view.layer.replaceSublayer(gLayer, with: l)
+        gLayer = l
     }
 
 }
