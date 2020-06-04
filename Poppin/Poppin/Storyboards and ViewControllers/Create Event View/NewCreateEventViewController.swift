@@ -10,17 +10,15 @@ import UIKit
 
 class NewCreateEventViewController : UIViewController {
     
-//    lazy var category : UIView = {
-//        let card = UIView()
-//        card.backgroundColor = .white
-//        card.layer.masksToBounds = false
-//        card.layer.cornerRadius = 16
-//        return card
-//    }()
-    
     lazy var gLayer : CAGradientLayer = {
         let g = CAGradientLayer()
         g.type = .radial
+        g.colors = [ UIColor.white.cgColor,
+                     UIColor.purple.cgColor]
+        g.locations = [ 0 , 1 ]
+        g.startPoint = CGPoint(x: 0.5, y: 0.5)
+        g.endPoint = CGPoint(x: 1.4, y: 1.15)
+        g.frame = view.layer.bounds
         return g
     }()
     
@@ -39,8 +37,8 @@ class NewCreateEventViewController : UIViewController {
         //cv.contentInsetAdjustmentBehavior = .always
         cv.register(CollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         
-        // padding space = collection view width - cell width
-        let leftPadding = (cv.frame.size.width - cv.frame.size.height) / 2.0
+        // content padding so first cell appears in center of screen
+        let leftPadding = CGFloat.getPercentageWidth(percentage: 25)
         let rightPadding = leftPadding
         
         cv.contentInset = UIEdgeInsets(top: 0, left: leftPadding, bottom: 0, right: rightPadding)
@@ -66,38 +64,15 @@ class NewCreateEventViewController : UIViewController {
         /* FOR TRIAL PURPOSES */
         modalPresentationStyle = .overFullScreen
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        categoryCollectionView.setNeedsLayout()
-        categoryCollectionView.layoutIfNeeded()
-        categoryCollectionView.scrollToItem(at: IndexPath(item: 2, section: 0), at: .centeredHorizontally, animated: true)
-    }
-    
+
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
-        //UIGraphicsGetCurrentContext()?.setPatternPhase(CGSize(width: 2, height: 3))
         view.backgroundColor = .white
-//        let l = CAGradientLayer()
-//        l.type = .radial
-//        l.colors = [ UIColor.white.cgColor,
-//            UIColor.purple.cgColor]
-//        l.locations = [ 0 , 1 ]
-//        l.startPoint = CGPoint(x: 0.5, y: 0.5)
-//        l.endPoint = CGPoint(x: 1.4, y: 1.15)
-//        l.frame = view.layer.bounds
-//        view.layer.addSublayer(l)
+
+        // gradient
         view.layer.insertSublayer(gLayer, at: 0)
-        
-//        view.addSubview(category)
-//        // card-to-be-made view constraints
-//        category.translatesAutoresizingMaskIntoConstraints = false
-//        category.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 65)).isActive = true
-//        category.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 15)).isActive = true
-//        category.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 20)).isActive = true
-//        category.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         view.addSubview(categoryCollectionView)
         // collection view constraints
@@ -106,10 +81,7 @@ class NewCreateEventViewController : UIViewController {
         categoryCollectionView.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 30)).isActive = true
         categoryCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 30)).isActive = true
         categoryCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        
-//        categoryCollectionView.scrollToItem(at: IndexPath(item: 3, section: 0), at: .centeredHorizontally, animated: true)
-//        self.categoryCollectionView.setNeedsLayout()
-        
+
     }
     
 }
@@ -117,37 +89,27 @@ class NewCreateEventViewController : UIViewController {
 extension NewCreateEventViewController : UICollectionViewDataSource {
     // hardcode to show 10 cells, you can use array for this if you want
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 7
+        return 5
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! CollectionViewCell
         switch (indexPath.row)   {
           case 0:
-            //
-            //cell.contentView.backgroundColor = .white
-            //cell.contentView.alpha = 0.0
-            cell.pImage.image = nil
-          case 1:
             cell.contentView.backgroundColor = .purple
             cell.pImage.image = UIImage(named: "showsButton")
-          case 2:
+          case 1:
             cell.contentView.backgroundColor = .red
             cell.pImage.image = UIImage(named: "educationButton")
-          case 3:
+          case 2:
             cell.contentView.backgroundColor = .orange
             cell.pImage.image = UIImage(named: "foodButton")
-          case 4:
+          case 3:
             cell.contentView.backgroundColor = .yellow
             cell.pImage.image = UIImage(named: "socialButton")
-          case 5:
+          case 4:
             cell.contentView.backgroundColor = .green
             cell.pImage.image = UIImage(named: "sportsButton")
-          case 6:
-            //
-            //cell.contentView.backgroundColor = .white
-            //cell.contentView.alpha = 0.0
-            cell.pImage.image = nil
         default:
            break
          }
@@ -169,6 +131,7 @@ extension NewCreateEventViewController : UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
 
+        // controls what happens when a card is clicked
      switch (indexPath.row)   {
          case 0:
             print("0")
@@ -180,10 +143,6 @@ extension NewCreateEventViewController : UICollectionViewDelegate {
             print("3")
          case 4:
             print("4")
-         case 5:
-            print("5")
-         case 6:
-            print("6")
        default:
           break
         }
@@ -255,39 +214,38 @@ extension NewCreateEventViewController : UIScrollViewDelegate {
                 }
             }
         }
-        
+
         categoryCollectionView.scrollToItem(at: IndexPath(item: indexOfCellWithLargestWidth, section: 0), at: .centeredHorizontally, animated: true)
         
         var bColor = UIColor()
         switch (indexOfCellWithLargestWidth)   {
           case 0:
-            bColor = UIColor.white
-          case 1:
              bColor = UIColor.purple
-          case 2:
+          case 1:
              bColor = UIColor.red
-          case 3:
+          case 2:
              bColor = UIColor.orange
-          case 4:
+          case 3:
              bColor = UIColor.yellow
-          case 5:
+          case 4:
              bColor = UIColor.green
-          case 6:
-             bColor = UIColor.white
         default:
            break
          }
+
+        let newColors = [ UIColor.white.cgColor, bColor.cgColor]
         
-        let l = CAGradientLayer()
-        l.type = .radial
-        l.colors = [ UIColor.white.cgColor,
-                     bColor.cgColor]
-        l.locations = [ 0 , 1 ]
-        l.startPoint = CGPoint(x: 0.5, y: 0.5)
-        l.endPoint = CGPoint(x: 1.4, y: 1.15)
-        l.frame = view.layer.bounds
-        view.layer.replaceSublayer(gLayer, with: l)
-        gLayer = l
+        // gradient color change animation
+        let colorsAnimation = CABasicAnimation(keyPath: #keyPath(CAGradientLayer.colors))
+        colorsAnimation.fromValue = gLayer.colors
+        colorsAnimation.toValue = newColors
+        colorsAnimation.duration = 4.0
+        colorsAnimation.delegate = self
+        colorsAnimation.fillMode = .forwards
+        colorsAnimation.isRemovedOnCompletion = false
+        
+        gLayer.add(colorsAnimation, forKey: "colors")
+        gLayer.colors = newColors
     }
 
 }
@@ -305,10 +263,10 @@ class CollectionViewCell : UICollectionViewCell {
         //contentView.backgroundColor = .white
         contentView.layer.masksToBounds = false
         contentView.layer.cornerRadius = 16
-//        contentView.layer.shadowColor = UIColor.black.cgColor
-//        contentView.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
-//        contentView.layer.shadowOpacity = 0.3
-//        contentView.layer.shadowRadius = 2
+        contentView.layer.shadowColor = UIColor.black.cgColor
+        contentView.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
+        contentView.layer.shadowOpacity = 0.3
+        contentView.layer.shadowRadius = 2
         
         contentView.addSubview(pImage)
         pImage.translatesAutoresizingMaskIntoConstraints = false
@@ -323,4 +281,12 @@ class CollectionViewCell : UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+}
+
+extension NewCreateEventViewController: CAAnimationDelegate {
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        if flag {
+            print("animation finished")
+        }
+    }
 }
