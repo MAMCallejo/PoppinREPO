@@ -30,7 +30,7 @@ class NewCreateEventViewController : UIViewController {
         cv.dataSource = self
         cv.delegate = self
         //cv.isPagingEnabled = true
-        cv.contentInsetAdjustmentBehavior = .always
+        //cv.contentInsetAdjustmentBehavior = .always
         cv.register(CollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         
         // padding space = collection view width - cell width
@@ -61,6 +61,13 @@ class NewCreateEventViewController : UIViewController {
         modalPresentationStyle = .overFullScreen
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        categoryCollectionView.setNeedsLayout()
+        categoryCollectionView.layoutIfNeeded()
+        categoryCollectionView.scrollToItem(at: IndexPath(item: 2, section: 0), at: .centeredHorizontally, animated: true)
+    }
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -71,9 +78,9 @@ class NewCreateEventViewController : UIViewController {
         l.type = .radial
         l.colors = [ UIColor.white.cgColor,
             UIColor.purple.cgColor]
-        l.locations = [ 0.45 , 1 ]
+        l.locations = [ 0 , 1 ]
         l.startPoint = CGPoint(x: 0.5, y: 0.5)
-        l.endPoint = CGPoint(x: 1.3, y: 1.05)
+        l.endPoint = CGPoint(x: 1.4, y: 1.15)
         l.frame = view.layer.bounds
         view.layer.addSublayer(l)
         
@@ -93,6 +100,9 @@ class NewCreateEventViewController : UIViewController {
         categoryCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 30)).isActive = true
         categoryCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
+//        categoryCollectionView.scrollToItem(at: IndexPath(item: 3, section: 0), at: .centeredHorizontally, animated: true)
+//        self.categoryCollectionView.setNeedsLayout()
+        
     }
     
 }
@@ -108,22 +118,29 @@ extension NewCreateEventViewController : UICollectionViewDataSource {
         switch (indexPath.row)   {
           case 0:
             //
-            cell.contentView.backgroundColor = .white
-            cell.contentView.alpha = 0.0
+            //cell.contentView.backgroundColor = .white
+            //cell.contentView.alpha = 0.0
+            cell.pImage.image = nil
           case 1:
             cell.contentView.backgroundColor = .purple
+            cell.pImage.image = UIImage(named: "showsButton")
           case 2:
             cell.contentView.backgroundColor = .red
+            cell.pImage.image = UIImage(named: "educationButton")
           case 3:
             cell.contentView.backgroundColor = .orange
+            cell.pImage.image = UIImage(named: "foodButton")
           case 4:
             cell.contentView.backgroundColor = .yellow
+            cell.pImage.image = UIImage(named: "socialButton")
           case 5:
             cell.contentView.backgroundColor = .green
+            cell.pImage.image = UIImage(named: "sportsButton")
           case 6:
             //
-            cell.contentView.backgroundColor = .white
-            cell.contentView.alpha = 0.0
+            //cell.contentView.backgroundColor = .white
+            //cell.contentView.alpha = 0.0
+            cell.pImage.image = nil
         default:
            break
          }
@@ -239,6 +256,10 @@ extension NewCreateEventViewController : UIScrollViewDelegate {
 
 class CollectionViewCell : UICollectionViewCell {
     
+    lazy var pImage : UIImageView = {
+        return UIImageView()
+    }()
+    
     override init(frame: CGRect) {
         
         super.init(frame: frame)
@@ -250,6 +271,13 @@ class CollectionViewCell : UICollectionViewCell {
 //        contentView.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
 //        contentView.layer.shadowOpacity = 0.3
 //        contentView.layer.shadowRadius = 2
+        
+        contentView.addSubview(pImage)
+        pImage.translatesAutoresizingMaskIntoConstraints = false
+        pImage.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 20)).isActive = true
+        pImage.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 10)).isActive = true
+        pImage.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 3)).isActive = true
+        pImage.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         
     }
     
