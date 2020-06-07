@@ -10,6 +10,18 @@ import UIKit
 
 class NewCreateEventViewController : UIViewController {
     
+    lazy private var cancelButton: BubbleButton = {
+        var cb = BubbleButton(bouncyButtonImage: UIImage(systemSymbol: .multiply, withConfiguration: UIImage.SymbolConfiguration(pointSize: 0, weight: .medium)).withTintColor(.mainNAVYBLUE, renderingMode: .alwaysOriginal))
+        cb.backgroundColor = .white
+        cb.contentEdgeInsets = UIEdgeInsets(top: .getPercentageWidth(percentage: 2), left: .getPercentageWidth(percentage: 2), bottom: .getPercentageWidth(percentage: 2), right: .getPercentageWidth(percentage: 2))
+        cb.addTarget(self, action: #selector(dismissCreateEvent), for: .touchUpInside)
+        return cb
+    }()
+    
+    @objc func dismissCreateEvent() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     lazy var gLayer : CAGradientLayer = {
         let g = CAGradientLayer()
         g.type = .radial
@@ -55,14 +67,14 @@ class NewCreateEventViewController : UIViewController {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
         /* FOR TRIAL PURPOSES */
-        modalPresentationStyle = .overFullScreen
+        modalPresentationStyle = .fullScreen
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     
         /* FOR TRIAL PURPOSES */
-        modalPresentationStyle = .overFullScreen
+        modalPresentationStyle = .fullScreen
     }
 
     override func viewDidLoad() {
@@ -74,14 +86,21 @@ class NewCreateEventViewController : UIViewController {
         // gradient
         view.layer.insertSublayer(gLayer, at: 0)
         
+        // collection view
         view.addSubview(categoryCollectionView)
-        // collection view constraints
         categoryCollectionView.translatesAutoresizingMaskIntoConstraints = false
         categoryCollectionView.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 100)).isActive = true
         categoryCollectionView.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 30)).isActive = true
         categoryCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 30)).isActive = true
         categoryCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-
+        
+        // cancel button
+        view.addSubview(cancelButton)
+        cancelButton.translatesAutoresizingMaskIntoConstraints = false
+        cancelButton.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 10)).isActive = true
+        cancelButton.heightAnchor.constraint(equalTo: cancelButton.widthAnchor).isActive = true
+        cancelButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 2)).isActive = true
+        cancelButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: .getPercentageWidth(percentage: 5)).isActive = true
     }
     
 }
@@ -96,19 +115,19 @@ extension NewCreateEventViewController : UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! CollectionViewCell
         switch (indexPath.row)   {
           case 0:
-            cell.contentView.backgroundColor = .purple
+            //cell.contentView.backgroundColor = .purple
             cell.pImage.image = UIImage(named: "showsButton")
           case 1:
-            cell.contentView.backgroundColor = .red
+            //cell.contentView.backgroundColor = .red
             cell.pImage.image = UIImage(named: "educationButton")
           case 2:
-            cell.contentView.backgroundColor = .orange
+            //cell.contentView.backgroundColor = .orange
             cell.pImage.image = UIImage(named: "foodButton")
           case 3:
-            cell.contentView.backgroundColor = .yellow
+            //cell.contentView.backgroundColor = .yellow
             cell.pImage.image = UIImage(named: "socialButton")
           case 4:
-            cell.contentView.backgroundColor = .green
+            //cell.contentView.backgroundColor = .green
             cell.pImage.image = UIImage(named: "sportsButton")
         default:
            break
@@ -132,17 +151,28 @@ extension NewCreateEventViewController : UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
 
         // controls what happens when a card is clicked
+        let vc = NewCreateEventCardViewController()
      switch (indexPath.row)   {
          case 0:
             print("0")
+            vc.backgroundGradientColors = [ UIColor.white.cgColor, UIColor.purple.cgColor ]
+            self.present(vc, animated: true, completion: nil)
          case 1:
             print("1")
+            vc.backgroundGradientColors = [ UIColor.white.cgColor, UIColor.red.cgColor ]
+            self.present(vc, animated: true, completion: nil)
          case 2:
             print("2")
+            vc.backgroundGradientColors = [ UIColor.white.cgColor, UIColor.orange.cgColor ]
+            self.present(vc, animated: true, completion: nil)
          case 3:
             print("3")
+            vc.backgroundGradientColors = [ UIColor.white.cgColor, UIColor.yellow.cgColor ]
+            self.present(vc, animated: true, completion: nil)
          case 4:
             print("4")
+            vc.backgroundGradientColors = [ UIColor.white.cgColor, UIColor.green.cgColor ]
+            self.present(vc, animated: true, completion: nil)
        default:
           break
         }
@@ -260,7 +290,7 @@ class CollectionViewCell : UICollectionViewCell {
         
         super.init(frame: frame)
 
-        //contentView.backgroundColor = .white
+        contentView.backgroundColor = .white
         contentView.layer.masksToBounds = false
         contentView.layer.cornerRadius = 16
         contentView.layer.shadowColor = UIColor.black.cgColor
@@ -270,9 +300,9 @@ class CollectionViewCell : UICollectionViewCell {
         
         contentView.addSubview(pImage)
         pImage.translatesAutoresizingMaskIntoConstraints = false
-        pImage.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 20)).isActive = true
-        pImage.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 10)).isActive = true
-        pImage.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 3)).isActive = true
+        pImage.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 19)).isActive = true
+        pImage.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 8.5)).isActive = true
+        pImage.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 2)).isActive = true
         pImage.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         
     }
