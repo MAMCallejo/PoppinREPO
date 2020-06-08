@@ -8,54 +8,96 @@
 
 import UIKit
 
-class NewCreateEventCardViewController : UIViewController {
+class NewCreateEventCardViewController : UIViewController, UITextFieldDelegate {
     
-    lazy private var nameCard: UIView = {
-        var nc = UIView()
-        nc.backgroundColor = .white
-        nc.layer.masksToBounds = false
-        nc.layer.cornerRadius = 16
-        nc.layer.shadowColor = UIColor.black.cgColor
-        nc.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
-        nc.layer.shadowOpacity = 0.3
-        nc.layer.shadowRadius = 2
-        return nc
+    lazy private var nameCard: UITextField = {
+        
+        var t = UITextField()
+        t.backgroundColor = .white
+        
+        let sideIcon = UIImageView(image: UIImage(systemSymbol: .pencil).withTintColor(.mainNAVYBLUE).imageWithInsets(insets: UIEdgeInsets(top: .getPercentageWidth(percentage: 1.5), left: .getPercentageWidth(percentage: 1.5), bottom: .getPercentageWidth(percentage: 1.5), right: .getPercentageWidth(percentage: 1.5))))
+        sideIcon.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 10)).isActive = true
+        sideIcon.heightAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 10)).isActive = true
+        t.leftView = sideIcon
+        t.leftViewMode = .always
+        
+        t.layer.masksToBounds = false
+        t.layer.cornerRadius = 16
+        t.layer.shadowColor = UIColor.black.cgColor
+        t.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
+        t.layer.shadowOpacity = 0.3
+        t.layer.shadowRadius = 2
+        
+        t.font = UIFont(name: "Octarine", size: 20)
+        t.textColor = .mainNAVYBLUE
+        t.placeholder = "Name"
+        
+        t.autocorrectionType = .no
+        t.keyboardType = .default
+        t.returnKeyType = .done
+        t.clearButtonMode = .whileEditing
+        t.contentVerticalAlignment = .center
+        t.delegate = self
+        
+        return t
+        
     }()
     
     lazy private var dateCard: UIView = {
-        var nc = UIView()
-        nc.backgroundColor = .white
-        nc.layer.masksToBounds = false
-        nc.layer.cornerRadius = 16
-        nc.layer.shadowColor = UIColor.black.cgColor
-        nc.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
-        nc.layer.shadowOpacity = 0.3
-        nc.layer.shadowRadius = 2
-        return nc
+        
+        var v = UIView()
+        v.backgroundColor = .white
+        
+        let sideIcon = UIImageView(image: UIImage(systemSymbol: .calendar).withTintColor(.mainNAVYBLUE))
+        sideIcon.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 10)).isActive = true
+        sideIcon.heightAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 10)).isActive = true
+        v.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        v.addSubview(sideIcon)
+        
+        v.layer.masksToBounds = false
+        v.layer.cornerRadius = 16
+        v.layer.shadowColor = UIColor.black.cgColor
+        v.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
+        v.layer.shadowOpacity = 0.3
+        v.layer.shadowRadius = 2
+        
+//        t.font = UIFont(name: "Octarine", size: 20)
+//        t.textColor = .mainNAVYBLUE
+//        t.placeholder = "Date"
+//
+//        t.autocorrectionType = .no
+//        t.keyboardType = .default
+//        t.returnKeyType = .done
+//        t.clearButtonMode = .whileEditing
+//        t.contentVerticalAlignment = .center
+//        t.delegate = self
+        
+        return v
+        
     }()
     
     lazy private var durationCard: UIView = {
-        var nc = UIView()
-        nc.backgroundColor = .white
-        nc.layer.masksToBounds = false
-        nc.layer.cornerRadius = 16
-        nc.layer.shadowColor = UIColor.black.cgColor
-        nc.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
-        nc.layer.shadowOpacity = 0.3
-        nc.layer.shadowRadius = 2
-        return nc
+        var dc = UIView()
+        dc.backgroundColor = .white
+        dc.layer.masksToBounds = false
+        dc.layer.cornerRadius = 16
+        dc.layer.shadowColor = UIColor.black.cgColor
+        dc.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
+        dc.layer.shadowOpacity = 0.3
+        dc.layer.shadowRadius = 2
+        return dc
     }()
     
     lazy private var infoCard: UIView = {
-        var nc = UIView()
-        nc.backgroundColor = .white
-        nc.layer.masksToBounds = false
-        nc.layer.cornerRadius = 16
-        nc.layer.shadowColor = UIColor.black.cgColor
-        nc.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
-        nc.layer.shadowOpacity = 0.3
-        nc.layer.shadowRadius = 2
-        return nc
+        var ic = UIView()
+        ic.backgroundColor = .white
+        ic.layer.masksToBounds = false
+        ic.layer.cornerRadius = 16
+        ic.layer.shadowColor = UIColor.black.cgColor
+        ic.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
+        ic.layer.shadowOpacity = 0.3
+        ic.layer.shadowRadius = 2
+        return ic
     }()
     
     lazy private var cancelButton: BubbleButton = {
@@ -135,29 +177,29 @@ class NewCreateEventCardViewController : UIViewController {
         view.addSubview(nameCard)
         nameCard.translatesAutoresizingMaskIntoConstraints = false
         nameCard.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 80)).isActive = true
-        nameCard.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 8)).isActive = true
-        nameCard.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 15)).isActive = true
+        nameCard.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 6)).isActive = true
+        nameCard.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 20)).isActive = true
         nameCard.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
         
         view.addSubview(dateCard)
         dateCard.translatesAutoresizingMaskIntoConstraints = false
         dateCard.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 80)).isActive = true
-        dateCard.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 8)).isActive = true
-        dateCard.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 25)).isActive = true
+        dateCard.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 6)).isActive = true
+        dateCard.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 30)).isActive = true
         dateCard.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
         
         view.addSubview(durationCard)
         durationCard.translatesAutoresizingMaskIntoConstraints = false
         durationCard.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 80)).isActive = true
         durationCard.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 8)).isActive = true
-        durationCard.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 35)).isActive = true
+        durationCard.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 44)).isActive = true
         durationCard.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
         
         view.addSubview(infoCard)
         infoCard.translatesAutoresizingMaskIntoConstraints = false
         infoCard.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 80)).isActive = true
         infoCard.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 8)).isActive = true
-        infoCard.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 45)).isActive = true
+        infoCard.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 56)).isActive = true
         infoCard.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
         
         view.addSubview(createButton)
@@ -169,4 +211,54 @@ class NewCreateEventCardViewController : UIViewController {
         
     }
     
+    //MARK: Textfield Delegate
+    // When user press the return key in keyboard
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        print("textFieldShouldReturn")
+        textField.resignFirstResponder()
+        return true
+    }
+
+    // It is called before text field become active
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        textField.backgroundColor = UIColor.lightGray
+        return true
+    }
+
+    // It is called when text field activated
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        print("textFieldDidBeginEditing")
+    }
+
+    // It is called when text field going to inactive
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        textField.backgroundColor = UIColor.white
+        return true
+    }
+
+    // It is called when text field is inactive
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        print("textFieldDidEndEditing")
+    }
+
+    // It is called each time user type a character by keyboard
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        print(string)
+        return true
+    }
+    
+}
+
+extension UIImage {
+    func imageWithInsets(insets: UIEdgeInsets) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(
+            CGSize(width: self.size.width + insets.left + insets.right,
+                   height: self.size.height + insets.top + insets.bottom), false, self.scale)
+        let _ = UIGraphicsGetCurrentContext()
+        let origin = CGPoint(x: insets.left, y: insets.top)
+        self.draw(at: origin)
+        let imageWithInsets = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return imageWithInsets
+    }
 }
