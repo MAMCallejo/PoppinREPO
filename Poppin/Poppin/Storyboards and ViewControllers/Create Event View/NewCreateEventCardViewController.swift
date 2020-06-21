@@ -137,7 +137,7 @@ class NewCreateEventCardViewController : UIViewController, UITextFieldDelegate {
         var d = UIDatePicker()
         
         d.minimumDate = Date()
-        d.maximumDate = Date(timeInterval: 86340, since: d.minimumDate!)
+        //d.maximumDate = Date(timeInterval: 86340, since: d.minimumDate!)
         d.setValue(UIColor.mainNAVYBLUE, forKeyPath: "textColor")
         
         d.addTarget(self, action: #selector(dateChanged), for: .valueChanged)
