@@ -256,7 +256,7 @@ class registerPageViewController: UIViewController, UITextFieldDelegate {
                 
             })
             
-            let alertVC = AlertViewController(alertIcon: nil, alertMessage: "If you proceed, some information will be lost.", alertButtons: [button1, button2])
+            let alertVC = AlertViewController(alertMessage: "If you proceed, some information will be lost.", alertButtons: [button1, button2])
             
             self.present(alertVC, animated: true, completion: nil)
             
@@ -320,7 +320,7 @@ class registerPageViewController: UIViewController, UITextFieldDelegate {
             
             let button1 = AlertButton(alertTitle: "Ok", alertButtonAction: nil)
             
-            let alertVC = AlertViewController(alertIcon: UIImage(systemName: "xmark.circle.fill"), alertMessage: "Some information is missing, please fill it out.", alertButtons: [button1])
+            let alertVC = AlertViewController(alertMessage: "Some information is missing, please fill it out.", alertButtons: [button1])
             
             self.present(alertVC, animated: true, completion: nil)
             
@@ -355,7 +355,7 @@ class registerPageViewController: UIViewController, UITextFieldDelegate {
                     
                     let button1 = AlertButton(alertTitle: "Ok", alertButtonAction: nil)
                     
-                    let alertVC = AlertViewController(alertIcon: UIImage(systemName: "xmark.circle.fill"), alertMessage: errorMessage, alertButtons: [button1])
+                    let alertVC = AlertViewController(alertMessage: errorMessage, alertButtons: [button1])
                     
                     self.present(alertVC, animated: true, completion: nil)
                     

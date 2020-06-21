@@ -111,7 +111,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         profilePicButton.layer.borderWidth = 2
         
-        profilePicButton.layer.borderColor = UIColor.mainNAVYBLUE.cgColor
+        profilePicButton.layer.borderColor = UIColor.mainDARKPURPLE.cgColor
         
     }
     

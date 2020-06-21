@@ -219,7 +219,7 @@ class popsicleInfoViewController : UIViewController, UIImagePickerControllerDele
                 pB.clipsToBounds = true
                 pB.layer.cornerRadius = pB.frame.size.width / 2
                 //profilePicButton.layer.borderWidth = 0.1
-                //profilePicButton.layer.borderColor = UIColor.mainNAVYBLUE?.cgColor
+                //profilePicButton.layer.borderColor = UIColor.mainDARKPURPLE?.cgColor
                 
                 NSLayoutConstraint(item: pB,
                                    attribute: .height,

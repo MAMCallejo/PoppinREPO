@@ -22,7 +22,39 @@ class NewMainViewController: UIViewController {
     private let mainVerticalEdgeInset: CGFloat = .getPercentageWidth(percentage: 5)
     private let mainHorizontalEdgeInset: CGFloat = .getPercentageWidth(percentage: 3)
     
+    private var shouldPresentLoginVC: Bool = false
+    
     lazy private var mainUserPicture: UIImage = .defaultUserPicture64
+    
+    lazy private var launchScreenOverlayView: UIView = {
+        
+        let backgroundImageView = UIImageView(image: UIImage.mainAppBackground)
+        backgroundImageView.contentMode = .scaleAspectFill
+        
+        let poppinLogoImageView = UIImageView(image: UIImage.poppinEventPopsicleIcon256)
+        poppinLogoImageView.contentMode = .scaleAspectFit
+        
+        poppinLogoImageView.translatesAutoresizingMaskIntoConstraints = false
+        poppinLogoImageView.heightAnchor.constraint(equalTo: poppinLogoImageView.widthAnchor).isActive = true
+        
+        var launchScreenOverlayView = UIView()
+        launchScreenOverlayView.backgroundColor = .poppinLIGHTGOLD
+        
+        launchScreenOverlayView.addSubview(backgroundImageView)
+        backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
+        backgroundImageView.topAnchor.constraint(equalTo: launchScreenOverlayView.topAnchor).isActive = true
+        backgroundImageView.leadingAnchor.constraint(equalTo: launchScreenOverlayView.leadingAnchor).isActive = true
+        backgroundImageView.trailingAnchor.constraint(equalTo: launchScreenOverlayView.trailingAnchor).isActive = true
+        backgroundImageView.bottomAnchor.constraint(equalTo: launchScreenOverlayView.bottomAnchor).isActive = true
+        
+        launchScreenOverlayView.addSubview(poppinLogoImageView)
+        poppinLogoImageView.centerXAnchor.constraint(equalTo: launchScreenOverlayView.centerXAnchor).isActive = true
+        poppinLogoImageView.bottomAnchor.constraint(equalTo: launchScreenOverlayView.safeAreaLayoutGuide.centerYAnchor).isActive = true
+        poppinLogoImageView.widthAnchor.constraint(equalTo: launchScreenOverlayView.widthAnchor, multiplier: 0.33).isActive = true
+        
+        return launchScreenOverlayView
+        
+    }()
     
     lazy private var mainMapView: MKMapView = {
         
@@ -72,7 +104,7 @@ class NewMainViewController: UIViewController {
     
     lazy private var mainCreateEventButton: BubbleButton = {
         
-        var mainCreateEventButton = BubbleButton(bouncyButtonImage: UIImage(systemSymbol: .plus, withConfiguration: UIImage.SymbolConfiguration(pointSize: 0, weight: .bold)).withTintColor(.mainNAVYBLUE, renderingMode: .alwaysOriginal))
+        var mainCreateEventButton = BubbleButton(bouncyButtonImage: UIImage(systemSymbol: .plus, withConfiguration: UIImage.SymbolConfiguration(pointSize: 0, weight: .bold)).withTintColor(.mainDARKPURPLE, renderingMode: .alwaysOriginal))
         mainCreateEventButton.backgroundColor = .white
         mainCreateEventButton.contentEdgeInsets = UIEdgeInsets(top: mainHorizontalEdgeInset, left: mainHorizontalEdgeInset, bottom: mainHorizontalEdgeInset, right: mainHorizontalEdgeInset)
         mainCreateEventButton.addTarget(self, action: #selector(transitionToCreateEvent), for: .touchUpInside)
@@ -216,6 +248,14 @@ class NewMainViewController: UIViewController {
         
     }
     
+    init(shouldShowLoginVC: Bool) {
+        
+        super.init(nibName: nil, bundle: nil)
+        
+        shouldPresentLoginVC = shouldShowLoginVC
+        
+    }
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -242,7 +282,7 @@ class NewMainViewController: UIViewController {
         
         super.viewDidLoad()
         
-        view.backgroundColor = .menuCREAM
+        view.backgroundColor = .mainCREAM
         
         view.addSubview(mainMapView)
         mainMapView.translatesAutoresizingMaskIntoConstraints = false
@@ -270,6 +310,39 @@ class NewMainViewController: UIViewController {
         mainMapFiltersView.translatesAutoresizingMaskIntoConstraints = false
         mainMapFiltersView.trailingAnchor.constraint(equalTo: mainTopStackView.trailingAnchor).isActive = true
         mainMapFiltersView.topAnchor.constraint(equalTo: mainTopStackView.bottomAnchor, constant: mainHorizontalEdgeInset).isActive = true
+        
+        if shouldPresentLoginVC {
+            
+            view.addSubview(launchScreenOverlayView)
+            launchScreenOverlayView.translatesAutoresizingMaskIntoConstraints = false
+            launchScreenOverlayView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+            launchScreenOverlayView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+            launchScreenOverlayView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+            launchScreenOverlayView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+            
+        }
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+    
+        super.viewDidAppear(animated)
+        
+        if shouldPresentLoginVC {
+            
+            let loginNavigationController = UINavigationController(rootViewController: NewLoginStartViewController())
+            loginNavigationController.modalPresentationStyle = .overFullScreen
+            loginNavigationController.modalTransitionStyle = .coverVertical
+            loginNavigationController.setNavigationBarHidden(true, animated: false)
+            
+            present(loginNavigationController, animated: false, completion: {
+                
+                self.launchScreenOverlayView.removeFromSuperview()
+                self.shouldPresentLoginVC = false
+            
+            })
+            
+        }
         
     }
     

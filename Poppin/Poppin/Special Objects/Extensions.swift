@@ -10,11 +10,42 @@ import UIKit
 import SFSafeSymbols // Allows for easy access of Apple Symbols
 import MapKit
 
+extension UIFont {
+    
+    static func dynamicFont(with name: String, style: UIFont.TextStyle) -> UIFont {
+        
+        let maximumPointSize: CGFloat
+        
+        switch style {
+            
+        case .largeTitle: maximumPointSize = .getWidthFitSize(minSize: 37.5, maxSize: 38.5)
+        case .title1: maximumPointSize = .getWidthFitSize(minSize: 31.5, maxSize: 32.5)
+        case .title2: maximumPointSize = .getWidthFitSize(minSize: 25.5, maxSize: 26.5)
+        case .title3: maximumPointSize = .getWidthFitSize(minSize: 23.5, maxSize: 24.5)
+        case .headline: maximumPointSize = .getWidthFitSize(minSize: 20.5, maxSize: 21.5)
+        case .body: maximumPointSize = .getWidthFitSize(minSize: 20.5, maxSize: 21.5)
+        case .callout: maximumPointSize = .getWidthFitSize(minSize: 19.5, maxSize: 20.5)
+        case .subheadline: maximumPointSize = .getWidthFitSize(minSize: 18.5, maxSize: 19.5)
+        case .footnote: maximumPointSize = .getWidthFitSize(minSize: 16.5, maxSize: 17.5)
+        case .caption1: maximumPointSize = .getWidthFitSize(minSize: 15.5, maxSize: 16.5)
+        case .caption2: maximumPointSize = .getWidthFitSize(minSize: 14.5, maxSize: 15.5)
+        default: maximumPointSize = .getWidthFitSize(minSize: 20.5, maxSize: 21.5)
+            
+        }
+        
+        return UIFontMetrics.default.scaledFont(for: UIFont(name: name, size: UIFontDescriptor.preferredFontDescriptor(withTextStyle: style).pointSize)!, maximumPointSize: maximumPointSize)
+        
+    }
+    
+}
+
 extension UIColor {
     
-    static let menuCREAM = UIColor(named: "menuCREAM")!
-    static let createEventPINK = UIColor(named: "createEventPINK")!
-    static let mainNAVYBLUE = UIColor(named: "mainNAVYBLUE")!
+    static let mainCREAM = UIColor(named: "mainCREAM")!
+    static let mainDARKGRAY = UIColor(named: "mainDARKGRAY")!
+    static let mainDARKPURPLE = UIColor(named: "mainDARKPURPLE")!
+    static let poppinDARKGOLD = UIColor(named: "poppinDARKGOLD")!
+    static let poppinLIGHTGOLD = UIColor(named: "poppinLIGHTGOLD")!
     static let educationRED = UIColor(named: "educationRED")!
     static let foodORANGE = UIColor(named: "foodORANGE")!
     static let socialYELLOW = UIColor(named: "socialYELLOW")!
@@ -37,25 +68,69 @@ extension UIColor {
 
 extension UIImage {
     
-    static let defaultPopsicleIcon = UIImage(named: "defaultCategoryButton")!
-    static let educationPopsicleIcon = UIImage(named: "educationButton")!
-    static let foodPopsicleIcon = UIImage(named: "foodButton")!
-    static let socialPopsicleIcon = UIImage(named: "socialButton")!
-    static let sportsPopsicleIcon = UIImage(named: "sportsButton")!
-    static let showsPopsicleIcon = UIImage(named: "showsButton")!
-    static let poppinPopsicleIcon = UIImage(named: "goldButton")!
-    static let rainbowPopsicleIcon = UIImage(named: "popsicleGroupButton")!
-    static let appBackground = UIImage(named: "LaunchScreenBG")!
+    // Popsicle Icons
+    
+    static let defaultPopsicleIcon64 = UIImage(named: "defaultPopsicleIcon64")!
+    static let defaultPopsicleIcon128 = UIImage(named: "defaultPopsicleIcon128")!
+    static let defaultPopsicleIcon256 = UIImage(named: "defaultPopsicleIcon256")!
+    static let defaultPopsicleIcon1024 = UIImage(named: "defaultPopsicleIcon1024")!
+    
+    static let educationPopsicleIcon64 = UIImage(named: "educationPopsicleIcon64")!
+    static let educationPopsicleIcon128 = UIImage(named: "educationPopsicleIcon128")!
+    static let educationPopsicleIcon256 = UIImage(named: "educationPopsicleIcon256")!
+    static let educationPopsicleIcon1024 = UIImage(named: "educationPopsicleIcon1024")!
+    
+    static let foodPopsicleIcon64 = UIImage(named: "foodPopsicleIcon64")!
+    static let foodPopsicleIcon128 = UIImage(named: "foodPopsicleIcon128")!
+    static let foodPopsicleIcon256 = UIImage(named: "foodPopsicleIcon256")!
+    static let foodPopsicleIcon1024 = UIImage(named: "foodPopsicleIcon1024")!
+    
+    static let groupEventPopsicleIcon64 = UIImage(named: "groupEventPopsicleIcon64")!
+    static let groupEventPopsicleIcon128 = UIImage(named: "groupEventPopsicleIcon128")!
+    static let groupEventPopsicleIcon256 = UIImage(named: "groupEventPopsicleIcon256")!
+    static let groupEventPopsicleIcon1024 = UIImage(named: "groupEventPopsicleIcon1024")!
+    
+    static let poppinEventPopsicleIcon64 = UIImage(named: "poppinEventPopsicleIcon64")!
+    static let poppinEventPopsicleIcon128 = UIImage(named: "poppinEventPopsicleIcon128")!
+    static let poppinEventPopsicleIcon256 = UIImage(named: "poppinEventPopsicleIcon256")!
+    static let poppinEventPopsicleIcon1024 = UIImage(named: "poppinEventPopsicleIcon1024")!
+    
+    static let showsPopsicleIcon64 = UIImage(named: "showsPopsicleIcon64")!
+    static let showsPopsicleIcon128 = UIImage(named: "showsPopsicleIcon128")!
+    static let showsPopsicleIcon256 = UIImage(named: "showsPopsicleIcon256")!
+    static let showsPopsicleIcon1024 = UIImage(named: "showsPopsicleIcon1024")!
+    
+    static let socialPopsicleIcon64 = UIImage(named: "socialPopsicleIcon64")!
+    static let socialPopsicleIcon128 = UIImage(named: "socialPopsicleIcon128")!
+    static let socialPopsicleIcon256 = UIImage(named: "socialPopsicleIcon256")!
+    static let socialPopsicleIcon1024 = UIImage(named: "socialPopsicleIcon1024")!
+    
+    static let sportsPopsicleIcon64 = UIImage(named: "sportsPopsicleIcon64")!
+    static let sportsPopsicleIcon128 = UIImage(named: "sportsPopsicleIcon128")!
+    static let sportsPopsicleIcon256 = UIImage(named: "sportsPopsicleIcon256")!
+    static let sportsPopsicleIcon1024 = UIImage(named: "sportsPopsicleIcon1024")!
+    
+    // Map Icons
+    
     static let defaultUserPicture64 = UIImage(named: "defaultUserPicture64")!
     static let defaultUserPicture128 = UIImage(named: "defaultUserPicture128")!
     static let defaultUserPicture256 = UIImage(named: "defaultUserPicture256")!
-    static let upToDateSymbol256 = UIImage(named: "upToDateButton256")!
-    static let upToDateSymbol128 = UIImage(named: "upToDateButton128")!
-    static let upToDateSymbol64 = UIImage(named: "upToDateButton64")!
-    static let showMoreOptionsButton256 = UIImage(named: "showMoreOptionsButton256")!
-    static let showMoreOptionsButton128 = UIImage(named: "showMoreOptionsButton128")!
-    static let showMoreOptionsButton64 = UIImage(named: "showMoreOptionsButton64")!
+    static let defaultUserPicture1024 = UIImage(named: "defaultUserPicture1024")!
     
+    static let moreOptionsIcon64 = UIImage(named: "moreOptionsIcon64")!
+    static let moreOptionsIcon128 = UIImage(named: "moreOptionsIcon128")!
+    static let moreOptionsIcon256 = UIImage(named: "moreOptionsIcon256")!
+    static let moreOptionsIcon1024 = UIImage(named: "moreOptionsIcon1024")!
+    
+    static let refreshPopsiclesIcon64 = UIImage(named: "refreshPopsiclesIcon64")!
+    static let refreshPopsiclesIcon128 = UIImage(named: "refreshPopsiclesIcon128")!
+    static let refreshPopsiclesIcon256 = UIImage(named: "refreshPopsiclesIcon256")!
+    static let refreshPopsiclesIcon1024 = UIImage(named: "refreshPopsiclesIcon1024")!
+    
+    // App Backgrounds
+    
+    static let mainAppBackground = UIImage(named: "mainAppBackground")!
+
 }
 
 extension UIView {
@@ -92,6 +167,43 @@ extension UIView {
     }
     
 }
+
+extension UITextField {
+    
+    public func setBottomBorder() { self.setBottomBorder(color: UIColor.mainDARKPURPLE, height: 1.0) }
+    
+    public func setBottomBorder(color: UIColor, height: CGFloat) {
+        
+      self.borderStyle = .none
+      self.layer.backgroundColor = UIColor.white.cgColor
+      self.layer.masksToBounds = false
+        self.layer.shadowColor = color.cgColor
+      self.layer.shadowOffset = CGSize(width: 0.0, height: height)
+      self.layer.shadowOpacity = 1.0
+      self.layer.shadowRadius = 0.0
+        
+    }
+    
+}
+
+extension UITextView {
+    
+    public func setBottomBorder() { self.setBottomBorder(color: UIColor.mainDARKPURPLE, height: 1.0) }
+    
+    public func setBottomBorder(color: UIColor, height: CGFloat) {
+
+      self.layer.backgroundColor = UIColor.white.cgColor
+      self.layer.masksToBounds = false
+      self.layer.shadowColor = color.cgColor
+      self.layer.shadowOffset = CGSize(width: 0.0, height: height)
+      self.layer.shadowOpacity = 1.0
+      self.layer.shadowRadius = 0.0
+        
+    }
+    
+}
+
+
 
 extension CGFloat {
     

@@ -13,7 +13,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
     
-    //var navigationController: UINavigationController?
+    var navigationController: UINavigationController?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
@@ -21,34 +21,33 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         
-        guard let windowScene = (scene as? UIWindowScene) else { return }
+        /*guard let windowScene = (scene as? UIWindowScene) else { return }
         
-        configureInitialRootViewController(for: window)
+        configureInitialRootViewController(for: window)*/
         
         // PROGRAMMATIC:
         
-        /*
-         
-         window = UIWindow(frame: windowsScene.coordinateSpace.bounds)
-         
-         window?.windowScene = windowScene
-         
-         let rootVC = LoginViewController()
-         navigationController = UINavigationController(rootViewController: rootVC)
-         navigationController?.setNavigationBarHidden(true, animated: false)
-         
-         if Auth.auth().currentUser != nil {
-         
-         let mainVC = mainViewController()
-         navigationController?.pushViewController(mainVC, animated: true)
-         
-         }
-         
-         window?.rootViewController = navigationController
-         window?.makeKeyAndVisible()
-         
-         }*/
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        window = UIWindow(frame: windowScene.coordinateSpace.bounds)
+        window?.windowScene = windowScene
         
+        let rootVC: UIViewController
+        
+        if Auth.auth().currentUser != nil {
+            
+            rootVC = NewMainViewController(shouldShowLoginVC: true) // User is not logged in
+            
+        } else {
+            
+            rootVC = NewMainViewController(shouldShowLoginVC: false) // User is logged in
+            
+        }
+        
+        navigationController = UINavigationController(rootViewController: rootVC)
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        window?.rootViewController = navigationController
+        window?.makeKeyAndVisible()
+    
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

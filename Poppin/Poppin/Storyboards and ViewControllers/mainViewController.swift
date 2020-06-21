@@ -345,7 +345,9 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
         // PROGRAMMATIC
         
-         present(NewMainViewController(), animated: true, completion: nil) // DESELECT TO SEE NEW MAIN - FOR TRIAL PURPOSES
+        present(NewLoginStartViewController(), animated: true, completion: nil) // DESELECT TO SEE NEW MAIN - FOR TRIAL PURPOSES
+        
+        //present(NewMainViewController(), animated: true, completion: nil) // DESELECT TO SEE NEW MAIN - FOR TRIAL PURPOSES
         
         monitor = (UIApplication.shared.delegate as! AppDelegate).monitor
         
@@ -442,7 +444,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         newPopsicle = pinPopsicle()
         
         // MARK: change
-        newPopsicle.popsicleData = pinData(eventName: "", eventInfo: "", eventDate: "", eventDuration: "", eventCategory: "", eventCategoryDetails: "", eventSubcategory1: "", eventSubcategory1Details: "", eventSubcategory2: "", eventSubcategory2Details: "", eventLocation: CLLocationCoordinate2D(), eventPopsicle: UIImage(named: "defaultCategoryButton")!, whosGoing: [])
+        newPopsicle.popsicleData = pinData(eventName: "", eventInfo: "", eventDate: "", eventDuration: "", eventCategory: "", eventCategoryDetails: "", eventSubcategory1: "", eventSubcategory1Details: "", eventSubcategory2: "", eventSubcategory2Details: "", eventLocation: CLLocationCoordinate2D(), eventPopsicle: UIImage.defaultPopsicleIcon256, whosGoing: [])
         
             // Initializes the campus region (DU by default).
         
@@ -591,7 +593,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
         let attributes = [
             
-            NSAttributedString.Key.foregroundColor : UIColor.mainNAVYBLUE,
+            NSAttributedString.Key.foregroundColor : UIColor.mainDARKPURPLE,
             
             NSAttributedString.Key.font : UIFont.init(name: "Octarine-Bold", size: 15)
             
@@ -876,7 +878,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
         profileButton.layer.cornerRadius = profileButton.frame.size.width / 2
         
-        profileButton.layer.borderColor = UIColor.menuCREAM.cgColor
+        profileButton.layer.borderColor = UIColor.mainCREAM.cgColor
         
         profileButton.layer.borderWidth = 2
         
