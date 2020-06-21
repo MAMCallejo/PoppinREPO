@@ -15,7 +15,7 @@ class NewCreateEventCardViewController : UIViewController, UITextFieldDelegate {
         var t = UITextField()
         t.backgroundColor = .white
         
-        let sideIcon = UIImageView(image: UIImage(systemSymbol: .pencil).withTintColor(.mainNAVYBLUE).imageWithInsets(insets: UIEdgeInsets(top: .getPercentageWidth(percentage: 1.5), left: .getPercentageWidth(percentage: 1.5), bottom: .getPercentageWidth(percentage: 1.5), right: .getPercentageWidth(percentage: 1.5))))
+        let sideIcon = UIImageView(image: UIImage(systemSymbol: .pencil).withTintColor(.mainDARKPURPLE).imageWithInsets(insets: UIEdgeInsets(top: .getPercentageWidth(percentage: 1.5), left: .getPercentageWidth(percentage: 1.5), bottom: .getPercentageWidth(percentage: 1.5), right: .getPercentageWidth(percentage: 1.5))))
         sideIcon.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 10)).isActive = true
         sideIcon.heightAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 10)).isActive = true
         t.leftView = sideIcon
@@ -29,7 +29,7 @@ class NewCreateEventCardViewController : UIViewController, UITextFieldDelegate {
         t.layer.shadowRadius = 2
         
         t.font = UIFont(name: "Octarine", size: 20)
-        t.textColor = .mainNAVYBLUE
+        t.textColor = .mainDARKPURPLE
         t.placeholder = "Name"
         
         t.autocorrectionType = .no
@@ -48,7 +48,7 @@ class NewCreateEventCardViewController : UIViewController, UITextFieldDelegate {
         var v = UIView()
         v.backgroundColor = .white
         
-        let sideIcon = UIImageView(image: UIImage(systemSymbol: .calendar).withTintColor(.mainNAVYBLUE))
+        let sideIcon = UIImageView(image: UIImage(systemSymbol: .calendar).withTintColor(.mainDARKPURPLE))
         sideIcon.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 10)).isActive = true
         sideIcon.heightAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 10)).isActive = true
         v.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
@@ -62,7 +62,7 @@ class NewCreateEventCardViewController : UIViewController, UITextFieldDelegate {
         v.layer.shadowRadius = 2
         
 //        t.font = UIFont(name: "Octarine", size: 20)
-//        t.textColor = .mainNAVYBLUE
+//        t.textColor = .mainDARKPURPLE
 //        t.placeholder = "Date"
 //
 //        t.autocorrectionType = .no
@@ -101,7 +101,7 @@ class NewCreateEventCardViewController : UIViewController, UITextFieldDelegate {
     }()
     
     lazy private var cancelButton: BubbleButton = {
-        var cb = BubbleButton(bouncyButtonImage: UIImage(systemSymbol: .multiply, withConfiguration: UIImage.SymbolConfiguration(pointSize: 0, weight: .medium)).withTintColor(.mainNAVYBLUE, renderingMode: .alwaysOriginal))
+        var cb = BubbleButton(bouncyButtonImage: UIImage(systemSymbol: .multiply, withConfiguration: UIImage.SymbolConfiguration(pointSize: 0, weight: .medium)).withTintColor(.mainDARKPURPLE, renderingMode: .alwaysOriginal))
         cb.backgroundColor = .white
         cb.contentEdgeInsets = UIEdgeInsets(top: .getPercentageWidth(percentage: 2), left: .getPercentageWidth(percentage: 2), bottom: .getPercentageWidth(percentage: 2), right: .getPercentageWidth(percentage: 2))
         cb.addTarget(self, action: #selector(dismissCreateCard), for: .touchUpInside)
@@ -116,7 +116,7 @@ class NewCreateEventCardViewController : UIViewController, UITextFieldDelegate {
         var cb = UIButton()
         cb.backgroundColor = .white
         cb.setTitle("Create", for: .normal)
-        cb.setTitleColor(.mainNAVYBLUE, for: .normal)
+        cb.setTitleColor(.mainDARKPURPLE, for: .normal)
         cb.titleLabel?.font = UIFont(name: "Octarine-Bold", size: 16)
         cb.contentEdgeInsets = UIEdgeInsets(top: .getPercentageWidth(percentage: 2), left: .getPercentageWidth(percentage: 2), bottom: .getPercentageWidth(percentage: 2), right: .getPercentageWidth(percentage: 2))
         cb.addShadowAndRoundCorners(cornerRadius: 16)

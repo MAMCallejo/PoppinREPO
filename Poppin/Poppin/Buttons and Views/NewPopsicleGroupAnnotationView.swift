@@ -49,7 +49,7 @@ final class NewPopsicleGroupAnnotationView: MKAnnotationView {
     lazy private var popsicleGroupIconImageView: UIImageView = {
         
         var popsicleGroupIconImageView = UIImageView()
-        popsicleGroupIconImageView.image = .rainbowPopsicleIcon
+        popsicleGroupIconImageView.image = .groupEventPopsicleIcon128
         popsicleGroupIconImageView.contentMode = .scaleAspectFit
         return popsicleGroupIconImageView
         
@@ -58,7 +58,7 @@ final class NewPopsicleGroupAnnotationView: MKAnnotationView {
     lazy private var popsicleGroupCountBubbleView: BubbleView = {
         
         var popsicleGroupCountBubbleView = BubbleView()
-        popsicleGroupCountBubbleView.backgroundColor = .mainNAVYBLUE
+        popsicleGroupCountBubbleView.backgroundColor = .mainDARKPURPLE
         popsicleGroupCountBubbleView.clipsToBounds = true
         
         popsicleGroupCountBubbleView.addSubview(popsicleGroupCountLabel)

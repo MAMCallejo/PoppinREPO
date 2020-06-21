@@ -129,7 +129,7 @@ class DataController: NSObject {
             let newPinPopsicle: pinPopsicle = pinPopsicle()
             
             // MARK: change
-            newPinPopsicle.popsicleData = pinData(eventName: popsicle.eventName ?? "", eventInfo: popsicle.eventInfo ?? "", eventDate: popsicle.eventDate ?? "", eventDuration: popsicle.eventDuration ?? "", eventCategory: popsicle.eventCategory ?? "", eventCategoryDetails: popsicle.eventCategoryDetails ?? "", eventSubcategory1: popsicle.eventSubcategory1 ?? "", eventSubcategory1Details: popsicle.eventSubcategory1 ?? "", eventSubcategory2: popsicle.eventSubcategory1 ?? "", eventSubcategory2Details: popsicle.eventSubcategory1 ?? "", eventLocation: CLLocationCoordinate2D(latitude: popsicle.eventLatitude, longitude: popsicle.eventLongitude), eventPopsicle: UIImage(named: popsicle.eventImage ?? "defaultCategoryButton")!, whosGoing: [])
+            newPinPopsicle.popsicleData = pinData(eventName: popsicle.eventName ?? "", eventInfo: popsicle.eventInfo ?? "", eventDate: popsicle.eventDate ?? "", eventDuration: popsicle.eventDuration ?? "", eventCategory: popsicle.eventCategory ?? "", eventCategoryDetails: popsicle.eventCategoryDetails ?? "", eventSubcategory1: popsicle.eventSubcategory1 ?? "", eventSubcategory1Details: popsicle.eventSubcategory1 ?? "", eventSubcategory2: popsicle.eventSubcategory1 ?? "", eventSubcategory2Details: popsicle.eventSubcategory1 ?? "", eventLocation: CLLocationCoordinate2D(latitude: popsicle.eventLatitude, longitude: popsicle.eventLongitude), eventPopsicle: UIImage.defaultPopsicleIcon256, whosGoing: [])
             
         }
         

@@ -216,7 +216,7 @@ final class NewMapFiltersView: UIView {
             }
             
             sender.isActive = true
-            sender.backgroundColor = .mainNAVYBLUE
+            sender.backgroundColor = .mainDARKPURPLE
             toggleFilters()
             
         }
@@ -325,7 +325,7 @@ final class NewMapFiltersStackView: UIStackView {
     
     lazy private(set) var showHideFiltersButton: BubbleButton = {
         
-        var showHideFiltersButton = BubbleButton(bouncyButtonImage: UIImage.showMoreOptionsButton64)
+        var showHideFiltersButton = BubbleButton(bouncyButtonImage: UIImage.moreOptionsIcon64)
         showHideFiltersButton.backgroundColor = .white
         showHideFiltersButton.contentEdgeInsets = UIEdgeInsets(top: filterButtonEdgeInset, left: filterButtonEdgeInset, bottom: filterButtonEdgeInset, right: filterButtonEdgeInset)
         
@@ -428,25 +428,25 @@ final class PopsicleBubbleButton: BubbleButton {
             
             switch newPopsicleCategory {
                 
-            case .Education: super.init(bouncyButtonImage: UIImage.educationPopsicleIcon)
+            case .Education: super.init(bouncyButtonImage: UIImage.educationPopsicleIcon64)
                 
-            case .Food: super.init(bouncyButtonImage: UIImage.foodPopsicleIcon)
+            case .Food: super.init(bouncyButtonImage: UIImage.foodPopsicleIcon64)
                 
-            case .Social: super.init(bouncyButtonImage: UIImage.socialPopsicleIcon)
+            case .Social: super.init(bouncyButtonImage: UIImage.socialPopsicleIcon64)
                 
-            case .Sports: super.init(bouncyButtonImage: UIImage.sportsPopsicleIcon)
+            case .Sports: super.init(bouncyButtonImage: UIImage.sportsPopsicleIcon64)
                 
-            case .Shows: super.init(bouncyButtonImage: UIImage.showsPopsicleIcon)
+            case .Shows: super.init(bouncyButtonImage: UIImage.showsPopsicleIcon64)
                 
-            case .Poppin: super.init(bouncyButtonImage: UIImage.poppinPopsicleIcon)
+            case .Poppin: super.init(bouncyButtonImage: UIImage.poppinEventPopsicleIcon64)
                 
-            case .Default: super.init(bouncyButtonImage: UIImage.defaultPopsicleIcon)
+            case .Default: super.init(bouncyButtonImage: UIImage.defaultPopsicleIcon256)
                 
             }
             
         } else {
             
-            super.init(bouncyButtonImage: UIImage.defaultPopsicleIcon)
+            super.init(bouncyButtonImage: UIImage.defaultPopsicleIcon256)
             
         }
         

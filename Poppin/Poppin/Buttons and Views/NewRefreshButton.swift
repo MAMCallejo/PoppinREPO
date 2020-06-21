@@ -12,7 +12,7 @@ final class NewRefreshButton: BubbleButton {
     
     private let edgeInset: CGFloat = .getPercentageWidth(percentage: 1.8)
     
-    private let refreshButtonIcon: UIImage = .upToDateSymbol128
+    private let refreshButtonIcon: UIImage = .refreshPopsiclesIcon128
     
     private(set) var refreshButtonCount: Int = 0 {
         
@@ -37,7 +37,7 @@ final class NewRefreshButton: BubbleButton {
                     UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.55, initialSpringVelocity: 3,
                                    options: .curveEaseOut, animations: {
                                     
-                                    self.backgroundColor = .mainNAVYBLUE
+                                    self.backgroundColor = .mainDARKPURPLE
                                     self.setImage(nil, for: .normal)
                                     self.setTitle(String(newCount), for: .normal)
                                     self.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)

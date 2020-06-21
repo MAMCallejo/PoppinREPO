@@ -106,3 +106,71 @@ final class ImageBubbleButton: BubbleButton {
     }
     
 }
+
+final class LoadingButton: BouncyButton {
+    
+    private var indicatorColor: UIColor = .white
+    private var buttonTitle: String = "Button"
+    
+    lazy private var loadingIndicatorView: UIActivityIndicatorView = {
+        
+        var loadingIndicatorView = UIActivityIndicatorView()
+        loadingIndicatorView.color = indicatorColor
+        
+        loadingIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        loadingIndicatorView.widthAnchor.constraint(equalTo: loadingIndicatorView.heightAnchor).isActive = true
+        
+        return loadingIndicatorView
+        
+    }()
+    
+    init(loadingIndicatorColor: UIColor?) {
+        
+        super.init(bouncyButtonImage: nil)
+        
+        if let newLoadingIndicatorColor = loadingIndicatorColor { indicatorColor = newLoadingIndicatorColor}
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        
+        super.init(coder: aDecoder)
+        
+    }
+    
+    func startLoading() {
+        
+        isUserInteractionEnabled = false
+        
+        if let title = title(for: .normal), title != "" {
+            
+            buttonTitle = title
+            
+        } else {
+            
+            buttonTitle = "Button"
+            
+        }
+        
+        setTitle(nil, for: .normal)
+        loadingIndicatorView.startAnimating()
+        
+        addSubview(loadingIndicatorView)
+        loadingIndicatorView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        loadingIndicatorView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        loadingIndicatorView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        
+    }
+    
+    func stopLoading() {
+        
+        isUserInteractionEnabled = true
+        
+        loadingIndicatorView.removeFromSuperview()
+        loadingIndicatorView.stopAnimating()
+        
+        setTitle(buttonTitle, for: .normal)
+        
+    }
+    
+}
