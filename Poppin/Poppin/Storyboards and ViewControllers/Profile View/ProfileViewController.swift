@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import FirebaseUI
+import FirebaseAuth
 import FirebaseStorage
 import FirebaseDatabase
 import MobileCoreServices

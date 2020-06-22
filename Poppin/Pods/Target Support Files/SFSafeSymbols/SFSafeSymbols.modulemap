@@ -1,0 +1,6 @@
+module SFSafeSymbols {
+  umbrella header "SFSafeSymbols-umbrella.h"
+
+  export *
+  module * { export * }
+}
