@@ -37,7 +37,7 @@ final class NewRefreshButton: BubbleButton {
                     UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.55, initialSpringVelocity: 3,
                                    options: .curveEaseOut, animations: {
                                     
-                                    self.backgroundColor = .mainDARKPURPLE
+                                    self.backgroundColor = .mainNAVYBLUE
                                     self.setImage(nil, for: .normal)
                                     self.setTitle(String(newCount), for: .normal)
                                     self.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)

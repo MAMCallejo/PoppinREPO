@@ -345,7 +345,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
         // PROGRAMMATIC
         
-        present(NewLoginStartViewController(), animated: true, completion: nil) // DESELECT TO SEE NEW MAIN - FOR TRIAL PURPOSES
+        present(NewMainViewController(), animated: true, completion: nil) // DESELECT TO SEE NEW MAIN - FOR TRIAL PURPOSES
         
         //present(NewMainViewController(), animated: true, completion: nil) // DESELECT TO SEE NEW MAIN - FOR TRIAL PURPOSES
         
@@ -593,7 +593,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
         let attributes = [
             
-            NSAttributedString.Key.foregroundColor : UIColor.mainDARKPURPLE,
+            NSAttributedString.Key.foregroundColor : UIColor.mainNAVYBLUE,
             
             NSAttributedString.Key.font : UIFont.init(name: "Octarine-Bold", size: 15)
             

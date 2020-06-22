@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "088733701264E072DEEAC6581E2AC39B"
-               BuildableName = "libKronos.a"
+               BuildableName = "Kronos.framework"
                BlueprintName = "Kronos"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>

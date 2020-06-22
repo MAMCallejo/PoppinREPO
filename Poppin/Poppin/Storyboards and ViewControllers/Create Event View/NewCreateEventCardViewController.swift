@@ -25,7 +25,7 @@ class NewCreateEventCardViewController : UIViewController, UITextFieldDelegate {
         var pImage = UIImageView()
         var label = UITextView()
         label.font = UIFont(name: "Octarine-Bold", size: 18)
-        label.textColor = .mainDARKPURPLE
+        label.textColor = .mainNAVYBLUE
         label.textAlignment = .center
         
         switch (backgroundGradientColors[1])   {
@@ -70,7 +70,7 @@ class NewCreateEventCardViewController : UIViewController, UITextFieldDelegate {
         
         var t = UITextField()
         t.backgroundColor = .white
-        let sideIcon = UIImageView(image: UIImage(systemSymbol: .squareAndPencil).withTintColor(.mainDARKPURPLE).imageWithInsets(insets: UIEdgeInsets(top: .getPercentageWidth(percentage: 1.5), left: .getPercentageWidth(percentage: 1.5), bottom: .getPercentageWidth(percentage: 1.5), right: .getPercentageWidth(percentage: 1.5))))
+        let sideIcon = UIImageView(image: UIImage(systemSymbol: .squareAndPencil).withTintColor(.mainNAVYBLUE).imageWithInsets(insets: UIEdgeInsets(top: .getPercentageWidth(percentage: 1.5), left: .getPercentageWidth(percentage: 1.5), bottom: .getPercentageWidth(percentage: 1.5), right: .getPercentageWidth(percentage: 1.5))))
         sideIcon.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 10)).isActive = true
         sideIcon.heightAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 10)).isActive = true
         t.leftView = sideIcon
@@ -84,7 +84,7 @@ class NewCreateEventCardViewController : UIViewController, UITextFieldDelegate {
         t.layer.shadowRadius = 2
         
         t.font = UIFont(name: "Octarine", size: 20)
-        t.textColor = .mainDARKPURPLE
+        t.textColor = .mainNAVYBLUE
         t.placeholder = "Name"
         
         t.autocorrectionType = .no
@@ -111,7 +111,7 @@ class NewCreateEventCardViewController : UIViewController, UITextFieldDelegate {
         t.backgroundColor = .white
         
         let sideIcon = UIImageView(image: UIImage(systemSymbol: .calendar))
-        sideIcon.tintColor = .mainDARKPURPLE
+        sideIcon.tintColor = .mainNAVYBLUE
         
         t.addSubview(sideIcon)
         sideIcon.translatesAutoresizingMaskIntoConstraints = false
@@ -155,7 +155,7 @@ class NewCreateEventCardViewController : UIViewController, UITextFieldDelegate {
         t.backgroundColor = .white
         
         let sideIcon = UIImageView(image: UIImage(systemSymbol: .timer))
-        sideIcon.tintColor = .mainDARKPURPLE
+        sideIcon.tintColor = .mainNAVYBLUE
         
         t.addSubview(sideIcon)
         sideIcon.translatesAutoresizingMaskIntoConstraints = false
@@ -180,7 +180,7 @@ class NewCreateEventCardViewController : UIViewController, UITextFieldDelegate {
         var d = UIDatePicker()
         d.datePickerMode = .countDownTimer
         d.minuteInterval = 5
-        d.setValue(UIColor.mainDARKPURPLE, forKeyPath: "textColor")
+        d.setValue(UIColor.mainNAVYBLUE, forKeyPath: "textColor")
         
         d.addTarget(self, action: #selector(durChanged), for: .valueChanged)
         
@@ -203,7 +203,7 @@ class NewCreateEventCardViewController : UIViewController, UITextFieldDelegate {
         var t = UITextField()
         t.backgroundColor = .white
         
-        let sideIcon = UIImageView(image: UIImage(systemSymbol: .textBubble).withTintColor(.mainDARKPURPLE).imageWithInsets(insets: UIEdgeInsets(top: .getPercentageWidth(percentage: 1.5), left: .getPercentageWidth(percentage: 1.5), bottom: .getPercentageWidth(percentage: 1.5), right: .getPercentageWidth(percentage: 1.5))))
+        let sideIcon = UIImageView(image: UIImage(systemSymbol: .textBubble).withTintColor(.mainNAVYBLUE).imageWithInsets(insets: UIEdgeInsets(top: .getPercentageWidth(percentage: 1.5), left: .getPercentageWidth(percentage: 1.5), bottom: .getPercentageWidth(percentage: 1.5), right: .getPercentageWidth(percentage: 1.5))))
         sideIcon.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 10)).isActive = true
         sideIcon.heightAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 10)).isActive = true
         t.leftView = sideIcon
@@ -217,7 +217,7 @@ class NewCreateEventCardViewController : UIViewController, UITextFieldDelegate {
         t.layer.shadowRadius = 2
         
         t.font = UIFont(name: "Octarine", size: 20)
-        t.textColor = .mainDARKPURPLE
+        t.textColor = .mainNAVYBLUE
         t.placeholder = "More info"
         
         t.autocorrectionType = .no
@@ -240,7 +240,7 @@ class NewCreateEventCardViewController : UIViewController, UITextFieldDelegate {
     
     lazy private var cancelButton: BubbleButton = {
         
-        var cb = BubbleButton(bouncyButtonImage: UIImage(systemSymbol: .multiply, withConfiguration: UIImage.SymbolConfiguration(pointSize: 0, weight: .medium)).withTintColor(.mainDARKPURPLE, renderingMode: .alwaysOriginal))
+        var cb = BubbleButton(bouncyButtonImage: UIImage(systemSymbol: .multiply, withConfiguration: UIImage.SymbolConfiguration(pointSize: 0, weight: .medium)).withTintColor(.mainNAVYBLUE, renderingMode: .alwaysOriginal))
 
         cb.backgroundColor = .white
         cb.contentEdgeInsets = UIEdgeInsets(top: .getPercentageWidth(percentage: 2), left: .getPercentageWidth(percentage: 2), bottom: .getPercentageWidth(percentage: 2), right: .getPercentageWidth(percentage: 2))
@@ -260,7 +260,7 @@ class NewCreateEventCardViewController : UIViewController, UITextFieldDelegate {
         var cb = UIButton()
         cb.backgroundColor = .white
         cb.setTitle("Create", for: .normal)
-        cb.setTitleColor(.mainDARKPURPLE, for: .normal)
+        cb.setTitleColor(.mainNAVYBLUE, for: .normal)
         cb.titleLabel?.font = UIFont(name: "Octarine-Bold", size: 18)
         cb.contentEdgeInsets = UIEdgeInsets(top: .getPercentageWidth(percentage: 2), left: .getPercentageWidth(percentage: 2), bottom: .getPercentageWidth(percentage: 2), right: .getPercentageWidth(percentage: 2))
         

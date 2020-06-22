@@ -1,4 +1,4 @@
-module Kronos {
+framework module Kronos {
   umbrella header "Kronos-umbrella.h"
 
   export *

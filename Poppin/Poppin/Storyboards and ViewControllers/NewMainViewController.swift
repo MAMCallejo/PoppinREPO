@@ -104,7 +104,7 @@ class NewMainViewController: UIViewController {
     
     lazy private var mainCreateEventButton: BubbleButton = {
         
-        var mainCreateEventButton = BubbleButton(bouncyButtonImage: UIImage(systemSymbol: .plus, withConfiguration: UIImage.SymbolConfiguration(pointSize: 0, weight: .bold)).withTintColor(.mainDARKPURPLE, renderingMode: .alwaysOriginal))
+        var mainCreateEventButton = BubbleButton(bouncyButtonImage: UIImage(systemSymbol: .plus, withConfiguration: UIImage.SymbolConfiguration(pointSize: 0, weight: .bold)).withTintColor(.mainNAVYBLUE, renderingMode: .alwaysOriginal))
         mainCreateEventButton.backgroundColor = .white
         mainCreateEventButton.contentEdgeInsets = UIEdgeInsets(top: mainHorizontalEdgeInset, left: mainHorizontalEdgeInset, bottom: mainHorizontalEdgeInset, right: mainHorizontalEdgeInset)
         mainCreateEventButton.addTarget(self, action: #selector(transitionToCreateEvent), for: .touchUpInside)
@@ -319,28 +319,6 @@ class NewMainViewController: UIViewController {
             launchScreenOverlayView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
             launchScreenOverlayView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
             launchScreenOverlayView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-            
-        }
-        
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-    
-        super.viewDidAppear(animated)
-        
-        if shouldPresentLoginVC {
-            
-            let loginNavigationController = UINavigationController(rootViewController: NewLoginStartViewController())
-            loginNavigationController.modalPresentationStyle = .overFullScreen
-            loginNavigationController.modalTransitionStyle = .coverVertical
-            loginNavigationController.setNavigationBarHidden(true, animated: false)
-            
-            present(loginNavigationController, animated: false, completion: {
-                
-                self.launchScreenOverlayView.removeFromSuperview()
-                self.shouldPresentLoginVC = false
-            
-            })
             
         }
         

@@ -216,7 +216,7 @@ final class NewMapFiltersView: UIView {
             }
             
             sender.isActive = true
-            sender.backgroundColor = .mainDARKPURPLE
+            sender.backgroundColor = .mainNAVYBLUE
             toggleFilters()
             
         }

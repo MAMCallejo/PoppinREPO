@@ -41,9 +41,9 @@ extension UIFont {
 
 extension UIColor {
     
-    static let mainCREAM = UIColor(named: "mainCREAM")!
+    static let mainCREAM = UIColor(named: "menuCREAM")!
     static let mainDARKGRAY = UIColor(named: "mainDARKGRAY")!
-    static let mainDARKPURPLE = UIColor(named: "mainDARKPURPLE")!
+    static let mainNAVYBLUE = UIColor(named: "mainNAVYBLUE")!
     static let poppinDARKGOLD = UIColor(named: "poppinDARKGOLD")!
     static let poppinLIGHTGOLD = UIColor(named: "poppinLIGHTGOLD")!
     static let educationRED = UIColor(named: "educationRED")!
@@ -170,7 +170,7 @@ extension UIView {
 
 extension UITextField {
     
-    public func setBottomBorder() { self.setBottomBorder(color: UIColor.mainDARKPURPLE, height: 1.0) }
+    public func setBottomBorder() { self.setBottomBorder(color: UIColor.mainNAVYBLUE, height: 1.0) }
     
     public func setBottomBorder(color: UIColor, height: CGFloat) {
         
@@ -188,7 +188,7 @@ extension UITextField {
 
 extension UITextView {
     
-    public func setBottomBorder() { self.setBottomBorder(color: UIColor.mainDARKPURPLE, height: 1.0) }
+    public func setBottomBorder() { self.setBottomBorder(color: UIColor.mainNAVYBLUE, height: 1.0) }
     
     public func setBottomBorder(color: UIColor, height: CGFloat) {
 

@@ -48,7 +48,7 @@ final class AlertViewController: UIViewController {
         alertMessageLabel.textAlignment = .center
         alertMessageLabel.numberOfLines = 0
         alertMessageLabel.sizeToFit()
-        alertMessageLabel.textColor = .mainDARKPURPLE
+        alertMessageLabel.textColor = .mainNAVYBLUE
         alertMessageLabel.backgroundColor = .white
         alertMessageLabel.font = UIFont(name: "Octarine-Bold", size: .getWidthFitSize(minSize: 18.0, maxSize: 20.0))
         return alertMessageLabel
@@ -130,7 +130,7 @@ final class AlertViewController: UIViewController {
     
 }
 
-/*class AlertButton: UIButton {
+class AlertButton: UIButton {
     
     public static let defaultTitle = "Ok"
         
@@ -147,7 +147,7 @@ final class AlertViewController: UIViewController {
         super.init(frame: .zero)
         
         setTitle(alertTitle ?? AlertButton.defaultTitle, for: .normal)
-        backgroundColor = .mainDARKPURPLE
+        backgroundColor = .mainNAVYBLUE
         tintColor = .white
         titleLabel?.font = UIFont(name: "Octarine-Bold", size: .getWidthFitSize(minSize: 18.0, maxSize: 20.0))
         if let newAlertButtonAction = alertButtonAction { self.alertButtonAction = newAlertButtonAction }
@@ -159,11 +159,11 @@ final class AlertViewController: UIViewController {
         super.init(coder: coder)
         
         setTitle(AlertButton.defaultTitle, for: .normal)
-        backgroundColor = .mainDARKPURPLE
+        backgroundColor = .mainNAVYBLUE
         tintColor = .white
         titleLabel?.font = UIFont(name: "Octarine-Bold", size: .getWidthFitSize(minSize: 18.0, maxSize: 20.0))
         
     }
     
-}*/
+}
 

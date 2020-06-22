@@ -44,7 +44,7 @@ final class NewUserLocationAnnotationView: MKAnnotationView {
         addShadowAndRoundCorners(cornerRadius: min(frame.width, frame.height)/2, shadowColor: UIColor.darkGray, shadowOffset: CGSize(width: 0.0, height: 1.0), shadowOpacity: 0.3, shadowRadius: 8.0)
         userLocationIconImageView.layer.cornerRadius = min(frame.width, frame.height)/2
         userLocationIconImageView.clipsToBounds = true
-        layer.borderColor = UIColor.mainDARKPURPLE.cgColor
+        layer.borderColor = UIColor.mainNAVYBLUE.cgColor
         layer.borderWidth = .getWidthFitSize(minSize: 1, maxSize: 2)
         displayPriority = .required
         canShowCallout = false

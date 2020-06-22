@@ -829,13 +829,13 @@ class createEventViewController : UIViewController {
         
         if (dateTextField.text != "") {
             
-            self.dateLabel.textColor = UIColor.mainDARKPURPLE
+            self.dateLabel.textColor = UIColor.mainNAVYBLUE
             
-            self.dateTextField.textColor = UIColor.mainDARKPURPLE
+            self.dateTextField.textColor = UIColor.mainNAVYBLUE
             
-            self.dateTextField.layer.shadowColor = UIColor.mainDARKPURPLE.cgColor
+            self.dateTextField.layer.shadowColor = UIColor.mainNAVYBLUE.cgColor
             
-            self.dateMinLabel.textColor = UIColor.mainDARKPURPLE
+            self.dateMinLabel.textColor = UIColor.mainNAVYBLUE
             
             dateTextFieldEdited = true
             
@@ -862,13 +862,13 @@ class createEventViewController : UIViewController {
         
         if (durationTextField.text != "") {
             
-            self.durationLabel.textColor = UIColor.mainDARKPURPLE
+            self.durationLabel.textColor = UIColor.mainNAVYBLUE
             
-            self.durationTextField.textColor = UIColor.mainDARKPURPLE
+            self.durationTextField.textColor = UIColor.mainNAVYBLUE
             
-            self.durationTextField.layer.shadowColor = UIColor.mainDARKPURPLE.cgColor
+            self.durationTextField.layer.shadowColor = UIColor.mainNAVYBLUE.cgColor
             
-            self.durationMinMaxLabel.textColor = UIColor.mainDARKPURPLE
+            self.durationMinMaxLabel.textColor = UIColor.mainNAVYBLUE
             
             durationTextFieldEdited = true
             
@@ -880,13 +880,13 @@ class createEventViewController : UIViewController {
         
         if (dateTextField.text != "") {
             
-            self.dateLabel.textColor = UIColor.mainDARKPURPLE
+            self.dateLabel.textColor = UIColor.mainNAVYBLUE
             
-            self.dateTextField.textColor = UIColor.mainDARKPURPLE
+            self.dateTextField.textColor = UIColor.mainNAVYBLUE
             
-            self.dateTextField.layer.shadowColor = UIColor.mainDARKPURPLE.cgColor
+            self.dateTextField.layer.shadowColor = UIColor.mainNAVYBLUE.cgColor
             
-            self.dateMinLabel.textColor = UIColor.mainDARKPURPLE
+            self.dateMinLabel.textColor = UIColor.mainNAVYBLUE
                    
             dateTextFieldEdited = true
                    
@@ -916,13 +916,13 @@ class createEventViewController : UIViewController {
         
         if (nameTextView.text != "") {
             
-            self.nameLabel.textColor = UIColor.mainDARKPURPLE
+            self.nameLabel.textColor = UIColor.mainNAVYBLUE
             
-            self.nameMaxLabel.textColor = UIColor.mainDARKPURPLE
+            self.nameMaxLabel.textColor = UIColor.mainNAVYBLUE
             
-            self.nameTextView.textColor = UIColor.mainDARKPURPLE
+            self.nameTextView.textColor = UIColor.mainNAVYBLUE
             
-            self.nameTextView.layer.shadowColor = UIColor.mainDARKPURPLE.cgColor
+            self.nameTextView.layer.shadowColor = UIColor.mainNAVYBLUE.cgColor
             
             nameTextViewEdited = true
             
@@ -934,13 +934,13 @@ class createEventViewController : UIViewController {
         
         if (infoTextView.text != "") {
             
-            self.infoLabel.textColor = UIColor.mainDARKPURPLE
+            self.infoLabel.textColor = UIColor.mainNAVYBLUE
             
-            self.infoMaxLabel.textColor = UIColor.mainDARKPURPLE
+            self.infoMaxLabel.textColor = UIColor.mainNAVYBLUE
             
-            self.infoTextView.textColor = UIColor.mainDARKPURPLE
+            self.infoTextView.textColor = UIColor.mainNAVYBLUE
             
-            self.infoTextView.layer.shadowColor = UIColor.mainDARKPURPLE.cgColor
+            self.infoTextView.layer.shadowColor = UIColor.mainNAVYBLUE.cgColor
             
             infoTextViewEdited = true
             
@@ -952,13 +952,13 @@ class createEventViewController : UIViewController {
         
         if (categoryDetailsTextView.text != "") {
             
-            self.categoryDetailsLabel.textColor = UIColor.mainDARKPURPLE
+            self.categoryDetailsLabel.textColor = UIColor.mainNAVYBLUE
             
-            self.categoryDetailsMaxLabel.textColor = UIColor.mainDARKPURPLE
+            self.categoryDetailsMaxLabel.textColor = UIColor.mainNAVYBLUE
             
-            self.categoryDetailsTextView.textColor = UIColor.mainDARKPURPLE
+            self.categoryDetailsTextView.textColor = UIColor.mainNAVYBLUE
             
-            self.categoryDetailsTextView.layer.shadowColor = UIColor.mainDARKPURPLE.cgColor
+            self.categoryDetailsTextView.layer.shadowColor = UIColor.mainNAVYBLUE.cgColor
             
             categoryDetailsTextViewEdited = true
             
@@ -970,13 +970,13 @@ class createEventViewController : UIViewController {
         
         if (subcategory1DetailsTextView.text != "") {
             
-            self.subcategory1DetailsLabel.textColor = UIColor.mainDARKPURPLE
+            self.subcategory1DetailsLabel.textColor = UIColor.mainNAVYBLUE
             
-            self.subcategory1DetailsMaxLabel.textColor = UIColor.mainDARKPURPLE
+            self.subcategory1DetailsMaxLabel.textColor = UIColor.mainNAVYBLUE
             
-            self.subcategory1DetailsTextView.textColor = UIColor.mainDARKPURPLE
+            self.subcategory1DetailsTextView.textColor = UIColor.mainNAVYBLUE
             
-            self.subcategory1DetailsTextView.layer.shadowColor = UIColor.mainDARKPURPLE.cgColor
+            self.subcategory1DetailsTextView.layer.shadowColor = UIColor.mainNAVYBLUE.cgColor
             
             subcategory1DetailsTextViewEdited = true
             
@@ -988,13 +988,13 @@ class createEventViewController : UIViewController {
         
         if (subcategory2DetailsTextView.text != "") {
             
-            self.subcategory2DetailsLabel.textColor = UIColor.mainDARKPURPLE
+            self.subcategory2DetailsLabel.textColor = UIColor.mainNAVYBLUE
             
-            self.subcategory2DetailsMaxLabel.textColor = UIColor.mainDARKPURPLE
+            self.subcategory2DetailsMaxLabel.textColor = UIColor.mainNAVYBLUE
             
-            self.subcategory2DetailsTextView.textColor = UIColor.mainDARKPURPLE
+            self.subcategory2DetailsTextView.textColor = UIColor.mainNAVYBLUE
             
-            self.subcategory2DetailsTextView.layer.shadowColor = UIColor.mainDARKPURPLE.cgColor
+            self.subcategory2DetailsTextView.layer.shadowColor = UIColor.mainNAVYBLUE.cgColor
             
             subcategory2DetailsTextViewEdited = true
             
@@ -1158,15 +1158,15 @@ class createEventViewController : UIViewController {
         
         selectedCategoryView.isSelected = true
         
-        categoryLabel.textColor = UIColor.mainDARKPURPLE
+        categoryLabel.textColor = UIColor.mainNAVYBLUE
         
-        categoryDetailsLabel.textColor = UIColor.mainDARKPURPLE
+        categoryDetailsLabel.textColor = UIColor.mainNAVYBLUE
         
-        categoryDetailsMaxLabel.textColor = UIColor.mainDARKPURPLE
+        categoryDetailsMaxLabel.textColor = UIColor.mainNAVYBLUE
         
-        categoryDetailsTextView.textColor = UIColor.mainDARKPURPLE
+        categoryDetailsTextView.textColor = UIColor.mainNAVYBLUE
         
-        categoryDetailsTextView.layer.shadowColor = UIColor.mainDARKPURPLE.cgColor
+        categoryDetailsTextView.layer.shadowColor = UIColor.mainNAVYBLUE.cgColor
 
         if (selectedCategoryView.categoryLegendLabel?.text == "Education") {
             
@@ -1448,13 +1448,13 @@ class createEventViewController : UIViewController {
             
             selectedSubcategoryView.isSelected = true
             
-            subcategory1DetailsLabel.textColor = UIColor.mainDARKPURPLE
+            subcategory1DetailsLabel.textColor = UIColor.mainNAVYBLUE
             
-            subcategory1DetailsMaxLabel.textColor = UIColor.mainDARKPURPLE
+            subcategory1DetailsMaxLabel.textColor = UIColor.mainNAVYBLUE
             
-            subcategory1DetailsTextView.textColor = UIColor.mainDARKPURPLE
+            subcategory1DetailsTextView.textColor = UIColor.mainNAVYBLUE
             
-            subcategory1DetailsTextView.layer.shadowColor = UIColor.mainDARKPURPLE.cgColor
+            subcategory1DetailsTextView.layer.shadowColor = UIColor.mainNAVYBLUE.cgColor
             
             subcategory1DetailsLabel.text = subcategoryDetailsLabelText
             
@@ -1490,13 +1490,13 @@ class createEventViewController : UIViewController {
             
             selectedSubcategoryView.isSelected = true
             
-            subcategory2DetailsLabel.textColor = UIColor.mainDARKPURPLE
+            subcategory2DetailsLabel.textColor = UIColor.mainNAVYBLUE
             
-            subcategory2DetailsMaxLabel.textColor = UIColor.mainDARKPURPLE
+            subcategory2DetailsMaxLabel.textColor = UIColor.mainNAVYBLUE
             
-            subcategory2DetailsTextView.textColor = UIColor.mainDARKPURPLE
+            subcategory2DetailsTextView.textColor = UIColor.mainNAVYBLUE
             
-            subcategory2DetailsTextView.layer.shadowColor = UIColor.mainDARKPURPLE.cgColor
+            subcategory2DetailsTextView.layer.shadowColor = UIColor.mainNAVYBLUE.cgColor
             
             subcategory2DetailsLabel.text = subcategoryDetailsLabelText
             
