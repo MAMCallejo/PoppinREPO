@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseAuth
 import FirebaseStorage
+import FirebaseAuth
 import FirebaseDatabase
 import MobileCoreServices
 import CoreLocation
@@ -111,7 +112,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         profilePicButton.layer.borderWidth = 2
         
-        profilePicButton.layer.borderColor = UIColor.mainNAVYBLUE.cgColor
+        profilePicButton.layer.borderColor = UIColor.mainDARKPURPLE.cgColor
         
     }
     

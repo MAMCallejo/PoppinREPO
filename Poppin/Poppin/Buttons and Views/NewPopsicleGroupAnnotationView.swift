@@ -58,7 +58,7 @@ final class NewPopsicleGroupAnnotationView: MKAnnotationView {
     lazy private var popsicleGroupCountBubbleView: BubbleView = {
         
         var popsicleGroupCountBubbleView = BubbleView()
-        popsicleGroupCountBubbleView.backgroundColor = .mainNAVYBLUE
+        popsicleGroupCountBubbleView.backgroundColor = .mainDARKPURPLE
         popsicleGroupCountBubbleView.clipsToBounds = true
         
         popsicleGroupCountBubbleView.addSubview(popsicleGroupCountLabel)

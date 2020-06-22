@@ -4,7 +4,7 @@
 //
 //  Created by Manuel Alejandro Martin Callejo on 4/29/20.
 //  Copyright © 2020 whatspoppinREPO. All rights reserved.
-//  JOSIAH
+//
 
 import UIKit
 import MapKit
@@ -18,7 +18,7 @@ class NewMainViewController: UIViewController {
     
     public static let defaultMainMapViewRegionRadius = 3000.0 // 3km
     public static let defaultMainMapViewCenterLocation = CLLocationCoordinate2D(latitude: 39.6766, longitude: -104.9619) // DU Campus
-    
+        
     private let mainVerticalEdgeInset: CGFloat = .getPercentageWidth(percentage: 5)
     private let mainHorizontalEdgeInset: CGFloat = .getPercentageWidth(percentage: 3)
     
@@ -104,7 +104,7 @@ class NewMainViewController: UIViewController {
     
     lazy private var mainCreateEventButton: BubbleButton = {
         
-        var mainCreateEventButton = BubbleButton(bouncyButtonImage: UIImage(systemSymbol: .plus, withConfiguration: UIImage.SymbolConfiguration(pointSize: 0, weight: .bold)).withTintColor(.mainNAVYBLUE, renderingMode: .alwaysOriginal))
+        var mainCreateEventButton = BubbleButton(bouncyButtonImage: UIImage(systemSymbol: .plus, withConfiguration: UIImage.SymbolConfiguration(pointSize: 0, weight: .bold)).withTintColor(.mainDARKPURPLE, renderingMode: .alwaysOriginal))
         mainCreateEventButton.backgroundColor = .white
         mainCreateEventButton.contentEdgeInsets = UIEdgeInsets(top: mainHorizontalEdgeInset, left: mainHorizontalEdgeInset, bottom: mainHorizontalEdgeInset, right: mainHorizontalEdgeInset)
         mainCreateEventButton.addTarget(self, action: #selector(transitionToCreateEvent), for: .touchUpInside)
@@ -319,6 +319,28 @@ class NewMainViewController: UIViewController {
             launchScreenOverlayView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
             launchScreenOverlayView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
             launchScreenOverlayView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+            
+        }
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+    
+        super.viewDidAppear(animated)
+        
+        if shouldPresentLoginVC {
+            
+            let loginNavigationController = UINavigationController(rootViewController: NewLoginStartViewController())
+            loginNavigationController.modalPresentationStyle = .overFullScreen
+            loginNavigationController.modalTransitionStyle = .coverVertical
+            loginNavigationController.setNavigationBarHidden(true, animated: false)
+            
+            present(loginNavigationController, animated: false, completion: {
+                
+                self.launchScreenOverlayView.removeFromSuperview()
+                self.shouldPresentLoginVC = false
+            
+            })
             
         }
         
@@ -569,6 +591,7 @@ extension NewMainViewController: MKMapViewDelegate {
 
 extension NewMainViewController: UISearchBarDelegate {
     
+    
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         
         if mainMapDarkLayerView.isVisible {
@@ -579,7 +602,10 @@ extension NewMainViewController: UISearchBarDelegate {
         
         let searchVC = NewSearchViewController()
         searchVC.transitioningDelegate = self
+        searchVC.searchType = "searchUsers"
         self.present(searchVC, animated: true, completion: nil)
+      //  self.present(searchVC.searchController, animated: true, completion: nil)
+
         
         return false
         

@@ -12,6 +12,7 @@ import CoreLocation
 import Firebase
 import Network
 import Kronos
+import GeoFire
 
 /*
     popsicleSize: popsicle annotation and popsicle group annotation size.
@@ -345,7 +346,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
         // PROGRAMMATIC
         
-        present(NewMainViewController(), animated: true, completion: nil) // DESELECT TO SEE NEW MAIN - FOR TRIAL PURPOSES
+        present(NewLoginStartViewController(), animated: true, completion: nil) // DESELECT TO SEE NEW MAIN - FOR TRIAL PURPOSES
         
         //present(NewMainViewController(), animated: true, completion: nil) // DESELECT TO SEE NEW MAIN - FOR TRIAL PURPOSES
         
@@ -593,7 +594,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
         let attributes = [
             
-            NSAttributedString.Key.foregroundColor : UIColor.mainNAVYBLUE,
+            NSAttributedString.Key.foregroundColor : UIColor.mainDARKPURPLE,
             
             NSAttributedString.Key.font : UIFont.init(name: "Octarine-Bold", size: 15)
             
@@ -718,12 +719,28 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
         getProfilePic()
         
-        getPopsicles()
+        //getPopsicles()
         
         //refreshDatabase()
          
          popsicleTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(refreshDatabase), userInfo: nil, repeats: true)
         
+        //  var localTimeZoneAbbreviation = TimeZone.current.abbreviation() ?? ""
+              
+              let location = CLLocation(latitude: 19.0760, longitude: 72.8777)
+           let geoCoder = CLGeocoder()
+           geoCoder.reverseGeocodeLocation(location) { (placemarks, err) in
+                if let placemark = placemarks?[0] {
+                  let timeDiff = ((Double)(placemark.timeZone?.secondsFromGMT() ?? 0)/3600.0)
+                  print(timeDiff)
+                  print(placemark.country ?? "n")
+                }
+           }
+              
+              DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { // Change `2.0` to the desired number of seconds.
+                 // Code you want to be delayed
+                  self.getPopsicles()
+              }
         
         // PROGRAMMATIC CODE
         
@@ -1677,6 +1694,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         
     }
     
+    
     /*
      refreshDatabase:
      */
@@ -1700,19 +1718,35 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
             let ref3 = Database.database().reference(withPath:"completedPopsicles")
             
             // Adding Popsicles to currentPopsicles.
+                    
+             let geoFireRef = Database.database().reference().child("Geolocs")
+                   
+                  let geoFire = GeoFire(firebaseRef: geoFireRef)
+
+            //let center = currentLocation!
+            
+            let location = CLLocation(latitude: self.userLocation.coordinate.latitude, longitude: self.userLocation.coordinate.longitude)
+            // Query locations at [37.7832889, -122.4056973] with a radius of 600 meters
+            let circleQuery = geoFire.query(at: location, withRadius: 10)
+            
+            circleQuery.observe(.keyEntered, with: { (key, location) in
+                
+            let ref2 = Database.database().reference(withPath:"upcomingPopsicles").child(key)
             
             ref2.observeSingleEvent(of: .value, with: { (snapshot) in
                 
                 print("\nObserved\n")
                 
                 if snapshot.childrenCount > 0 {
-                    for data in snapshot.children.allObjects as! [DataSnapshot] {
-                        if let data = data.value as? [String: Any] {
+                    //for data in snapshot.children.allObjects as! [DataSnapshot] {
+                       // if let data = data.value as? [String: Any] {
+                    
+                    let data = snapshot.value as! [String: Any]
                             
                             let eventDate = data["eventDate"] as! String
                             let eventName = data["eventName"] as! String
                             
-                            let currentDate = Date().toLocalTime()
+                            let currentDate = Date()
                             
                             let currentCalendar = Calendar.current
                             let currentHour = currentCalendar.component(.hour, from: currentDate)
@@ -1734,6 +1768,13 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
                             let month = components.month!
                             let day = components.day!
                             let minute = components.minute!
+                    
+                            print(currentHour)
+                            print(currentMinute)
+                            print(currentDay)
+                            print(hour)
+                            print(minute)
+                            print(day)
                             
                             if year == currentYear && month == currentMonth && day >= currentDay {
                                 
@@ -1741,11 +1782,15 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
                                     
                                     self.refreshCount += 1
                                     
+                                    
                                     ref.child(eventName).setValue(data)
                                     
-                                    let deleteRef = ref2.child(eventName)
+                                    
+                                    
+                                    let deleteRef = Database.database().reference().child("upcomingPopsicles").child(eventName)
                                     
                                     self.changesMade = true
+                                    
                                     
                                     deleteRef.removeValue { error, _ in
                                         //self.getPopsicles()
@@ -1755,27 +1800,35 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
                                 }
                                 
                             }
-                        }
+                        //}
                         
-                    }
+                    //}
                 }
                 
             })
+            })
+            
+                       
+            circleQuery.observe(.keyEntered, with: { (key, location) in
+                           
+                let ref = Database.database().reference(withPath:"currentPopsicles").child(key)
             
             ref.observeSingleEvent(of: .value, with: { (snapshot) in
                 
                 print("\nObserved2\n")
                 
                 if snapshot.childrenCount > 0 {
-                    for data in snapshot.children.allObjects as! [DataSnapshot] {
-                        if let data = data.value as? [String: Any] {
+                    //for data in snapshot.children.allObjects as! [DataSnapshot] {
+                       // if let data = data.value as? [String: Any] {
                             
+                            let data = snapshot.value as! [String: Any]
+                    
                             let eventDate = data["eventDate"] as! String
                             let eventName = data["eventName"] as! String
                             let duration = data["eventDuration"] as! String
                             let eventDuration:Int? = Int(duration)
                             
-                            let currentDate = Date().toLocalTime()
+                            let currentDate = Date()
                             
                             print("\n")
                             print(currentDate)
@@ -1805,92 +1858,45 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
                             if(timeMinute + minute >= 60){
                                 hour += 1
                             }
+                    
+                            print(currentHour)
+                            print(currentMinute)
+                            print(currentDay)
+                            print(hour)
+                            print(minute)
+                            print(day)
                             
-                            // MARK: DELETE
-//                            if day < currentDay || ((hour + timeHours) % 24 <= currentHour && (minute + timeMinute) % 60 <= currentMinute) {
-//                                self.refreshCount += 1
-//                                ref3.child(eventName).setValue(data)
-//                                let deleteRef = ref.child(eventName)
-//
-//                                self.changesMade = true
-//
-//                                deleteRef.removeValue { error, _ in
-//                                    //self.getPopsicles()
-//                                    print(error ?? "Refresh Database Error")
-//                                }
-//
-//                                //sleep(2)
-//
-//                            }
+                            if day < currentDay  || day == currentDay && ((hour + timeHours) % 24 <= currentHour && (minute + timeMinute) % 60 <= currentMinute) {
+                                self.refreshCount += 1
+                                ref3.child(eventName).setValue(data)
+                                
+                                let deleteRef = Database.database().reference().child("currentPopsicles").child(eventName)
+
+                                geoFire.removeKey(eventName)
+                                
+                                self.changesMade = true
+                                
+                                deleteRef.removeValue { error, _ in
+                                    //self.getPopsicles()
+                                    print(error ?? "Refresh Database Error")
+                                }
+                                
+                                //sleep(2)
+                                
+                            }
                             
-                        }
+                       // }
                         
-                    }
+                    //}
                 }
                 
+            })
             })
             
             // if(self.changesMade){
             //getPopsicles()
             self.changesMade = false
             // }
-            
-            // MARK: Twinkle
-            // makes any popsicle that are poppin have a twinkle effect
-            for ann in self.mainMapView.annotations {
-                
-                if(ann is pinPopsicle) {
-                    
-                    let popsicleAnn = ann as! pinPopsicle
-                    let popsicleView = self.mainMapView.view(for: ann)
-                    
-                    if(popsicleAnn.popsicleData!.whosGoing.count > 2)
-                    {
-                        popsicleView?.twinkle()
-                        //popsicleView?.shimmer()
-                    }
-                    
-                    let dur = Int(popsicleAnn.popsicleData!.eventDuration)!
-                    
-                    let time = popsicleAnn.popsicleData!.eventDate
-                    let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
-                    let timeDate = dateFormatter.date(from: time)!
-                    let calendar = Calendar.current
-                    let timeComponents = calendar.dateComponents([.hour, .minute], from: timeDate)
-                    let nowComponents = calendar.dateComponents([.hour, .minute], from: Date())
-
-                    let diff = calendar.dateComponents([.minute], from: timeComponents, to: nowComponents).minute!
-                    
-                    // only add progress bars to popsicles that are in progress
-                    if(diff > 0 && diff <= dur)
-                    {
-                        let progressBar = UIProgressView(frame: CGRect(x: 15, y: 60, width: 28, height: 5))
-                        progressBar.tag = -2
-                        //progressBar.progress = 0.75 // progress to be determined by duration of event
-                        progressBar.progress = Float(dur - diff) / Float(dur)
-                        print(dur)
-                        print(diff)
-                        print(Float(dur - diff) / Float(dur))
-                        progressBar.transform = progressBar.transform.scaledBy(x: 1, y: 3)
-                        
-                        //adjust color of progress bar appropriately
-                        if(progressBar.progress < 0.25) {
-                            progressBar.progressTintColor = UIColor.red
-                        } else if(progressBar.progress < 0.5) {
-                            progressBar.progressTintColor = UIColor.yellow
-                        } else {
-                            progressBar.progressTintColor = UIColor.green
-                        }
-                        
-                        popsicleView?.viewWithTag(-2)?.removeFromSuperview()
-                        popsicleView?.addSubview(progressBar)
-                        
-                    }
-                    
-                }
-                
-            }
             
           } else {
             
@@ -1919,17 +1925,31 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         }
         
         mapPopsicles = []
+                
+         let geoFireRef = Database.database().reference().child("Geolocs")
+               
+              let geoFire = GeoFire(firebaseRef: geoFireRef)
+
+        //let center = currentLocation!
         
-        let ref = Database.database().reference(withPath:"currentPopsicles")
+        let location = CLLocation(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
+        // Query locations at [37.7832889, -122.4056973] with a radius of 600 meters
+        let circleQuery = geoFire.query(at: location, withRadius: 10)
         
+        circleQuery.observe(.keyEntered, with: { (key, location) in
+            
+            let ref = Database.database().reference(withPath:"currentPopsicles").child(key)
+            
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
             // Printing the child count
             //print("There are \(snapshot.childrenCount) children found")
             // Checking if the reference has some values
             if snapshot.childrenCount > 0 {
                 // Go through every child
-                for data in snapshot.children.allObjects as! [DataSnapshot] {
-                    if let data = data.value as? [String: Any] {
+                //for data in snapshot.children.allObjects as! [DataSnapshot] {
+                 //   if let data = data.value as? [String: Any] {
+                let data = snapshot.value as! [String: Any]
+
                         // Retrieve the data per child
                         
                         let eventDate = data["eventDate"] as! String
@@ -1944,9 +1964,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
                         let eventSubcategory2Details = data["eventSubcategory2Details"] as! String
                         let latitude = data["latitude"] as! CLLocationDegrees
                         let longitude = data["longitude"] as! CLLocationDegrees
-                        
-                        // MARK: change
-                        let whosGoing = data["whosGoing"] ?? [] as! [String]
+                        let whosGoing = data["whosGoing"] as! [String]
                         
                         let popsicleToAdd = pinPopsicle()
                         
@@ -1954,16 +1972,11 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
                         
                         let eventPopsicle: UIImage
                         
-                        // MARK: change
-                        if((whosGoing as! [String]).count > 2) {
-                            
-                            eventPopsicle = UIImage(named: "goldButton")!
-                            
-                        } else if (eventCategory == "Education") {
+                        if (eventCategory == "Education") {
                             
                             eventPopsicle = UIImage(named: "educationButton")!
                             
-                        
+                            
                             
                         } else if (eventCategory == "Food") {
                             
@@ -1986,8 +1999,7 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
                             eventPopsicle = UIImage(named: "showsButton")!
                             
                         }
-                        // MARK: change
-                        popsicleToAdd.popsicleData = pinData(eventName: eventName, eventInfo: eventInfo, eventDate: eventDate, eventDuration: eventDuration, eventCategory: eventCategory, eventCategoryDetails: eventCategoryDetails, eventSubcategory1: eventSubcategory1, eventSubcategory1Details: eventSubcategory1Details, eventSubcategory2: eventSubcategory2, eventSubcategory2Details: eventSubcategory2Details, eventLocation: coordinates, eventPopsicle: eventPopsicle, whosGoing: whosGoing as! [String])
+                popsicleToAdd.popsicleData = pinData(eventName: eventName, eventInfo: eventInfo, eventDate: eventDate, eventDuration: eventDuration, eventCategory: eventCategory, eventCategoryDetails: eventCategoryDetails, eventSubcategory1: eventSubcategory1, eventSubcategory1Details: eventSubcategory1Details, eventSubcategory2: eventSubcategory2, eventSubcategory2Details: eventSubcategory2Details, eventLocation: coordinates, eventPopsicle: eventPopsicle, whosGoing: whosGoing)
                         
                         popsicleToAdd.coordinate = coordinates
                         
@@ -1996,43 +2008,15 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
                         self.addNewPopsicleToMap()
                         
                         
-                    }
-                }
+                  //  }
+             //   }
             }
+        })
         })
         
         
     }
     
-    /*
-     getPopsicles:
-     */
-    
-    /*public func getPopsicles() {
-       
-        for popsicle in mapPopsicles {
-            
-            if (!currentPopsicles.contains(popsicle)) {
-                
-                mainMapView.removeAnnotation(popsicle)
-                
-            }
-            
-        }
-        
-        for popsicle in currentPopsicles {
-            
-            if (!mapPopsicles.contains(popsicle)) {
-                
-                mainMapView.addAnnotation(popsicle)
-                
-            }
-            
-        }
-        
-        mapPopsicles = currentPopsicles
-        
-    }*/
     
     /*
         confirmLocation: called by the confirmButton once the user has decided which location to use...
@@ -2076,6 +2060,11 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         let month = components.month!
         let day = components.day!
         let minute = components.minute!
+        
+         let geoFireRef = Database.database().reference().child("Geolocs")
+               
+               let geoFire = GeoFire(firebaseRef: geoFireRef)
+
          
         if (year == currentYear && month == currentMonth && day >= currentDay) {
            
@@ -2084,6 +2073,9 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
             ref.child("currentPopsicles/\(newPopsicle.popsicleData.eventName)/latitude").setValue(mainMapView.centerCoordinate.latitude)
              
             ref.child("currentPopsicles/\(newPopsicle.popsicleData.eventName)/longitude").setValue(mainMapView.centerCoordinate.longitude)
+            
+            geoFire.setLocation(CLLocation(latitude: mainMapView.centerCoordinate.latitude , longitude: mainMapView.centerCoordinate.longitude), forKey: (newPopsicle.popsicleData.eventName))
+
              
             let en = newPopsicle.popsicleData.eventName
             
@@ -2107,7 +2099,6 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
             
             ref.child("currentPopsicles/\(en)/eventSubcategory2Details").setValue(newPopsicle.popsicleData.eventSubcategory2Details)
             
-            // MARK: change
             ref.child("currentPopsicles/\(en)/whosGoing").setValue(newPopsicle.popsicleData.whosGoing)
             
             newPopsicle.popsicleData.eventLocation = mainMapView.centerCoordinate
@@ -2116,7 +2107,6 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
                    
                    let popsicleToAdd = pinPopsicle()
                    
-            // MARK: change
             popsicleToAdd.popsicleData = pinData(eventName: newPopsicle.popsicleData.eventName, eventInfo: newPopsicle.popsicleData.eventInfo, eventDate: newPopsicle.popsicleData.eventDate, eventDuration: newPopsicle.popsicleData.eventDuration, eventCategory: newPopsicle.popsicleData.eventCategory, eventCategoryDetails: newPopsicle.popsicleData.eventCategoryDetails, eventSubcategory1: newPopsicle.popsicleData.eventSubcategory1, eventSubcategory1Details: newPopsicle.popsicleData.eventSubcategory1Details, eventSubcategory2: newPopsicle.popsicleData.eventSubcategory2, eventSubcategory2Details: newPopsicle.popsicleData.eventSubcategory2Details, eventLocation: newPopsicle.popsicleData.eventLocation, eventPopsicle: newPopsicle.popsicleData.eventPopsicle, whosGoing: newPopsicle.popsicleData.whosGoing)
                    
                    popsicleToAdd.coordinate = popsicleToAdd.popsicleData.eventLocation
@@ -2134,6 +2124,8 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
             ref.child("upcomingPopsicles/\(newPopsicle.popsicleData.eventName)/latitude").setValue(mainMapView.centerCoordinate.latitude)
             
             ref.child("upcomingPopsicles/\(newPopsicle.popsicleData.eventName)/longitude").setValue(mainMapView.centerCoordinate.longitude)
+            
+            geoFire.setLocation(CLLocation(latitude: mainMapView.centerCoordinate.latitude , longitude: mainMapView.centerCoordinate.longitude), forKey: (newPopsicle.popsicleData.eventName))
             
             let en = newPopsicle.popsicleData.eventName
             
@@ -2157,16 +2149,14 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
             
             ref.child("upcomingPopsicles/\(en)/eventSubcategory2Details").setValue(newPopsicle.popsicleData.eventSubcategory2Details)
             
-            // MARK: change
-            ref.child("currentPopsicles/\(en)/whosGoing").setValue(newPopsicle.popsicleData.whosGoing)
+            ref.child("upcomingPopsicles/\(en)/whosGoing").setValue(newPopsicle.popsicleData.whosGoing)
             
             newPopsicle.popsicleData.eventLocation = mainMapView.centerCoordinate
                    
                    newPopsicle.coordinate = newPopsicle.popsicleData.eventLocation
                    
                    let popsicleToAdd = pinPopsicle()
-             
-            // MARK: change
+                   
             popsicleToAdd.popsicleData = pinData(eventName: newPopsicle.popsicleData.eventName, eventInfo: newPopsicle.popsicleData.eventInfo, eventDate: newPopsicle.popsicleData.eventDate, eventDuration: newPopsicle.popsicleData.eventDuration, eventCategory: newPopsicle.popsicleData.eventCategory, eventCategoryDetails: newPopsicle.popsicleData.eventCategoryDetails, eventSubcategory1: newPopsicle.popsicleData.eventSubcategory1, eventSubcategory1Details: newPopsicle.popsicleData.eventSubcategory1Details, eventSubcategory2: newPopsicle.popsicleData.eventSubcategory2, eventSubcategory2Details: newPopsicle.popsicleData.eventSubcategory2Details, eventLocation: newPopsicle.popsicleData.eventLocation, eventPopsicle: newPopsicle.popsicleData.eventPopsicle, whosGoing: newPopsicle.popsicleData.whosGoing)
                    
                    popsicleToAdd.coordinate = popsicleToAdd.popsicleData.eventLocation
@@ -2187,18 +2177,6 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         placingPin = false
         
         confirmationViewIsVisible = false
-        
-//        newPopsicle.popsicleData.eventLocation = mainMapView.centerCoordinate
-//
-//        newPopsicle.coordinate = newPopsicle.popsicleData.eventLocation
-//
-//        let popsicleToAdd = pinPopsicle()
-//
-//        popsicleToAdd.popsicleData = pinData(eventName: newPopsicle.popsicleData.eventName, eventInfo: newPopsicle.popsicleData.eventInfo, eventDate: newPopsicle.popsicleData.eventDate, eventDuration: newPopsicle.popsicleData.eventDuration, eventCategory: newPopsicle.popsicleData.eventCategory, eventCategoryDetails: newPopsicle.popsicleData.eventCategoryDetails, eventSubcategory1: newPopsicle.popsicleData.eventSubcategory1, eventSubcategory1Details: newPopsicle.popsicleData.eventSubcategory1Details, eventSubcategory2: newPopsicle.popsicleData.eventSubcategory2, eventSubcategory2Details: newPopsicle.popsicleData.eventSubcategory2Details, eventLocation: newPopsicle.popsicleData.eventLocation, eventPopsicle: newPopsicle.popsicleData.eventPopsicle)
-//
-//        popsicleToAdd.coordinate = popsicleToAdd.popsicleData.eventLocation
-        
-       // mapPopsicles?.append(popsicleToAdd)
         
         self.view.layoutIfNeeded()
         
@@ -2225,12 +2203,6 @@ class mainViewController: UIViewController, createEventViewControllerReturnProto
         self.showMainButtons()
         
         self.addEventToMenu(eventName: self.newPopsicle.popsicleData.eventName)
-        
-       // mapPopsicles?.append(popsicleToAdd)
-         
-        //addNewPopsicleToMap()
-        
-        //refreshDatabase()
         
         getPopsicles()
         

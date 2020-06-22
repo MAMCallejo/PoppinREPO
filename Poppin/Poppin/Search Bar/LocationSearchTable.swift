@@ -236,7 +236,7 @@ extension LocationSearchTable : UISearchResultsUpdating {
     public func updateSearchResults(for searchController: UISearchController) {
         
         searchCompleter.queryFragment = searchController.searchBar.text ?? ""
-        
+         
     }
     
 }
