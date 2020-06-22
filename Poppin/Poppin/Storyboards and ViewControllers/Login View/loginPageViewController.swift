@@ -8,7 +8,6 @@
 
 import UIKit
 import FirebaseAuth
-import FirebaseUI
 import FirebaseDatabase
 
 class loginPageViewController: UIViewController, UITextFieldDelegate {
