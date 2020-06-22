@@ -273,26 +273,7 @@ class NewCreateEventCardViewController : UIViewController, UITextFieldDelegate {
     }()
     
     @objc func createCard() {
-        
-        // what to share
-        let firstActivityItem = UIImage(named: "showsButton")
-
-        let activityViewController : UIActivityViewController = UIActivityViewController(
-            activityItems: [firstActivityItem as Any], applicationActivities: nil)
-        
-        // Anything you want to exclude
-        activityViewController.excludedActivityTypes = [
-            UIActivity.ActivityType.postToWeibo,
-            UIActivity.ActivityType.print,
-            UIActivity.ActivityType.assignToContact,
-            UIActivity.ActivityType.saveToCameraRoll,
-            UIActivity.ActivityType.addToReadingList,
-            UIActivity.ActivityType.postToFlickr,
-            UIActivity.ActivityType.postToVimeo,
-            UIActivity.ActivityType.postToTencentWeibo
-        ]
-
-        self.present(activityViewController, animated: true, completion: nil)
+        //
     }
     
     var backgroundGradientColors = [CGColor]()
