@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "1282B8776A6EFDCCBE1858E8F673D0A4"
-               BuildableName = "libSFSafeSymbols.a"
+               BuildableName = "SFSafeSymbols.framework"
                BlueprintName = "SFSafeSymbols"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>

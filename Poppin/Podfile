@@ -1,15 +1,17 @@
 # Uncomment the next line to define a global platform for your project
- platform :ios, '13.0'
+platform :ios, '13.0'
+use_frameworks!
 
 target 'Poppin' do
-  use_modular_headers!
 
   # Pods for Poppin
     pod 'Firebase/Auth'
     pod 'Firebase/Database'
     pod 'Firebase/Storage'
+    pod 'FirebaseUI/Storage', '~> 8.0'
     pod 'Kronos'
     pod 'SFSafeSymbols', '~> 1.2.0'
+    pod 'GeoFire', '~> 4.0'
 
   target 'PoppinTests' do
     inherit! :search_paths
