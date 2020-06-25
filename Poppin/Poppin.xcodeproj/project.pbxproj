@@ -72,6 +72,7 @@
 		F5FEF106809558C7EC75AE64 /* Pods_PoppinTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1709F3C6C2E812049D1C361 /* Pods_PoppinTests.framework */; };
 		F647A6EA243BDE8A006EC083 /* Shimmer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F647A6E9243BDE8A006EC083 /* Shimmer.swift */; };
 		F6A8A7502433D68E0069FB36 /* FloatingRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A8A74F2433D68E0069FB36 /* FloatingRatingView.swift */; };
+		F6AA0EC824A46E6D00D83518 /* PopsiclePopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AA0EC724A46E6D00D83518 /* PopsiclePopupViewController.swift */; };
 		F6D5028A248C9445008FD6C8 /* NewCreateEventCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D50289248C9445008FD6C8 /* NewCreateEventCardViewController.swift */; };
 		F6DB6623243ACD57007F02BB /* Twinkle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6DB6622243ACD57007F02BB /* Twinkle.swift */; };
 		F6F1C88C246C759900EC8BA1 /* NewCreateEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F1C88B246C759900EC8BA1 /* NewCreateEventViewController.swift */; };
@@ -173,6 +174,7 @@
 		F5DE36D12497AF1500C1E87F /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
 		F647A6E9243BDE8A006EC083 /* Shimmer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shimmer.swift; sourceTree = "<group>"; };
 		F6A8A74F2433D68E0069FB36 /* FloatingRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingRatingView.swift; sourceTree = "<group>"; };
+		F6AA0EC724A46E6D00D83518 /* PopsiclePopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopsiclePopupViewController.swift; sourceTree = "<group>"; };
 		F6D50289248C9445008FD6C8 /* NewCreateEventCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCreateEventCardViewController.swift; sourceTree = "<group>"; };
 		F6DB6622243ACD57007F02BB /* Twinkle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Twinkle.swift; sourceTree = "<group>"; };
 		F6F1C88B246C759900EC8BA1 /* NewCreateEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCreateEventViewController.swift; sourceTree = "<group>"; };
@@ -336,6 +338,7 @@
 				64EC089E245C887D007ED7AC /* NewSearchViewController.swift */,
 				F5DE36D12497AF1500C1E87F /* UserViewController.swift */,
 				F5DD747A249D54AD00FF9CBC /* ViewImageViewController.swift */,
+				F6AA0EC724A46E6D00D83518 /* PopsiclePopupViewController.swift */,
 			);
 			path = "Storyboards and ViewControllers";
 			sourceTree = "<group>";
@@ -684,6 +687,7 @@
 				6492F92E245A009C006EC261 /* NewUserLocationAnnotationView.swift in Sources */,
 				F6F1C88C246C759900EC8BA1 /* NewCreateEventViewController.swift in Sources */,
 				64171087249924AE00481948 /* NewLoginViewController.swift in Sources */,
+				F6AA0EC824A46E6D00D83518 /* PopsiclePopupViewController.swift in Sources */,
 				64171089249924C300481948 /* NewSignUpViewControllers.swift in Sources */,
 				640270792353C51F00641159 /* mainViewController.swift in Sources */,
 				64BD292A23FC9BFF00B5C32D /* LoginViewController.swift in Sources */,
