@@ -222,7 +222,16 @@ class NewMainViewController: UIViewController {
         //self.modalPresentationStyle = .overFullScreen
         
         //self.present(NewCreateEventViewController(), animated: true, completion: nil)
-        self.present(PopsiclePopupViewController(), animated: true, completion: nil)
+        //self.present(PopsiclePopupViewController(), animated: true, completion: nil)
+        let bottomSheetVC = PopsiclePopupViewController()
+        
+        self.addChild(bottomSheetVC)
+        self.view.addSubview(bottomSheetVC.view)
+        bottomSheetVC.didMove(toParent: self)
+        
+        let height = view.frame.height
+        let width  = view.frame.width
+        bottomSheetVC.view.frame = CGRect(x: 0, y: view.frame.maxY, width: width, height: height)
         
     }
     
