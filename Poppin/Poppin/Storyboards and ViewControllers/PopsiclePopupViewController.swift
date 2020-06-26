@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PopsiclePopupViewController : UIViewController {
+class PopsiclePopupViewController : UIViewController, HashtagViewDelegate {
     
     lazy var tabBar : UIView = {
         var t = UIView()
@@ -28,7 +28,7 @@ class PopsiclePopupViewController : UIViewController {
         t.backgroundColor = UIColor.white.withAlphaComponent(0)
         t.font = UIFont(name: "Octarine-Bold", size: 20)
         t.textColor = .white
-        t.text = "Yosi's forehead Gathering"
+        t.text = "Josiah's Lame Birthday"
         return t
     }()
     
@@ -41,6 +41,7 @@ class PopsiclePopupViewController : UIViewController {
         return t
     }()
     
+    /* created by view */
     lazy var userThatCreatedEventImage : ImageBubbleButton = {
         var i = ImageBubbleButton(bouncyButtonImage: .defaultUserPicture256)
         return i
@@ -56,7 +57,7 @@ class PopsiclePopupViewController : UIViewController {
     }()
     
     lazy var userChat : BouncyButton = {
-        var i = BouncyButton(bouncyButtonImage: UIImage(systemSymbol: .envelopeBadge).withTintColor(.mainDARKPURPLE))
+        var i = BouncyButton(bouncyButtonImage: UIImage(systemSymbol: .messageCircleFill).withTintColor(.mainDARKPURPLE))
         //i.contentMode = .scaleAspectFit
         return i
     }()
@@ -90,10 +91,68 @@ class PopsiclePopupViewController : UIViewController {
         return c
     }()
     
+    lazy var infoOfEvent : UITextView = {
+        var t = UITextView()
+        t.backgroundColor = UIColor.white.withAlphaComponent(0)
+        t.font = UIFont(name: "Octarine-Light", size: 20)
+        t.textColor = .white
+        t.text = "Come to my birthday party please. My mum is cooking Ethiopian food and my dad will be singing the finest Ethiopian melodies. We can play board games!"
+        return t
+    }()
+    
+    lazy var hashtagView : HashtagView = {
+        var h = HashtagView()
+        h.backgroundColor = UIColor.white.withAlphaComponent(0.25)
+        h.tagBackgroundColor = .white
+        h.tagTextColor = .mainDARKPURPLE
+        h.cornerRadius = 16
+        h.tagCornerRadius = 10
+        //h.tagPadding = 5.0
+        h.horizontalTagSpacing = 7.0
+        h.verticalTagSpacing = 5.0
+        return h
+    }()
+    
+    lazy var whosGoingButton : BubbleButton = {
+        var g = BubbleButton(bouncyButtonImage: UIImage(systemSymbol: .rectangleStackPersonCrop).withTintColor(.white))
+        //g.backgroundColor = .white
+        return g
+    }()
+    
+    lazy var goingButton : BubbleButton = {
+        var g = BubbleButton(bouncyButtonImage: nil)
+        g.backgroundColor = .white
+        g.setTitleColor(.mainDARKPURPLE, for: .normal)
+        g.setTitle("going", for: .normal)
+        g.titleLabel?.font = UIFont(name: "Octarine-Bold", size: 20)
+        g.contentHorizontalAlignment = .center
+        return g
+    }()
+    
+    lazy var shareButton : BubbleButton = {
+        var g = BubbleButton(bouncyButtonImage: UIImage(systemSymbol: .squareAndArrowUp).withTintColor(.white))
+        //g.backgroundColor = .white
+        return g
+    }()
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        view.backgroundColor = .foodORANGE
+        view.backgroundColor = .white
+        
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = self.view.bounds
+        gradientLayer.colors = [UIColor.foodORANGE.cgColor, UIColor.foodORANGE.cgColor]
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
+        
+        /* adding hashtags */
+        hashtagView.addTag(tag: HashTag(word: "food"))
+        hashtagView.addTag(tag: HashTag(word: "Ethiopia"))
+        hashtagView.addTag(tag: HashTag(word: "habesha"))
+        hashtagView.addTag(tag: HashTag(word: "BoardGames"))
+        hashtagView.addTag(tag: HashTag(word: "PleaseCome"))
+        hashtagView.addTag(tag: HashTag(word: "yosi"))
+        hashtagView.addTag(tag: HashTag(word: "yosiiscool"))
         
         view.addSubview(tabBar)
         tabBar.translatesAutoresizingMaskIntoConstraints = false
@@ -130,9 +189,43 @@ class PopsiclePopupViewController : UIViewController {
         createdBy.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 7)).isActive = true
         createdBy.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
+        view.addSubview(infoOfEvent)
+        infoOfEvent.translatesAutoresizingMaskIntoConstraints = false
+        infoOfEvent.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 85)).isActive = true
+        infoOfEvent.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 25)).isActive = true
+        infoOfEvent.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 18)).isActive = true
+        infoOfEvent.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        view.addSubview(hashtagView)
+        hashtagView.translatesAutoresizingMaskIntoConstraints = false
+        hashtagView.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 85)).isActive = true
+        hashtagView.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 9)).isActive = true
+        hashtagView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 36)).isActive = true
+        hashtagView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        view.addSubview(whosGoingButton)
+        whosGoingButton.translatesAutoresizingMaskIntoConstraints = false
+        whosGoingButton.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 12)).isActive = true
+        whosGoingButton.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 5)).isActive = true
+        whosGoingButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 80)).isActive = true
+        whosGoingButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: .getPercentageWidth(percentage: 10)).isActive = true
+        
+        view.addSubview(goingButton)
+        goingButton.translatesAutoresizingMaskIntoConstraints = false
+        goingButton.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 30)).isActive = true
+        goingButton.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 5)).isActive = true
+        goingButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 80)).isActive = true
+        goingButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         let gesture = UIPanGestureRecognizer.init(target: self, action: #selector(panGesture))
         view.addGestureRecognizer(gesture)
+        
+        view.addSubview(shareButton)
+        shareButton.translatesAutoresizingMaskIntoConstraints = false
+        shareButton.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 12)).isActive = true
+        shareButton.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 5)).isActive = true
+        shareButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 80)).isActive = true
+        shareButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: .getPercentageWidth(percentage: 78)).isActive = true
         
         roundViews()
     }
@@ -174,6 +267,18 @@ class PopsiclePopupViewController : UIViewController {
     func roundViews() {
         view.layer.cornerRadius = 16
         view.clipsToBounds = true
+    }
+    
+    /* functions to conform to Hashtag delegate */
+    func hashtagRemoved(hashtag: HashTag) {
+        //
+    }
+    
+    func viewShouldResizeTo(size: CGSize) {
+        hashtagView.heightAnchor.constraint(equalToConstant: size.height).isActive = true
+        UIView.animate(withDuration: 0.4) {
+            self.view.layoutIfNeeded()
+        }
     }
 }
 

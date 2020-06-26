@@ -73,6 +73,13 @@
 		F647A6EA243BDE8A006EC083 /* Shimmer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F647A6E9243BDE8A006EC083 /* Shimmer.swift */; };
 		F6A8A7502433D68E0069FB36 /* FloatingRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A8A74F2433D68E0069FB36 /* FloatingRatingView.swift */; };
 		F6AA0EC824A46E6D00D83518 /* PopsiclePopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AA0EC724A46E6D00D83518 /* PopsiclePopupViewController.swift */; };
+		F6AA0ECB24A5709900D83518 /* Hashtag.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AA0ECA24A5709900D83518 /* Hashtag.swift */; };
+		F6AA0ECD24A570AB00D83518 /* HashtagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AA0ECC24A570AB00D83518 /* HashtagCollectionViewCell.swift */; };
+		F6AA0ECF24A570BB00D83518 /* HashtagConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AA0ECE24A570BB00D83518 /* HashtagConfiguration.swift */; };
+		F6AA0ED124A570D300D83518 /* HashtagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AA0ED024A570D300D83518 /* HashtagView.swift */; };
+		F6AA0ED324A570E300D83518 /* HashtagViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AA0ED224A570E300D83518 /* HashtagViewDelegate.swift */; };
+		F6AA0ED524A5710100D83518 /* RemovableHashtagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AA0ED424A5710100D83518 /* RemovableHashtagCollectionViewCell.swift */; };
+		F6AA0ED724A572B800D83518 /* AlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AA0ED624A572B800D83518 /* AlignedCollectionViewFlowLayout.swift */; };
 		F6D5028A248C9445008FD6C8 /* NewCreateEventCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D50289248C9445008FD6C8 /* NewCreateEventCardViewController.swift */; };
 		F6DB6623243ACD57007F02BB /* Twinkle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6DB6622243ACD57007F02BB /* Twinkle.swift */; };
 		F6F1C88C246C759900EC8BA1 /* NewCreateEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F1C88B246C759900EC8BA1 /* NewCreateEventViewController.swift */; };
@@ -175,6 +182,13 @@
 		F647A6E9243BDE8A006EC083 /* Shimmer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shimmer.swift; sourceTree = "<group>"; };
 		F6A8A74F2433D68E0069FB36 /* FloatingRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingRatingView.swift; sourceTree = "<group>"; };
 		F6AA0EC724A46E6D00D83518 /* PopsiclePopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopsiclePopupViewController.swift; sourceTree = "<group>"; };
+		F6AA0ECA24A5709900D83518 /* Hashtag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hashtag.swift; sourceTree = "<group>"; };
+		F6AA0ECC24A570AB00D83518 /* HashtagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagCollectionViewCell.swift; sourceTree = "<group>"; };
+		F6AA0ECE24A570BB00D83518 /* HashtagConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagConfiguration.swift; sourceTree = "<group>"; };
+		F6AA0ED024A570D300D83518 /* HashtagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagView.swift; sourceTree = "<group>"; };
+		F6AA0ED224A570E300D83518 /* HashtagViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagViewDelegate.swift; sourceTree = "<group>"; };
+		F6AA0ED424A5710100D83518 /* RemovableHashtagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemovableHashtagCollectionViewCell.swift; sourceTree = "<group>"; };
+		F6AA0ED624A572B800D83518 /* AlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		F6D50289248C9445008FD6C8 /* NewCreateEventCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCreateEventCardViewController.swift; sourceTree = "<group>"; };
 		F6DB6622243ACD57007F02BB /* Twinkle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Twinkle.swift; sourceTree = "<group>"; };
 		F6F1C88B246C759900EC8BA1 /* NewCreateEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCreateEventViewController.swift; sourceTree = "<group>"; };
@@ -327,6 +341,7 @@
 		6489BBB223A0629F00769793 /* Storyboards and ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				F6AA0EC924A5706A00D83518 /* Hashtag Library */,
 				F6DB6624243BD5AF007F02BB /* Misc Effects */,
 				F6DB6621243A8159007F02BB /* Profile View */,
 				F6DB6620243A8145007F02BB /* Create Event View */,
@@ -393,6 +408,20 @@
 				F5DE36CF2496A20100C1E87F /* NewSearchController.swift */,
 			);
 			path = "Search Bar";
+			sourceTree = "<group>";
+		};
+		F6AA0EC924A5706A00D83518 /* Hashtag Library */ = {
+			isa = PBXGroup;
+			children = (
+				F6AA0ECA24A5709900D83518 /* Hashtag.swift */,
+				F6AA0ECC24A570AB00D83518 /* HashtagCollectionViewCell.swift */,
+				F6AA0ECE24A570BB00D83518 /* HashtagConfiguration.swift */,
+				F6AA0ED024A570D300D83518 /* HashtagView.swift */,
+				F6AA0ED224A570E300D83518 /* HashtagViewDelegate.swift */,
+				F6AA0ED424A5710100D83518 /* RemovableHashtagCollectionViewCell.swift */,
+				F6AA0ED624A572B800D83518 /* AlignedCollectionViewFlowLayout.swift */,
+			);
+			path = "Hashtag Library";
 			sourceTree = "<group>";
 		};
 		F6DB661F243A811B007F02BB /* Popsicle View */ = {
@@ -671,11 +700,15 @@
 				649ED12723CE7020006D31B5 /* ProfileViewController.swift in Sources */,
 				F6DB6623243ACD57007F02BB /* Twinkle.swift in Sources */,
 				649ED12923CE73FC006D31B5 /* Extensions.swift in Sources */,
+				F6AA0ED324A570E300D83518 /* HashtagViewDelegate.swift in Sources */,
 				6417F271237B975400033D8D /* mainNavigationController.swift in Sources */,
+				F6AA0ECD24A570AB00D83518 /* HashtagCollectionViewCell.swift in Sources */,
+				F6AA0ED524A5710100D83518 /* RemovableHashtagCollectionViewCell.swift in Sources */,
 				64EC089D245C5C4E007ED7AC /* NewSearchBar.swift in Sources */,
 				646FF63F2458B8AB00BD4271 /* NewPopsicleAnnotation.swift in Sources */,
 				64C10D642372A1950087CE23 /* LocationSearchTableCell.swift in Sources */,
 				6492F92A2459D180006EC261 /* NewPopsicleAnnotationView.swift in Sources */,
+				F6AA0ED724A572B800D83518 /* AlignedCollectionViewFlowLayout.swift in Sources */,
 				64EBC2A32455C453005D445C /* createEventViewController.swift in Sources */,
 				64EC089F245C887D007ED7AC /* NewSearchViewController.swift in Sources */,
 				648AEB99237E250C008743E8 /* pinPopsicle.swift in Sources */,
@@ -687,6 +720,7 @@
 				6492F92E245A009C006EC261 /* NewUserLocationAnnotationView.swift in Sources */,
 				F6F1C88C246C759900EC8BA1 /* NewCreateEventViewController.swift in Sources */,
 				64171087249924AE00481948 /* NewLoginViewController.swift in Sources */,
+				F6AA0ED124A570D300D83518 /* HashtagView.swift in Sources */,
 				F6AA0EC824A46E6D00D83518 /* PopsiclePopupViewController.swift in Sources */,
 				64171089249924C300481948 /* NewSignUpViewControllers.swift in Sources */,
 				640270792353C51F00641159 /* mainViewController.swift in Sources */,
@@ -713,6 +747,8 @@
 				F647A6EA243BDE8A006EC083 /* Shimmer.swift in Sources */,
 				64D5EAED249BE5DE00B1B3AB /* NewAlertViewController.swift in Sources */,
 				649BDD30245BB4FF00A7BEF3 /* NewRefreshButton.swift in Sources */,
+				F6AA0ECB24A5709900D83518 /* Hashtag.swift in Sources */,
+				F6AA0ECF24A570BB00D83518 /* HashtagConfiguration.swift in Sources */,
 				F5DE36D22497AF1500C1E87F /* UserViewController.swift in Sources */,
 				F5DD747B249D54AD00FF9CBC /* ViewImageViewController.swift in Sources */,
 				F56E777223A95FCA009BF8E9 /* Storyboard+Utility.swift in Sources */,
@@ -891,7 +927,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4VQFP5DX32;
+				DEVELOPMENT_TEAM = 97484A292T;
 				INFOPLIST_FILE = "$(SRCROOT)/Poppin/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -911,7 +947,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4VQFP5DX32;
+				DEVELOPMENT_TEAM = 97484A292T;
 				INFOPLIST_FILE = "$(SRCROOT)/Poppin/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
