@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class PopsiclePopupViewController : UIViewController, HashtagViewDelegate {
     
@@ -72,28 +73,30 @@ class PopsiclePopupViewController : UIViewController, HashtagViewDelegate {
         userThatCreatedEventImage.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 25)).isActive = true
         userThatCreatedEventImage.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 5)).isActive = true
         userThatCreatedEventImage.topAnchor.constraint(equalTo: c.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 1.5)).isActive = true
-        userThatCreatedEventImage.leadingAnchor.constraint(equalTo: c.safeAreaLayoutGuide.leadingAnchor, constant: .getPercentageWidth(percentage: 0)).isActive = true
+        userThatCreatedEventImage.leadingAnchor.constraint(equalTo: c.safeAreaLayoutGuide.leadingAnchor, constant: .getPercentageWidth(percentage: 58)).isActive = true
         
         c.addSubview(userThatCreatedEventName)
         userThatCreatedEventName.translatesAutoresizingMaskIntoConstraints = false
         userThatCreatedEventName.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 45)).isActive = true
         userThatCreatedEventName.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 5)).isActive = true
         userThatCreatedEventName.topAnchor.constraint(equalTo: c.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 1)).isActive = true
-        userThatCreatedEventName.leadingAnchor.constraint(equalTo: c.safeAreaLayoutGuide.leadingAnchor, constant: .getPercentageWidth(percentage: 22)).isActive = true
+        userThatCreatedEventName.leadingAnchor.constraint(equalTo: c.safeAreaLayoutGuide.leadingAnchor, constant: .getPercentageWidth(percentage: 6)).isActive = true
         
-        c.addSubview(userChat)
-        userChat.translatesAutoresizingMaskIntoConstraints = false
-        userChat.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 12)).isActive = true
-        userChat.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 5)).isActive = true
-        userChat.topAnchor.constraint(equalTo: c.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 1.5)).isActive = true
-        userChat.leadingAnchor.constraint(equalTo: c.safeAreaLayoutGuide.leadingAnchor, constant: .getPercentageWidth(percentage: 68)).isActive = true
+        //c.addSubview(userChat)
+//        userChat.translatesAutoresizingMaskIntoConstraints = false
+//        userChat.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 12)).isActive = true
+//        userChat.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 5)).isActive = true
+//        userChat.topAnchor.constraint(equalTo: c.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 1.5)).isActive = true
+//        userChat.leadingAnchor.constraint(equalTo: c.safeAreaLayoutGuide.leadingAnchor, constant: .getPercentageWidth(percentage: 68)).isActive = true
         
         return c
     }()
     
     lazy var infoOfEvent : UITextView = {
         var t = UITextView()
-        t.backgroundColor = UIColor.white.withAlphaComponent(0)
+        t.backgroundColor = UIColor.white.withAlphaComponent(0.25)
+        t.layer.cornerRadius = 16
+        t.textContainerInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
         t.font = UIFont(name: "Octarine-Light", size: 20)
         t.textColor = .white
         t.text = "Come to my birthday party please. My mum is cooking Ethiopian food and my dad will be singing the finest Ethiopian melodies. We can play board games!"
@@ -111,6 +114,12 @@ class PopsiclePopupViewController : UIViewController, HashtagViewDelegate {
         h.horizontalTagSpacing = 7.0
         h.verticalTagSpacing = 5.0
         return h
+    }()
+    
+    lazy var mapView : MKMapView = {
+        var m = MKMapView()
+        m.layer.cornerRadius = 16
+        return m
     }()
     
     lazy var whosGoingButton : BubbleButton = {
@@ -192,8 +201,8 @@ class PopsiclePopupViewController : UIViewController, HashtagViewDelegate {
         view.addSubview(infoOfEvent)
         infoOfEvent.translatesAutoresizingMaskIntoConstraints = false
         infoOfEvent.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 85)).isActive = true
-        infoOfEvent.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 25)).isActive = true
-        infoOfEvent.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 18)).isActive = true
+        infoOfEvent.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 17)).isActive = true
+        infoOfEvent.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 17)).isActive = true
         infoOfEvent.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         view.addSubview(hashtagView)
@@ -202,6 +211,13 @@ class PopsiclePopupViewController : UIViewController, HashtagViewDelegate {
         hashtagView.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 9)).isActive = true
         hashtagView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 36)).isActive = true
         hashtagView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        view.addSubview(mapView)
+        mapView.translatesAutoresizingMaskIntoConstraints = false
+        mapView.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 85)).isActive = true
+        mapView.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 17)).isActive = true
+        mapView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 47)).isActive = true
+        mapView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         view.addSubview(whosGoingButton)
         whosGoingButton.translatesAutoresizingMaskIntoConstraints = false
