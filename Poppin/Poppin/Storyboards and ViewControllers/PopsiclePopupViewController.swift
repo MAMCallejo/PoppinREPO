@@ -127,17 +127,24 @@ class PopsiclePopupViewController : UIViewController, HashtagViewDelegate {
     }()
     
     lazy var infoOfEvent : UIView = {
+        var v = UIView()
+        v.backgroundColor = UIColor.foodORANGE.withAlphaComponent(0.25)
+        v.layer.masksToBounds = true
+        v.layer.cornerRadius = 16
         var t = UILabel()
-        t.backgroundColor = UIColor.foodORANGE.withAlphaComponent(0.25)
-        t.layer.masksToBounds = true
-        t.layer.cornerRadius = 16
         t.font = UIFont.dynamicFont(with: "Octarine-Light", style: .caption1)
         t.textColor = .mainDARKPURPLE
         t.numberOfLines = 0
         t.text = "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW"
         t.allowsDefaultTighteningForTruncation = true
-        t.sizeToFit()
-        return t
+        //t.sizeToFit()
+        v.addSubview(t)
+        t.translatesAutoresizingMaskIntoConstraints = false
+        t.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 76)).isActive = true
+//        t.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 12)).isActive = true
+        t.topAnchor.constraint(equalTo: v.safeAreaLayoutGuide.topAnchor).isActive = true
+        t.centerXAnchor.constraint(equalTo: v.safeAreaLayoutGuide.centerXAnchor).isActive = true
+        return v
     }()
     
     lazy var hashtagView : HashtagView = {
@@ -272,6 +279,7 @@ class PopsiclePopupViewController : UIViewController, HashtagViewDelegate {
 //        infoOfEvent.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 17)).isActive = true
         infoOfEvent.topAnchor.constraint(equalTo: createdBy.safeAreaLayoutGuide.bottomAnchor, constant: .getPercentageHeight(percentage: 2)).isActive = true
         infoOfEvent.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        infoOfEvent.sizeToFit()
         
         view.addSubview(hashtagView)
         hashtagView.translatesAutoresizingMaskIntoConstraints = false
