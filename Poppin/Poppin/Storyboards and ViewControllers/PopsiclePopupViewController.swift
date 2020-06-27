@@ -11,6 +11,13 @@ import MapKit
 
 class PopsiclePopupViewController : UIViewController, HashtagViewDelegate {
     
+    lazy var card : UIView = {
+        var c = UIView()
+        c.backgroundColor = UIColor.white.withAlphaComponent(0.75)
+        c.layer.cornerRadius = 16
+        return c
+    }()
+    
     lazy var tabBar : UIView = {
         var t = UIView()
         t.backgroundColor = UIColor.white.withAlphaComponent(0.5)
@@ -18,27 +25,54 @@ class PopsiclePopupViewController : UIViewController, HashtagViewDelegate {
         return t
     }()
     
+    /* for the popsicle border */
     lazy var catOfEvent : UIImageView = {
         var i = UIImageView(image: UIImage(named: "foodPopsicleIcon256"))
         i.contentMode = .scaleAspectFit
         return i
     }()
     
-    lazy var nameOfEvent : UITextView = {
-        var t = UITextView()
+    lazy var leftBorder : UIView = {
+        var b = UIView()
+        b.backgroundColor = .mainDARKPURPLE
+        b.layer.cornerRadius = 5
+        return b
+    }()
+    
+    lazy var rightBorder : UIView = {
+        var b = UIView()
+        b.backgroundColor = .mainDARKPURPLE
+        b.layer.cornerRadius = 5
+        return b
+    }()
+    
+    lazy var nameOfEvent : UILabel = {
+        var t = UILabel()
         t.backgroundColor = UIColor.white.withAlphaComponent(0)
         t.font = UIFont(name: "Octarine-Bold", size: 20)
-        t.textColor = .white
+        t.textColor = .mainDARKPURPLE
         t.text = "Josiah's Lame Birthday"
+        t.textAlignment = .center
         return t
     }()
     
-    lazy var startOfEvent : UITextView = {
-        var t = UITextView()
+    lazy var startOfEvent : UILabel = {
+        var t = UILabel()
         t.backgroundColor = UIColor.white.withAlphaComponent(0)
         t.font = UIFont(name: "Octarine-LightOblique", size: 18)
-        t.textColor = .white
-        t.text = "Starts at: 2:00 pm"
+        t.textColor = .mainDARKPURPLE
+        t.text = "Jun 26, 5:42 pm"
+        t.textAlignment = .center
+        return t
+    }()
+    
+    lazy var endOfEvent : UILabel = {
+        var t = UILabel()
+        t.backgroundColor = UIColor.white.withAlphaComponent(0)
+        t.font = UIFont(name: "Octarine-LightOblique", size: 18)
+        t.textColor = .mainDARKPURPLE
+        t.text = "Jun 26, 6:42 pm"
+        t.textAlignment = .center
         return t
     }()
     
@@ -48,39 +82,39 @@ class PopsiclePopupViewController : UIViewController, HashtagViewDelegate {
         return i
     }()
     
-    lazy var userThatCreatedEventName : UITextView = {
-        var t = UITextView()
+    lazy var userThatCreatedEventName : UIView = {
+        var t = UILabel()
         t.backgroundColor = UIColor.white.withAlphaComponent(0)
-        t.font = UIFont(name: "Octarine-Light", size: 18)
+        t.font = UIFont.dynamicFont(with: "Octarine-Bold", style: .body)
         t.textColor = .mainDARKPURPLE
+        t.numberOfLines = 2
         t.text = "Created by:\n@mrchoperini"
         return t
     }()
     
-    lazy var userChat : BouncyButton = {
-        var i = BouncyButton(bouncyButtonImage: UIImage(systemSymbol: .messageCircleFill).withTintColor(.mainDARKPURPLE))
-        //i.contentMode = .scaleAspectFit
-        return i
-    }()
+//    lazy var userChat : BouncyButton = {
+//        var i = BouncyButton(bouncyButtonImage: UIImage(systemSymbol: .messageCircleFill).withTintColor(.mainDARKPURPLE))
+//        return i
+//    }()
     
     lazy var createdBy : UIView = {
         var c = UIView()
-        c.backgroundColor = .white
+        c.backgroundColor = UIColor.foodORANGE.withAlphaComponent(0.35)
         c.layer.cornerRadius = 16
         
         c.addSubview(userThatCreatedEventImage)
         userThatCreatedEventImage.translatesAutoresizingMaskIntoConstraints = false
-        userThatCreatedEventImage.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 25)).isActive = true
-        userThatCreatedEventImage.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 5)).isActive = true
-        userThatCreatedEventImage.topAnchor.constraint(equalTo: c.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 1.5)).isActive = true
-        userThatCreatedEventImage.leadingAnchor.constraint(equalTo: c.safeAreaLayoutGuide.leadingAnchor, constant: .getPercentageWidth(percentage: 58)).isActive = true
+        userThatCreatedEventImage.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 12)).isActive = true
+        userThatCreatedEventImage.heightAnchor.constraint(equalTo: userThatCreatedEventImage.widthAnchor).isActive = true
+        userThatCreatedEventImage.topAnchor.constraint(equalTo: c.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 1.25)).isActive = true
+        userThatCreatedEventImage.leadingAnchor.constraint(equalTo: c.safeAreaLayoutGuide.leadingAnchor, constant: .getPercentageWidth(percentage: 64)).isActive = true
         
         c.addSubview(userThatCreatedEventName)
         userThatCreatedEventName.translatesAutoresizingMaskIntoConstraints = false
         userThatCreatedEventName.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 45)).isActive = true
         userThatCreatedEventName.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 5)).isActive = true
-        userThatCreatedEventName.topAnchor.constraint(equalTo: c.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 1)).isActive = true
-        userThatCreatedEventName.leadingAnchor.constraint(equalTo: c.safeAreaLayoutGuide.leadingAnchor, constant: .getPercentageWidth(percentage: 6)).isActive = true
+        userThatCreatedEventName.topAnchor.constraint(equalTo: c.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 1.5)).isActive = true
+        userThatCreatedEventName.leadingAnchor.constraint(equalTo: c.safeAreaLayoutGuide.leadingAnchor, constant: .getPercentageWidth(percentage: 4)).isActive = true
         
         //c.addSubview(userChat)
 //        userChat.translatesAutoresizingMaskIntoConstraints = false
@@ -92,21 +126,24 @@ class PopsiclePopupViewController : UIViewController, HashtagViewDelegate {
         return c
     }()
     
-    lazy var infoOfEvent : UITextView = {
-        var t = UITextView()
-        t.backgroundColor = UIColor.white.withAlphaComponent(0.25)
+    lazy var infoOfEvent : UIView = {
+        var t = UILabel()
+        t.backgroundColor = UIColor.foodORANGE.withAlphaComponent(0.25)
+        t.layer.masksToBounds = true
         t.layer.cornerRadius = 16
-        t.textContainerInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
-        t.font = UIFont(name: "Octarine-Light", size: 20)
-        t.textColor = .white
-        t.text = "Come to my birthday party please. My mum is cooking Ethiopian food and my dad will be singing the finest Ethiopian melodies. We can play board games!"
+        t.font = UIFont.dynamicFont(with: "Octarine-Light", style: .caption1)
+        t.textColor = .mainDARKPURPLE
+        t.numberOfLines = 0
+        t.text = "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW"
+        t.allowsDefaultTighteningForTruncation = true
+        t.sizeToFit()
         return t
     }()
     
     lazy var hashtagView : HashtagView = {
         var h = HashtagView()
-        h.backgroundColor = UIColor.white.withAlphaComponent(0.25)
-        h.tagBackgroundColor = .white
+        h.backgroundColor = UIColor.foodORANGE.withAlphaComponent(0.25)
+        h.tagBackgroundColor = UIColor.white.withAlphaComponent(1)
         h.tagTextColor = .mainDARKPURPLE
         h.cornerRadius = 16
         h.tagCornerRadius = 10
@@ -122,11 +159,13 @@ class PopsiclePopupViewController : UIViewController, HashtagViewDelegate {
         return m
     }()
     
-    lazy var whosGoingButton : BubbleButton = {
-        var g = BubbleButton(bouncyButtonImage: UIImage(systemSymbol: .rectangleStackPersonCrop).withTintColor(.white))
-        //g.backgroundColor = .white
+    lazy var whosGoingButton : BouncyButton = {
+        var g = BouncyButton(bouncyButtonImage: UIImage(systemSymbol: .rectangleStackPersonCrop).withTintColor(.mainDARKPURPLE))
+        g.addTarget(self, action: #selector(seeWhosGoing), for: .touchUpInside)
         return g
     }()
+    
+    private var isGoing = false
     
     lazy var goingButton : BubbleButton = {
         var g = BubbleButton(bouncyButtonImage: nil)
@@ -135,12 +174,13 @@ class PopsiclePopupViewController : UIViewController, HashtagViewDelegate {
         g.setTitle("going", for: .normal)
         g.titleLabel?.font = UIFont(name: "Octarine-Bold", size: 20)
         g.contentHorizontalAlignment = .center
+        g.addTarget(self, action: #selector(updateIfGoing), for: .touchUpInside)
         return g
     }()
     
-    lazy var shareButton : BubbleButton = {
-        var g = BubbleButton(bouncyButtonImage: UIImage(systemSymbol: .squareAndArrowUp).withTintColor(.white))
-        //g.backgroundColor = .white
+    lazy var shareButton : BouncyButton = {
+        var g = BouncyButton(bouncyButtonImage: UIImage(systemSymbol: .squareAndArrowUp).withTintColor(.mainDARKPURPLE))
+        g.addTarget(self, action: #selector(sharePopsicleInfo), for: .touchUpInside)
         return g
     }()
     
@@ -163,6 +203,13 @@ class PopsiclePopupViewController : UIViewController, HashtagViewDelegate {
         hashtagView.addTag(tag: HashTag(word: "yosi"))
         hashtagView.addTag(tag: HashTag(word: "yosiiscool"))
         
+        view.addSubview(card)
+        card.translatesAutoresizingMaskIntoConstraints = false
+        card.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 90)).isActive = true
+        card.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 89)).isActive = true
+        card.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -(.getPercentageHeight(percentage: 1.65))).isActive = true
+        card.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
         view.addSubview(tabBar)
         tabBar.translatesAutoresizingMaskIntoConstraints = false
         tabBar.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 20)).isActive = true
@@ -172,65 +219,88 @@ class PopsiclePopupViewController : UIViewController, HashtagViewDelegate {
         
         view.addSubview(catOfEvent)
         catOfEvent.translatesAutoresizingMaskIntoConstraints = false
-        catOfEvent.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 25)).isActive = true
-        catOfEvent.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 5)).isActive = true
-        catOfEvent.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -(.getPercentageHeight(percentage: 0.25))).isActive = true
-        catOfEvent.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: .getPercentageWidth(percentage: 0)).isActive = true
+        catOfEvent.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 3)).isActive = true
+        catOfEvent.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 3)).isActive = true
+        catOfEvent.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 2.25)).isActive = true
+        catOfEvent.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        view.addSubview(leftBorder)
+        leftBorder.translatesAutoresizingMaskIntoConstraints = false
+        leftBorder.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 36)).isActive = true
+        leftBorder.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 0.5)).isActive = true
+        leftBorder.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 3.25)).isActive = true
+        leftBorder.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: .getPercentageWidth(percentage: 9)).isActive = true
+        
+        view.addSubview(rightBorder)
+        rightBorder.translatesAutoresizingMaskIntoConstraints = false
+        rightBorder.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 36)).isActive = true
+        rightBorder.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 0.5)).isActive = true
+        rightBorder.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 3.25)).isActive = true
+        rightBorder.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: .getPercentageWidth(percentage: 55)).isActive = true
         
         view.addSubview(nameOfEvent)
         nameOfEvent.translatesAutoresizingMaskIntoConstraints = false
         nameOfEvent.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 75)).isActive = true
         nameOfEvent.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 5)).isActive = true
-        nameOfEvent.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -(.getPercentageHeight(percentage: 1.25))).isActive = true
-        nameOfEvent.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: .getPercentageWidth(percentage: 20)).isActive = true
+        nameOfEvent.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -(.getPercentageHeight(percentage: 1.5))).isActive = true
+        nameOfEvent.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         view.addSubview(startOfEvent)
         startOfEvent.translatesAutoresizingMaskIntoConstraints = false
-        startOfEvent.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 75)).isActive = true
+        startOfEvent.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 40)).isActive = true
         startOfEvent.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 5)).isActive = true
-        startOfEvent.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 1.85)).isActive = true
-        startOfEvent.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: .getPercentageWidth(percentage: 20)).isActive = true
+        startOfEvent.topAnchor.constraint(equalTo: leftBorder.safeAreaLayoutGuide.bottomAnchor, constant: .getPercentageHeight(percentage: 0.5)).isActive = true
+        startOfEvent.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: .getPercentageWidth(percentage: 4.5)).isActive = true
+        
+        view.addSubview(endOfEvent)
+        endOfEvent.translatesAutoresizingMaskIntoConstraints = false
+        endOfEvent.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 40)).isActive = true
+        endOfEvent.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 5)).isActive = true
+        endOfEvent.topAnchor.constraint(equalTo: rightBorder.safeAreaLayoutGuide.bottomAnchor, constant: .getPercentageHeight(percentage: 0.5)).isActive = true
+        endOfEvent.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: .getPercentageWidth(percentage: 55)).isActive = true
         
         view.addSubview(createdBy)
         createdBy.translatesAutoresizingMaskIntoConstraints = false
-        createdBy.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 85)).isActive = true
+        createdBy.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 80)).isActive = true
         createdBy.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 8)).isActive = true
-        createdBy.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 7)).isActive = true
+        createdBy.topAnchor.constraint(equalTo: catOfEvent.safeAreaLayoutGuide.bottomAnchor, constant: .getPercentageHeight(percentage: 4)).isActive = true
         createdBy.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         view.addSubview(infoOfEvent)
         infoOfEvent.translatesAutoresizingMaskIntoConstraints = false
-        infoOfEvent.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 85)).isActive = true
-        infoOfEvent.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 17)).isActive = true
-        infoOfEvent.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 17)).isActive = true
+        infoOfEvent.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 80)).isActive = true
+//        infoOfEvent.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 17)).isActive = true
+        infoOfEvent.topAnchor.constraint(equalTo: createdBy.safeAreaLayoutGuide.bottomAnchor, constant: .getPercentageHeight(percentage: 2)).isActive = true
         infoOfEvent.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         view.addSubview(hashtagView)
         hashtagView.translatesAutoresizingMaskIntoConstraints = false
-        hashtagView.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 85)).isActive = true
-        hashtagView.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 9)).isActive = true
-        hashtagView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 36)).isActive = true
+        hashtagView.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 80)).isActive = true
+        //hashtagView.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 13)).isActive = true
+        hashtagView.topAnchor.constraint(equalTo: infoOfEvent.safeAreaLayoutGuide.bottomAnchor, constant: .getPercentageHeight(percentage: 2)).isActive = true
         hashtagView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        /* hashtag view has dynamic height constraint that depends on number of hashtags in view */
+        hashtagView.resize()
         
         view.addSubview(mapView)
         mapView.translatesAutoresizingMaskIntoConstraints = false
-        mapView.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 85)).isActive = true
+        mapView.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 80)).isActive = true
         mapView.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 17)).isActive = true
-        mapView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 47)).isActive = true
+        mapView.topAnchor.constraint(equalTo: hashtagView.safeAreaLayoutGuide.bottomAnchor, constant: .getPercentageHeight(percentage: 2)).isActive = true
         mapView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         view.addSubview(whosGoingButton)
         whosGoingButton.translatesAutoresizingMaskIntoConstraints = false
-        whosGoingButton.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 12)).isActive = true
-        whosGoingButton.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 5)).isActive = true
-        whosGoingButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 80)).isActive = true
+        whosGoingButton.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 10)).isActive = true
+        whosGoingButton.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 4)).isActive = true
+        whosGoingButton.topAnchor.constraint(equalTo: card.safeAreaLayoutGuide.bottomAnchor, constant: -(.getPercentageHeight(percentage: 7))).isActive = true
         whosGoingButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: .getPercentageWidth(percentage: 10)).isActive = true
         
         view.addSubview(goingButton)
         goingButton.translatesAutoresizingMaskIntoConstraints = false
-        goingButton.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 30)).isActive = true
-        goingButton.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 5)).isActive = true
-        goingButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 80)).isActive = true
+        goingButton.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 28)).isActive = true
+        goingButton.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 4.25)).isActive = true
+        goingButton.topAnchor.constraint(equalTo: card.safeAreaLayoutGuide.bottomAnchor, constant: -(.getPercentageHeight(percentage: 6.5))).isActive = true
         goingButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         let gesture = UIPanGestureRecognizer.init(target: self, action: #selector(panGesture))
@@ -238,9 +308,9 @@ class PopsiclePopupViewController : UIViewController, HashtagViewDelegate {
         
         view.addSubview(shareButton)
         shareButton.translatesAutoresizingMaskIntoConstraints = false
-        shareButton.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 12)).isActive = true
-        shareButton.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 5)).isActive = true
-        shareButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 80)).isActive = true
+        shareButton.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 10)).isActive = true
+        shareButton.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 4)).isActive = true
+        shareButton.topAnchor.constraint(equalTo: card.safeAreaLayoutGuide.bottomAnchor, constant: -(.getPercentageHeight(percentage: 7))).isActive = true
         shareButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: .getPercentageWidth(percentage: 78)).isActive = true
         
         roundViews()
@@ -295,6 +365,26 @@ class PopsiclePopupViewController : UIViewController, HashtagViewDelegate {
         UIView.animate(withDuration: 0.4) {
             self.view.layoutIfNeeded()
         }
+    }
+    
+    /* button controls */
+    @objc func updateIfGoing() {
+        if(isGoing) {
+            goingButton.backgroundColor = .white
+            goingButton.setTitleColor(.mainDARKPURPLE, for: .normal)
+        } else {
+            goingButton.backgroundColor = .sportsGREEN
+            goingButton.setTitleColor(.white, for: .normal)
+        }
+        isGoing = !isGoing
+    }
+    
+    @objc func seeWhosGoing() {
+        // TO-DO
+    }
+    
+    @objc func sharePopsicleInfo() {
+        // TO-DO
     }
 }
 
