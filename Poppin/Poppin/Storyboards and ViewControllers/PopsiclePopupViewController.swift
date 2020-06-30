@@ -12,11 +12,13 @@ import MapKit
 class PopsiclePopupViewController : UIViewController, HashtagViewDelegate {
     
     lazy var catColor1 : UIColor = {
-        return UIColor(red: 38/255, green: 134/255, blue: 224/255, alpha: 1)
+        //return UIColor(red: 38/255, green: 134/255, blue: 224/255, alpha: 1)
+        return UIColor(red: 211/255, green: 0/255, blue: 208/255, alpha: 1)
     }()
     
     lazy var catColor2 : UIColor = {
-        return UIColor(red: 65/255, green: 168/255, blue: 249/255, alpha: 1)
+        //return UIColor(red: 65/255, green: 168/255, blue: 249/255, alpha: 1)
+        return UIColor(red: 225/255, green: 23/255, blue: 200/255, alpha: 1)
     }()
     
     let themedCornerRadius = CGFloat(20)
@@ -117,7 +119,7 @@ class PopsiclePopupViewController : UIViewController, HashtagViewDelegate {
         userThatCreatedEventImage.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 11)).isActive = true
         userThatCreatedEventImage.heightAnchor.constraint(equalTo: userThatCreatedEventImage.widthAnchor).isActive = true
         userThatCreatedEventImage.topAnchor.constraint(equalTo: c.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 1.25)).isActive = true
-        userThatCreatedEventImage.leadingAnchor.constraint(equalTo: c.safeAreaLayoutGuide.leadingAnchor, constant: .getPercentageWidth(percentage: 60)).isActive = true
+        userThatCreatedEventImage.leadingAnchor.constraint(equalTo: c.safeAreaLayoutGuide.leadingAnchor, constant: .getPercentageWidth(percentage: 57)).isActive = true
         
         c.addSubview(userThatCreatedEventName)
         userThatCreatedEventName.translatesAutoresizingMaskIntoConstraints = false
@@ -171,10 +173,42 @@ class PopsiclePopupViewController : UIViewController, HashtagViewDelegate {
         return h
     }()
     
-    lazy var mapView : MKMapView = {
+    lazy var mapAddy : UILabel = {
+        var l = UILabel()
+        l.font = UIFont.dynamicFont(with: "Octarine-Bold", style: .body)
+        l.text = "2285 E Evans Ave"
+        l.textColor = .white
+        l.textAlignment = .center
+        return l
+    }()
+    
+    lazy var map : MKMapView = {
         var m = MKMapView()
-        m.layer.cornerRadius = themedCornerRadius
+        m.layer.cornerRadius = themedCornerRadius - 2
+        m.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         return m
+    }()
+    
+    lazy var mapView : UIView = {
+        var v = UIView()
+        v.backgroundColor = catColor1
+        v.layer.cornerRadius = themedCornerRadius
+        
+        v.addSubview(mapAddy)
+        mapAddy.translatesAutoresizingMaskIntoConstraints = false
+        mapAddy.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 72.5)).isActive = true
+        mapAddy.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 2.5)).isActive = true
+        mapAddy.topAnchor.constraint(equalTo: v.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 0.65)).isActive = true
+        mapAddy.centerXAnchor.constraint(equalTo: v.safeAreaLayoutGuide.centerXAnchor).isActive = true
+        
+        v.addSubview(map)
+        map.translatesAutoresizingMaskIntoConstraints = false
+        map.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 69.5)).isActive = true
+        map.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 12.5)).isActive = true
+        map.topAnchor.constraint(equalTo: v.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 3.35)).isActive = true
+        map.centerXAnchor.constraint(equalTo: v.safeAreaLayoutGuide.centerXAnchor).isActive = true
+        
+        return v
     }()
     
     lazy var whosGoingButton : BouncyButton = {
@@ -279,32 +313,32 @@ class PopsiclePopupViewController : UIViewController, HashtagViewDelegate {
         
         view.addSubview(createdBy)
         createdBy.translatesAutoresizingMaskIntoConstraints = false
-        createdBy.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 75)).isActive = true
+        createdBy.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 72)).isActive = true
         createdBy.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 8)).isActive = true
         createdBy.topAnchor.constraint(equalTo: catOfEvent.safeAreaLayoutGuide.bottomAnchor, constant: .getPercentageHeight(percentage: 4)).isActive = true
         createdBy.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         view.addSubview(infoOfEvent)
         infoOfEvent.translatesAutoresizingMaskIntoConstraints = false
-        infoOfEvent.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 75)).isActive = true
+        infoOfEvent.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 72)).isActive = true
         infoOfEvent.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 15)).isActive = true
-        infoOfEvent.topAnchor.constraint(equalTo: createdBy.safeAreaLayoutGuide.bottomAnchor, constant: .getPercentageHeight(percentage: 3)).isActive = true
+        infoOfEvent.topAnchor.constraint(equalTo: createdBy.safeAreaLayoutGuide.bottomAnchor, constant: .getPercentageHeight(percentage: 2.75)).isActive = true
         infoOfEvent.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         view.addSubview(hashtagView)
         hashtagView.translatesAutoresizingMaskIntoConstraints = false
-        hashtagView.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 75)).isActive = true
+        hashtagView.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 72)).isActive = true
         //hashtagView.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 13)).isActive = true
-        hashtagView.topAnchor.constraint(equalTo: infoOfEvent.safeAreaLayoutGuide.bottomAnchor, constant: .getPercentageHeight(percentage: 3)).isActive = true
+        hashtagView.topAnchor.constraint(equalTo: infoOfEvent.safeAreaLayoutGuide.bottomAnchor, constant: .getPercentageHeight(percentage: 2.75)).isActive = true
         hashtagView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         /* hashtag view has dynamic height constraint that depends on number of hashtags in view */
         hashtagView.resize()
         
         view.addSubview(mapView)
         mapView.translatesAutoresizingMaskIntoConstraints = false
-        mapView.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 75)).isActive = true
-        mapView.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 15)).isActive = true
-        mapView.topAnchor.constraint(equalTo: hashtagView.safeAreaLayoutGuide.bottomAnchor, constant: .getPercentageHeight(percentage: 3)).isActive = true
+        mapView.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 72)).isActive = true
+        mapView.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 16.5)).isActive = true
+        mapView.topAnchor.constraint(equalTo: hashtagView.safeAreaLayoutGuide.bottomAnchor, constant: .getPercentageHeight(percentage: 2.75)).isActive = true
         mapView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         view.addSubview(whosGoingButton)
