@@ -13,6 +13,7 @@ import Firebase
 import Network
 import Kronos
 import Contacts
+import GeoFire
 
 class NewMainViewController: UIViewController {
     
@@ -25,6 +26,8 @@ class NewMainViewController: UIViewController {
     private var shouldPresentLoginVC: Bool = false
     
     lazy private var mainUserPicture: UIImage = .defaultUserPicture64
+    
+    var mapPopsicles: [NewPopsicleAnnotation] = []
     
     lazy private var launchScreenOverlayView: UIView = {
         
@@ -219,8 +222,9 @@ class NewMainViewController: UIViewController {
         
         // For trial purposes, present the new create event view controller modally
         // later, need to change to using navigation controller
-        //self.modalPresentationStyle = .overFullScreen
-        self.present(NewCreateEventViewController(), animated: true, completion: nil)
+        let vc = NewCreateEventViewController()
+        vc.modalPresentationStyle = .overCurrentContext
+        self.present(vc, animated: true, completion: nil)
         
     }
     
@@ -278,9 +282,55 @@ class NewMainViewController: UIViewController {
         
     }
     
+    @objc func eventCreated(_ notification: Notification) {
+               
+        guard let eventName = notification.userInfo?["eventName"] as? String else { return }
+        guard let eventInfo = notification.userInfo?["eventInfo"] as? String else { return }
+        guard let location = notification.userInfo?["location"] as? CLLocationCoordinate2D else { return }
+        guard let eventStartDate = notification.userInfo?["eventStartDate"] as? String else { return }
+        guard let eventEndDate = notification.userInfo?["eventEndDate"] as? String else { return }
+        guard let hashtags = notification.userInfo?["hashtags"] as? String else { return }
+        guard let eventCategory = notification.userInfo?["eventCategory"] as? String else { return }
+        guard let createdBy = notification.userInfo?["createdBy"] as? String else { return }
+        
+        let popsicleCategory: PopsicleCategory
+
+        if (eventCategory == "education") {
+
+            popsicleCategory = PopsicleCategory.Education
+
+
+
+        } else if (eventCategory == "food") {
+
+            popsicleCategory = PopsicleCategory.Food
+
+
+        } else if (eventCategory == "social") {
+
+            popsicleCategory = PopsicleCategory.Social
+
+
+        } else if (eventCategory == "sports") {
+
+            popsicleCategory = PopsicleCategory.Sports
+        } else {
+
+            popsicleCategory = PopsicleCategory.Culture
+        }
+                
+        let popsicleToAdd = NewPopsicleAnnotation(eventTitle: eventName, eventDetails: eventInfo, eventStartDate: eventStartDate, eventEndDate: eventEndDate, eventCategory: popsicleCategory, eventHashtags: hashtags, eventLocation: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude), eventAttendees: [])
+        
+        self.mapPopsicles.append(popsicleToAdd)
+        self.mainMapView.addAnnotation(popsicleToAdd)
+        
+    }
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        getPopsicles()
         
         view.backgroundColor = .mainCREAM
         
@@ -343,6 +393,111 @@ class NewMainViewController: UIViewController {
             })
             
         }
+        
+    }
+    
+   public func getPopsicles(){
+        
+        for annotation in mainMapView.annotations{
+            
+            if annotation is pinPopsicle{
+                
+                mainMapView.removeAnnotation(annotation)
+                
+            }
+            
+        }
+        
+        mapPopsicles = []
+                
+         let geoFireRef = Database.database().reference().child("Geolocs")
+               
+              let geoFire = GeoFire(firebaseRef: geoFireRef)
+
+        //let center = currentLocation!
+        
+    let location = CLLocation(latitude: 39.6766, longitude: -104.9619) // DU Campus
+    
+        // Query locations at [37.7832889, -122.4056973] with a radius of 600 meters
+    let circleQuery = geoFire.query(at: location, withRadius: 3)
+        
+        circleQuery.observe(.keyEntered, with: { (key, location) in
+            //circleQuery.observe(.keyEntered, with: { (key, location) in
+            
+            let ref = Database.database().reference(withPath:"currentPopsicles").child(key)
+            
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            // Printing the child count
+            //print("There are \(snapshot.childrenCount) children found")
+            // Checking if the reference has some values
+            if snapshot.childrenCount > 0 {
+                // Go through every child
+                //for data in snapshot.children.allObjects as! [DataSnapshot] {
+                 //   if let data = data.value as? [String: Any] {
+                let data = snapshot.value as! [String: Any]
+
+                        // Retrieve the data per child
+                        
+                        let eventStartDate = data["eventStartDate"] as! String
+                        let eventEndDate = data["eventEndDate"] as! String
+
+                        let eventName = data["eventName"] as! String
+                        let eventCategory = data["eventCategory"] as! String
+                        let hashtags = data["hashtags"] as! String
+                        let eventInfo = data["eventInfo"] as! String
+                        let latitude = data["latitude"] as! CLLocationDegrees
+                        let longitude = data["longitude"] as! CLLocationDegrees
+                        //let whosGoing = data["whosGoing"] as! [String]
+                
+                let popsicleCategory: PopsicleCategory
+
+                if (eventCategory == "education") {
+
+                    popsicleCategory = PopsicleCategory.Education
+
+
+
+                } else if (eventCategory == "food") {
+
+                    popsicleCategory = PopsicleCategory.Food
+
+
+                } else if (eventCategory == "social") {
+
+                    popsicleCategory = PopsicleCategory.Social
+
+
+                } else if (eventCategory == "sports") {
+
+                    popsicleCategory = PopsicleCategory.Sports
+                } else {
+
+                    popsicleCategory = PopsicleCategory.Culture
+                }
+                        
+                let popsicleToAdd = NewPopsicleAnnotation(eventTitle: eventName, eventDetails: eventInfo, eventStartDate: eventStartDate, eventEndDate: eventEndDate, eventCategory: popsicleCategory, eventHashtags: hashtags, eventLocation: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), eventAttendees: [])
+                        
+//                        let coordinates = CLLocationCoordinate2DMake(latitude, longitude)
+//                        
+//                        let eventPopsicle: UIImage
+//                        
+//                       
+//                popsicleToAdd.popsicleData = pinData(eventName: eventName, eventInfo: eventInfo, eventDate: eventDate, eventDuration: eventDuration, eventCategory: eventCategory, eventCategoryDetails: eventCategoryDetails, eventSubcategory1: eventSubcategory1, eventSubcategory1Details: eventSubcategory1Details, eventSubcategory2: eventSubcategory2, eventSubcategory2Details: eventSubcategory2Details, eventLocation: coordinates, eventPopsicle: eventPopsicle, whosGoing: whosGoing)
+//                        
+//                        popsicleToAdd.coordinate = coordinates
+                        
+                self.mapPopsicles.append(popsicleToAdd)
+                self.mainMapView.addAnnotation(popsicleToAdd)
+                        
+                        //self.addNewPopsicleToMap()
+                        
+                        
+                  //  }
+             //   }
+            }
+        })
+        })
+        
         
     }
     

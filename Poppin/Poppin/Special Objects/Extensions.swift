@@ -46,14 +46,20 @@ extension UIColor {
     static let mainDARKPURPLE = UIColor(named: "mainDARKPURPLE")!
     static let poppinDARKGOLD = UIColor(named: "poppinDARKGOLD")!
     static let poppinLIGHTGOLD = UIColor(named: "poppinLIGHTGOLD")!
-    static let educationRED = UIColor(named: "educationRED")!
+    static let socialRED = UIColor(named: "socialRED")!
+    static let socialLIGHTRED = UIColor(named: "socialLIGHTRED")!
     static let foodORANGE = UIColor(named: "foodORANGE")!
-    static let socialYELLOW = UIColor(named: "socialYELLOW")!
+    static let foodLIGHTORANGE = UIColor(named: "foodLIGHTORANGE")!
+    static let educationBLUE = UIColor(named: "educationBLUE")!
+    static let educationLIGHTBLUE = UIColor(named: "educationLIGHTBLUE")!
     static let sportsGREEN = UIColor(named: "sportsGREEN")!
-    static let showsPURPLE = UIColor(named: "showsPURPLE")!
+    static let sportsLIGHTGREEN = UIColor(named: "sportsLIGHTGREEN")!
+    static let culturePURPLE = UIColor(named: "culturePURPLE")!
+    static let cultureLIGHTPURPLE = UIColor(named: "cultureLIGHTPURPLE")!
     static let newPurple = UIColor(named: "newPurple")!
     static let newLightGold = UIColor(named: "newLightGold")!
     static let newDarkGold = UIColor(named: "newDarkGold")!
+
 
     
     static func UIColorFromHex(rgbValue: UInt32, alpha: Double = 1.0) -> UIColor {
@@ -99,10 +105,10 @@ extension UIImage {
     static let poppinEventPopsicleIcon256 = UIImage(named: "poppinEventPopsicleIcon256")!
     static let poppinEventPopsicleIcon1024 = UIImage(named: "poppinEventPopsicleIcon1024")!
     
-    static let showsPopsicleIcon64 = UIImage(named: "showsPopsicleIcon64")!
-    static let showsPopsicleIcon128 = UIImage(named: "showsPopsicleIcon128")!
-    static let showsPopsicleIcon256 = UIImage(named: "showsPopsicleIcon256")!
-    static let showsPopsicleIcon1024 = UIImage(named: "showsPopsicleIcon1024")!
+    static let culturePopsicleIcon64 = UIImage(named: "culturePopsicleIcon64")!
+    static let culturePopsicleIcon128 = UIImage(named: "culturePopsicleIcon128")!
+    static let culturePopsicleIcon256 = UIImage(named: "culturePopsicleIcon256")!
+    static let culturePopsicleIcon1024 = UIImage(named: "culturePopsicleIcon1024")!
     
     static let socialPopsicleIcon64 = UIImage(named: "socialPopsicleIcon64")!
     static let socialPopsicleIcon128 = UIImage(named: "socialPopsicleIcon128")!
@@ -278,3 +284,12 @@ extension CGSize {
     
 }
 
+extension Notification.Name {
+
+    static let detailsWritten = Notification.Name("detailsWritten")
+    static let eventCreated = Notification.Name("eventCreated")
+    static let locationSelected = Notification.Name("locationSelected")
+    static let switchCategory = Notification.Name("switchCategory")
+
+
+}

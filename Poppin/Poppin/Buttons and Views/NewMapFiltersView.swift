@@ -48,7 +48,7 @@ final class NewMapFiltersView: UIView {
                 case .Food: newFilterLabel.text = "Filter " + PopsicleCategory.Food.rawValue
                 case .Social: newFilterLabel.text = "Filter " + PopsicleCategory.Social.rawValue
                 case .Sports: newFilterLabel.text = "Filter " + PopsicleCategory.Sports.rawValue
-                case .Shows: newFilterLabel.text = "Filter " + PopsicleCategory.Shows.rawValue
+                case .Culture: newFilterLabel.text = "Filter " + PopsicleCategory.Culture.rawValue
                 case .Poppin: newFilterLabel.text = "Filter " + PopsicleCategory.Poppin.rawValue
                 case .Default: newFilterLabel.text = "Filter " + PopsicleCategory.Default.rawValue
                     
@@ -70,7 +70,7 @@ final class NewMapFiltersView: UIView {
             
         } else {
             
-            let defaultPopsicleFilters: [PopsicleCategory] = [.Education, .Food, .Social, .Sports, .Shows, .Poppin]
+            let defaultPopsicleFilters: [PopsicleCategory] = [.Education, .Food, .Social, .Sports, .Culture, .Poppin]
             
             for popsicleFilter in defaultPopsicleFilters {
                 
@@ -82,7 +82,7 @@ final class NewMapFiltersView: UIView {
                 case .Food: newFilterLabel.text = "Filter " + PopsicleCategory.Food.rawValue
                 case .Social: newFilterLabel.text = "Filter " + PopsicleCategory.Social.rawValue
                 case .Sports: newFilterLabel.text = "Filter " + PopsicleCategory.Sports.rawValue
-                case .Shows: newFilterLabel.text = "Filter " + PopsicleCategory.Shows.rawValue
+                case .Culture: newFilterLabel.text = "Filter " + PopsicleCategory.Culture.rawValue
                 case .Poppin: newFilterLabel.text = "Filter " + PopsicleCategory.Poppin.rawValue
                 case .Default: newFilterLabel.text = "Filter " + PopsicleCategory.Default.rawValue
                     
@@ -112,7 +112,7 @@ final class NewMapFiltersView: UIView {
         
         super.init(coder: coder)
         
-        let defaultPopsicleFilters: [PopsicleCategory] = [.Education, .Food, .Social, .Sports, .Shows, .Poppin]
+        let defaultPopsicleFilters: [PopsicleCategory] = [.Education, .Food, .Social, .Sports, .Culture, .Poppin]
         
         for popsicleFilter in defaultPopsicleFilters {
             
@@ -124,7 +124,7 @@ final class NewMapFiltersView: UIView {
             case .Food: newFilterLabel.text = "Filter " + PopsicleCategory.Food.rawValue
             case .Social: newFilterLabel.text = "Filter " + PopsicleCategory.Social.rawValue
             case .Sports: newFilterLabel.text = "Filter " + PopsicleCategory.Sports.rawValue
-            case .Shows: newFilterLabel.text = "Filter " + PopsicleCategory.Shows.rawValue
+            case .Culture: newFilterLabel.text = "Filter " + PopsicleCategory.Culture.rawValue
             case .Poppin: newFilterLabel.text = "Filter " + PopsicleCategory.Poppin.rawValue
             case .Default: newFilterLabel.text = "Filter " + PopsicleCategory.Default.rawValue
                 
@@ -338,7 +338,7 @@ final class NewMapFiltersStackView: UIStackView {
     
     convenience init () {
         
-        self.init(popsicleFilters: [.Education, .Food, .Social, .Sports, .Shows, .Poppin])
+        self.init(popsicleFilters: [.Education, .Food, .Social, .Sports, .Culture, .Poppin])
         
     }
     
@@ -358,7 +358,7 @@ final class NewMapFiltersStackView: UIStackView {
                 case .Food: newFilterButton = PopsicleBubbleButton(popsicleCategory: PopsicleCategory.Food)
                 case .Social: newFilterButton = PopsicleBubbleButton(popsicleCategory: PopsicleCategory.Social)
                 case .Sports: newFilterButton = PopsicleBubbleButton(popsicleCategory: PopsicleCategory.Sports)
-                case .Shows: newFilterButton = PopsicleBubbleButton(popsicleCategory: PopsicleCategory.Shows)
+                case .Culture: newFilterButton = PopsicleBubbleButton(popsicleCategory: PopsicleCategory.Culture)
                 case .Poppin: newFilterButton = PopsicleBubbleButton(popsicleCategory: PopsicleCategory.Poppin)
                 case .Default: newFilterButton = PopsicleBubbleButton(popsicleCategory: PopsicleCategory.Default)
                     
@@ -436,7 +436,7 @@ final class PopsicleBubbleButton: BubbleButton {
                 
             case .Sports: super.init(bouncyButtonImage: UIImage.sportsPopsicleIcon64)
                 
-            case .Shows: super.init(bouncyButtonImage: UIImage.showsPopsicleIcon64)
+            case .Culture: super.init(bouncyButtonImage: UIImage.culturePopsicleIcon64)
                 
             case .Poppin: super.init(bouncyButtonImage: UIImage.poppinEventPopsicleIcon64)
                 

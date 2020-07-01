@@ -7,8 +7,27 @@
 //
 
 import UIKit
+import Firebase
+import CoreLocation
+import MapKit
 
 class NewCreateEventViewController : UIViewController {
+    
+    var username: String?
+    
+    var eventNameText = "Add Title"
+    
+    var startDateText = "Start Date"
+    
+    var endDateText = "End Date"
+    
+    var locationText = "Location"
+    
+    var hashtagsText = "Add Hashtags"
+    
+    var detailsText = "Add details..."
+    
+    var coordinates: CLLocationCoordinate2D?
     
     lazy private var cancelButton: BubbleButton = {
         var cb = BubbleButton(bouncyButtonImage: UIImage(systemSymbol: .multiply, withConfiguration: UIImage.SymbolConfiguration(pointSize: 0, weight: .medium)).withTintColor(.mainDARKPURPLE, renderingMode: .alwaysOriginal))
@@ -24,14 +43,24 @@ class NewCreateEventViewController : UIViewController {
     
     lazy var gLayer : CAGradientLayer = {
         let g = CAGradientLayer()
-        g.type = .radial
-        g.colors = [ UIColor.white.cgColor,
-                     UIColor.purple.cgColor]
-        g.locations = [ 0 , 1 ]
-        g.startPoint = CGPoint(x: 0.5, y: 0.5)
-        g.endPoint = CGPoint(x: 1.4, y: 1.15)
-        g.frame = view.layer.bounds
+        //g.type = .radial
+        g.colors = [ UIColor.cultureLIGHTPURPLE.cgColor,
+                     UIColor.culturePURPLE.cgColor]
+//        g.locations = [ 0 , 1 ]
+//        g.startPoint = CGPoint(x: 0.5, y: 0.5)
+//        g.endPoint = CGPoint(x: 1.4, y: 1.15)
+        g.frame = backgroundView.layer.bounds
+        g.cornerRadius = 30
         return g
+    }()
+    
+    lazy var eventLabel: UILabel = {
+       let eventLabel = UILabel()
+        eventLabel.font = .dynamicFont(with: "Octarine-Bold", style: .title2)
+        eventLabel.text = "what's your event about?"
+        eventLabel.textAlignment = .center
+        eventLabel.textColor = .black
+       return eventLabel
     }()
     
     lazy var categoryCollectionView : UICollectionView = {
@@ -50,7 +79,7 @@ class NewCreateEventViewController : UIViewController {
         cv.register(CollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         
         // content padding so first cell appears in center of screen
-        let leftPadding = CGFloat.getPercentageWidth(percentage: 25)
+        let leftPadding = CGFloat.getPercentageWidth(percentage: 10)
         let rightPadding = leftPadding
         
         cv.contentInset = UIEdgeInsets(top: 0, left: leftPadding, bottom: 0, right: rightPadding)
@@ -59,6 +88,13 @@ class NewCreateEventViewController : UIViewController {
         cv.showsHorizontalScrollIndicator = false
         return cv
         
+    }()
+    
+    lazy var backgroundView: UIView = {
+        let backgroundView = UIView()
+        backgroundView.layer.cornerRadius = 30
+        //backgroundView.backgroundColor = .showsPURPLE
+        return backgroundView
     }()
     
     let cellReuseIdentifier = "cell"
@@ -76,31 +112,110 @@ class NewCreateEventViewController : UIViewController {
         /* FOR TRIAL PURPOSES */
         modalPresentationStyle = .fullScreen
     }
+    
+    @objc func eventCreated(_ notification: Notification) {
+        self.dismiss(animated: true, completion: nil)
+       }
+    
+    @objc func switchCategory(_ notification: Notification) {
+        guard let eventName = notification.userInfo?["eventName"] as? String else { return }
+        guard let eventInfo = notification.userInfo?["eventInfo"] as? String else { return }
+        guard let location = notification.userInfo?["location"] as? String else { return }
+        guard let eventStartDate = notification.userInfo?["eventStartDate"] as? String else { return }
+        guard let eventEndDate = notification.userInfo?["eventEndDate"] as? String else { return }
+        guard let hashtags = notification.userInfo?["hashtags"] as? String else { return }
+        
+        if(location != "Location"){
+            guard let coordinates = notification.userInfo?["coordinates"] as? CLLocationCoordinate2D else { return }
+            self.coordinates = coordinates
+        }
+        
+        if(eventStartDate == ""){
+            startDateText = "Start Date"
+        }else{
+            startDateText = eventStartDate
+        }
+        
+        if(eventEndDate == ""){
+            endDateText = "End Date"
+        }else{
+            endDateText = eventEndDate
+        }
+       
+        eventNameText = eventName
+        detailsText = eventInfo
+        locationText = location
+        hashtagsText = hashtags
+        
+        categoryCollectionView.isHidden = false
+        cancelButton.isHidden = false
+        eventLabel.isHidden = false
+    }
 
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        NotificationCenter.default.addObserver(self, selector: #selector(self.eventCreated(_:)), name: .eventCreated, object: nil)
+        
+         NotificationCenter.default.addObserver(self, selector: #selector(self.switchCategory(_:)), name: .switchCategory, object: nil)
+        
+        view.backgroundColor = .culturePURPLE
+
+        getUsername()
+        
+//        view.addSubview(backgroundView)
+//        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+//        backgroundView.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 90)).isActive = true
+//        backgroundView.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 90)).isActive = true
+//        backgroundView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//        backgroundView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+//        backgroundView.frame = CGRect(x: 0, y: 0, width: .getPercentageWidth(percentage: 90), height: .getPercentageHeight(percentage: 90))
 
         // gradient
-        view.layer.insertSublayer(gLayer, at: 0)
+        //backgroundView.layer.insertSublayer(gLayer, at: 0)
         
+
         // collection view
         view.addSubview(categoryCollectionView)
         categoryCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        categoryCollectionView.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 100)).isActive = true
-        categoryCollectionView.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 30)).isActive = true
-        categoryCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 30)).isActive = true
+        categoryCollectionView.widthAnchor.constraint(equalToConstant: view.bounds.width).isActive = true
+        categoryCollectionView.heightAnchor.constraint(equalToConstant: view.bounds.height * 0.5).isActive = true
+        categoryCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: view.bounds.height * 0.3).isActive = true
         categoryCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        
+                
         // cancel button
         view.addSubview(cancelButton)
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
         cancelButton.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 10)).isActive = true
         cancelButton.heightAnchor.constraint(equalTo: cancelButton.widthAnchor).isActive = true
-        cancelButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 2)).isActive = true
-        cancelButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: .getPercentageWidth(percentage: 5)).isActive = true
+        cancelButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: view.bounds.height * 0.02).isActive = true
+        cancelButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: view.bounds.height * 0.02).isActive = true
+        
+        view.addSubview(eventLabel)
+        eventLabel.translatesAutoresizingMaskIntoConstraints = false
+        eventLabel.widthAnchor.constraint(equalToConstant: view.bounds.width).isActive = true
+        eventLabel.topAnchor.constraint(equalTo: cancelButton.bottomAnchor, constant: view.bounds.height * 0.02).isActive = true
+        
+       // eventLabel.leadingAnchor.constraint(equalTo: cancelButton.trailingAnchor, constant: backgroundView.bounds.height * 0).isActive = true
+    }
+    
+    func getUsername(){
+        let ref = Database.database().reference()
+        
+        let uid = Auth.auth().currentUser!.uid
+        ref.child("users/\(uid)/username").observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            let value = snapshot.value as? String
+            
+            
+            self.username = "@" + (value!)
+            
+            // ...
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+        
     }
     
 }
@@ -116,19 +231,54 @@ extension NewCreateEventViewController : UICollectionViewDataSource {
         switch (indexPath.row)   {
           case 0:
             //cell.contentView.backgroundColor = .purple
-            cell.pImage.image = UIImage(named: "showsButton")
+            cell.pImage.image = UIImage(named: "culturePopsicleIcon256")
+            cell.popsicleLabel.text = "culture \"dragonfruit\""
+            cell.descLabel.text = "You're doing it for the culture! Let everyone know that this is a cultural event that you wish to share."
+            cell.pageOne.image = .culturePopsicleIcon256
+            cell.pageTwo.image = .defaultPopsicleIcon256
+            cell.pageThree.image = .defaultPopsicleIcon256
+            cell.pageFour.image = .defaultPopsicleIcon256
+            cell.pageFive.image = .defaultPopsicleIcon256
           case 1:
             //cell.contentView.backgroundColor = .red
-            cell.pImage.image = UIImage(named: "educationButton")
+            cell.pImage.image = UIImage(named: "educationPopsicleIcon256")
+            cell.popsicleLabel.text = "education \"blueberry\""
+            cell.descLabel.text = "There's always time to learn new things! Everyone who leaves your event will learn something new from it."
+            cell.pageOne.image = .defaultPopsicleIcon256
+            cell.pageTwo.image = .educationPopsicleIcon256
+            cell.pageThree.image = .defaultPopsicleIcon256
+            cell.pageFour.image = .defaultPopsicleIcon256
+            cell.pageFive.image = .defaultPopsicleIcon256
           case 2:
             //cell.contentView.backgroundColor = .orange
-            cell.pImage.image = UIImage(named: "foodButton")
+            cell.pImage.image = UIImage(named: "foodPopsicleIcon256")
+            cell.popsicleLabel.text = "food \"orange\""
+            cell.descLabel.text = "Food is the fastest way to someones heart! No one shall leave your event on an empty stomach."
+            cell.pageOne.image = .defaultPopsicleIcon256
+            cell.pageTwo.image = .defaultPopsicleIcon256
+            cell.pageThree.image = .foodPopsicleIcon256
+            cell.pageFour.image = .defaultPopsicleIcon256
+            cell.pageFive.image = .defaultPopsicleIcon256
           case 3:
             //cell.contentView.backgroundColor = .yellow
-            cell.pImage.image = UIImage(named: "socialButton")
+            cell.pImage.image = UIImage(named: "socialPopsicleIcon256")
+            cell.popsicleLabel.text = "social \"strawberry\""
+            cell.descLabel.text = "The core of any event, grab a group of people and go have yourselves some fun!"
+            cell.pageOne.image = .defaultPopsicleIcon256
+            cell.pageTwo.image = .defaultPopsicleIcon256
+            cell.pageThree.image = .defaultPopsicleIcon256
+            cell.pageFour.image = .socialPopsicleIcon256
+            cell.pageFive.image = .defaultPopsicleIcon256
           case 4:
             //cell.contentView.backgroundColor = .green
-            cell.pImage.image = UIImage(named: "sportsButton")
+            cell.pImage.image = UIImage(named: "sportsPopsicleIcon256")
+            cell.popsicleLabel.text = "sports \"lime\""
+            cell.descLabel.text = "Sports? E-Sports? It's going to be competitive regardless, may the best competitor win!"
+            cell.pageOne.image = .defaultPopsicleIcon256
+            cell.pageTwo.image = .defaultPopsicleIcon256
+            cell.pageThree.image = .defaultPopsicleIcon256
+            cell.pageFour.image = .defaultPopsicleIcon256
+            cell.pageFive.image = .sportsPopsicleIcon256
         default:
            break
          }
@@ -141,7 +291,7 @@ extension NewCreateEventViewController : UICollectionViewDataSource {
 extension NewCreateEventViewController : UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: .getPercentageWidth(percentage: 50), height: collectionView.frame.size.height)
+        return CGSize(width: collectionView.frame.size.width * 0.8, height: collectionView.frame.size.height)
     }
     
 }
@@ -152,30 +302,62 @@ extension NewCreateEventViewController : UICollectionViewDelegate {
 
         // controls what happens when a card is clicked
         let vc = NewCreateEventCardViewController()
+        vc.modalPresentationStyle = .overCurrentContext
+        vc.usernameLabel.text = username
+
      switch (indexPath.row)   {
          case 0:
             print("0")
-            vc.backgroundGradientColors = [ UIColor.white.cgColor, UIColor.purple.cgColor ]
+            vc.backgroundGradientColors = [UIColor.cultureLIGHTPURPLE.cgColor, UIColor.culturePURPLE.cgColor ]
+            print("OOOONNNNEEEE")
             self.present(vc, animated: true, completion: nil)
+            print("TTTTWWWOOOOOO")
+            
          case 1:
             print("1")
-            vc.backgroundGradientColors = [ UIColor.white.cgColor, UIColor.red.cgColor ]
+            vc.backgroundGradientColors = [ UIColor.educationLIGHTBLUE.cgColor, UIColor.educationBLUE.cgColor ]
             self.present(vc, animated: true, completion: nil)
          case 2:
             print("2")
-            vc.backgroundGradientColors = [ UIColor.white.cgColor, UIColor.orange.cgColor ]
+            vc.backgroundGradientColors = [ UIColor.foodLIGHTORANGE.cgColor, UIColor.foodORANGE.cgColor ]
             self.present(vc, animated: true, completion: nil)
          case 3:
             print("3")
-            vc.backgroundGradientColors = [ UIColor.white.cgColor, UIColor.yellow.cgColor ]
+            vc.backgroundGradientColors = [ UIColor.socialLIGHTRED.cgColor, UIColor.socialRED.cgColor ]
             self.present(vc, animated: true, completion: nil)
          case 4:
             print("4")
-            vc.backgroundGradientColors = [ UIColor.white.cgColor, UIColor.green.cgColor ]
+            vc.backgroundGradientColors = [ UIColor.sportsLIGHTGREEN.cgColor, UIColor.sportsGREEN.cgColor ]
             self.present(vc, animated: true, completion: nil)
        default:
           break
         }
+
+        vc.eventNameTextField.text = eventNameText
+//              vc.startDateTextField.attributedPlaceholder = NSAttributedString(string: startDateText, attributes: [NSAttributedString.Key.font : UIFont.dynamicFont(with: "Octarine-LightOblique", style: .title3), NSAttributedString.Key.foregroundColor : UIColor.white])
+//              vc.endDateTextField.attributedPlaceholder = NSAttributedString(string: endDateText, attributes: [NSAttributedString.Key.font : UIFont.dynamicFont(with: "Octarine-LightOblique", style: .title3), NSAttributedString.Key.foregroundColor : UIColor.white])
+        vc.startDateTextField.text = startDateText
+        vc.endDateTextField.text = endDateText
+              vc.locationLabel.text = locationText
+              vc.detailsButton.text = detailsText
+              vc.hashtagTextView.text = hashtagsText
+        
+        if(locationText != "Location"){
+            let allAnnotations = vc.mainMapView.annotations
+            vc.mainMapView.removeAnnotations(allAnnotations)
+            
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = coordinates!
+            
+            let region = MKCoordinateRegion(center: annotation.coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
+            vc.location = coordinates
+            vc.mainMapView.setRegion(region, animated: true)
+            vc.mainMapView.addAnnotation(annotation)
+        }
+        
+        categoryCollectionView.isHidden = true
+        cancelButton.isHidden = true
+        eventLabel.isHidden = true
 
     }
     
@@ -248,22 +430,28 @@ extension NewCreateEventViewController : UIScrollViewDelegate {
         categoryCollectionView.scrollToItem(at: IndexPath(item: indexOfCellWithLargestWidth, section: 0), at: .centeredHorizontally, animated: true)
         
         var bColor = UIColor()
+        var secondColour = UIColor()
         switch (indexOfCellWithLargestWidth)   {
           case 0:
-             bColor = UIColor.purple
+            bColor = .cultureLIGHTPURPLE
+            secondColour = .culturePURPLE
           case 1:
-             bColor = UIColor.red
+            bColor = .educationLIGHTBLUE
+            secondColour = .educationBLUE
           case 2:
-             bColor = UIColor.orange
+            bColor = .foodLIGHTORANGE
+            secondColour = .foodORANGE
           case 3:
-             bColor = UIColor.yellow
+            bColor = .socialLIGHTRED
+            secondColour = .socialRED
           case 4:
-             bColor = UIColor.green
+            bColor = .sportsLIGHTGREEN
+            secondColour = .sportsGREEN
         default:
            break
          }
 
-        let newColors = [ UIColor.white.cgColor, bColor.cgColor]
+        let newColors = [ secondColour.cgColor, secondColour.cgColor]
         
         // gradient color change animation
         let colorsAnimation = CABasicAnimation(keyPath: #keyPath(CAGradientLayer.colors))
@@ -273,9 +461,10 @@ extension NewCreateEventViewController : UIScrollViewDelegate {
         colorsAnimation.delegate = self
         colorsAnimation.fillMode = .forwards
         colorsAnimation.isRemovedOnCompletion = false
-        
+        //backgroundView.backgroundColor = bColor
         gLayer.add(colorsAnimation, forKey: "colors")
         gLayer.colors = newColors
+        view.backgroundColor = secondColour
     }
 
 }
@@ -286,26 +475,132 @@ class CollectionViewCell : UICollectionViewCell {
         return UIImageView()
     }()
     
+    lazy var popsicleLabel: UILabel = {
+       let popsicleLabel = UILabel()
+       popsicleLabel.font = .dynamicFont(with: "Octarine-Bold", style: .title1)
+        popsicleLabel.textColor = .black
+       popsicleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
+       popsicleLabel.numberOfLines = 0
+       popsicleLabel.textAlignment = .center
+       return popsicleLabel
+    }()
+    
+    lazy var descLabel: UILabel = {
+       let descLabel = UILabel()
+       descLabel.font = .dynamicFont(with: "Octarine-Light", style: .title2)
+        descLabel.textColor = .black
+       descLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
+       descLabel.numberOfLines = 0
+       descLabel.textAlignment = .center
+       return descLabel
+    }()
+    
+    lazy var pageOne: UIImageView = {
+        let pageOne = UIImageView()
+        pageOne.image = .culturePopsicleIcon256
+        pageOne.contentMode = .scaleAspectFit
+        return pageOne
+    }()
+    
+    lazy var pageTwo: UIImageView = {
+           let pageTwo = UIImageView()
+           pageTwo.image = .defaultPopsicleIcon256
+        pageTwo.contentMode = .scaleAspectFit
+           return pageTwo
+       }()
+    
+    lazy var pageThree: UIImageView = {
+           let pageThree = UIImageView()
+           pageThree.image = .defaultPopsicleIcon256
+        pageThree.contentMode = .scaleAspectFit
+           return pageThree
+       }()
+    
+    lazy var pageFour: UIImageView = {
+           let pageFour = UIImageView()
+           pageFour.image = .defaultPopsicleIcon256
+        pageFour.contentMode = .scaleAspectFit
+           return pageFour
+       }()
+    
+    lazy var pageFive: UIImageView = {
+           let pageFour = UIImageView()
+           pageFour.image = .defaultPopsicleIcon256
+        pageFour.contentMode = .scaleAspectFit
+           return pageFour
+       }()
+    
     override init(frame: CGRect) {
         
         super.init(frame: frame)
 
-        contentView.backgroundColor = .white
-        contentView.layer.masksToBounds = false
-        contentView.layer.cornerRadius = 16
-        contentView.layer.shadowColor = UIColor.black.cgColor
-        contentView.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
-        contentView.layer.shadowOpacity = 0.3
-        contentView.layer.shadowRadius = 2
+        contentView.backgroundColor = .clear
+//        contentView.layer.masksToBounds = false
+//        contentView.layer.cornerRadius = 16
+//        contentView.layer.shadowColor = UIColor.black.cgColor
+//        contentView.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
+//        contentView.layer.shadowOpacity = 0.3
+//        contentView.layer.shadowRadius = 2
+        
+        pImage.contentMode = .scaleAspectFit
         
         contentView.addSubview(pImage)
         pImage.translatesAutoresizingMaskIntoConstraints = false
-        pImage.widthAnchor.constraint(equalToConstant: .getPercentageWidth(percentage: 19)).isActive = true
-        pImage.heightAnchor.constraint(equalToConstant: .getPercentageHeight(percentage: 8.5)).isActive = true
+        pImage.widthAnchor.constraint(equalToConstant: contentView.bounds.width * 0.5).isActive = true
+        pImage.heightAnchor.constraint(equalToConstant: contentView.bounds.width * 0.5).isActive = true
         pImage.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: .getPercentageHeight(percentage: 2)).isActive = true
         pImage.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         
+        contentView.addSubview(popsicleLabel)
+        popsicleLabel.translatesAutoresizingMaskIntoConstraints = false
+        popsicleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        popsicleLabel.widthAnchor.constraint(equalToConstant: contentView.bounds.width).isActive = true
+        popsicleLabel.topAnchor.constraint(equalTo: pImage.bottomAnchor, constant: .getPercentageHeight(percentage: 1)).isActive = true
+        
+        contentView.addSubview(descLabel)
+        descLabel.translatesAutoresizingMaskIntoConstraints = false
+        descLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        descLabel.widthAnchor.constraint(equalToConstant: contentView.bounds.width).isActive = true
+        descLabel.topAnchor.constraint(equalTo: popsicleLabel.bottomAnchor, constant: .getPercentageHeight(percentage: 1)).isActive = true
+        
+        contentView.addSubview(pageThree)
+        pageThree.translatesAutoresizingMaskIntoConstraints = false
+        pageThree.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        pageThree.topAnchor.constraint(equalTo: descLabel.bottomAnchor, constant: contentView.bounds.height * 0.05).isActive = true
+        pageThree.heightAnchor.constraint(equalToConstant: contentView.bounds.height * 0.05).isActive = true
+         pageThree.widthAnchor.constraint(equalToConstant: contentView.bounds.height * 0.05).isActive = true
+        
+        contentView.addSubview(pageFour)
+        pageFour.translatesAutoresizingMaskIntoConstraints = false
+        pageFour.centerXAnchor.constraint(equalTo: pageThree.leadingAnchor, constant: contentView.bounds.width * 0.15).isActive = true
+        pageFour.topAnchor.constraint(equalTo: descLabel.bottomAnchor, constant: contentView.bounds.height * 0.05).isActive = true
+        pageFour.heightAnchor.constraint(equalToConstant: contentView.bounds.height * 0.05).isActive = true
+         pageFour.widthAnchor.constraint(equalToConstant: contentView.bounds.height * 0.05).isActive = true
+        
+        contentView.addSubview(pageFive)
+        pageFive.translatesAutoresizingMaskIntoConstraints = false
+        pageFive.centerXAnchor.constraint(equalTo: pageFour.leadingAnchor, constant: contentView.bounds.width * 0.15).isActive = true
+        pageFive.topAnchor.constraint(equalTo: descLabel.bottomAnchor, constant: contentView.bounds.height * 0.05).isActive = true
+        pageFive.heightAnchor.constraint(equalToConstant: contentView.bounds.height * 0.05).isActive = true
+        pageFive.widthAnchor.constraint(equalToConstant: contentView.bounds.height * 0.05).isActive = true
+        
+        contentView.addSubview(pageTwo)
+        pageTwo.translatesAutoresizingMaskIntoConstraints = false
+        pageTwo.centerXAnchor.constraint(equalTo: pageThree.trailingAnchor, constant: -contentView.bounds.width * 0.15).isActive = true
+        pageTwo.topAnchor.constraint(equalTo: descLabel.bottomAnchor, constant: contentView.bounds.height * 0.05).isActive = true
+        pageTwo.heightAnchor.constraint(equalToConstant: contentView.bounds.height * 0.05).isActive = true
+        pageTwo.widthAnchor.constraint(equalToConstant: contentView.bounds.height * 0.05).isActive = true
+        
+        contentView.addSubview(pageOne)
+        pageOne.translatesAutoresizingMaskIntoConstraints = false
+        pageOne.centerXAnchor.constraint(equalTo: pageTwo.trailingAnchor, constant: -contentView.bounds.width * 0.15).isActive = true
+        pageOne.topAnchor.constraint(equalTo: descLabel.bottomAnchor, constant: contentView.bounds.height * 0.05).isActive = true
+        pageOne.heightAnchor.constraint(equalToConstant: contentView.bounds.height * 0.05).isActive = true
+        pageOne.widthAnchor.constraint(equalToConstant: contentView.bounds.height * 0.05).isActive = true
+        
+
     }
+    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -320,3 +615,4 @@ extension NewCreateEventViewController: CAAnimationDelegate {
         }
     }
 }
+

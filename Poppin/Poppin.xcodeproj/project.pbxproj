@@ -59,6 +59,12 @@
 		64F91E79237221B900C4DC24 /* LocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F91E78237221B900C4DC24 /* LocationSearchTable.swift */; };
 		64FE655224952B2B00F4DA3D /* NewLoginStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FE655124952B2B00F4DA3D /* NewLoginStartViewController.swift */; };
 		CE806059A43E0853F79490FA /* Pods_Poppin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D9773A3359C134C0BAF9422 /* Pods_Poppin.framework */; };
+		F568F8DE24A4FD3800D72F28 /* writeDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F568F8DD24A4FD3800D72F28 /* writeDetailsViewController.swift */; };
+		F568F8E724A7D37D00D72F28 /* EditLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F568F8E624A7D37D00D72F28 /* EditLocationViewController.swift */; };
+		F568F8E924AA6FF400D72F28 /* newPinPopsicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F568F8E824AA6FF400D72F28 /* newPinPopsicle.swift */; };
+		F568F8EB24AB669700D72F28 /* FlipPresentAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F568F8EA24AB669600D72F28 /* FlipPresentAnimationController.swift */; };
+		F568F8ED24AB674F00D72F28 /* AnimationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F568F8EC24AB674F00D72F28 /* AnimationHelper.swift */; };
+		F568F8EF24AB6C0400D72F28 /* FlipDismissAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F568F8EE24AB6C0400D72F28 /* FlipDismissAnimationController.swift */; };
 		F56E776223A8F69F009BF8E9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F56E776123A8F69F009BF8E9 /* GoogleService-Info.plist */; };
 		F56E776423A90187009BF8E9 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F56E776323A90187009BF8E9 /* Login.storyboard */; };
 		F56E777223A95FCA009BF8E9 /* Storyboard+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56E777123A95FCA009BF8E9 /* Storyboard+Utility.swift */; };
@@ -161,6 +167,12 @@
 		B68B7F417C2354AEF2849229 /* Pods-Poppin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Poppin.debug.xcconfig"; path = "Target Support Files/Pods-Poppin/Pods-Poppin.debug.xcconfig"; sourceTree = "<group>"; };
 		B77BAA5992B7EABA58F89FA9 /* Pods_PoppinUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PoppinUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0AF79742890ABD8099B72C8 /* Pods-PoppinTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PoppinTests.debug.xcconfig"; path = "Target Support Files/Pods-PoppinTests/Pods-PoppinTests.debug.xcconfig"; sourceTree = "<group>"; };
+		F568F8DD24A4FD3800D72F28 /* writeDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = writeDetailsViewController.swift; sourceTree = "<group>"; };
+		F568F8E624A7D37D00D72F28 /* EditLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditLocationViewController.swift; sourceTree = "<group>"; };
+		F568F8E824AA6FF400D72F28 /* newPinPopsicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = newPinPopsicle.swift; sourceTree = "<group>"; };
+		F568F8EA24AB669600D72F28 /* FlipPresentAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipPresentAnimationController.swift; sourceTree = "<group>"; };
+		F568F8EC24AB674F00D72F28 /* AnimationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationHelper.swift; sourceTree = "<group>"; };
+		F568F8EE24AB6C0400D72F28 /* FlipDismissAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipDismissAnimationController.swift; sourceTree = "<group>"; };
 		F56E776123A8F69F009BF8E9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F56E776323A90187009BF8E9 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		F56E777123A95FCA009BF8E9 /* Storyboard+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Storyboard+Utility.swift"; sourceTree = "<group>"; };
@@ -343,6 +355,7 @@
 		648AEB95237E2280008743E8 /* Special Objects */ = {
 			isa = PBXGroup;
 			children = (
+				F568F8EC24AB674F00D72F28 /* AnimationHelper.swift */,
 				F56E777123A95FCA009BF8E9 /* Storyboard+Utility.swift */,
 				648AEB98237E250C008743E8 /* pinPopsicle.swift */,
 				649ED13023CE7B45006D31B5 /* PopsicleGroupAnnotationView.swift */,
@@ -352,6 +365,9 @@
 				646FF63E2458B8AB00BD4271 /* NewPopsicleAnnotation.swift */,
 				64EC08A2245C9FF8007ED7AC /* NewViewControllerTransitionAnimators.swift */,
 				F5DE36CD2494FCC100C1E87F /* userSearchCell.swift */,
+				F568F8E824AA6FF400D72F28 /* newPinPopsicle.swift */,
+				F568F8EA24AB669600D72F28 /* FlipPresentAnimationController.swift */,
+				F568F8EE24AB6C0400D72F28 /* FlipDismissAnimationController.swift */,
 			);
 			path = "Special Objects";
 			sourceTree = "<group>";
@@ -409,6 +425,8 @@
 				64EBC2A22455C453005D445C /* createEventViewController.swift */,
 				F6F1C88B246C759900EC8BA1 /* NewCreateEventViewController.swift */,
 				F6D50289248C9445008FD6C8 /* NewCreateEventCardViewController.swift */,
+				F568F8DD24A4FD3800D72F28 /* writeDetailsViewController.swift */,
+				F568F8E624A7D37D00D72F28 /* EditLocationViewController.swift */,
 			);
 			path = "Create Event View";
 			sourceTree = "<group>";
@@ -664,6 +682,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F568F8EF24AB6C0400D72F28 /* FlipDismissAnimationController.swift in Sources */,
 				6492F9282459B52D006EC261 /* AppDelegate.swift in Sources */,
 				649ED12723CE7020006D31B5 /* ProfileViewController.swift in Sources */,
 				F6DB6623243ACD57007F02BB /* Twinkle.swift in Sources */,
@@ -676,6 +695,7 @@
 				64EBC2A32455C453005D445C /* createEventViewController.swift in Sources */,
 				64EC089F245C887D007ED7AC /* NewSearchViewController.swift in Sources */,
 				648AEB99237E250C008743E8 /* pinPopsicle.swift in Sources */,
+				F568F8DE24A4FD3800D72F28 /* writeDetailsViewController.swift in Sources */,
 				64D5EAEF249C433100B1B3AB /* NewLoginForgotPasswordViewController.swift in Sources */,
 				6439FFED245A54D5007ED50F /* NewMainViewController.swift in Sources */,
 				64BD292423FC9B2500B5C32D /* loginPageViewController.swift in Sources */,
@@ -697,11 +717,13 @@
 				649ED13323CE7B4D006D31B5 /* PopsicleGroupIcon.swift in Sources */,
 				64EBC29F2454A69A005D445C /* AlertViewController.swift in Sources */,
 				648FE1B723E22B3100C1DCDC /* Poppin.xcdatamodeld in Sources */,
+				F568F8EB24AB669700D72F28 /* FlipPresentAnimationController.swift in Sources */,
 				64F91E79237221B900C4DC24 /* LocationSearchTable.swift in Sources */,
 				F5DE36CE2494FCC100C1E87F /* userSearchCell.swift in Sources */,
 				6492F92C2459E606006EC261 /* NewPopsicleGroupAnnotationView.swift in Sources */,
 				64BD292623FC9B3700B5C32D /* registerPageViewController.swift in Sources */,
 				642A93962419985B005B027F /* popsicleInfoViewController.swift in Sources */,
+				F568F8E924AA6FF400D72F28 /* newPinPopsicle.swift in Sources */,
 				64986C6F245E088D00B840A0 /* NewBouncyButtons.swift in Sources */,
 				6489103E245F7777006A9F44 /* NewMapFiltersView.swift in Sources */,
 				F6D5028A248C9445008FD6C8 /* NewCreateEventCardViewController.swift in Sources */,
@@ -711,6 +733,8 @@
 				649BDD30245BB4FF00A7BEF3 /* NewRefreshButton.swift in Sources */,
 				F5DE36D22497AF1500C1E87F /* UserViewController.swift in Sources */,
 				F5DD747B249D54AD00FF9CBC /* ViewImageViewController.swift in Sources */,
+				F568F8ED24AB674F00D72F28 /* AnimationHelper.swift in Sources */,
+				F568F8E724A7D37D00D72F28 /* EditLocationViewController.swift in Sources */,
 				F56E777223A95FCA009BF8E9 /* Storyboard+Utility.swift in Sources */,
 				64EC08A3245C9FF8007ED7AC /* NewViewControllerTransitionAnimators.swift in Sources */,
 			);

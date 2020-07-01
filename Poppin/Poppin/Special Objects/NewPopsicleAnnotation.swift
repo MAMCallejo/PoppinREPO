@@ -15,7 +15,7 @@ enum PopsicleCategory: String {
     case Food = "Food"
     case Social = "Social"
     case Sports = "Sports"
-    case Shows = "Shows"
+    case Culture = "Culture"
     case Poppin = "Poppin"
     case Default = "Default"
     
@@ -25,12 +25,10 @@ struct PopsicleAnnotationData {
     
     var eventTitle: String
     var eventDetails: String? = ""
-    var eventDate: String
-    var eventStartTime: String
-    var eventEndTime: String? = "11:59p"
+    var eventStartDate: String
+    var eventEndDate: String? = "11:59p"
     var eventCategory: PopsicleCategory
-    var eventSubcategory1: PopsicleCategory? = PopsicleCategory.Default
-    var eventSubcategory2: PopsicleCategory? = PopsicleCategory.Default
+    var eventHashtags: String
     var eventLocation: CLLocationCoordinate2D
     var eventAttendees: [String]? = []
     
@@ -38,13 +36,13 @@ struct PopsicleAnnotationData {
 
 class NewPopsicleAnnotation: MKPointAnnotation {
     
-    public static let defaultPopsicleAnnotationData: PopsicleAnnotationData = PopsicleAnnotationData(eventTitle: "Default Event", eventDate: "Today", eventStartTime: "12:00a", eventCategory: PopsicleCategory.Default, eventLocation: CLLocationCoordinate2D(latitude: 39.6766, longitude: -104.9619))
+    public static let defaultPopsicleAnnotationData: PopsicleAnnotationData = PopsicleAnnotationData(eventTitle: "Default Event", eventDetails: "Today", eventStartDate: PopsicleCategory.Default.rawValue, eventEndDate: "", eventCategory: PopsicleCategory.Default, eventHashtags: "", eventLocation: CLLocationCoordinate2D(latitude: 39.6766, longitude: -104.9619))
     
     private(set) var popsicleAnnotationData: PopsicleAnnotationData = NewPopsicleAnnotation.defaultPopsicleAnnotationData
     
-    convenience init(eventTitle: String, eventDetails: String?, eventDate: String, eventStartTime: String, eventEndTime: String?, eventCategory: PopsicleCategory, eventSubcategory1: PopsicleCategory?, eventSubcategory2: PopsicleCategory?, eventLocation: CLLocationCoordinate2D, eventAttendees: [String]?) {
+    convenience init(eventTitle: String, eventDetails: String?, eventStartDate: String, eventEndDate: String?, eventCategory: PopsicleCategory, eventHashtags: String, eventLocation: CLLocationCoordinate2D, eventAttendees: [String]?) {
         
-        self.init(popsicleAnnotationData: PopsicleAnnotationData(eventTitle: eventTitle, eventDetails: eventDetails, eventDate: eventDate, eventStartTime: eventStartTime, eventEndTime: eventEndTime, eventCategory: eventCategory, eventSubcategory1: eventSubcategory1, eventSubcategory2: eventSubcategory2, eventLocation: eventLocation, eventAttendees: eventAttendees))
+        self.init(popsicleAnnotationData: PopsicleAnnotationData(eventTitle: eventTitle, eventDetails: eventDetails, eventStartDate: eventStartDate, eventEndDate: eventEndDate, eventCategory: eventCategory, eventHashtags: eventHashtags, eventLocation: eventLocation, eventAttendees: eventAttendees))
         
     }
     
@@ -66,7 +64,7 @@ class NewPopsicleAnnotation: MKPointAnnotation {
         case .Food: return .foodPopsicleIcon64
         case .Social: return .socialPopsicleIcon64
         case .Sports: return .sportsPopsicleIcon64
-        case .Shows: return .showsPopsicleIcon64
+        case .Culture: return .culturePopsicleIcon64
         case .Poppin: return .poppinEventPopsicleIcon64
         case .Default: return .defaultPopsicleIcon256
             

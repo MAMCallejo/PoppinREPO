@@ -1,23 +1,23 @@
 {
   "images" : [
     {
+      "filename" : "culturePopsicleIcon128.png",
       "idiom" : "universal",
-      "filename" : "showsPopsicleIcon1024.png",
       "scale" : "1x"
     },
     {
+      "filename" : "culturePopsicleIcon128-1.png",
       "idiom" : "universal",
-      "filename" : "showsPopsicleIcon1024-1.png",
       "scale" : "2x"
     },
     {
+      "filename" : "culturePopsicleIcon128-2.png",
       "idiom" : "universal",
-      "filename" : "showsPopsicleIcon1024-2.png",
       "scale" : "3x"
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }

@@ -497,7 +497,7 @@ class NewSignUpSecondPageViewController: UIViewController, UITextFieldDelegate {
         invalidEmailLabel.backgroundColor = .clear
         invalidEmailLabel.sizeToFit()
         invalidEmailLabel.numberOfLines = 0
-        invalidEmailLabel.textColor = .educationRED
+        invalidEmailLabel.textColor = .socialRED
         invalidEmailLabel.font = .dynamicFont(with: "Octarine-Bold", style: .caption2)
         invalidEmailLabel.text = "Please enter a valid email."
         invalidEmailLabel.isHidden = true
@@ -601,7 +601,7 @@ class NewSignUpSecondPageViewController: UIViewController, UITextFieldDelegate {
         invalidConfirmPasswordLabel.backgroundColor = .clear
         invalidConfirmPasswordLabel.sizeToFit()
         invalidConfirmPasswordLabel.numberOfLines = 0
-        invalidConfirmPasswordLabel.textColor = .educationRED
+        invalidConfirmPasswordLabel.textColor = .socialRED
         invalidConfirmPasswordLabel.font = .dynamicFont(with: "Octarine-Bold", style: .caption2)
         invalidConfirmPasswordLabel.text = "Password mismatch."
         invalidConfirmPasswordLabel.isHidden = true
@@ -792,7 +792,7 @@ class NewSignUpSecondPageViewController: UIViewController, UITextFieldDelegate {
             
         } else {
             
-            emailTextField.setBottomBorder(color: .educationRED, height: 1.0)
+            emailTextField.setBottomBorder(color: .socialRED, height: 1.0)
             invalidEmailLabel.isHidden = false
             
         }
@@ -803,8 +803,8 @@ class NewSignUpSecondPageViewController: UIViewController, UITextFieldDelegate {
             
         } else {
             
-            passwordTextField.setBottomBorder(color: .educationRED, height: 1.0)
-            invalidPasswordLabel.textColor = .educationRED
+            passwordTextField.setBottomBorder(color: .socialRED, height: 1.0)
+            invalidPasswordLabel.textColor = .socialRED
             
         }
         
@@ -814,7 +814,7 @@ class NewSignUpSecondPageViewController: UIViewController, UITextFieldDelegate {
             
         } else {
             
-            confirmPasswordTextField.setBottomBorder(color: .educationRED, height: 1.0)
+            confirmPasswordTextField.setBottomBorder(color: .socialRED, height: 1.0)
             invalidConfirmPasswordLabel.isHidden = false
             
         }
@@ -867,7 +867,7 @@ class NewSignUpSecondPageViewController: UIViewController, UITextFieldDelegate {
                             
                             guard let self = self else { return }
                             
-                            self.emailTextField.setBottomBorder(color: .educationRED, height: 1.0)
+                            self.emailTextField.setBottomBorder(color: .socialRED, height: 1.0)
                             self.invalidEmailLabel.isHidden = false
                             
                         })
@@ -992,7 +992,7 @@ class NewSignUpSecondPageViewController: UIViewController, UITextFieldDelegate {
             emailTextField.setBottomBorder(color: .mainDARKPURPLE, height: 1.0)
             invalidEmailLabel.isHidden = true
             
-        } else if textField == passwordTextField && invalidPasswordLabel.textColor.isEqual(UIColor.educationRED) {
+        } else if textField == passwordTextField && invalidPasswordLabel.textColor.isEqual(UIColor.socialRED) {
             
             passwordTextField.setBottomBorder(color: .mainDARKPURPLE, height: 1.0)
             invalidPasswordLabel.textColor = .mainDARKPURPLE
@@ -1345,8 +1345,8 @@ class NewSignUpThirdPageViewController: UIViewController, UITextFieldDelegate, U
             
         } else {
             
-            usernameTextField.setBottomBorder(color: .educationRED, height: 1.0)
-            invalidUsernameLabel.textColor = .educationRED
+            usernameTextField.setBottomBorder(color: .socialRED, height: 1.0)
+            invalidUsernameLabel.textColor = .socialRED
             
         }
         
@@ -1475,7 +1475,7 @@ class NewSignUpThirdPageViewController: UIViewController, UITextFieldDelegate, U
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         
-        if textField == usernameTextField && invalidUsernameLabel.textColor.isEqual(UIColor.educationRED) {
+        if textField == usernameTextField && invalidUsernameLabel.textColor.isEqual(UIColor.socialRED) {
             
             usernameTextField.setBottomBorder(color: .mainDARKPURPLE, height: 1.0)
             invalidUsernameLabel.textColor = .mainDARKPURPLE
