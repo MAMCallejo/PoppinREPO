@@ -80,6 +80,7 @@
 		F6AA0ED324A570E300D83518 /* HashtagViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AA0ED224A570E300D83518 /* HashtagViewDelegate.swift */; };
 		F6AA0ED524A5710100D83518 /* RemovableHashtagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AA0ED424A5710100D83518 /* RemovableHashtagCollectionViewCell.swift */; };
 		F6AA0ED724A572B800D83518 /* AlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AA0ED624A572B800D83518 /* AlignedCollectionViewFlowLayout.swift */; };
+		F6CC231E24AE728F00E6E37F /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6CC231D24AE728F00E6E37F /* ActivityViewController.swift */; };
 		F6D5028A248C9445008FD6C8 /* NewCreateEventCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D50289248C9445008FD6C8 /* NewCreateEventCardViewController.swift */; };
 		F6DB6623243ACD57007F02BB /* Twinkle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6DB6622243ACD57007F02BB /* Twinkle.swift */; };
 		F6F1C88C246C759900EC8BA1 /* NewCreateEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F1C88B246C759900EC8BA1 /* NewCreateEventViewController.swift */; };
@@ -189,6 +190,7 @@
 		F6AA0ED224A570E300D83518 /* HashtagViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagViewDelegate.swift; sourceTree = "<group>"; };
 		F6AA0ED424A5710100D83518 /* RemovableHashtagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemovableHashtagCollectionViewCell.swift; sourceTree = "<group>"; };
 		F6AA0ED624A572B800D83518 /* AlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
+		F6CC231D24AE728F00E6E37F /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		F6D50289248C9445008FD6C8 /* NewCreateEventCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCreateEventCardViewController.swift; sourceTree = "<group>"; };
 		F6DB6622243ACD57007F02BB /* Twinkle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Twinkle.swift; sourceTree = "<group>"; };
 		F6F1C88B246C759900EC8BA1 /* NewCreateEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCreateEventViewController.swift; sourceTree = "<group>"; };
@@ -354,6 +356,7 @@
 				F5DE36D12497AF1500C1E87F /* UserViewController.swift */,
 				F5DD747A249D54AD00FF9CBC /* ViewImageViewController.swift */,
 				F6AA0EC724A46E6D00D83518 /* PopsiclePopupViewController.swift */,
+				F6CC231D24AE728F00E6E37F /* ActivityViewController.swift */,
 			);
 			path = "Storyboards and ViewControllers";
 			sourceTree = "<group>";
@@ -729,6 +732,7 @@
 				649ED13123CE7B45006D31B5 /* PopsicleGroupAnnotationView.swift in Sources */,
 				F6A8A7502433D68E0069FB36 /* FloatingRatingView.swift in Sources */,
 				64FE655224952B2B00F4DA3D /* NewLoginStartViewController.swift in Sources */,
+				F6CC231E24AE728F00E6E37F /* ActivityViewController.swift in Sources */,
 				646FF6372457373100BD4271 /* refreshButtonView.swift in Sources */,
 				646FF6332457361300BD4271 /* categoryButtonView.swift in Sources */,
 				644FCCAF23E22E780064A008 /* DataController.swift in Sources */,
