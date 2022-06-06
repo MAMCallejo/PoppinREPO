@@ -1,42 +1,16 @@
 # Poppin
-Our app prototype for our independent study class.
+Our independent study app prototype for safe campus engagement during the COVID-19 pandemic.
 
-So far, the main project contains the following features:
+Some of the most prominent features include:
 
-  - Map View: shows our university campus with colored popsicles on it showcasing different events around campus.
+  - Map View: displays a map interface of the university campus with colored popsicles showcasing different events happening around.
   
-  - Menu View: slides out from the map view and it contains popsicle filters so that you can see only the popsicles you want.     Also, it contains a little tab mentioning some of the popsicles/events you the user has created.
+  - Menu View: sliding hamburger menu containing map filters and links to the user's profile and settings.
   
-  - Create Event View: the user can fill out an event form and then place their own popsicle on the map to showcase their own     event.  
-  
-  - Social Aspect: users can create an account, an log in after.
-  
-  - Profile View: accessed from the menu. Has design done.
-  
-  - Online Database: popsicles, as well as, user info is stored in Firebase, and the map is updated constantly to reflect the expiration and creation of the popsicles.
-  
-Now, the relevant features that still need to be added are the following:
+  - Create Event View: form to be filled out by a user to create a map popsicle to showcase an event.  
 
-  - Social Aspect: link an already existing social media account and be able to follow their friends on the app. Also, they can make events private so only their friends can see it, as well as, see what events their friends are going to. Furthermore, they will be able to connect their social media accounts and share their events on it.
+  - Profile View: displays events created by a user and his/her settings.
   
-  - Profile View: should be accessed by pressing on somebody else's profile picture. It should allow the user     to see how their profile is publicly shown, as well as, give them the option to change it. Furthermore, if they press on       somebody else's profile picture, the profile view should show their information, as well as, give the user the option to       add this person as their friend. Moreover, their events should be accessed from this view as well. Finally, the option to     delete their account should be on this view as well.
+  - Authentication: users can create and delete an account, as well as, log in, log out and recover their forgotten password.
   
-  - Popsicle View: showcases the main information about an event once a popsicle has been pressed by the user.
-  
-  - My Events View: accessed from the menu view, it should contain information regarding future, current, and past events         created by the user. Its interface should be simple and straight-forward (maybe a Stack View kind of interface subdivided     into three).
-  
-  - Off-Campus Events View: accessed from a button on the map view, it should contain information regarding events whose           location falls outside the radius of the university campus. The interface should be also simple and straight-forward           (again, maybe a Stack View kind of interface that once a row is pressed expands showing all the important information         about the event and directions).
-  
-  - Animations: the app still has a non-polished feel to it since most of the animations and transitions are simply fades.         Some fades work fine but others need an improved animation (like the popsicles falling on the map, views sliding instead       of just fading in or out, etc.).
- 
-  - Settings View: this view should be accessed from the menu and contain location enabling settings, night/day mode enabling     setting, copyright information, terms, acknowledgements to external resources used on the app, help guide, FAQs,               tutorials, and contact information.
-  
-  - Automation of the event creation process: this feature is far into the future but the app should give organizations on         campus the option to let their events be shown on the app's map. Then, if they give permission we could gather their           events from a DU's database and use that information to populate our map with their events.
-  
-  - Online database: better implementation.
-  
-  - Loading Screen and Transition: we still need to design the loading screen and the popsicle melting animation. A suggestion     would be to create a simple GIF for the loading screen (maybe the popsicle rotating or pulsating) and then user After         Effects to create a video animation of the popsicle melting that fades into the map view. However, on the worst case           scenario we could use the Twitter fade in effect.
-  
-  - Tutorial Views: they should be presented the first time the user opens the up. They should help the user create an             account, show him/her how to create an event, check the events they have created, how to edit their profile, and advice       them to go into the settings if they need to see the tutorials again.
-  
-Once the most important features from above have been implemented, we can polish the final look of the app, test it on a closed environment, copyright the app, and publish it on the app store :D
+  - Cloud Database: event data and user credentials are stored in Firebase, and with the help of Cloud Functions, the map is updated automatically to reflect the expiration of old events and the creation of new ones.
