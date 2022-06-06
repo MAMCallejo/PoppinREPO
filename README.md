@@ -1,5 +1,6 @@
 # Poppin
 Our independent study app prototype for safe campus engagement during the COVID-19 pandemic.
+
 Final release: https://github.com/Poppin-Tech-LLC/PoppinREPO
 
 Some of the most prominent features include:
